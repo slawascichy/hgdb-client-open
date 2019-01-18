@@ -1,0 +1,3 @@
+id;identity;fullname;name;contact_person;phone_1;phone_2;email;is_active;pagecode;task_subject;type;participant_id;source_value
+1;identity1;fullname1;name1;contact_person1;phone_11;phone_21;email1;0;pagecode1;task_subject1;Pracownik;1;ELO
+2;identity2;fullname2;name2;contact_person2;phone_12;phone_22;email2;0;pagecode2;task_subject2;Pracownik;2;SAP

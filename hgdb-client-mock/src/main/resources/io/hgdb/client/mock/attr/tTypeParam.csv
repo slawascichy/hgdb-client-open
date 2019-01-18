@@ -1,0 +1,19 @@
+caseTypeId;position;parameterDefinitionName;paramDefinitionVersion;label;tooltip;isRequired;isSearchData;arg1;arg2;arg3;arg4;arg5
+1;1;NazwiskoKlienta;1;Nazwiko Klienta;Nazwisko Klienta Tooltip;true;true;twAdmin;text;20;200;null
+2;1;NazwiskoKlienta;1;Klient;Nazwisko Klienta;true;true;twAdmin;text;20;200;null
+2;2;NazwiskoKlienta;1;Nazwiko Klienta B;Nazwisko Klienta B Tooltip;true;false;twAdmin;text;20;200;null
+2;3;RodzajPolisy;1;Rodzaj polisy;Rodzaj polisy Tooltip;true;true;twAdmin;true;true;12;null
+2;4;RodzajPolisy;1;Rodzaj polisy B;Rodzaj polisy B tooltip;true;true;twAdmin;true;true;12;null
+2;5;CaseApplicant;1;Klient sprawy;Wprowadź dane klienta;true;true;twAdmin;true;true;12;null
+2;6;CaseClient;1;Założyciel sprawy;Wprowadź dane założyciela sprawy;true;true;twAdmin;true;true;12;null
+3;1;NazwiskoKlienta;2;Nazw klient;Nazw Klient Tooltip;true;true;twAdmin;text;20;200;null
+4;1;NazwiskoKlienta;2;nzw klienta;Nazwa Klienta;false;false;twAdmin;text;20;200;null
+4;2;TypZamowienia1;1;Typ Zamówienia;TypZamóienia  TRooltip;false;false;twAdmin;false;false;15;null
+5;1;TypZamowienia1;1;Typ zamowienia B;Typ zamowienia B tooltip;false;false;twAdmin;false;false;15;null
+4;3;TypZamowienia2;1;Typ zamowienia B2;Typ zamowienia B2 tooltip;false;false;twAdmin;false;false;15;null
+6;1;kkCurrency;1;kkCurrency;kkCurrency;true;true;null;null;null;null;null
+16;1;kk;1;kk;kk;true;true;null;null;null;null;null
+#################################
+# Uwaga!!!!
+# 1. Po każdej modyfikacji pliku należy przeprowadzić WSZYSTKIE zdefiniowane testy!!!!
+#################################

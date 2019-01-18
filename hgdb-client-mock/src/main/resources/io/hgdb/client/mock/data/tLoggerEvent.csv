@@ -1,0 +1,3 @@
+id;document_id;document_version_id;bpm_instance_id;policy_nr;status_policy_bo;document_version_type_id;end_status;group_case_id;create_case_id;ae_document_code;source;document_role
+1;1;1;1;policy_nr1;status_policy_bo1;1;end_status1;1;1;ae_document_code1;source1;document_role1;
+2;2;2;2;policy_nr2;status_policy_bo2;2;end_status2;2;2;ae_document_code2;source2;document_role2;

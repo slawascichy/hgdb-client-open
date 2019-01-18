@@ -1,0 +1,141 @@
+{
+    "context": {
+        "appName": "mercury-ws-app",
+        "appVersion": "1.0",
+        "userName": "slawas",
+        "comment": null,
+        "maxResults": 10000,
+        "queryTimeout": 2147483647,
+        "locale": "en_US",
+        "timeZone": "Europe/Warsaw",
+        "userFullName": null,
+        "eager4omdBuilder": "true",
+        "trustedData": false,
+        "ignoredCustomFields": null,
+        "currentRole": "mrc-user",
+        "userRoles": ["mrc-user"],
+        "sourceOfRequest": "USER_DEV.localhost",
+        "rootVersionContextID": null,
+        "rootTagName": null,
+        "formats": {
+            "date.format.long": "dd-MM-yyyy HH:mm:ss"
+        },
+        "ignoreAlternateFields": true,
+        "decodeResult": "DATE_AND_LOB",
+        "maxDepthResult": 3,
+        "decodeRequest": "DATE_AND_LOB",
+        "ignoreCaseHeaderInResponse": false,
+        "cacheUsage": "TO_USE",
+        "defaultLuceneSortClause": null,
+        "viewDefinition": null
+    },
+    "mrcObject": {
+      "mrcClassName": "MrcObjectWithRequiredPosition",
+      "name": null,
+      "status": null,
+      "mrcCaseHeader":       {
+         "headerMetadata":          {
+            "status": "ALL",
+            "className": "MrcCaseHeader"
+         },
+         "caseId": 1,
+         "bpmProcessId": 10202,
+         "inventoryCode": null,
+         "groupId": 1,
+         "typeId": 1,
+         "typeCode": "POLISA1",
+         "endDate":          {
+            "fullYear": 2013,
+            "month": 6,
+            "date": 13,
+            "dayOfWeek": 5,
+            "hours": 0,
+            "minutes": 0,
+            "seconds": 0,
+            "milliseconds": 0,
+            "timeZone": "Europe/Belgrade"
+         },
+         "dueDate":          {
+            "fullYear": 2013,
+            "month": 6,
+            "date": 18,
+            "dayOfWeek": 3,
+            "hours": 0,
+            "minutes": 0,
+            "seconds": 0,
+            "milliseconds": 0,
+            "timeZone": "Europe/Belgrade"
+         },
+         "status": "A",
+         "piervousVersionId": null,
+         "priceValue": null,
+         "priceValueCode": null,
+         "priceExchangeRate": null,
+         "storeCount": 1,
+         "storeId": 1,
+         "createDate":          {
+            "fullYear": 2013,
+            "month": 1,
+            "date": 1,
+            "dayOfWeek": 3,
+            "hours": 0,
+            "minutes": 0,
+            "seconds": 0,
+            "milliseconds": 0,
+            "timeZone": "Europe/Belgrade"
+         },
+         "createdBy": "admin",
+         "lastModifyDate":          {
+            "fullYear": 2013,
+            "month": 2,
+            "date": 1,
+            "dayOfWeek": 6,
+            "hours": 0,
+            "minutes": 0,
+            "seconds": 0,
+            "milliseconds": 0,
+            "timeZone": "Europe/Belgrade"
+         },
+         "lastModifiedBy": "slawas",
+         "modifyComment": null,
+         "createdByRoleName": null,
+         "lastModifiedByRoleName": null,
+         "subCaseReferenceId": null,
+         "className": "PolisaDaneUmowy",
+         "objectID": null,
+         "rootVersionContextID": null,
+         "version": "1",
+         "dirty": false,
+         "pkPropertyName": null
+      },
+      "propertyNames":["NazwiskoKlienta^p:1"],
+      "propertyMap":       {
+         "entries": [         {
+            "key": "NazwiskoKlienta^p:1",
+            "value":             {
+               "name": "NazwiskoKlienta",
+               "type": "String",
+               "version": "1",
+               "label": "Nazwiko Klienta",
+               "id": "p:1",
+               "position": 1,
+               "isRequired": "true",
+               "updateable": null,
+               "isEncoded": null,
+               "valueString": "Kowalska-Testeusz",
+               "isString": true,
+               "valueMrcObject": null,
+               "isMrcObject": false,
+               "mrcClass": "MrcSimpleProperty",
+               "lobMetadata": null,
+               "lobMimeType": null,
+               "valueMrcList": null,
+               "isMrcList": false
+            }
+         }],
+         "empty": false
+      },
+      "mrcObjectWithRequiredPosition": true
+    },
+    "forceAddStore2Type": true
+}

@@ -1,0 +1,9 @@
+caseId;aeObjectId;versionSeriesId;contentStreamId;groupingCode;initStatus;isInput;isRoot;docTypeId;sourceValue;createDate;createdBy;isActive;isValid;groupSize;versionLabel;isLatestVersion;author;receivedDate;receiver;receiverDW;subject;lastModifyDate;lastModifiedBy;modifyComment
+15;1005;1;12;GROUP_CODE1;dołączony;false;false;6;E-MAIL;12-12-2013;1;true;true;20;Dokument po poprawkach pracownika sprawdzającego etap A;false;null;null;null;null;null;12-12-2013;1;komentarz 1
+15;1006;2;12;GROUP_CODE1;powiązany;false;false;6;SAP;18-12-2013;2;true;true;20;Dokument po poprawkach dyrektora;true;null;null;null;null;null;12-12-2013;1;komentarz 2
+2;1006;2;12;GROUP_CODE1;starter;false;false;6;ELO;18-12-2013;2;true;true;20;Dokument po poprawkach dyrektora;false;null;null;null;null;null;12-12-2013;1;komentarz 3
+2;1007;2;13;GROUP_CODE1;starter;false;false;6;Axapta;18-12-2013;2;true;true;20;Dokument po poprawkach dyrektora;true;null;null;null;null;null;12-12-2013;1;komentarz 4
+13;1006;1;12;GROUP_CODE1;powiązany;false;false;6;SAP;18-12-2013;2;true;true;20;Dokument dla testow archiwizacji;false;null;null;null;null;null;12-12-2013;1;komentarz 5
+13;1008;2;12;GROUP_CODE1;powiązany;false;false;6;SAP;18-12-2013;2;true;true;20;Dokument dla testow archiwizacji v2;true;null;null;null;null;null;12-12-2013;1;komentarz 6
+11;10011;1;12;GROUP_CODE1;dołączony;false;false;6;E-MAIL;12-12-2013;1;true;true;20;Dokument po poprawkach pracownika sprawdzającego etap A;false;kowmar@gghjk.pl;10-07-2014;mnow@gghjk.pl;brok@gghjk.pl,pap@gghjk.pl;Poprawka decyzji nr FGKJ/345/43;11-07-2014;4;wysłanie maila
+12;10012;1;12;<GROUP>/&CODE1&;dołączony;false;false;16;E-MAIL;12-12-2013;1;true;true;20;Używać tylko w testach caseDocumet.filter!;false;kowmar@gghjk.pl;10-07-2014;mnow@gghjk.pl;brok@gghjk.pl,pap@gghjk.pl;Poprawka decyzji nr FGKJ/345/43;11-07-2014;4;wysłanie maila

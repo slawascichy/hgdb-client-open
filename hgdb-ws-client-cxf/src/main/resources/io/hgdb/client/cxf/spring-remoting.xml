@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+	    http://www.springframework.org/schema/beans classpath:pro/ibpm/mercury/spring/spring-beans.xsd
+	    http://www.springframework.org/schema/tx classpath:pro/ibpm/mercury/spring/spring-tx.xsd
+	    http://www.springframework.org/schema/aop classpath:pro/ibpm/mercury/spring/spring-aop.xsd
+	    http://www.springframework.org/schema/jee classpath:pro/ibpm/mercury/spring/spring-jee.xsd
+	    http://www.springframework.org/schema/context classpath:pro/ibpm/mercury/spring/spring-context.xsd"
+	default-lazy-init="true">
+
+	<bean id="basicHttpInvokerRequestExecutor"
+		class="org.mercury.cxf.client.security.BasicHttpInvokerRequestExecutor">
+		<property name="identifier"
+			value="${mercury.ws.security.identifier}" />
+		<property name="token"
+			value="${mercury.ws.security.token}" />
+	</bean>
+
+	<!-- Notyfikacje -->
+	<bean id="springBean.InvokerNotyficationService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/NotyficationAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.INotyficationAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="notyficationLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.NotyficationLogic">
+		<property name="service" ref="springBean.InvokerNotyficationService" />
+	</bean>
+
+	<!-- dict -->
+	<bean id="springBean.InvokerRoleService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/RoleAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.dict.IRoleAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="roleLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.dict.RoleLogic">
+		<property name="service" ref="springBean.InvokerRoleService" />
+	</bean>
+
+	<bean id="springBean.InvokerTypeKindService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/TypeKindAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.dict.ITypeKindAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="typeKindLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.dict.TypeKindLogic">
+		<property name="service" ref="springBean.InvokerTypeKindService" />
+	</bean>
+
+	<bean id="springBean.InvokerSourceService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/SourceAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.dict.ISourceAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="sourceLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.dict.SourceLogic">
+		<property name="service" ref="springBean.InvokerSourceService" />
+	</bean>
+
+	<bean id="springBean.InvokerInitStatusService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/InitStatusAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.dict.IInitStatusAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="initStatusLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.dict.InitStatusLogic">
+		<property name="service" ref="springBean.InvokerInitStatusService" />
+	</bean>
+	<!-- dict -->
+
+	<!-- attr -->
+	<bean id="springBean.InvokerCaseViewDefinitionService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/CaseViewDefinitionAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.attr.ICaseViewDefinitionAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="caseViewDefinitionLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.attr.CaseViewDefinitionLogic">
+		<property name="service" ref="springBean.InvokerCaseViewDefinitionService" />
+	</bean>
+
+	<bean id="springBean.InvokerTypeParamRoleService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/TypeParamRoleAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.attr.ITypeParamRoleAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="typeParamRoleLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.attr.TypeParamRoleLogic">
+		<property name="service" ref="springBean.InvokerTypeParamRoleService" />
+	</bean>
+
+	<bean id="springBean.InvokerTypeParamActionService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/TypeParamActionAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.attr.ITypeParamActionAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="typeParamActionLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.attr.TypeParamActionLogic">
+		<property name="service" ref="springBean.InvokerTypeParamActionService" />
+	</bean>
+
+	<bean id="springBean.InvokerTypeCaseService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/TypeCaseAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.attr.ITypeCaseAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="typeCaseLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.attr.TypeCaseLogic">
+		<property name="service" ref="springBean.InvokerTypeCaseService" />
+	</bean>
+
+	<bean id="springBean.InvokerTypeCodeService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/TypeCodeAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.attr.ITypeCodeAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="typeCodeLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.attr.TypeCodeLogic">
+		<property name="service" ref="springBean.InvokerTypeCodeService" />
+	</bean>
+
+	<bean id="springBean.InvokerType2TypeService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/Type2TypeAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.attr.IType2TypeAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="type2TypeLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.attr.Type2TypeLogic">
+		<property name="service" ref="springBean.InvokerType2TypeService" />
+	</bean>
+
+	<bean id="springBean.InvokerTypeParamService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/TypeParamAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.attr.ITypeParamAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="typeParamLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.attr.TypeParamLogic">
+		<property name="service" ref="springBean.InvokerTypeParamService" />
+	</bean>
+
+	<bean id="springBean.InvokerParamDefinitionService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/ParamDefinitionAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.attr.IParamDefinitionAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="paramDefinitionLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.attr.ParamDefinitionLogic">
+		<property name="service" ref="springBean.InvokerParamDefinitionService" />
+	</bean>
+	<!-- attr -->
+
+	<!-- data -->
+	<bean id="springBean.InvokerCase2CaseService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/Case2CaseAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.ICase2CaseAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="case2CaseLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.Case2CaseLogic">
+		<property name="service" ref="springBean.InvokerCase2CaseService" />
+	</bean>
+
+	<bean id="springBean.InvokerCaseService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/CaseAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.ICaseAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="caseLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.CaseLogic">
+		<property name="service" ref="springBean.InvokerCaseService" />
+	</bean>
+
+	<bean id="springBean.InvokerCaseDocumentService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/CaseDocumentAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.ICaseDocumentAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="caseDocumentLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.CaseDocumentLogic">
+		<property name="service" ref="springBean.InvokerCaseDocumentService" />
+	</bean>
+
+	<bean id="springBean.InvokerCaseHistoryStreamService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/CaseHistoryStreamAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.ICaseHistoryStreamAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="caseHistoryStreamLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.CaseHistoryStreamLogic">
+		<property name="service" ref="springBean.InvokerCaseHistoryStreamService" />
+	</bean>
+
+	<bean id="springBean.InvokerCaseHistoryTraceService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/CaseHistoryTraceAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.ICaseHistoryTraceAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="caseHistoryTraceLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.CaseHistoryTraceLogic">
+		<property name="service" ref="springBean.InvokerCaseHistoryTraceService" />
+	</bean>
+
+	<bean id="springBean.InvokerGroupCaseService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/GroupCaseAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.IGroupCaseAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="groupCaseLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.GroupCaseLogic">
+		<property name="service" ref="springBean.InvokerGroupCaseService" />
+	</bean>
+
+	<bean id="springBean.InvokerSystemUserService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/SystemUserAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.ISystemUserAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="systemUserLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.SystemUserLogic">
+		<property name="service" ref="springBean.InvokerSystemUserService" />
+	</bean>
+
+	<bean id="springBean.InvokerStoreService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/StoreAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.IStoreAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="storeLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.StoreLogic">
+		<property name="service" ref="springBean.InvokerStoreService" />
+	</bean>
+
+	<bean id="springBean.InvokerCommentService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/CommentAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.ICommentAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="commentLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.CommentLogic">
+		<property name="service" ref="springBean.InvokerCommentService" />
+	</bean>
+
+	<bean id="springBean.InvokerQuickTaskService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/QuickTaskAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.IQuickTaskAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="quickTaskLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.QuickTaskLogic">
+		<property name="service" ref="springBean.InvokerQuickTaskService" />
+	</bean>
+
+	<bean id="springBean.InvokerKtmNumberService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/KtmNumberAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.IKtmNumberAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="ktmNumberLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.KtmNumberLogic">
+		<property name="service" ref="springBean.InvokerKtmNumberService" />
+	</bean>
+
+	<bean id="springBean.InvokerLoggerEventService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/LoggerEventAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.ILoggerEventAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="loggerEventLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.LoggerEventLogic">
+		<property name="service" ref="springBean.InvokerLoggerEventService" />
+	</bean>
+
+	<bean id="springBean.InvokerParticipantService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/ParticipantAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.IParticipantAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="participantLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.ParticipantLogic">
+		<property name="service" ref="springBean.InvokerParticipantService" />
+	</bean>
+
+	<bean id="springBean.InvokerParticipant2TypeStatsService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl"
+			value="${mercury.ws.url}/Participant2TypeStatsAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.IParticipant2TypeStatsAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="participant2TypeStatsLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.Participant2TypeStatsLogic">
+		<property name="service"
+			ref="springBean.InvokerParticipant2TypeStatsService" />
+	</bean>
+
+	<bean id="springBean.InvokerParticipantHistoryStreamService"
+		scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl"
+			value="${mercury.ws.url}/ParticipantHistoryStreamAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.IParticipantHistoryStreamAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="participantHistoryStreamLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.ParticipantHistoryStreamLogic">
+		<property name="service"
+			ref="springBean.InvokerParticipantHistoryStreamService" />
+	</bean>
+
+	<bean id="springBean.InvokerParticipantHistoryTraceService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl"
+			value="${mercury.ws.url}/ParticipantHistoryTraceAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.IParticipantHistoryTraceAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="participantHistoryTraceLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.ParticipantHistoryTraceLogic">
+		<property name="service"
+			ref="springBean.InvokerParticipantHistoryTraceService" />
+	</bean>
+
+	<bean id="springBean.InvokerStore2TypeService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/Store2TypeAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.IStore2TypeAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="store2TypeLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.Store2TypeLogic">
+		<property name="service" ref="springBean.InvokerStore2TypeService" />
+	</bean>
+
+	<bean id="springBean.InvokerStoreHistoryStreamService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/StoreHistoryStreamAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.IStoreHistoryStreamAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="storeHistoryStreamLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.StoreHistoryStreamLogic">
+		<property name="service" ref="springBean.InvokerStoreHistoryStreamService" />
+	</bean>
+
+	<bean id="springBean.InvokerGroupCase2ParticipantService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl"
+			value="${mercury.ws.url}/GroupCase2ParticipantAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.IGroupCase2ParticipantAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="groupCase2ParticipantLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.GroupCase2ParticipantLogic">
+		<property name="service"
+			ref="springBean.InvokerGroupCase2ParticipantService" />
+	</bean>
+
+	<bean id="springBean.InvokerCase2SubCaseService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/Case2SubCaseAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.data.ICase2SubCaseAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="case2SubCaseLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.data.Case2SubCaseLogic">
+		<property name="service" ref="springBean.InvokerCase2SubCaseService" />
+	</bean>
+
+	<!-- data -->
+
+	<!-- arch -->
+	<bean id="springBean.InvokerArchCase2CaseService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/ArchCase2CaseAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.arch.IArchCase2CaseAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="archCase2CaseLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.arch.ArchCase2CaseLogic">
+		<property name="service" ref="springBean.InvokerArchCase2CaseService" />
+	</bean>
+
+	<bean id="springBean.InvokerArchCaseDocumentService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/ArchCaseDocumentAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.arch.IArchCaseDocumentAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="archCaseDocumentLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.arch.ArchCaseDocumentLogic">
+		<property name="service" ref="springBean.InvokerArchCaseDocumentService" />
+	</bean>
+
+	<bean id="springBean.InvokerArchCaseHistoryStreamService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl"
+			value="${mercury.ws.url}/ArchCaseHistoryStreamAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.arch.IArchCaseHistoryStreamAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="archCaseHistoryStreamLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.arch.ArchCaseHistoryStreamLogic">
+		<property name="service"
+			ref="springBean.InvokerArchCaseHistoryStreamService" />
+	</bean>
+
+	<bean id="springBean.InvokerArchCaseHistoryTraceService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/ArchCaseHistoryTraceAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.arch.IArchCaseHistoryTraceAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="archCaseHistoryTraceLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.arch.ArchCaseHistoryTraceLogic">
+		<property name="service"
+			ref="springBean.InvokerArchCaseHistoryTraceService" />
+	</bean>
+
+	<bean id="springBean.InvokerArchCaseService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/ArchCaseAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.arch.IArchCaseAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="archCaseLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.arch.ArchCaseLogic">
+		<property name="service" ref="springBean.InvokerArchCaseService" />
+	</bean>
+
+	<bean id="springBean.InvokerArchCommentService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/ArchCommentAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.arch.IArchCommentAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="archCommentLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.arch.ArchCommentLogic">
+		<property name="service" ref="springBean.InvokerArchCommentService" />
+	</bean>
+
+	<bean id="springBean.InvokerArchGroupCase2ParticipantService"
+		scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl"
+			value="${mercury.ws.url}/ArchGroupCase2ParticipantAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.arch.IArchGroupCase2ParticipantAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="archGroupCase2ParticipantLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.arch.ArchGroupCase2ParticipantLogic">
+		<property name="service"
+			ref="springBean.InvokerArchGroupCase2ParticipantService" />
+	</bean>
+
+	<bean id="springBean.InvokerArchGroupCaseHistoryStreamService"
+		scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl"
+			value="${mercury.ws.url}/ArchGroupCaseHistoryStreamAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.arch.IArchGroupCaseHistoryStreamAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="archGroupCaseHistoryStreamLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.arch.ArchGroupCaseHistoryStreamLogic">
+		<property name="service"
+			ref="springBean.InvokerArchGroupCaseHistoryStreamService" />
+	</bean>
+
+	<bean id="springBean.InvokerArchGroupCaseService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/ArchGroupCaseAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.arch.IArchGroupCaseAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="archGroupCaseLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.arch.ArchGroupCaseLogic">
+		<property name="service" ref="springBean.InvokerArchGroupCaseService" />
+	</bean>
+
+	<bean id="springBean.InvokerArchKtmNumberService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/ArchKtmNumberAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.arch.IArchKtmNumberAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="archKtmNumberLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.arch.ArchKtmNumberLogic">
+		<property name="service" ref="springBean.InvokerArchKtmNumberService" />
+	</bean>
+
+	<bean id="springBean.InvokerArchQuickTaskService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/ArchQuickTaskAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.arch.IArchQuickTaskAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="archQuickTaskLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.arch.ArchQuickTaskLogic">
+		<property name="service" ref="springBean.InvokerArchQuickTaskService" />
+	</bean>
+	<!-- arch -->
+
+	<!-- pamięć podręczna -->
+	<bean id="springBean.InvokerCacheManagerService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/CacheManagerAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.cache.ICacheManagerAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="cacheManagerLogic" scope="singleton"
+		class="io.hgdb.client.cxf.logic.cache.CacheManagerLogic">
+		<property name="service" ref="springBean.InvokerCacheManagerService" />
+	</bean>
+	<!-- pamięć podręczna -->
+
+	<!-- Sekretarze danych -->
+	<bean id="springBean.InvokerBpmBPDInstanceBufferSecretaryManagerService"
+		scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl"
+			value="${mercury.ws.url}/BpmBPDInstanceBufferSecretaryManagerAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmBPDInstanceBufferSecretaryManagerAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="bpmBPDInstanceBufferSecretaryManager" scope="singleton"
+		class="io.hgdb.client.cxf.business.bpm.BpmBPDInstanceBufferSecretaryManager">
+		<property name="service"
+			ref="springBean.InvokerBpmBPDInstanceBufferSecretaryManagerService" />
+	</bean>
+
+	<bean id="springBean.InvokerBpmTaskBufferSecretaryManagerService"
+		scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl"
+			value="${mercury.ws.url}/BpmTaskBufferSecretaryManagerAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmTaskBufferSecretaryManagerAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="bpmTaskBufferSecretaryManager" scope="singleton"
+		class="io.hgdb.client.cxf.business.bpm.BpmTaskBufferSecretaryManager">
+		<property name="service"
+			ref="springBean.InvokerBpmTaskBufferSecretaryManagerService" />
+	</bean>
+
+	<bean id="springBean.InvokerBpmTaskNarrativeBufferSecretaryManagerService"
+		scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl"
+			value="${mercury.ws.url}/BpmTaskNarrativeBufferSecretaryManagerAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmTaskNarrativeBufferSecretaryManagerAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="bpmTaskNarrativeBufferSecretaryManager" scope="singleton"
+		class="io.hgdb.client.cxf.business.bpm.BpmTaskNarrativeBufferSecretaryManager">
+		<property name="service"
+			ref="springBean.InvokerBpmTaskNarrativeBufferSecretaryManagerService" />
+	</bean>
+	<!-- Sekretarze danych -->
+
+	<!-- CaseBusiness -->
+	<bean id="springBean.InvokerCaseBusinessService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/CaseBusinessAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.business.data.ICaseBusinessAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="caseBusiness" scope="singleton"
+		class="io.hgdb.client.cxf.business.data.CaseBusiness">
+		<property name="service" ref="springBean.InvokerCaseBusinessService" />
+	</bean>
+	<!-- CaseBusiness -->
+
+	<!-- Store2TypeLastVersionBusiness -->
+	<bean id="springBean.InvokerStore2TypeLastVersionBusinessService"
+		scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl"
+			value="${mercury.ws.url}/Store2TypeLastVersionBusinessAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.business.data.IStore2TypeLastVersionBusinessAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="store2TypeLastVersionBusiness" scope="singleton"
+		class="io.hgdb.client.cxf.business.data.Store2TypeLastVersionBusiness">
+		<property name="service"
+			ref="springBean.InvokerStore2TypeLastVersionBusinessService" />
+	</bean>
+	<!-- Store2TypeLastVersionBusiness -->
+
+
+	<!-- TypeCodeWithLastVersionBusiness -->
+	<bean id="springBean.InvokerTypeCodeWithLastVersionBusinessService"
+		scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl"
+			value="${mercury.ws.url}/TypeCodeWithLastVersionBusinessAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.business.attr.ITypeCodeWithLastVersionBusinessAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="typeCodeWithLastVersionBusiness" scope="singleton"
+		class="io.hgdb.client.cxf.business.attr.TypeCodeWithLastVersionBusiness">
+		<property name="service"
+			ref="springBean.InvokerTypeCodeWithLastVersionBusinessService" />
+	</bean>
+	<!-- TypeCodeWithLastVersionBusiness -->
+
+	<!-- Type2TypeWithLastVersionBusiness -->
+	<bean id="springBean.InvokerType2TypeWithLastVersionBusinessService"
+		scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl"
+			value="${mercury.ws.url}/Type2TypeWithLastVersionBusinessAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.business.attr.IType2TypeWithLastVersionBusinessAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="type2TypeWithLastVersionBusiness" scope="singleton"
+		class="io.hgdb.client.cxf.business.attr.Type2TypeWithLastVersionBusiness">
+		<property name="service"
+			ref="springBean.InvokerType2TypeWithLastVersionBusinessService" />
+	</bean>
+	<!-- Type2TypeWithLastVersionBusiness -->
+
+
+
+</beans>

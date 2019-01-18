@@ -1,0 +1,8 @@
+id;groupCaseId;modifyComment;modifyDate;modifyUserId;newValue;oldValue;paramDefinitionName;paramDefinitionVersion
+1;4;zmiana dff ;13-11-2013;2;val old4; val new;NazwiskoKlienta;1
+2;5;zmiana dff2;12-12-2012;2;val old5; val new;NazwiskoKlienta;2
+3;5;zmiana dff3;11-12-2011;2;val old6; val new;NazwiskoKlienta;1
+4;5;zmiana dff4;10-12-2010;2;val old7; val new;RodzajPolisy;2
+5;5;zmiana dff5;09-12-2009;2;val old8; val new;RodzajPolisy;1
+6;7;zmiana dff4;10-12-2010;2;val old7; val new;RodzajPolisy;2
+7;7;zmiana dff5;09-12-2009;2;val old8; val new;RodzajPolisy;1

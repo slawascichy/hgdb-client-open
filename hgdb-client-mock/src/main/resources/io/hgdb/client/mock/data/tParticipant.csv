@@ -1,0 +1,6 @@
+id;kind;identity;fullname;name;contactPerson;phone1;phone2;email
+1;Osoba fizyczna;65010113362;Kowalski Marek;null;null;333333333;null;kowmar@gghjk.pl
+2;Pracownik;65010113355;Nowak Paweł;taczka;null;444444444;null;pnow@gghjk.pl
+3;Agencja;65010113344;Polska Agenca Prasowa;PAP;Nowak Paweł;555555555;null;pap@gghjk.pl
+4;Broker;65010113362;Broker1;Brok;Kulczyks Marek;666666666;null;brok@gghjk.pl
+5;Dyrektor;65010113355;Nowak Marek;konewka;null;777777777;null;mnow@gghjk.pl

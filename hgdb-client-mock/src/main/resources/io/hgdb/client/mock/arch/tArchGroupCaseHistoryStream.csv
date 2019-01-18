@@ -1,0 +1,12 @@
+id;groupCaseId;modifyComment;modifyDate;modifyUserId;newValue;oldValue;paramDefinitionName;paramDefinitionVersion
+101;104;zmiana dff ;13-11-2013;2;val old4; val new;NazwiskoKlienta;1
+102;105;zmiana dff2;12-12-2012;2;val old5; val new;NazwiskoKlienta;2
+103;105;zmiana dff3;11-12-2011;2;val old6; val new;NazwiskoKlienta;1
+104;105;zmiana dff4;10-12-2010;2;val old7; val new;RodzajPolisy;2
+105;105;zmiana dff5;09-12-2009;2;val old8; val new;RodzajPolisy;1
+106;107;zmiana dff4;10-12-2010;2;val old7; val new;RodzajPolisy;2
+107;107;zmiana dff5;09-12-2009;2;val old8; val new;RodzajPolisy;1
+#################################
+# Uwaga!!!!
+# 1. Po każdej modyfikacji pliku należy przeprowadzić WSZYSTKIE zdefiniowane testy!!!!
+#################################

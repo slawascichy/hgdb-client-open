@@ -1,0 +1,13 @@
+id;caseId;createDate;username;content
+101;105;11-11-2013;taczka;Poprawiono nazwisko klienta.
+102;105;12-11-2013;taczka;wprowadzono wszystkie dane.
+103;104;19-12-2013;konewka;Sprawdzono poprawność formalną.
+104;103;01-01-2013;konewka;Wysokość bonus-malus ok.
+105;102;27-10-2013;konewka;Odrzucono. Zbyt wysokie ryzyko ubezpieczenia.
+106;113;27-10-2013;konewka;Odrzucono. Zbyt wysokie ryzyko ubezpieczenia.
+107;113;27-10-2013;konewka;Odrzucono. Zbyt wysokie ryzyko ubezpieczenia.
+108;113;27-10-2013;konewka;Odrzucono. Zbyt wysokie ryzyko ubezpieczenia.
+#################################
+# Uwaga!!!!
+# 1. Po każdej modyfikacji pliku należy przeprowadzić WSZYSTKIE zdefiniowane testy!!!!
+#################################

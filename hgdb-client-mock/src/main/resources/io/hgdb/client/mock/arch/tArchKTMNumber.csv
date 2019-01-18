@@ -1,0 +1,12 @@
+id;description;groupCode;ktmCode;priceValue
+101;ktmn code 1;CODE101;KTMCODE101;12.23
+102;ktmn code 2;CODE101;KTMCODE102;11.00
+103;ktmn code 3;CODE103;KTMCODE105;14.05
+104;ktmn code 4;CODE105;KTMCODE104;44.56
+105;ktmn code 5;CODE105;KTMCODE105;45.67
+106;ktmn code 6;CODE106;KTMCODE106;45.67
+107;ktmn code 7;CODE107;KTMCODE107;45.67
+#################################
+# Uwaga!!!!
+# 1. Po każdej modyfikacji pliku należy przeprowadzić WSZYSTKIE zdefiniowane testy!!!!
+#################################

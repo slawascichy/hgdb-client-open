@@ -1,0 +1,6 @@
+id;name;manager;role;isActive;arg1;arg2;arg3;arg4;arg5
+1;Store1;1;PRACOWNIK;true;val11;val12;val13;val14;val15
+2;Store2;1;PRACOWNIK;true;val21;val22;val23;val24;val25
+3;Store3;2;DYREKTOR;true;val31;val32;val33;val34;val35
+4;Store4;3;DYREKTOR;true;val41;val42;val43;val44;val45
+5;Store5;4;KIEROWNIK_ZESPOLU;true;val51;val52;val53;val54;val55

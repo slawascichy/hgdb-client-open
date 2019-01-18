@@ -1,0 +1,9 @@
+id;username;fullname;isActive;isTechnical;locale;timeZone
+1;admin;Administrator;true;true;en_US;America/Phoenix
+2;slawas;Sławomir C.;true;false;pl_PL;Europe/Warsaw
+3;mariusz;Mariusz B.;true;false;pl_PL;Europe/Warsaw
+4;rafal;Rafał D.;true;false;pl_PL;Europe/Warsaw
+5;olaf;Olaf P.;true;false;pl_PL;Europe/Warsaw
+6;taczka;Teczka;true;false;en_CA;Canada/Mountain
+7;konewka;Konewka;true;false;pl_PL;Europe/Warsaw
+8;luki;Łukasz M.;true;false;pl_PL;Europe/Warsaw

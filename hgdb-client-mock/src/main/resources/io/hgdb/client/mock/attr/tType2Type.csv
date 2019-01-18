@@ -1,0 +1,11 @@
+parentId;childId;depth;path
+POLISA1;POLISA2;2;#POLISA1#POLISA2#
+POLISA2;POLISA3;2;#POLISA2#POLISA3#
+POLISA1;POLISA3;3;#POLISA1#POLISA2#POLISA3#
+AGENT1;KLIENT1;2;#AGENT1#KLIENT1#
+KLIENT1;POLISA_LIST_DOK;2;#KLIENT1#POLISA_LIST_DOK#
+AGENT1;POLISA_LIST_DOK;3;#AGENT1#KLIENT1#POLISA_LIST_DOK#
+#################################
+# Uwaga!!!!
+# 1. Po każdej modyfikacji pliku należy przeprowadzić WSZYSTKIE zdefiniowane testy!!!!
+#################################

@@ -1,0 +1,4 @@
+starter;Dokument musi być w sprawie (wymagany), dokument startujący sprawę.
+dołączony;Dokument musi być w sprawie (wymagany), ale nie jest dokumentem startującym.
+powiązany;Dokument powiązany ze sprawą z powodu istnienia powiązania z dokumentami wymaganymi np. pozostałe załączniki w mailu, który zainicjalizował sprawę.
+

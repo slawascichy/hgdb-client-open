@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+extraProperties=sonar.host.url\=http\://sonar.ibpm.pro
+projectKey=pro.ibpm.mercury\:mercury-ws-client-cxf
+serverUrl=http\://localhost\:9000
+version=2

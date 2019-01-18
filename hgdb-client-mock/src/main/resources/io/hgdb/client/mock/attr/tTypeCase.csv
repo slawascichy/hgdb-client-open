@@ -1,0 +1,26 @@
+id;name;version;description;isEditable;code;isActive;kind;isLatestVersion;fromDate;toDate;isDocumentType
+1;PolisaDaneUmowy;1;Obiekt polisy reprezentujący wszystkie informacje potrzebne do zawarcia umowy.;true;POLISA1;true;Dokument;true;01-01-2013;null;false
+2;PolisaZHitoria;1;Obiekt polisy po dodaniu danych historycznych o poprzednich polisach klienta;true;POLISA2;true;Dokument;true;04-01-2013;null;false
+3;PolisaRO;1;Polisa tylko do odczytu;true;POLISA3;true;Dokument;true;05-01-2013;null;false
+4;Agent;1;Agent sprzedający polisę;true;AGENT1;true;Pracownik;true;05-01-2013;null;false
+5;KlientP;1;Klient na polisie;true;KLIENT1;true;Klient;true;05-01-2013;null;false
+6;PolisaListKlient;1;List z danymi z polisy do wysłania do klienta pocztą tradycyjną.;true;POLISA_LIST_DOK;false;Inne;false;01-01-2010;01-12-2010;false
+7;PolisaListKlient;2;List z danymi z polisy do wysłania do klienta pocztą tradycyjną.;true;POLISA_LIST_DOK;false;Inne;false;02-12-2010;18-12-2010;false
+8;PolisaListKlient;3;List z danymi z polisy do wysłania do klienta pocztą tradycyjną.;true;POLISA_LIST_DOK;true;Inne;false;19-12-2010;01-01-2011;false
+9;PolisaListKlient;4;List z danymi z polisy do wysłania do klienta pocztą tradycyjną.;true;POLISA_LIST_DOK;true;Inne;false;02-01-2011;31-01-2011;false
+10;PolisaListKlient;5;List z danymi z polisy do wysłania do klienta pocztą tradycyjną.;true;POLISA_LIST_DOK;true;Inne;false;01-02-2011;18-02-2011;false
+11;PolisaListKlient;6;List z danymi z polisy do wysłania do klienta pocztą tradycyjną.;true;POLISA_LIST_DOK;true;Inne;false;19-02-2011;01-05-2011;false
+12;PolisaListKlient;7;List z danymi z polisy do wysłania do klienta pocztą tradycyjną.;true;POLISA_LIST_DOK;true;Inne;false;02-05-2011;01-05-2012;false
+13;PolisaListKlient;8;List z danymi z polisy do wysłania do klienta pocztą tradycyjną.;true;POLISA_LIST_DOK;true;Inne;false;02-05-2012;01-05-2013;false
+14;PolisaListKlient;9;List z danymi z polisy do wysłania do klienta pocztą tradycyjną.;true;POLISA_LIST_DOK;true;Inne;false;12-05-2013;01-05-2014;false
+15;PolisaListKlient;10;List z danymi z polisy do wysłania do klienta pocztą tradycyjną.;true;POLISA_LIST_DOK;true;Inne;true;02-05-2014;null;false
+16;PolisaMailKlient;1;List z danymi z polisy do wysłania do klienta pocztą elektroniczną.;true;POLISA_MAIL_DOK;true;Dokument;true;02-05-2014;null;true
+#################################
+# Uwaga!!!!
+# 1. Po każdej modyfikacji pliku należy przeprowadzić WSZYSTKIE zdefiniowane testy!!!!
+# 2. Jeżeli do pliku dodajemy/zmieniamy jakieś wiersze to trzeba zweryfikować liczbę dodanych typów.
+# Liczba ta jest reprezentowana przez stałą:
+#		pro.ibpm.mercury.mock.attr.TTypeCaseProvider.typeCaseFormMOckCount
+# 3. Wymagana jest również weryfikacja stałej reprezentującej liczbę typów dokumentów:
+# 		pro.ibpm.mercury.mock.attr.TTypeCaseProvider.documentTypeCaseFormMOckCount
+#################################

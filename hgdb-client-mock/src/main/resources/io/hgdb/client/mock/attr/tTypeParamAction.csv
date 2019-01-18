@@ -1,0 +1,9 @@
+id;caseTypeId;position;jsEventName;jsFunctionBody
+1;2;1;onchange;alert("on change function Nazwisko klienta1")
+2;2;1;onmouseover;alert("on mouse over function Nazwisko klienta1")
+3;2;2;onchange;alert("on change function Nazwisko klienta2")
+4;2;3;onchange;alert("on change function 1")
+5;4;1;onchange;alert("on change function Nazwisko klienta1")
+6;4;2;onchange;alert("on change function Typ zamowienia Select")
+7;5;1;onchange;alert("on change function Typ zamowienia Select")
+8;5;1;onclick;alert("on click function Typ zamowienia Select")

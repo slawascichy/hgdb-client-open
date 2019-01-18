@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+	    http://www.springframework.org/schema/beans classpath:pro/ibpm/mercury/spring/spring-beans.xsd
+	    http://www.springframework.org/schema/tx classpath:pro/ibpm/mercury/spring/spring-tx.xsd
+	    http://www.springframework.org/schema/aop classpath:pro/ibpm/mercury/spring/spring-aop.xsd
+	    http://www.springframework.org/schema/jee classpath:pro/ibpm/mercury/spring/spring-jee.xsd
+	    http://www.springframework.org/schema/context classpath:pro/ibpm/mercury/spring/spring-context.xsd"
+	default-lazy-init="true">
+
+	<bean id="springBean.MethodCallLogInterceptor" scope="singleton"
+		class="pro.ibpm.mercury.spring.SpringBeanMethodCallLogInterceptor">
+		<description>Rejestrator wywołania metod beanów springowych
+		</description>
+		<property name="loggingByLoggerEnabled"
+			value="${mercury.ws.methodCallByLogEnabled}" />
+	</bean>
+
+	<bean id="springBean.LoggedClassNames" scope="singleton"
+		class="org.springframework.beans.factory.config.ListFactoryBean">
+		<description>Lista masek na nazwy monitorowanych metod</description>
+		<property name="sourceList">
+			<list>
+				<value>io[.]hgdb[.]client[.]cxf[.]logic[.]dict[.].*</value>
+				<value>io[.]hgdb[.]client[.]cxf[.]logic[.]attr[.].*</value>
+				<value>io[.]hgdb[.]client[.]cxf[.]logic[.]data[.].*</value>
+				<value>io[.]hgdb[.]client[.]cxf[.]logic[.]arch[.].*</value>
+				<value>io[.]hgdb[.]client[.]cxf[.]business[.]data[.].*</value>
+			</list>
+		</property>
+	</bean>
+</beans>

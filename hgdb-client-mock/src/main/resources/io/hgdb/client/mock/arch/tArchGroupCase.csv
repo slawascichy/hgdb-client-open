@@ -1,0 +1,12 @@
+id;createDate;createdBy;modifyDate;modifiedBy;sourceValue;ktmId
+101;11-11-2013;1;12-11-2013;2;E-MAIL;101
+102;12-11-2013;1;17-12-2013;2;E-MAIL;102
+103;12-11-2013;1;17-12-2013;2;ELO;103
+104;12-11-2013;1;17-12-2013;2;ELO;103
+105;12-11-2013;1;17-12-2013;2;Axapta;106
+106;12-11-2013;1;17-12-2013;2;Axapta;103
+107;12-11-2013;1;17-12-2013;2;Axapta;107
+#################################
+# Uwaga!!!!
+# 1. Po każdej modyfikacji pliku należy przeprowadzić WSZYSTKIE zdefiniowane testy!!!!
+#################################
