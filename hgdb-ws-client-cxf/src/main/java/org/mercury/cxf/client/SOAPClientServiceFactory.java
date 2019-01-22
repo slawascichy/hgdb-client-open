@@ -1,12 +1,15 @@
 package org.mercury.cxf.client;
 
+import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
+import org.apache.cxf.transport.http.HTTPConduit;
 import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
 import org.apache.wss4j.dom.WSConstants;
 import org.apache.wss4j.dom.handler.WSHandlerConstants;
@@ -33,6 +36,18 @@ public class SOAPClientServiceFactory {
 	private String nameSpace;
 
 	private WSSEUsernameTokenCallback passwordCallback;
+
+	/**
+	 * Czy w żądaniu klienta przesłania parametru z nazwą wywoływanej usługi.
+	 * 
+	 * @deprecated Nie ma implementacji dla tej flagi.
+	 */
+	@Deprecated
+	private boolean methodNameToHttpParamsAddEnabled = false;
+	/** Czas oczekiwania klienta na odpowiedź usługi [ms]. */
+	private Long reciveTimeout;
+	/** Czas oczekiwania klienta na połączenie z usługą [ms]. */
+	private Long connectionTimeout;
 
 	/**
 	 * @return the {@link #interfaceClass}
@@ -163,7 +178,7 @@ public class SOAPClientServiceFactory {
 		}
 
 		if (this.passwordCallback != null) {
-			Map<String, Object> props = new HashMap<String, Object>();
+			Map<String, Object> props = new HashMap<>();
 			props.put(WSHandlerConstants.ACTION, WSHandlerConstants.USERNAME_TOKEN);
 			props.put(WSHandlerConstants.PASSWORD_TYPE, WSConstants.PW_TEXT);
 			props.put(WSHandlerConstants.PW_CALLBACK_CLASS, WSSEUsernameTokenCallback.class.getName());
@@ -172,7 +187,21 @@ public class SOAPClientServiceFactory {
 			factory.getOutInterceptors().add(wssOut);
 		}
 
-		return factory.create();
+		Object service = factory.create();
+
+		if (reciveTimeout != null || connectionTimeout != null) {
+			/* Ustawianie parametrów/ograniczeń dla nawiązanego połączenia - START */
+			final HTTPConduit conduit = (HTTPConduit) ((ClientProxy) Proxy.getInvocationHandler(service)).getClient()
+					.getConduit();
+			if (reciveTimeout != null) {
+				conduit.getClient().setReceiveTimeout(reciveTimeout);
+			}
+			if (connectionTimeout != null) {
+				conduit.getClient().setConnectionTimeout(connectionTimeout);
+			}
+			/* Ustawianie parametrów/ograniczeń dla nawiązanego połączenia - KONIEC */
+		}
+		return service;
 	}
 
 	public static String createNameSpace(Class<?> interfaceClass) {
@@ -187,6 +216,51 @@ public class SOAPClientServiceFactory {
 		sb.append("/");
 		return sb.toString();
 
+	}
+
+	/**
+	 * @return the {@link #methodNameToHttpParamsAddEnabled}
+	 */
+	public boolean isMethodNameToHttpParamsAddEnabled() {
+		return methodNameToHttpParamsAddEnabled;
+	}
+
+	/**
+	 * @param methodNameToHttpParamsAddEnabled
+	 *            the {@link #methodNameToHttpParamsAddEnabled} to set
+	 */
+	public void setMethodNameToHttpParamsAddEnabled(boolean methodNameToHttpParamsAddEnabled) {
+		this.methodNameToHttpParamsAddEnabled = methodNameToHttpParamsAddEnabled;
+	}
+
+	/**
+	 * @return the {@link #reciveTimeout}
+	 */
+	public Long getReciveTimeout() {
+		return reciveTimeout;
+	}
+
+	/**
+	 * @param reciveTimeout
+	 *            the {@link #reciveTimeout} to set
+	 */
+	public void setReciveTimeout(Long reciveTimeout) {
+		this.reciveTimeout = reciveTimeout;
+	}
+
+	/**
+	 * @return the {@link #connectionTimeout}
+	 */
+	public Long getConnectionTimeout() {
+		return connectionTimeout;
+	}
+
+	/**
+	 * @param connectionTimeout
+	 *            the {@link #connectionTimeout} to set
+	 */
+	public void setConnectionTimeout(Long connectionTimeout) {
+		this.connectionTimeout = connectionTimeout;
 	}
 
 }

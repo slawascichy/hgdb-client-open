@@ -87,7 +87,6 @@ public abstract class WsClient<Ws extends IActionRoot> {
 	}
 
 	protected <T> T getValue(Context context, final IWsStatusWithValue<T> wsStatusWithValue) throws MercuryException {
-		logger.debug("wsStatusWithValue={}", new Object[] { wsStatusWithValue });
 		if (checkWsStatus((IWsStatus) wsStatusWithValue)) {
 			return wsStatusWithValue.getValue();
 		}
@@ -95,7 +94,6 @@ public abstract class WsClient<Ws extends IActionRoot> {
 	}
 
 	protected <T> T getDto(final IWsStatusWithDto<T> wsStatusWithDto) throws MercuryException {
-		logger.debug("wsStatusWithDto={}", new Object[] { wsStatusWithDto });
 		if (checkWsStatus((IWsStatus) wsStatusWithDto)) {
 			return wsStatusWithDto.getDto();
 		}
@@ -103,7 +101,6 @@ public abstract class WsClient<Ws extends IActionRoot> {
 	}
 
 	protected <T> Collection<T> getBag(final IWsStatusWithBag<T> wsStatusWithBag) throws MercuryException {
-		logger.debug("wsStatusWithBag={}", new Object[] { wsStatusWithBag });
 		if (checkWsStatus((IWsStatus) wsStatusWithBag)) {
 			return wsStatusWithBag.getBag();
 		}
@@ -111,7 +108,6 @@ public abstract class WsClient<Ws extends IActionRoot> {
 	}
 
 	protected <T> T getValue(final IWsStatusWithValue<T> wsStatusWithValue) throws MercuryException {
-		logger.debug("wsStatusWithValue={}", new Object[] { wsStatusWithValue });
 		if (checkWsStatus((IWsStatus) wsStatusWithValue)) {
 			return wsStatusWithValue.getValue();
 		}
@@ -119,7 +115,6 @@ public abstract class WsClient<Ws extends IActionRoot> {
 	}
 
 	protected <T> Collection<T> getDtos(final IWsStatusWithDtos<T> wsStatusWithDtos) throws MercuryException {
-		logger.debug("wsStatusWithDtos={}", new Object[] { wsStatusWithDtos });
 		if (checkWsStatus((IWsStatus) wsStatusWithDtos)) {
 			return wsStatusWithDtos.getDtos();
 		}
@@ -127,7 +122,6 @@ public abstract class WsClient<Ws extends IActionRoot> {
 	}
 
 	protected <K, T> Map<K, T> getMap(final IWsStatusWithMap<K, T> wsStatusWithMap) throws MercuryException {
-		logger.debug("wsStatusWithMap={}", new Object[] { wsStatusWithMap });
 		if (checkWsStatus((IWsStatus) wsStatusWithMap)) {
 			return wsStatusWithMap.getMap();
 		}
@@ -135,7 +129,7 @@ public abstract class WsClient<Ws extends IActionRoot> {
 	}
 
 	protected Map<String, String> getParamsMap(final Map<String, Object> paramsMap) {
-		final Map<String, String> newMap = new HashMap<String, String>();
+		final Map<String, String> newMap = new HashMap<>();
 		if (paramsMap != null) {
 			for (final Map.Entry<String, Object> entry : paramsMap.entrySet()) {
 				final Object value = entry.getValue();

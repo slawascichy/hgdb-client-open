@@ -12,6 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -79,7 +80,10 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	protected DtoMrcList getDtoList(final WsStatusWithMrcList wsStatusWithDto) throws MercuryException {
 		if (checkWsStatus((IWsStatus) wsStatusWithDto)) {
-			logger.debug("getDtoList={}", new Object[] { wsStatusWithDto });
+			if (logger.isDebugEnabled()) {
+				logger.debug("-->getDtoList: status: {}", StringUtils.isBlank(wsStatusWithDto.getErrorMessage()) ? "OK"
+						: wsStatusWithDto.getErrorMessage());
+			}
 			return wsStatusWithDto.getDto();
 		}
 		return null;
@@ -88,10 +92,17 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	protected Element getDtoXMLElement(final WsStatusWithXML wsStatusWithXML) throws MercuryException {
 		Element currElement = null;
 		if (checkWsStatus((IWsStatus) wsStatusWithXML)) {
-			logger.debug("getDtoXMLElement={}", new Object[] { wsStatusWithXML });
-			Element response = wsStatusWithXML.getDto();
+			if (logger.isDebugEnabled()) {
+				logger.debug("-->getDtoXMLElement: status: {}",
+						StringUtils.isBlank(wsStatusWithXML.getErrorMessage()) ? "OK"
+								: wsStatusWithXML.getErrorMessage());
+			}
+			Element response = (Element) wsStatusWithXML.getDocument();
 			if (response != null) {
 				String responseNodeName = response.getNodeName();
+				if (logger.isDebugEnabled()) {
+					logger.debug("-->getDtoXMLElement: response.nodeName: {}", responseNodeName);
+				}
 				if ("document".equals(responseNodeName)) {
 					NodeList children = response.getChildNodes();
 					int numChildren = children.getLength();
@@ -105,23 +116,33 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 				} else {
 					currElement = response;
 				}
+			} else if (logger.isDebugEnabled()) {
+				logger.debug("-->getDtoXMLElement: response is NULL!");
 			}
 		}
 		return currElement;
 	}
 
 	private Document createDocument(WsStatusWithXML result) throws MercuryException, FactoryConfigurationError {
+		Long startTime = Calendar.getInstance().getTimeInMillis();
 		Element xmlElement = getDtoXMLElement(result);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		try {
 			dBuilder = dbFactory.newDocumentBuilder();
 			Document document = dBuilder.newDocument();
-			Node firstDocImportedNode = document.importNode(xmlElement, true);
-			document.appendChild(firstDocImportedNode);
+			if (xmlElement != null) {
+				Node firstDocImportedNode = document.importNode(xmlElement, true);
+				document.appendChild(firstDocImportedNode);
+			}
 			return document;
 		} catch (ParserConfigurationException e) {
 			throw new InternalErrorException(e);
+		} finally {
+			if (logger.isDebugEnabled()) {
+				Long endTime = Calendar.getInstance().getTimeInMillis();
+				logger.debug("-->createDocument: time: {}[ms]", endTime - startTime);
+			}
 		}
 	}
 
@@ -348,6 +369,12 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Document searchLuceneByQueryXML(Context context, String query, IPage page) throws MercuryException {
+		// WsStatusWithMrcObject result = getService().searchLuceneByQuery(context,
+		// query, (PageTransportable) page);
+		// DtoMrcObject dtoObject = getDto(result);
+		// MrcPagedResult mrcPagedResult = (MrcPagedResult)
+		// DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
+		// return loadMrcPagedResultXML(context, mrcPagedResult);
 		WsStatusWithXML result = getService().searchLuceneByQueryXML(context, query, (PageTransportable) page);
 		return createDocument(result);
 	}
