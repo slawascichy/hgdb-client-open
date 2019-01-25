@@ -442,7 +442,6 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 					(PageTransportable) page);
 			return createDocument(result);
 		}
-
 	}
 
 	@Override
