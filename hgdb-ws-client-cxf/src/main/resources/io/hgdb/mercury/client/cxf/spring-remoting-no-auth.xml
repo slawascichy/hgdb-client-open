@@ -11,6 +11,13 @@
 	    http://www.springframework.org/schema/context classpath:pro/ibpm/mercury/spring/spring-context.xsd"
 	default-lazy-init="true">
 
+	<bean id="springBean.isRemote"
+		class="java.lang.Boolean" lazy-init="true">
+		<constructor-arg type="java.lang.String">
+			<value>true</value>
+		</constructor-arg>
+	</bean>
+
 	<!-- Brak uwierzytelniania -->
 	<!-- 
 	<bean id="basicHttpInvokerRequestExecutor"
@@ -650,6 +657,7 @@
 	<bean id="caseBusiness" scope="singleton"
 		class="pro.ibpm.mercury.ws.client.cxf.business.data.CaseBusiness">
 		<property name="service" ref="springBean.InvokerCaseBusinessService" />
+		<property name="isRemote" ref="springBean.isRemote"/>
 	</bean>
 	<!-- CaseBusiness -->
 

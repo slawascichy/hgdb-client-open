@@ -78,6 +78,8 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	public static final int FIRST_ITERATION = 0;
 
+	private Boolean isRemote;
+
 	protected DtoMrcList getDtoList(final WsStatusWithMrcList wsStatusWithDto) throws MercuryException {
 		if (checkWsStatus((IWsStatus) wsStatusWithDto)) {
 			if (logger.isDebugEnabled()) {
@@ -369,28 +371,37 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Document searchLuceneByQueryXML(Context context, String query, IPage page) throws MercuryException {
-		// WsStatusWithMrcObject result = getService().searchLuceneByQuery(context,
-		// query, (PageTransportable) page);
-		// DtoMrcObject dtoObject = getDto(result);
-		// MrcPagedResult mrcPagedResult = (MrcPagedResult)
-		// DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
-		// return loadMrcPagedResultXML(context, mrcPagedResult);
-		WsStatusWithXML result = getService().searchLuceneByQueryXML(context, query, (PageTransportable) page);
-		return createDocument(result);
+		if (getIsRemote()) {
+			MrcPagedResult mrcPagedResult = searchLuceneByQuery(context, query, (PageTransportable) page);
+			return loadMrcPagedResultXML(context, mrcPagedResult);
+		} else {
+			WsStatusWithXML result = getService().searchLuceneByQueryXML(context, query, (PageTransportable) page);
+			return createDocument(result);
+		}
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Document findLastByBpmIdXML(Context context, Long bpmProcessId) throws MercuryException {
-		WsStatusWithXML result = getService().findLastByBpmIdXML(context, bpmProcessId);
-		return createDocument(result);
+		if (getIsRemote()) {
+			MrcObject mrcObject = findLastByBpmId(context, bpmProcessId);
+			return loadMrcObjectXML(context, mrcObject);
+		} else {
+			WsStatusWithXML result = getService().findLastByBpmIdXML(context, bpmProcessId);
+			return createDocument(result);
+		}
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Document findByGroupCaseIdsXML(Context context, List<Long> groupCaseIds) throws MercuryException {
-		WsStatusWithXML result = getService().findByGroupCaseIdsXML(context, groupCaseIds);
-		return createDocument(result);
+		if (getIsRemote()) {
+			MrcList mrcList = findByGroupCaseIds(context, groupCaseIds);
+			return loadMrcListXML(context, mrcList);
+		} else {
+			WsStatusWithXML result = getService().findByGroupCaseIdsXML(context, groupCaseIds);
+			return createDocument(result);
+		}
 	}
 
 	@Override
@@ -411,16 +422,27 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	@Override
 	public Document loadLastUpdatedXML(Context context, IPage page) throws MercuryException {
-		WsStatusWithXML result = getService().loadLastUpdatedXML(context, (PageTransportable) page);
-		return createDocument(result);
+		if (getIsRemote()) {
+			MrcPagedResult mrcPagedResult = loadLastUpdated(context, page);
+			return loadMrcPagedResultXML(context, mrcPagedResult);
+		} else {
+			WsStatusWithXML result = getService().loadLastUpdatedXML(context, (PageTransportable) page);
+			return createDocument(result);
+		}
 	}
 
 	@Override
 	public Document loadLastUpdatedByTypeCodesXML(Context context, Set<String> typeCodes, IPage page)
 			throws MercuryException {
-		WsStatusWithXML result = getService().loadLastUpdatedByTypeCodesXML(context, typeCodes,
-				(PageTransportable) page);
-		return createDocument(result);
+		if (getIsRemote()) {
+			MrcPagedResult mrcPagedResult = loadLastUpdatedByTypeCodes(context, typeCodes, page);
+			return loadMrcPagedResultXML(context, mrcPagedResult);
+		} else {
+			WsStatusWithXML result = getService().loadLastUpdatedByTypeCodesXML(context, typeCodes,
+					(PageTransportable) page);
+			return createDocument(result);
+		}
+
 	}
 
 	@Override
@@ -499,7 +521,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 		WsStatusWithMrcSimplePropertyMapGroupedByCaseIdDtos result = getService().updateCasesParamsByParams(context,
 				mrcSimplePropertyMapsGroupedByCaseId);
 		if (checkWsStatus((IWsStatus) result)) {
-			return new ArrayList<MrcSimplePropertyMapGroupedByCaseId>(result.getDtos());
+			return new ArrayList<>(result.getDtos());
 		}
 		return Collections.emptyList();
 	}
@@ -659,6 +681,21 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 		WsStatusWithMrcObject result = getService().loadSampleByTypeName(context, typeName);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
+	}
+
+	/**
+	 * @return the {@link #isRemote}
+	 */
+	public Boolean getIsRemote() {
+		return isRemote;
+	}
+
+	/**
+	 * @param isRemote
+	 *            the {@link #isRemote} to set
+	 */
+	public void setIsRemote(Boolean isRemote) {
+		this.isRemote = isRemote;
 	}
 
 }

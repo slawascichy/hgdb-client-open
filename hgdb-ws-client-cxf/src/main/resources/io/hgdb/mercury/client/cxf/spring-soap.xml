@@ -13,6 +13,13 @@
 	    http://www.springframework.org/schema/context classpath:pro/ibpm/mercury/spring/spring-context.xsd"
 	default-lazy-init="true">
 
+	<bean id="springBean.isRemote"
+		class="java.lang.Boolean" lazy-init="true">
+		<constructor-arg type="java.lang.String">
+			<value>false</value>
+		</constructor-arg>
+	</bean>
+
 	<bean id="wsseUsernameTokenCallback"
 		class="org.mercury.cxf.client.security.WSSEUsernameTokenCallback">
 		<constructor-arg index="0" 
@@ -1174,6 +1181,7 @@
 	<bean id="caseBusiness" scope="singleton"
 		class="io.hgdb.mercury.client.cxf.business.data.CaseBusiness">
 		<property name="service" ref="springBean.WsCaseBusiness" />
+		<property name="isRemote" ref="springBean.isRemote"/>
 	</bean>
 	<!-- CaseBusiness -->
 
