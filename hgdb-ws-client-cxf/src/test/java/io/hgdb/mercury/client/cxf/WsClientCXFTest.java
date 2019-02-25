@@ -967,7 +967,7 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 					+ "    <groupId type=\"Integer\">7018</groupId>"
 					+ "    <typeCode type=\"String\">TestRole</typeCode>" + "    <endDate type=\"Date\"/>"
 					+ "    <dueDate type=\"Date\"/>" + "    <status type=\"String\">A</status>"
-					+ "    <piervousVersionId type=\"Integer\"/>"
+					+ "    <previousVersionId type=\"Integer\"/>"
 					+ "    <priceValue type=\"Decimal\">2000.0</priceValue>"
 					+ "    <storeCount type=\"Integer\">1</storeCount>" + "    <storeId type=\"Integer\">7016</storeId>"
 					+ "    <createDate isEncoded=\"false\" type=\"Date\">2017/03/04 01:00:40.552 CET</createDate>"

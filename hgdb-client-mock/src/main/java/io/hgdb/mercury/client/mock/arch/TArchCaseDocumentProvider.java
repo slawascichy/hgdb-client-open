@@ -165,7 +165,7 @@ public class TArchCaseDocumentProvider extends
 		} else if (property.equalsIgnoreCase("lastModifiedBy")) {
 			entity.setCreatedBy(TSystemUserProvider.usersMap.get(MockDataUtils
 					.convertToLong(newValue)));
-			entity.setLastModifedBy(TSystemUserProvider.usersMap
+			entity.setLastModifiedBy(TSystemUserProvider.usersMap
 					.get(MockDataUtils.convertToLong(newValue)));
 
 		} else if (property.equalsIgnoreCase("modifyComment")) {

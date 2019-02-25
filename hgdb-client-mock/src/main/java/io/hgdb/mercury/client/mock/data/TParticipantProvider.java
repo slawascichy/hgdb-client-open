@@ -105,7 +105,7 @@ public class TParticipantProvider extends TAbstractProvider<Participant> {
 		}
 
 		participant.setCreatedBy(TSystemUserProvider.usersMap.get(1L));
-		participant.setLastModifedBy(TSystemUserProvider.usersMap.get(1L));
+		participant.setLastModifiedBy(TSystemUserProvider.usersMap.get(1L));
 
 	}
 

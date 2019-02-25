@@ -93,7 +93,7 @@ public class TArchGroupCaseProvider extends TAbstractProvider<ArchGroupCase> {
 
 		} else if (property.equalsIgnoreCase("modifiedBy")) {
 			Long id = Long.parseLong(newValue);
-			entity.setLastModifedBy(TSystemUserProvider.usersMap.get(id));
+			entity.setLastModifiedBy(TSystemUserProvider.usersMap.get(id));
 
 		} else if (property.equalsIgnoreCase("sourceValue")) {
 			entity.getSource().setValue(newValue);

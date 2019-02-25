@@ -111,7 +111,7 @@ public class TStoreProvider extends TAbstractProvider<Store> {
 		}
 
 		store.setCreatedBy(TSystemUserProvider.usersMap.get(1L));
-		store.setLastModifedBy(TSystemUserProvider.usersMap.get(4L));
+		store.setLastModifiedBy(TSystemUserProvider.usersMap.get(4L));
 		store.setManager(TSystemUserProvider.usersMap.get(5L));
 		store.setSourceOfObject(MercuryConfig.getDefaultSourceOfObject());
 

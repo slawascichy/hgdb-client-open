@@ -91,7 +91,7 @@ public class TArchGroupCase2ParticipantProvider extends TAbstractProvider<ArchGr
 		}
 
 		entity.setCreatedBy(TSystemUserProvider.usersMap.get(1L));
-		entity.setLastModifedBy(TSystemUserProvider.usersMap.get(1L));
+		entity.setLastModifiedBy(TSystemUserProvider.usersMap.get(1L));
 	}
 
 }

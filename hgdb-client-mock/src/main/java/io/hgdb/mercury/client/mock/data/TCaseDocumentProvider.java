@@ -171,7 +171,7 @@ public class TCaseDocumentProvider extends TAbstractProvider<CaseDocument> {
 		} else if (property.equalsIgnoreCase("lastModifiedBy")) {
 			caseDocument.setCreatedBy(TSystemUserProvider.usersMap
 					.get(MockDataUtils.convertToLong(newValue)));
-			caseDocument.setLastModifedBy(TSystemUserProvider.usersMap
+			caseDocument.setLastModifiedBy(TSystemUserProvider.usersMap
 					.get(MockDataUtils.convertToLong(newValue)));
 
 		} else if (property.equalsIgnoreCase("modifyComment")) {

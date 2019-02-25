@@ -101,7 +101,7 @@ public class TArchCase2CaseProvider extends TAbstractProvider<ArchCase2Case> {
 		}
 
 		entity.setCreatedBy(TSystemUserProvider.usersMap.get(1L));
-		entity.setLastModifedBy(TSystemUserProvider.usersMap.get(1L));
+		entity.setLastModifiedBy(TSystemUserProvider.usersMap.get(1L));
 
 	}
 

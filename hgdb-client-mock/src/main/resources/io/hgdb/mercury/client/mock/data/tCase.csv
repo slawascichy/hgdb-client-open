@@ -1,4 +1,4 @@
-id;bpmProcessId;caseGroupId;caseTypeId;storeId;createDate;createdBy;modifyDate;modifiedBy;endDate;dueDate;status;parameter1;parameter2;parameter3;parameter4;parameter5;parameter6;parameter7;parameter8;parameter9;parameter10;parameter11;parameter12;parameter13;parameter14;parameter15;piervousVersionId
+id;bpmProcessId;caseGroupId;caseTypeId;storeId;createDate;createdBy;modifyDate;modifiedBy;endDate;dueDate;status;parameter1;parameter2;parameter3;parameter4;parameter5;parameter6;parameter7;parameter8;parameter9;parameter10;parameter11;parameter12;parameter13;parameter14;parameter15;previousVersionId
 1;10202;1;1;1;01-01-2013;1;01-02-2013;2;13-06-2013;18-06-2013;A;Kowalski;Nowak;OC;OC;null;null;null;null;null;null;null;null;null;null;null;null
 2;10198;1;2;2;25-01-2013;2;17-02-2013;1;13-04-2014;12-06-2014;A;Kowalski2;Nowak2;NW;NW;null;null;null;null;null;null;null;null;null;null;null;null
 3;10197;1;2;2;01-01-2013;1;01-01-2013;1;13-06-2013;18-06-2013;A;Kowalski3;Nowak3;OC;NW;null;null;null;null;null;null;null;null;null;null;null;null

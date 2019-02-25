@@ -33,8 +33,7 @@ public class TArchCaseProvider extends TAbstractProvider<ArchCase> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
 	 */
 	@Override
 	protected ArchCase rowMapper(String[] row) {
@@ -42,28 +41,27 @@ public class TArchCaseProvider extends TAbstractProvider<ArchCase> {
 				"createdBy", "modifyDate", "modifiedBy", "endDate", "dueDate", "status", "parameter1", "parameter2",
 				"parameter3", "parameter4", "parameter5", "parameter6", "parameter7", "parameter8", "parameter9",
 				"parameter10", "parameter11", "parameter12", "parameter13", "parameter14", "parameter15",
-				"piervousVersionId" };
+				"previousVersionId" };
 		return rowMapper(row, header);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[],
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[],
 	 * java.lang.String[])
 	 */
 	@Override
 	protected ArchCase rowMapper(String[] row, String[] header) {
 
-		this.logger.trace("row.length=" + row.length + ", header.length=" + header.length);
+		this.logger.trace("row.length={}, header.length={} ", row.length, header.length);
 
 		ArchCase result = new ArchCase();
 		result.setGroup(new ArchGroupCase());
 		result.setType(new TypeCase());
 		result.setStore(new Store());
 
-		if (row != null && header != null && row.length == header.length) {
+		if (row.length == header.length) {
 			for (int index = 0; index < header.length; index++) {
 				setPropertyValue(header[index], row[index], result);
 			}
@@ -79,7 +77,7 @@ public class TArchCaseProvider extends TAbstractProvider<ArchCase> {
 	private void setPropertyValue(String property, String newValue, ArchCase entuty) {
 		// id;bpmProcessId;caseGroupId;caseTypeId;createDate;createdBy;modifyDate;modifiedBy;endDate;dueDate;status;parameter1;parameter2;parameter3;parameter4;parameter5;parameter6;parameter7;parameter8;parameter9;parameter10;parameter11;parameter12;parameter13;parameter14;parameter15
 
-		this.logger.trace("property=" + property + ", newValue=" + newValue);
+		this.logger.trace("property={}, newValue={}", property, newValue);
 
 		if (property.equalsIgnoreCase("id")) {
 			entuty.setId(Long.parseLong(newValue));
@@ -108,7 +106,7 @@ public class TArchCaseProvider extends TAbstractProvider<ArchCase> {
 
 		} else if (property.equalsIgnoreCase("modifiedBy")) {
 			Long id = Long.parseLong(newValue);
-			entuty.setLastModifedBy(TSystemUserProvider.usersMap.get(id));
+			entuty.setLastModifiedBy(TSystemUserProvider.usersMap.get(id));
 
 		} else if (property.equalsIgnoreCase("endDate")) {
 			entuty.setEndDate(MockDataUtils.convertToCalendar(newValue));
@@ -149,10 +147,8 @@ public class TArchCaseProvider extends TAbstractProvider<ArchCase> {
 			entuty.setParameter14(newValue);
 		} else if (property.equalsIgnoreCase("parameter15")) {
 			entuty.setParameter15(newValue);
-
-		} else if (property.equalsIgnoreCase("piervousVersionId")) {
-			entuty.setPiervousVersionId(MockDataUtils.convertToLong(newValue));
-
+		} else if (property.equalsIgnoreCase("previousVersionId")) {
+			entuty.setPreviousVersionId(MockDataUtils.convertToLong(newValue));
 		} else {
 			String msg = "Obiekt " + entuty.getClass().getSimpleName() + " nie posiada właściwości property="
 					+ property;

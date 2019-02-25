@@ -99,7 +99,7 @@ public class TGroupCase2ParticipantProvider extends
 
 		groupCase2Participant
 				.setCreatedBy(TSystemUserProvider.usersMap.get(1L));
-		groupCase2Participant.setLastModifedBy(TSystemUserProvider.usersMap
+		groupCase2Participant.setLastModifiedBy(TSystemUserProvider.usersMap
 				.get(1L));
 	}
 

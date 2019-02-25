@@ -100,7 +100,7 @@ public class TCase2CaseProvider extends TAbstractProvider<Case2Case> {
 		}
 
 		case2Case.setCreatedBy(TSystemUserProvider.usersMap.get(1L));
-		case2Case.setLastModifedBy(TSystemUserProvider.usersMap.get(1L));
+		case2Case.setLastModifiedBy(TSystemUserProvider.usersMap.get(1L));
 
 	}
 

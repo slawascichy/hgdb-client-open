@@ -49,8 +49,7 @@ public class TCaseProvider extends TAbstractProvider<Case> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
 	 */
 	@Override
 	protected Case rowMapper(String[] row) {
@@ -58,28 +57,27 @@ public class TCaseProvider extends TAbstractProvider<Case> {
 				"createdBy", "modifyDate", "modifiedBy", "endDate", "dueDate", "status", "parameter1", "parameter2",
 				"parameter3", "parameter4", "parameter5", "parameter6", "parameter7", "parameter8", "parameter9",
 				"parameter10", "parameter11", "parameter12", "parameter13", "parameter14", "parameter15",
-				"piervousVersionId" };
+				"previousVersionId" };
 		return rowMapper(row, header);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[],
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[],
 	 * java.lang.String[])
 	 */
 	@Override
 	protected Case rowMapper(String[] row, String[] header) {
 
-		this.logger.trace("row.length=" + row.length + ", header.length=" + header.length);
+		this.logger.trace("row.length={}, header.length={} ", row.length, header.length);
 
 		Case result = new Case();
 		result.setGroup(new GroupCase());
 		result.setType(new TypeCase());
 		result.setStore(new Store());
 
-		if (row != null && header != null && row.length == header.length) {
+		if (row.length == header.length) {
 			for (int index = 0; index < header.length; index++) {
 				setPropertyValue(header[index], row[index], result);
 			}
@@ -95,7 +93,7 @@ public class TCaseProvider extends TAbstractProvider<Case> {
 	private void setPropertyValue(String property, String newValue, Case caseO) {
 		// id;bpmProcessId;caseGroupId;caseTypeId;createDate;createdBy;modifyDate;modifiedBy;endDate;dueDate;status;parameter1;parameter2;parameter3;parameter4;parameter5;parameter6;parameter7;parameter8;parameter9;parameter10;parameter11;parameter12;parameter13;parameter14;parameter15
 
-		this.logger.trace("property=" + property + ", newValue=" + newValue);
+		this.logger.trace("property={}, newValue={}", property, newValue);
 
 		if (property.equalsIgnoreCase("id")) {
 			caseO.setId(Long.parseLong(newValue));
@@ -125,7 +123,7 @@ public class TCaseProvider extends TAbstractProvider<Case> {
 
 		} else if (property.equalsIgnoreCase("modifiedBy")) {
 			Long id = Long.parseLong(newValue);
-			caseO.setLastModifedBy(TSystemUserProvider.usersMap.get(id));
+			caseO.setLastModifiedBy(TSystemUserProvider.usersMap.get(id));
 
 		} else if (property.equalsIgnoreCase("endDate")) {
 			caseO.setEndDate(MockDataUtils.convertToCalendar(newValue));
@@ -167,8 +165,8 @@ public class TCaseProvider extends TAbstractProvider<Case> {
 		} else if (property.equalsIgnoreCase("parameter15")) {
 			caseO.setParameter15(newValue);
 
-		} else if (property.equalsIgnoreCase("piervousVersionId")) {
-			caseO.setPiervousVersionId(MockDataUtils.convertToLong(newValue));
+		} else if (property.equalsIgnoreCase("previousVersionId")) {
+			caseO.setPreviousVersionId(MockDataUtils.convertToLong(newValue));
 
 		} else {
 			String msg = "Obiekt " + Case.class.getSimpleName() + " nie posiada właściwości property=" + property;

@@ -1,4 +1,4 @@
-id;taskSubject;caseId;bpmProcessId;caseGroupId;caseTypeId;createDate;createdBy;modifyDate;modifiedBy;endDate;dueDate;status;parameter1;parameter2;parameter3;parameter4;parameter5;parameter6;parameter7;parameter8;parameter9;parameter10;parameter11;parameter12;parameter13;parameter14;parameter15;piervousVersionId
+id;taskSubject;caseId;bpmProcessId;caseGroupId;caseTypeId;createDate;createdBy;modifyDate;modifiedBy;endDate;dueDate;status;parameter1;parameter2;parameter3;parameter4;parameter5;parameter6;parameter7;parameter8;parameter9;parameter10;parameter11;parameter12;parameter13;parameter14;parameter15;previousVersionId
 101;Wprowadzanie danych o kliencie;104;110004;101;4;01-01-2013;1;30-01-2013;2;null;18-06-2013;A;Kowalskiiiiiiii;null;null;null;null;null;null;null;null;null;null;null;null;null;null;null
 102;Wprowadzanie danych o kliencie;104;110004;101;4;01-01-2013;1;01-02-2013;2;13-06-2013;18-06-2013;A;Kowalski;null;null;null;null;null;null;null;null;null;null;null;null;null;null;null
 103;Wprowadzanie danych o polisie ;102;110002;101;2;25-01-2013;2;11-02-2013;1;null;12-06-2014;A;Kowalski2;Nowak2;OC;OC;null;null;null;null;null;null;null;null;null;null;null;null

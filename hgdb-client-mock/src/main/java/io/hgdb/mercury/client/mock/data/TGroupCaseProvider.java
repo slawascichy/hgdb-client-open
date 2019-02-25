@@ -92,7 +92,7 @@ public class TGroupCaseProvider extends TAbstractProvider<GroupCase> {
 
 		} else if (property.equalsIgnoreCase("modifiedBy")) {
 			Long id = Long.parseLong(newValue);
-			groupCase.setLastModifedBy(TSystemUserProvider.usersMap.get(id));
+			groupCase.setLastModifiedBy(TSystemUserProvider.usersMap.get(id));
 
 		} else if (property.equalsIgnoreCase("sourceValue")) {
 			groupCase.getSource().setValue(newValue);

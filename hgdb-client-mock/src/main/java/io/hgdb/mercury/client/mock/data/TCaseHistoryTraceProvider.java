@@ -34,8 +34,7 @@ public class TCaseHistoryTraceProvider extends TAbstractProvider<CaseHistoryTrac
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
 	 */
 	@Override
 	protected CaseHistoryTrace rowMapper(String[] row) {
@@ -43,28 +42,27 @@ public class TCaseHistoryTraceProvider extends TAbstractProvider<CaseHistoryTrac
 				"createDate", "createdBy", "modifyDate", "modifiedBy", "endDate", "dueDate", "status", "parameter1",
 				"parameter2", "parameter3", "parameter4", "parameter5", "parameter6", "parameter7", "parameter8",
 				"parameter9", "parameter10", "parameter11", "parameter12", "parameter13", "parameter14", "parameter15",
-				"piervousVersionId" };
+				"previousVersionId" };
 		return rowMapper(row, header);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[],
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[],
 	 * java.lang.String[])
 	 */
 	@Override
 	protected CaseHistoryTrace rowMapper(String[] row, String[] header) {
 
-		this.logger.trace("row.length=" + row.length + ", header.length=" + header.length);
+		this.logger.trace("row.length={}, header.length={} ", row.length, header.length);
 
 		CaseHistoryTrace result = new CaseHistoryTrace();
 		result.setMatter(new Case());
 		result.setGroup(new GroupCase());
 		result.setType(new TypeCase());
 
-		if (row != null && header != null && row.length == header.length) {
+		if (row.length == header.length) {
 			for (int index = 0; index < header.length; index++) {
 				setPropertyValue(header[index], row[index], result);
 			}
@@ -81,7 +79,7 @@ public class TCaseHistoryTraceProvider extends TAbstractProvider<CaseHistoryTrac
 	private void setPropertyValue(String property, String newValue, CaseHistoryTrace caseHistoryTrace) {
 		// id;taskSubject;caseId;bpmProcessId;caseGroupId;caseTypeId;createDate;createdBy;modifyDate;modifiedBy;endDate;dueDate;status;parameter1;parameter2;parameter3;parameter4;parameter5;parameter6;parameter7;parameter8;parameter9;parameter10;parameter11;parameter12;parameter13;parameter14;parameter15
 
-		this.logger.trace("property=" + property + ", newValue=" + newValue);
+		this.logger.trace("property={}, newValue={}", property, newValue);
 
 		if (property.equalsIgnoreCase("id")) {
 			caseHistoryTrace.setId(MockDataUtils.convertToLong(newValue));
@@ -169,8 +167,8 @@ public class TCaseHistoryTraceProvider extends TAbstractProvider<CaseHistoryTrac
 		} else if (property.equalsIgnoreCase("parameter15")) {
 			caseHistoryTrace.setParameter15(newValue);
 
-		} else if (property.equalsIgnoreCase("piervousVersionId")) {
-			caseHistoryTrace.setPiervousVersionId(MockDataUtils.convertToLong(newValue));
+		} else if (property.equalsIgnoreCase("previousVersionId")) {
+			caseHistoryTrace.setPreviousVersionId(MockDataUtils.convertToLong(newValue));
 
 		} else {
 			String msg = "Obiekt " + CaseHistoryTrace.class.getSimpleName() + " nie posiada właściwości property="

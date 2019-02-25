@@ -107,7 +107,7 @@ public class TTypeParamRoleProvider extends TAbstractProvider<TypeParamRole> {
 
 		} else if (property.equalsIgnoreCase("modifiedBy")) {
 			Long id = Long.parseLong(newValue);
-			typeParamRole.setLastModifedBy(TSystemUserProvider.usersMap.get(id));
+			typeParamRole.setLastModifiedBy(TSystemUserProvider.usersMap.get(id));
 		} else {
 			String msg = "Obiekt typeParamRole nie posiada właściwości property=" + property;
 			this.logger.error(msg);
