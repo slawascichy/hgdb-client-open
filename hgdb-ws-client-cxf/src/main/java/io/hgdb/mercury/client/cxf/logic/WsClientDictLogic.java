@@ -124,9 +124,12 @@ public abstract class WsClientDictLogic<E extends MEntity & MIdModifier<Pk>, Pk,
 	}
 
 	@Override
-	public NameValuePair loadNameValuePair(Context context, Object id, String additionalStaticCredentials)
-			throws MercuryException {
-		WsStatusWithNameValuePairDto dto = getService().loadNameValuePair(context, id, additionalStaticCredentials);
+	public NameValuePair loadNameValuePair(Context context, Object id) throws MercuryException {
+		if (id == null) {
+			return null;
+		}
+		String idStr = id.toString();
+		WsStatusWithNameValuePairDto dto = getService().loadNameValuePair(context, idStr);
 		return dto.getDto();
 	}
 

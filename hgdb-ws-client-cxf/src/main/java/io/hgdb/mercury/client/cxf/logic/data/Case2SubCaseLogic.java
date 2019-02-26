@@ -166,8 +166,7 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 
 	@Deprecated
 	@Override
-	public NameValuePair loadNameValuePair(Context context, Object id, String additionalStaticCredentials)
-			throws MercuryException {
+	public NameValuePair loadNameValuePair(Context context, Object id) throws MercuryException {
 		throw new LC025MethodNotSupportedException();
 	}
 
