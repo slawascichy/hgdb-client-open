@@ -270,4 +270,13 @@ public abstract class WsClientRoot<E extends MEntity, Pk, Ws extends IActionRoot
 
 	}
 
+	public E createNewInstance(Context context) {
+		try {
+			return getPersistentClass().newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			logger.error("-->createNewInstance:", e);
+		}
+		return null;
+	}
+
 }

@@ -28,7 +28,6 @@ import pro.ibpm.mercury.ws.server.api.actions.IActionNVP;
 import pro.ibpm.mercury.ws.server.api.actions.IActionRoot;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithNameValuePairDto;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithNameValuePairDtos;
-import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithNameValuePairWSCDtos;
 
 /**
  * 
@@ -109,43 +108,19 @@ public abstract class WsClientDictLogic<E extends MEntity & MIdModifier<Pk>, Pk,
 		throw new LC025MethodNotSupportedException();
 	}
 
-	@Deprecated
 	@Override
-	public List<NameValuePair> loadNameValuePair(Context context, String namedQuery, Map<String, Object> sqlParams)
-			throws MercuryException {
-		throw new LC025MethodNotSupportedException();
-	}
-
-	@Deprecated
-	@Override
-	public List<NameValuePairWSC> loadNameValuePairWSC(Context context, String namedQuery,
-			Map<String, Object> sqlParams) throws MercuryException {
-		throw new LC025MethodNotSupportedException();
-	}
-
-	@Override
-	public NameValuePair loadNameValuePair(Context context, Object id) throws MercuryException {
+	public NameValuePair loadNameValuePair(Context context, String id) throws MercuryException {
 		if (id == null) {
 			return null;
 		}
-		String idStr = id.toString();
-		WsStatusWithNameValuePairDto dto = getService().loadNameValuePair(context, idStr);
+		WsStatusWithNameValuePairDto dto = getService().loadNameValuePair(context, id);
 		return dto.getDto();
 	}
 
 	@Override
-	public List<NameValuePair> searchNameValuePairByName(Context context, String searchText,
-			String additionalStaticCredentials) throws MercuryException {
-		WsStatusWithNameValuePairDtos dtos = getService().searchNameValuePairByName(context, searchText,
-				additionalStaticCredentials);
+	public List<NameValuePair> searchNameValuePairByName(Context context, String searchText) throws MercuryException {
+		WsStatusWithNameValuePairDtos dtos = getService().searchNameValuePairByName(context, searchText);
 		return dtos.getDtos() != null ? new ArrayList<NameValuePair>(dtos.getDtos()) : new ArrayList<NameValuePair>();
-	}
-
-	@Override
-	public List<NameValuePairWSC> loadNameValuePairWSC(Context context) throws MercuryException {
-		WsStatusWithNameValuePairWSCDtos dtos = getService().loadNameValuePairWSC(context);
-		return dtos.getDtos() != null ? new ArrayList<NameValuePairWSC>(dtos.getDtos())
-				: new ArrayList<NameValuePairWSC>();
 	}
 
 	@Override
@@ -158,8 +133,7 @@ public abstract class WsClientDictLogic<E extends MEntity & MIdModifier<Pk>, Pk,
 	}
 
 	public IPagedResult<E, IPage> pagedResultNewInstance(Context context) {
-		IPagedResult<E, IPage> newInstance = new PagedResult<E>();
-		return newInstance;
+		return new PagedResult<E>();
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -174,78 +148,98 @@ public abstract class WsClientDictLogic<E extends MEntity & MIdModifier<Pk>, Pk,
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public E find(Context arg0, Pk arg1) throws MercuryException {
-		// TODO Auto-generated method stub
-		return null;
+	public NameValuePair loadNameValuePair(Context context, Object id, String additionalStaticCredentials)
+			throws MercuryException {
+		throw new LC025MethodNotSupportedException();
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public List<E> findAll(Context arg0) throws MercuryException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<NameValuePair> loadNameValuePairList(Context context, String additionalStaticCredentials)
+			throws MercuryException {
+		throw new LC025MethodNotSupportedException();
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public E findFirst(Context arg0) throws MercuryException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<NameValuePair> searchNameValuePairByName(Context context, String searchText,
+			String additionalStaticCredentials) throws MercuryException {
+		throw new LC025MethodNotSupportedException();
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public E insert(Context arg0, E arg1) throws MercuryException {
-		// TODO Auto-generated method stub
-		return null;
+	public NameValuePairWSC loadNameValuePairWSC(Context context, Object id, String additionalStaticCredentials)
+			throws MercuryException {
+		throw new LC025MethodNotSupportedException();
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public List<E> insertList(Context arg0, List<E> arg1) throws MercuryException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<NameValuePairWSC> loadNameValuePairWSCList(Context context, String additionalStaticCredentials)
+			throws MercuryException {
+		throw new LC025MethodNotSupportedException();
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public Pk remove(Context arg0, E arg1) throws MercuryException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<NameValuePairWSC> searchNameValuePairWSCByCredentials(Context context, String searchText,
+			String additionalStaticCredentials) throws MercuryException {
+		throw new LC025MethodNotSupportedException();
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public List<Pk> removeList(Context arg0, List<E> arg1) throws MercuryException {
-		// TODO Auto-generated method stub
-		return null;
+	public E find(Context context, Pk id) throws MercuryException {
+		throw new LC025MethodNotSupportedException();
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public E update(Context arg0, E arg1) throws MercuryException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<E> findAll(Context context) throws MercuryException {
+		throw new LC025MethodNotSupportedException();
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public List<E> updateList(Context arg0, List<E> arg1) throws MercuryException {
-		// TODO Auto-generated method stub
-		return null;
+	public E findFirst(Context context) throws MercuryException {
+		throw new LC025MethodNotSupportedException();
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public List<NameValuePair> loadNameValuePair(Context context) throws MercuryException {
-		WsStatusWithNameValuePairWSCDtos dtos = getService().loadNameValuePairWSC(context);
-		List<NameValuePair> result = new ArrayList<NameValuePair>();
-		if (dtos.getDtos() != null && !dtos.getDtos().isEmpty()) {
-			for (NameValuePair dto : dtos.getDtos()) {
-				result.add(dto);
-			}
-		}
-		return result;
+	public E insert(Context context, E entityObject) throws MercuryException {
+		throw new LC025MethodNotSupportedException();
+	}
+
+	/* Overridden (non-Javadoc) */
+	@Override
+	public List<E> insertList(Context context, List<E> entityObjects) throws MercuryException {
+		throw new LC025MethodNotSupportedException();
+	}
+
+	/* Overridden (non-Javadoc) */
+	@Override
+	public E update(Context context, E entityObject) throws MercuryException {
+		throw new LC025MethodNotSupportedException();
+	}
+
+	/* Overridden (non-Javadoc) */
+	@Override
+	public List<E> updateList(Context context, List<E> entityObjects) throws MercuryException {
+		throw new LC025MethodNotSupportedException();
+	}
+
+	/* Overridden (non-Javadoc) */
+	@Override
+	public Pk remove(Context context, E entityObject) throws MercuryException {
+		throw new LC025MethodNotSupportedException();
+	}
+
+	/* Overridden (non-Javadoc) */
+	@Override
+	public List<Pk> removeList(Context context, List<E> entityObjects) throws MercuryException {
+		throw new LC025MethodNotSupportedException();
 	}
 
 }

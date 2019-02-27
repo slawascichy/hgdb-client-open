@@ -42,30 +42,45 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 	private static final String REMOVE_WS_STATUS_WITH_DTOS = "--> remove: wsStatusWithDtos={}";
 	private static final long serialVersionUID = -4082967291846032006L;
 
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
 	@Deprecated
 	@Override
 	public List<Case2SubCase> filter(Context context, Map<String, Object> sqlParams) throws MercuryException {
 		throw new LC025MethodNotSupportedException();
 	}
 
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
 	@Deprecated
 	@Override
 	public <U extends MUser<U>, R extends MRole<R>> MModifyInfoHelper<U, R> getModifyInfoHelper() {
 		throw new IllegalAccessError();
 	}
 
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
 	@Deprecated
 	@Override
 	public Case2SubCase find(Context context, Long id, boolean forUpdate) throws MercuryException {
 		throw new LC025MethodNotSupportedException();
 	}
 
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
 	@Deprecated
 	@Override
 	public Case2SubCase findReference(Context context, Case2SubCase entity) throws MercuryException {
 		throw new LC025MethodNotSupportedException();
 	}
 
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
 	@Deprecated
 	@Override
 	public List<Case2SubCase> find(Context context, String namedQuery, Map<String, Object> sqlParams)
@@ -73,6 +88,9 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 		throw new LC025MethodNotSupportedException();
 	}
 
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
 	@Deprecated
 	@Override
 	public Case2SubCase findFirst(Context context, String namedQuery, Map<String, Object> sqlParams)
@@ -80,50 +98,45 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 		throw new LC025MethodNotSupportedException();
 	}
 
-	@Deprecated
-	@Override
-	public List<NameValuePair> loadNameValuePair(Context context, String namedQuery, Map<String, Object> sqlParams)
-			throws MercuryException {
-		throw new LC025MethodNotSupportedException();
-	}
-
-	@Deprecated
-	@Override
-	public List<NameValuePair> loadNameValuePair(Context context) throws MercuryException {
-		throw new LC025MethodNotSupportedException();
-	}
-
-	@Deprecated
-	@Override
-	public List<NameValuePairWSC> loadNameValuePairWSC(Context context, String namedQuery,
-			Map<String, Object> sqlParams) throws MercuryException {
-		throw new LC025MethodNotSupportedException();
-	}
-
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
 	@Deprecated
 	@Override
 	public Long checkExists(Context context, Long id) throws MercuryException {
 		throw new LC025MethodNotSupportedException();
 	}
 
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
 	@Deprecated
 	@Override
 	public Case2SubCase persistentClassNewInstance(Context context) {
 		return new Case2SubCase();
 	}
 
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
 	@Deprecated
 	@Override
 	public Case2SubCase find(Context context, Long id) throws MercuryException {
 		throw new LC025MethodNotSupportedException();
 	}
 
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
 	@Deprecated
 	@Override
 	public List<Case2SubCase> findAll(Context context) throws MercuryException {
 		throw new LC025MethodNotSupportedException();
 	}
 
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
 	@Deprecated
 	@Override
 	public Case2SubCase findFirst(Context context) throws MercuryException {
@@ -135,18 +148,27 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 		return getEntity(context, getService().insert(context, entityObject));
 	}
 
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
 	@Deprecated
 	@Override
 	public List<Case2SubCase> insertList(Context context, List<Case2SubCase> entityObjects) throws MercuryException {
 		throw new LC025MethodNotSupportedException();
 	}
 
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
 	@Deprecated
 	@Override
 	public Case2SubCase update(Context context, Case2SubCase entityObject) throws MercuryException {
 		throw new LC025MethodNotSupportedException();
 	}
 
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
 	@Deprecated
 	@Override
 	public List<Case2SubCase> updateList(Context context, List<Case2SubCase> entityObjects) throws MercuryException {
@@ -158,43 +180,32 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 		return getId(getService().removeByReferenceId(context, entityObject.getId()), entityObject);
 	}
 
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
 	@Deprecated
 	@Override
 	public List<Long> removeList(Context context, List<Case2SubCase> entityObjects) throws MercuryException {
 		throw new LC025MethodNotSupportedException();
 	}
 
-	@Deprecated
-	@Override
-	public NameValuePair loadNameValuePair(Context context, Object id) throws MercuryException {
-		throw new LC025MethodNotSupportedException();
-	}
-
-	@Deprecated
-	@Override
-	public List<NameValuePair> searchNameValuePairByName(Context context, String searchText,
-			String additionalStaticCredentials) throws MercuryException {
-		throw new LC025MethodNotSupportedException();
-	}
-
-	@Deprecated
-	@Override
-	public List<NameValuePairWSC> loadNameValuePairWSC(Context context) throws MercuryException {
-		throw new LC025MethodNotSupportedException();
-	}
-
-	@Deprecated
 	@Override
 	public String getSpringBeanName() {
 		return RegistrySupport.getBeanName(getClass());
 	}
 
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
 	@Deprecated
 	@Override
 	public List<Case2SubCase> findByIdList(Context context, List<Long> idList) throws MercuryException {
 		throw new LC025MethodNotSupportedException();
 	}
 
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
 	@Deprecated
 	@Override
 	public List<Case2SubCase> filter(Context context, Case2SubCase entityObject) throws MercuryException {
@@ -353,6 +364,84 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 			return referenceId;
 		}
 		return null;
+	}
+
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
+	@Deprecated
+	@Override
+	public NameValuePair loadNameValuePair(Context context, String idAsString) throws MercuryException {
+		throw new LC025MethodNotSupportedException();
+	}
+
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
+	@Deprecated
+	@Override
+	public List<NameValuePair> searchNameValuePairByName(Context context, String searchText) throws MercuryException {
+		throw new LC025MethodNotSupportedException();
+	}
+
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
+	@Deprecated
+	@Override
+	public NameValuePair loadNameValuePair(Context context, Object id, String additionalStaticCredentials)
+			throws MercuryException {
+		throw new LC025MethodNotSupportedException();
+	}
+
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
+	@Deprecated
+	@Override
+	public List<NameValuePair> loadNameValuePairList(Context context, String additionalStaticCredentials)
+			throws MercuryException {
+		throw new LC025MethodNotSupportedException();
+	}
+
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
+	@Deprecated
+	@Override
+	public List<NameValuePair> searchNameValuePairByName(Context context, String searchText,
+			String additionalStaticCredentials) throws MercuryException {
+		throw new LC025MethodNotSupportedException();
+	}
+
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
+	@Deprecated
+	@Override
+	public NameValuePairWSC loadNameValuePairWSC(Context context, Object id, String additionalStaticCredentials)
+			throws MercuryException {
+		throw new LC025MethodNotSupportedException();
+	}
+
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
+	@Deprecated
+	@Override
+	public List<NameValuePairWSC> loadNameValuePairWSCList(Context context, String additionalStaticCredentials)
+			throws MercuryException {
+		throw new LC025MethodNotSupportedException();
+	}
+
+	/**
+	 * @deprecated metoda nie jest wystawiona jako usługa
+	 */
+	@Deprecated
+	@Override
+	public List<NameValuePairWSC> searchNameValuePairWSCByCredentials(Context context, String searchText,
+			String additionalStaticCredentials) throws MercuryException {
+		throw new LC025MethodNotSupportedException();
 	}
 
 }
