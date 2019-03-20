@@ -6,11 +6,11 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="
-	    http://www.springframework.org/schema/beans classpath:pro/ibpm/mercury/spring/spring-beans.xsd
-	    http://www.springframework.org/schema/tx classpath:pro/ibpm/mercury/spring/spring-tx.xsd
-	    http://www.springframework.org/schema/aop classpath:pro/ibpm/mercury/spring/spring-aop.xsd
-	    http://www.springframework.org/schema/jee classpath:pro/ibpm/mercury/spring/spring-jee.xsd
-	    http://www.springframework.org/schema/context classpath:pro/ibpm/mercury/spring/spring-context.xsd"
+	    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	    http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+	    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
 	default-lazy-init="true">
 
 	<bean id="springBean.isRemote"
