@@ -21,10 +21,6 @@
 		</property>
 	</bean>
 
-	<!-- test zwykłych klientów SOAP dla CXF -->
-	<!-- <import resource= "classpath:io/hgdb/mercury/client/cxf/spring-soap.xml"/> -->
-	<!-- test zwykłych klientów SOAP dla CXF -->
-
 	<!-- test klientów spring-remoting -->
 	<import resource="classpath:io/hgdb/mercury/client/cxf/spring-remoting.xml" />
 	<!-- test klientów spring-remoting -->

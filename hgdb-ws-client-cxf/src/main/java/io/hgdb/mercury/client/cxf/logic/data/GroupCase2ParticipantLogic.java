@@ -103,4 +103,21 @@ public class GroupCase2ParticipantLogic
 				getService().findAll(context));
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public IPagedResult<GroupCase2Participant, IPage> findByGroupId(Context context, Long groupId, IPage page)
+			throws MercuryException {
+		return getPagedResult(context,
+				(IWsStatusWithPagedResult) getService().findByGroupId(context, groupId, (PageTransportable) page));
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public IPagedResult<GroupCase2Participant, IPage> findByParticipantId(Context context, Long participantId,
+			IPage page) throws MercuryException {
+		return getPagedResult(context, (IWsStatusWithPagedResult) getService().findByParticipantId(context,
+				participantId, (PageTransportable) page));
+	}
+
+	
 }

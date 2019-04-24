@@ -32,7 +32,9 @@ import pro.ibpm.mercury.business.attr.api.ITypeCodeWithLastVersionBusiness;
 import pro.ibpm.mercury.business.data.api.ICaseBusiness;
 import pro.ibpm.mercury.business.data.api.ICaseBusinessXML;
 import pro.ibpm.mercury.business.data.api.IMrcObject;
+import pro.ibpm.mercury.business.data.api.IParticipant2TypeStatsBusiness;
 import pro.ibpm.mercury.business.data.api.IStore2TypeLastVersionBusiness;
+import pro.ibpm.mercury.business.data.api.IStore2TypeStatsBusiness;
 import pro.ibpm.mercury.business.data.api.MrcDataUtils;
 import pro.ibpm.mercury.business.data.api.MrcObject;
 import pro.ibpm.mercury.business.data.utils.MrcObjectUtils;
@@ -82,8 +84,6 @@ import pro.ibpm.mercury.entities.data.GroupCase2ParticipantPK;
 import pro.ibpm.mercury.entities.data.KtmNumber;
 import pro.ibpm.mercury.entities.data.LoggerEvent;
 import pro.ibpm.mercury.entities.data.Participant;
-import pro.ibpm.mercury.entities.data.Participant2TypeStats;
-import pro.ibpm.mercury.entities.data.Participant2TypeStatsPK;
 import pro.ibpm.mercury.entities.data.ParticipantHistoryStream;
 import pro.ibpm.mercury.entities.data.ParticipantHistoryTrace;
 import pro.ibpm.mercury.entities.data.QuickTask;
@@ -131,7 +131,6 @@ import pro.ibpm.mercury.logic.api.data.IGroupCase2ParticipantLogic;
 import pro.ibpm.mercury.logic.api.data.IGroupCaseLogic;
 import pro.ibpm.mercury.logic.api.data.IKtmNumberLogic;
 import pro.ibpm.mercury.logic.api.data.ILoggerEventLogic;
-import pro.ibpm.mercury.logic.api.data.IParticipant2TypeStatsLogic;
 import pro.ibpm.mercury.logic.api.data.IParticipantHistoryStreamLogic;
 import pro.ibpm.mercury.logic.api.data.IParticipantHistoryTraceLogic;
 import pro.ibpm.mercury.logic.api.data.IParticipantLogic;
@@ -186,6 +185,61 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 			assert logic != null : "Nie znaleziono beana " + beanName;
 
 			logic.sendNotyfication(context, NotyficationType.USER_REQUEST, "Proszę o potwierdzenie zmian.");
+
+		} catch (Exception ex) {
+			logger.error("ERROR : wyjatek", ex);
+			result = "BAD";
+			throw ex;
+		}
+
+		assert result.equals("OK") : "Test zakończył się porażką";
+	}
+
+	@Test
+	public void testStore2TypeStats() throws MercuryException, Exception {
+
+		final String methodName = "testStore2TypeStats";
+		final String beanName = "store2TypeStatsBusiness";
+
+		logger.info("Start testu... " + "\n************************************" + "\n*  SCENARIUSZ {}()  *"
+				+ "\n************************************", new Object[] { methodName });
+
+		String result = "OK";
+
+		try {
+
+			final IStore2TypeStatsBusiness business = (IStore2TypeStatsBusiness) applicationContext.getBean(beanName);
+			assert business != null : "Nie znaleziono beana " + beanName;
+
+			business.repairStats(context);
+
+		} catch (Exception ex) {
+			logger.error("ERROR : wyjatek", ex);
+			result = "BAD";
+			throw ex;
+		}
+
+		assert result.equals("OK") : "Test zakończył się porażką";
+	}
+
+	@Test
+	public void testParticipant2TypeStats() throws MercuryException, Exception {
+
+		final String methodName = "testParticipant2TypeStats";
+		final String beanName = "participant2TypeStatsBusiness";
+
+		logger.info("Start testu... " + "\n************************************" + "\n*  SCENARIUSZ {}()  *"
+				+ "\n************************************", new Object[] { methodName });
+
+		String result = "OK";
+
+		try {
+
+			final IParticipant2TypeStatsBusiness business = (IParticipant2TypeStatsBusiness) applicationContext
+					.getBean(beanName);
+			assert business != null : "Nie znaleziono beana " + beanName;
+
+			business.repairStats(context);
 
 		} catch (Exception ex) {
 			logger.error("ERROR : wyjatek", ex);
@@ -781,12 +835,6 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 	public void testParticipantHistoryTrace() throws MercuryException, Exception {
 		new AnyTest<ParticipantHistoryTrace, Long, IParticipantHistoryTraceLogic>("testParticipantHistoryTrace",
 				"participantHistoryTraceLogic", null, null);
-	}
-
-	@Test
-	public void testParticipant2TypeStats() throws MercuryException, Exception {
-		new AnyTest<Participant2TypeStats, Participant2TypeStatsPK, IParticipant2TypeStatsLogic>(
-				"testParticipant2TypeStats", "participant2TypeStatsLogic", null, null);
 	}
 
 	@Test

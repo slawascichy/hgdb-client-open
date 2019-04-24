@@ -7,12 +7,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import pl.slawas.twl4j.Logger;
 import pl.slawas.twl4j.LoggerFactory;
 import pro.ibpm.mercury.dao.services.IEntityPropertyMapper;
+import pro.ibpm.mercury.dao.services.IObjectInitializerDAO;
+import pro.ibpm.mercury.dto.DtoObject;
+import pro.ibpm.mercury.entities.MEntity;
+import pro.ibpm.mercury.entities.MIdModifier;
 import pro.ibpm.mercury.entities.helpers.SimpleJavaType;
 import pro.ibpm.mercury.exceptions.InternalErrorException;
 import pro.ibpm.mercury.exceptions.MercuryException;
+import pro.ibpm.mercury.registry.RegistryLayer;
+import pro.ibpm.mercury.registry.RegistrySupport;
 import pro.ibpm.mercury.utils.property.config.ObjectMetaData;
 
 /**
@@ -46,7 +54,8 @@ public class EntityPropertyMapper implements IEntityPropertyMapper {
 	private Class<?> targetClazz;
 	/** podstawowy typ obiektu, z którego mapujemy */
 	private Class<?> sourceClazz;
-
+	protected boolean refreshEntity = true;
+	
 	public EntityPropertyMapper() {
 	}
 
@@ -80,6 +89,7 @@ public class EntityPropertyMapper implements IEntityPropertyMapper {
 
 	/* Overridden (non-Javadoc) */
 	@Override
+	@Transactional(readOnly = true)
 	public Object mapObj(Object fromObject) throws MercuryException {
 		if (fromObject == null) {
 			return null;
@@ -90,6 +100,7 @@ public class EntityPropertyMapper implements IEntityPropertyMapper {
 	/* Overridden (non-Javadoc) */
 	@Override
 	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
 	public <S, T> Collection<T> mapObjs(Class<S> elementType, Collection<S> source, Collection<T> target)
 			throws MercuryException {
 		if (source == null) {
@@ -105,6 +116,8 @@ public class EntityPropertyMapper implements IEntityPropertyMapper {
 		return target;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
 	public Object mapObj(Class<?> type, Object fromObject, final int iteration) throws MercuryException {
 
 		if (fromObject == null) {
@@ -129,6 +142,30 @@ public class EntityPropertyMapper implements IEntityPropertyMapper {
 
 			toObject = targetClazz.newInstance();
 
+			/**
+			 * Nadawanie sesji encji - żeby można było później zrobić Hibernate.initalize()
+			 * trzeba tak zainicjować obiekt encji by miał sesję - robimy to poprzez
+			 * prostego find'a - START
+			 */
+			boolean entityIsRefreshed = false;
+			if (refreshEntity && getObjectInitializerDAO() != null && (fromObject instanceof MIdModifier<?>)
+					&& (fromObject instanceof MEntity) && !(fromObject instanceof DtoObject)) {
+				/* Encja - odświeżamy */
+				MIdModifier<?> mEntity = (MIdModifier<?>) fromObject;
+				if (mEntity.getId() != null) {
+					Object refreshedObject = getObjectInitializerDAO().find((Class<? extends MEntity>) type,
+							mEntity.getId());
+					if (refreshedObject != null) {
+						fromObject = refreshedObject;
+						entityIsRefreshed = true;
+					} else {
+						logger.warn("Odświeżanie encji: Nie znalazłem encji {} o identyfikatorze {}",
+								new Object[] { type.getSimpleName(), mEntity.getId() });
+					}
+				}
+			}
+			/** Nadawanie sesji encji - KONIEC */
+
 			for (Map.Entry<String, ObjectMetaData> entry : entityMetaDataForGetter.getPropertiesMap().entrySet()) {
 
 				propertyName = entry.getKey();
@@ -145,7 +182,9 @@ public class EntityPropertyMapper implements IEntityPropertyMapper {
 				setterArg = setterObjectMetaData.getField().getType();
 
 				Object propertyValue = null;
-				SimpleJavaType entityPropJavaType = SimpleJavaType.get(getterObjectMetaData.getField().getType());
+				SimpleJavaType entityPropJavaType = null;
+
+				entityPropJavaType = SimpleJavaType.get(getterObjectMetaData.getField().getType());
 				if (entry.getValue().getMethod() != null) {
 					if (logger.isTraceEnabled()) {
 						logger.trace(
@@ -157,6 +196,10 @@ public class EntityPropertyMapper implements IEntityPropertyMapper {
 										(getterObjectMetaData.getMethod() != null
 												? getterObjectMetaData.getMethod().getDeclaringClass()
 												: "n/a") });
+					}
+					boolean isEntityObject = (fromObject instanceof MEntity) && !(fromObject instanceof DtoObject);
+					if (entityIsRefreshed && getObjectInitializerDAO() != null && isEntityObject) {
+						getObjectInitializerDAO().refresh(getterObjectMetaData.getMethod().invoke(fromObject));
 					}
 					propertyValue = getterObjectMetaData.getMethod().invoke(fromObject);
 				}
@@ -224,6 +267,7 @@ public class EntityPropertyMapper implements IEntityPropertyMapper {
 
 	/* Overridden (non-Javadoc) */
 	@Override
+	@Transactional(readOnly = true)
 	public Object convert(Class<?> type, Object entity, ObjectMetaData entityMetaDataForGetter,
 			ObjectMetaData entityMetaDataForSetter, int iteration) throws MercuryException {
 		Object result = null;
@@ -232,7 +276,13 @@ public class EntityPropertyMapper implements IEntityPropertyMapper {
 				logger.trace("{} --> convert form {} ({}): start\n\tsetter={}\n\tgetter={}", new Object[] { iteration,
 						entity.getClass(), iteration, entityMetaDataForSetter, entityMetaDataForGetter });
 			}
-			IEntityPropertyMapper propertyMapper = new EntityPropertyMapper();
+			IEntityPropertyMapper propertyMapper;
+			if (getBeanName() != null) {
+				RegistrySupport daoRegistry = RegistrySupport.getRegistryImplementation(RegistryLayer.DAO);
+				propertyMapper = (IEntityPropertyMapper) daoRegistry.getContextBean(getBeanName());
+			} else {
+				propertyMapper = new EntityPropertyMapper();
+			}
 			propertyMapper.init(entityMetaDataForSetter.getParamType(), entityMetaDataForSetter.getParamType(),
 					entityMetaDataForGetter, entityMetaDataForSetter);
 			result = propertyMapper.mapObj(type, entity, iteration);
@@ -243,6 +293,7 @@ public class EntityPropertyMapper implements IEntityPropertyMapper {
 	/* Overridden (non-Javadoc) */
 	@Override
 	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
 	public Object convertList(Class<?> elementType, Object collectionOb, ObjectMetaData entityMetaDataForGetter,
 			ObjectMetaData entityMetaDataForSetter, int iteration) throws MercuryException {
 		if (logger.isTraceEnabled()) {
@@ -252,7 +303,7 @@ public class EntityPropertyMapper implements IEntityPropertyMapper {
 
 		if (collectionOb != null) {
 			if (collectionOb instanceof List) {
-				List<Object> list = new ArrayList<Object>();
+				List<Object> list = new ArrayList<>();
 				for (Object entity : (List<Object>) collectionOb) {
 					Object element = convert(elementType, entity, entityMetaDataForGetter, entityMetaDataForSetter,
 							iteration);
@@ -260,7 +311,7 @@ public class EntityPropertyMapper implements IEntityPropertyMapper {
 				}
 				return list;
 			} else if (collectionOb instanceof Set) {
-				Set<Object> set = new HashSet<Object>();
+				Set<Object> set = new HashSet<>();
 				for (Object entity : (Set<Object>) collectionOb) {
 					Object element = convert(elementType, entity, entityMetaDataForGetter, entityMetaDataForSetter,
 							iteration);
@@ -273,6 +324,26 @@ public class EntityPropertyMapper implements IEntityPropertyMapper {
 			}
 		}
 		return null;
+	}
+
+	public IObjectInitializerDAO getObjectInitializerDAO() {
+		return null;
+	}
+
+	public String getBeanName() {
+		return null;
+	}
+	
+	/* Overridden (non-Javadoc) */
+	@Override
+	public boolean isRefreshEntity() {
+		return refreshEntity;
+	}
+
+	/* Overridden (non-Javadoc) */
+	@Override
+	public void setRefreshEntity(boolean refreshEntity) {
+		this.refreshEntity = refreshEntity;
 	}
 
 }

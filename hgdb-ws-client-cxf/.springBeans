@@ -9,7 +9,6 @@
 	<configs>
 		<config>src/test/resources-filtered/io/hgdb/mercury/client/cxf/spring-test.xml</config>
 		<config>src/main/resources/io/hgdb/mercury/client/cxf/spring-remoting.xml</config>
-		<config>src/main/resources/io/hgdb/mercury/client/cxf/spring-soap.xml</config>
 		<config>src/main/resources/io/hgdb/mercury/client/cxf/spring.xml</config>
 	</configs>
 	<autoconfigs>

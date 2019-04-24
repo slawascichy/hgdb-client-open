@@ -42,6 +42,36 @@
 		<property name="service" ref="springBean.InvokerNotyficationService" />
 	</bean>
 
+	<!-- Statystyki - start -->
+	<bean id="springBean.InvokerStore2TypeStatsBusinessService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl"
+			value="${mercury.ws.url}/Store2TypeStatsBusinessAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.business.data.IStore2TypeStatsBusinessAction" />
+		<!--property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
+	</bean>
+	<bean id="store2TypeStatsBusiness" scope="singleton"
+		class="io.hgdb.mercury.client.cxf.business.data.Store2TypeStatsBusiness">
+		<property name="service"
+			ref="springBean.InvokerStore2TypeStatsBusinessService" />
+	</bean>
+	
+	<bean id="springBean.InvokerParticipant2TypeStatsBusinessService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl"
+			value="${mercury.ws.url}/Participant2TypeStatsBusinessAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.business.data.IParticipant2TypeStatsBusinessAction" />
+		<!--property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
+	</bean>
+	<bean id="participant2TypeStatsBusiness" scope="singleton"
+		class="io.hgdb.mercury.client.cxf.business.data.Participant2TypeStatsBusiness">
+		<property name="service"
+			ref="springBean.InvokerParticipant2TypeStatsBusinessService" />
+	</bean>
+	<!-- Statystyki - koniec -->
+
 	<!-- dict -->
 	<bean id="springBean.InvokerRoleService" scope="singleton"
 		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
@@ -345,20 +375,6 @@
 	<bean id="participantLogic" scope="singleton"
 		class="pro.ibpm.mercury.ws.client.cxf.logic.data.ParticipantLogic">
 		<property name="service" ref="springBean.InvokerParticipantService" />
-	</bean>
-
-	<bean id="springBean.InvokerParticipant2TypeStatsService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-		<property name="serviceUrl"
-			value="${mercury.ws.url}/Participant2TypeStatsAction" />
-		<property name="serviceInterface"
-			value="pro.ibpm.mercury.ws.server.api.actions.data.IParticipant2TypeStatsAction" />
-		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
-	</bean>
-	<bean id="participant2TypeStatsLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.Participant2TypeStatsLogic">
-		<property name="service"
-			ref="springBean.InvokerParticipant2TypeStatsService" />
 	</bean>
 
 	<bean id="springBean.InvokerParticipantHistoryStreamService"
