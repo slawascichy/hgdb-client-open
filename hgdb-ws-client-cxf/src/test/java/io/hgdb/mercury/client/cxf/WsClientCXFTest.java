@@ -23,6 +23,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 import io.hgdb.mercury.client.cxf.business.data.CaseBusiness;
+import io.hgdb.mercury.client.cxf.test.helpers.WsCaseStreamHistoryHelper;
 import io.hgdb.mercury.client.mock.helpers.MockType;
 import pl.slawas.entities.NameValuePair;
 import pl.slawas.entities._ICopyable;
@@ -31,10 +32,12 @@ import pro.ibpm.mercury.business.attr.api.IType2TypeWithLastVersionBusiness;
 import pro.ibpm.mercury.business.attr.api.ITypeCodeWithLastVersionBusiness;
 import pro.ibpm.mercury.business.data.api.ICaseBusiness;
 import pro.ibpm.mercury.business.data.api.ICaseBusinessXML;
+import pro.ibpm.mercury.business.data.api.ICaseHistoryStreamBusiness;
 import pro.ibpm.mercury.business.data.api.IMrcObject;
 import pro.ibpm.mercury.business.data.api.IParticipant2TypeStatsBusiness;
 import pro.ibpm.mercury.business.data.api.IStore2TypeLastVersionBusiness;
 import pro.ibpm.mercury.business.data.api.IStore2TypeStatsBusiness;
+import pro.ibpm.mercury.business.data.api.MrcCaseHistoryStream;
 import pro.ibpm.mercury.business.data.api.MrcDataUtils;
 import pro.ibpm.mercury.business.data.api.MrcObject;
 import pro.ibpm.mercury.business.data.utils.MrcObjectUtils;
@@ -240,6 +243,36 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 			assert business != null : "Nie znaleziono beana " + beanName;
 
 			business.repairStats(context);
+
+		} catch (Exception ex) {
+			logger.error("ERROR : wyjatek", ex);
+			result = "BAD";
+			throw ex;
+		}
+
+		assert result.equals("OK") : "Test zakończył się porażką";
+	}
+
+	@Test
+	public void testCaseHistoryStreamBusiness() throws MercuryException, Exception {
+
+		final String methodName = "testCaseHistoryStreamBusiness";
+		final String beanName = "caseHistoryStreamBusiness";
+
+		logger.info("Start testu... " + "\n************************************" + "\n*  SCENARIUSZ {}()  *"
+				+ "\n************************************", new Object[] { methodName });
+
+		String result = "OK";
+
+		try {
+
+			final ICaseHistoryStreamBusiness business = (ICaseHistoryStreamBusiness) applicationContext
+					.getBean(beanName);
+			assert business != null : "Nie znaleziono beana " + beanName;
+
+			IPagedResult<MrcCaseHistoryStream, IPage> pagedResult = business.loadCaseHistoryStream(context, 2003L,
+					/* isAsc */ true, /* page */ null);
+			WsCaseStreamHistoryHelper.printResult2Log(logger, pagedResult.getResult());
 
 		} catch (Exception ex) {
 			logger.error("ERROR : wyjatek", ex);
@@ -804,8 +837,10 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 
 	@Test
 	public void testCaseHistoryStream() throws MercuryException, Exception {
+		Set<String> skipMethods = new HashSet<String>();
+		skipMethods.add(AnyTest.FIND_ALL_METHOD);
 		new AnyTest<CaseHistoryStream, Long, ICaseHistoryStreamLogic>("testCaseHistoryStream", "caseHistoryStreamLogic",
-				null, null);
+				null, null, skipMethods);
 	}
 
 	@Test
@@ -821,14 +856,18 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 
 	@Test
 	public void testStoreHistoryStream() throws MercuryException, Exception {
+		Set<String> skipMethods = new HashSet<String>();
+		skipMethods.add(AnyTest.FIND_ALL_METHOD);
 		new AnyTest<StoreHistoryStream, Long, IStoreHistoryStreamLogic>("testStoreHistoryStream",
-				"storeHistoryStreamLogic", null, null);
+				"storeHistoryStreamLogic", null, null, skipMethods);
 	}
 
 	@Test
 	public void testParticipantHistoryStream() throws MercuryException, Exception {
+		Set<String> skipMethods = new HashSet<String>();
+		skipMethods.add(AnyTest.FIND_ALL_METHOD);
 		new AnyTest<ParticipantHistoryStream, Long, IParticipantHistoryStreamLogic>("testParticipantHistoryStream",
-				"participantHistoryStreamLogic", null, null);
+				"participantHistoryStreamLogic", null, null, skipMethods);
 	}
 
 	@Test
@@ -1140,10 +1179,77 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 		void run(L logic) throws MercuryException, Exception;
 	}
 
+	/**
+	 * 
+	 * AnyTest - uruchomienie scenariusza testowego, który testuje następujące
+	 * metody usług:
+	 * <ul>
+	 * <li>findFirst</li>
+	 * <li>find (po kluczu głównym)</li>
+	 * <li>findByIdList</li>
+	 * <li>findAll</li>
+	 * </ul>
+	 *
+	 * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+	 * @version $Revision: 1.1 $
+	 *
+	 * @param <E>
+	 * @param <Pk>
+	 * @param <L>
+	 */
 	@SuppressWarnings({ "unchecked" })
 	class AnyTest<E extends MIdModifier<Pk> & _ICopyable<E> & MEntity, Pk, L extends MDictLogic<E, Pk>> {
+
+		/** nazwa reprezentujące testowaną metodę 'findFirst' */
+		public static final String FIND_FIRST_METHOD = "findFirst";
+		/** nazwa reprezentujące testowaną metodę 'find' */
+		public static final String FIND_METHOD = "find";
+		/** nazwa reprezentujące testowaną metodę 'findByIdList' */
+		public static final String FIND_BY_ID_LIST_METHOD = "findByIdList";
+		/** nazwa reprezentujące testowaną metodę 'findAll' */
+		public static final String FIND_ALL_METHOD = "findAll";
+
+		/**
+		 * Konstruktor tworzący scenariusz testowania wszystkich wskazanych metod.
+		 * 
+		 * @param methodName
+		 *            nazwa metody uruchamiająca test
+		 * @param beanName
+		 *            nazwa bean'a spring'owego z usługą
+		 * @param beforeTest
+		 *            operacje wykonywane przed testem
+		 * @param test
+		 *            dodatkowy test uzupełniający scenariusz testowy
+		 * @throws MercuryException
+		 * @throws Exception
+		 */
 		AnyTest(final String methodName, final String beanName, final IAnyBeforeTest<E, Pk, L> beforeTest,
 				final IAnyTest<E, Pk, L> test) throws MercuryException, Exception {
+			this(methodName, beanName, beforeTest, test, /* skipMethods */ null);
+		}
+
+		/**
+		 * 
+		 * Konstruktor tworzący scenariusz testowania wskazanych metod, z możliwością
+		 * pominięcia jednej z nich, np. w przypadku gdy metoda nie jest wspierana przez
+		 * usługę.
+		 * 
+		 * @param methodName
+		 *            nazwa metody uruchamiająca test
+		 * @param beanName
+		 *            nazwa bean'a spring'owego z usługą
+		 * @param beforeTest
+		 *            operacje wykonywane przed testem
+		 * @param test
+		 *            dodatkowy test uzupełniający scenariusz testowy
+		 * @param skipMethods
+		 *            lista nazw metod, które mają być pominięte w scenariuszu. Możliwe
+		 *            do pominięcia metody to 'findByIdList' oraz 'findAll'
+		 * @throws MercuryException
+		 * @throws Exception
+		 */
+		AnyTest(final String methodName, final String beanName, final IAnyBeforeTest<E, Pk, L> beforeTest,
+				final IAnyTest<E, Pk, L> test, Set<String> skipMethods) throws MercuryException, Exception {
 
 			if (skipPackageTest || Boolean.parseBoolean(props.getProperty("test.skip.method." + methodName))) {
 				return;
@@ -1153,7 +1259,7 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 					+ "\n************************************", new Object[] { methodName });
 
 			String result = "OK";
-
+			boolean skip;
 			try {
 
 				final L logic = (L) applicationContext.getBean(beanName);
@@ -1179,7 +1285,8 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 				assert byPk != null : "Nie znaleziono encji wg pk";
 				assert getPk(first).equals(getPk(byPk)) : "Znaleziona encja wg pk jest inna";
 
-				if ((logic instanceof MDataLogic) && !(logic instanceof MCatalogLogic)) {
+				skip = skipMethods != null && skipMethods.contains(FIND_BY_ID_LIST_METHOD);
+				if (!skip && (logic instanceof MDataLogic) && !(logic instanceof MCatalogLogic)) {
 					List<Pk> pkBag = new ArrayList<Pk>();
 					pkBag.add(pk);
 					final MDataLogic<E, Pk> dataLogic = (MDataLogic<E, Pk>) logic;
@@ -1189,7 +1296,8 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 
 				}
 
-				if (!(logic instanceof MBigDataLogic)) {
+				skip = skipMethods != null && skipMethods.contains(FIND_ALL_METHOD);
+				if (!skip && !(logic instanceof MBigDataLogic)) {
 					final List<E> bag = logic.findAll(context);
 					assert (bag != null) && (!bag.isEmpty()) : "Nie znaleziono wszystkich encji";
 				}

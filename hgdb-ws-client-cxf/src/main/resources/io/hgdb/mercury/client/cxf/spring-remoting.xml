@@ -673,6 +673,20 @@
 		<property name="isRemote" ref="springBean.isRemote"/>
 	</bean>
 	<!-- CaseBusiness -->
+	
+	<!-- CaseHistoryStreamBusiness -->
+	<bean id="springBean.InvokerCaseHistoryStreamBusinessService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/CaseHistoryStreamBusinessAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.business.data.ICaseHistoryStreamBusinessAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="caseHistoryStreamBusiness" scope="singleton"
+		class="io.hgdb.mercury.client.cxf.business.data.CaseHistoryStreamBusiness">
+		<property name="service" ref="springBean.InvokerCaseHistoryStreamBusinessService" />
+	</bean>
+	<!-- CaseHistoryStreamBusiness -->
 
 	<!-- Store2TypeLastVersionBusiness -->
 	<bean id="springBean.InvokerStore2TypeLastVersionBusinessService"

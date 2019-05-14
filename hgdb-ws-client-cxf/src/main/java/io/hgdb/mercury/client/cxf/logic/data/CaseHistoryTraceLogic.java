@@ -1,14 +1,15 @@
 package io.hgdb.mercury.client.cxf.logic.data;
 
 import java.util.List;
+import java.util.Map;
 
-import io.hgdb.mercury.client.cxf.logic.WsClientBigDataLogic;
+import io.hgdb.mercury.client.cxf.logic.WsClientCustomLogic;
 import pro.ibpm.mercury.context.Context;
 import pro.ibpm.mercury.dto.paging.PageTransportable;
-import pro.ibpm.mercury.entities.beans.EntityList;
 import pro.ibpm.mercury.entities.data.CaseHistoryTrace;
 import pro.ibpm.mercury.exceptions.MercuryException;
 import pro.ibpm.mercury.logic.api.data.ICaseHistoryTraceLogic;
+import pro.ibpm.mercury.logic.exceptions.LC025MethodNotSupportedException;
 import pro.ibpm.mercury.logic.paging.IPage;
 import pro.ibpm.mercury.logic.paging.IPagedResult;
 import pro.ibpm.mercury.ws.server.api.actions.data.ICaseHistoryTraceAction;
@@ -19,34 +20,13 @@ import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithPagedResult;
  * CaseHistoryTraceLogic
  *
  * @author Sławomir Cichy &lt;slawomir.cichy@ibpm.pro&gt;
- * @version $Revision: 1.1 $ 
+ * @version $Revision: 1.1 $
  *
  */
-public class CaseHistoryTraceLogic extends WsClientBigDataLogic<CaseHistoryTrace, Long, ICaseHistoryTraceAction>
+public class CaseHistoryTraceLogic extends WsClientCustomLogic<CaseHistoryTrace, Long, ICaseHistoryTraceAction>
 		implements ICaseHistoryTraceLogic {
 
 	private static final long serialVersionUID = 2991967188307553981L;
-
-	@Override
-	public CaseHistoryTrace insert(Context context, final CaseHistoryTrace e) throws MercuryException {
-		return getEntity(context, getService().insert(context, e));
-	}
-
-	@Override
-	public EntityList<CaseHistoryTrace, Long> insertList(Context context, List<CaseHistoryTrace> eBag)
-			throws MercuryException {
-		return getEntityCollection(context, getService().insertBag(context, eBag));
-	}
-
-	@Override
-	public Long remove(Context context, final CaseHistoryTrace e) throws MercuryException {
-		return getId(getService().remove(context, e), e);
-	}
-
-	@Override
-	public List<Long> removeList(Context context, final List<CaseHistoryTrace> eBag) throws MercuryException {
-		return getIds(getService().removeBag(context, eBag), eBag);
-	}
 
 	@Override
 	public CaseHistoryTrace find(Context context, final Long pk) throws MercuryException {
@@ -56,17 +36,6 @@ public class CaseHistoryTraceLogic extends WsClientBigDataLogic<CaseHistoryTrace
 	@Override
 	public CaseHistoryTrace findFirst(Context context) throws MercuryException {
 		return getEntity(context, getService().findFirst(context));
-	}
-
-	@Override
-	public CaseHistoryTrace update(Context context, CaseHistoryTrace e) throws MercuryException {
-		return getEntity(context, getService().update(context, e));
-	}
-
-	@Override
-	public EntityList<CaseHistoryTrace, Long> updateList(Context context, List<CaseHistoryTrace> eBag)
-			throws MercuryException {
-		return getEntityCollection(context, getService().updateBag(context, eBag));
 	}
 
 	@Override
@@ -88,8 +57,14 @@ public class CaseHistoryTraceLogic extends WsClientBigDataLogic<CaseHistoryTrace
 	}
 
 	@Override
-	public List<CaseHistoryTrace> findAll(Context context) throws MercuryException {
-		return getEntityCollection(context, getService().findAll(context));
+	public List<CaseHistoryTrace> filter(Context context, CaseHistoryTrace entityObject) throws MercuryException {
+		throw new LC025MethodNotSupportedException();
+	}
+
+	@Override
+	public IPagedResult<CaseHistoryTrace, IPage> filter(Context context, Map<String, Object> sqlParams, IPage page)
+			throws MercuryException {
+		throw new LC025MethodNotSupportedException();
 	}
 
 }
