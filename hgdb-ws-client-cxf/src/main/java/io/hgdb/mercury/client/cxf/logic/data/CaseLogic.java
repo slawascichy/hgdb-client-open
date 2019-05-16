@@ -420,4 +420,9 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 		return getPagedResult(context, (IWsStatusWithPagedResult) getService().searchLuceneByInventoryCode(context,
 				searchText, (PageTransportable) page));
 	}
+
+	@Override
+	public Case loadNewestVersion(Context context, Long oldVersionCaseId) throws MercuryException {
+		return getEntity(context, getService().loadNewestVersion(context, oldVersionCaseId));
+	}
 }
