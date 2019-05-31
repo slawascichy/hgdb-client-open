@@ -14,6 +14,7 @@ import pro.ibpm.mercury.logic.paging.IPage;
 import pro.ibpm.mercury.logic.paging.IPagedResult;
 import pro.ibpm.mercury.ws.server.api.actions.data.ICaseHistoryTraceAction;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithPagedResult;
+import pro.ibpm.mercury.ws.server.api.returns.WsStatus;
 
 /**
  * 
@@ -65,6 +66,12 @@ public class CaseHistoryTraceLogic extends WsClientCustomLogic<CaseHistoryTrace,
 	public IPagedResult<CaseHistoryTrace, IPage> filter(Context context, Map<String, Object> sqlParams, IPage page)
 			throws MercuryException {
 		throw new LC025MethodNotSupportedException();
+	}
+
+	@Override
+	public void clearQueryCache(Context context) throws MercuryException {
+		WsStatus wsStatus = getService().clearQueryCache(context);
+		checkWsStatus(wsStatus);
 	}
 
 }

@@ -44,4 +44,9 @@ public abstract class WsClientBigDataLogic<E extends MIdModifier<Pk> & _ICopyabl
 		throw new LC025MethodNotSupportedException();
 	}
 
+	@Override
+	public void clearQueryCache(Context context) throws MercuryException {
+		throw new LC025MethodNotSupportedException();
+	}
+
 }

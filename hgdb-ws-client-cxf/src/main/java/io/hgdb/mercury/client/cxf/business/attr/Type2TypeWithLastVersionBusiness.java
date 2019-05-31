@@ -17,6 +17,7 @@ import pro.ibpm.mercury.logic.paging.IPage;
 import pro.ibpm.mercury.logic.paging.IPagedResult;
 import pro.ibpm.mercury.ws.server.api.actions.business.attr.IType2TypeWithLastVersionBusinessAction;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithPagedResult;
+import pro.ibpm.mercury.ws.server.api.returns.WsStatus;
 
 /**
  * 
@@ -174,7 +175,8 @@ public class Type2TypeWithLastVersionBusiness extends
 	@Override
 	public void removeNodeFromMountPoint(Context paramContext, TypeCodeWithLastVersion paramNodeArg, String paramString)
 			throws MercuryException {
-		getService().removeNodeFromMountPoint(paramContext, paramNodeArg, paramString);
+		WsStatus wsStatus = getService().removeNodeFromMountPoint(paramContext, paramNodeArg, paramString);
+		checkWsStatus(wsStatus);
 	}
 
 }

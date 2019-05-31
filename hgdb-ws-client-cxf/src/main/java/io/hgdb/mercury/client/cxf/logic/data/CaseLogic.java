@@ -25,6 +25,7 @@ import pro.ibpm.mercury.logic.paging.IPagedResult;
 import pro.ibpm.mercury.search.SearchFieldSimple;
 import pro.ibpm.mercury.ws.server.api.actions.data.ICaseAction;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithPagedResult;
+import pro.ibpm.mercury.ws.server.api.returns.WsStatus;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithLongValue;
 
 /**
@@ -424,5 +425,11 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 	@Override
 	public Case loadNewestVersion(Context context, Long oldVersionCaseId) throws MercuryException {
 		return getEntity(context, getService().loadNewestVersion(context, oldVersionCaseId));
+	}
+
+	@Override
+	public void clearQueryCache(Context context) throws MercuryException {
+		WsStatus wsStatus = getService().clearQueryCache(context);
+		checkWsStatus(wsStatus);
 	}
 }

@@ -4,7 +4,10 @@
 package io.hgdb.mercury.client.cxf.logic.data;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 
 import io.hgdb.mercury.client.cxf.logic.WsClientBigDataLogic;
 import pro.ibpm.mercury.context.Context;
@@ -12,20 +15,20 @@ import pro.ibpm.mercury.dto.paging.PageTransportable;
 import pro.ibpm.mercury.entities.beans.EntityList;
 import pro.ibpm.mercury.entities.data.CaseDocument;
 import pro.ibpm.mercury.entities.data.CaseDocumentPK;
-import pro.ibpm.mercury.exceptions.InternalErrorException;
 import pro.ibpm.mercury.exceptions.MercuryException;
 import pro.ibpm.mercury.logic.api.data.ICaseDocumentLogic;
 import pro.ibpm.mercury.logic.paging.IPage;
 import pro.ibpm.mercury.logic.paging.IPagedResult;
 import pro.ibpm.mercury.ws.server.api.actions.data.ICaseDocumentAction;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithPagedResult;
+import pro.ibpm.mercury.ws.server.api.returns.WsStatus;
 
 /**
  * 
  * CaseDocumentLogic
  *
  * @author Sławomir Cichy &lt;slawomir.cichy@ibpm.pro&gt;
- * @version $Revision: 1.1 $ 
+ * @version $Revision: 1.1 $
  *
  */
 public class CaseDocumentLogic extends WsClientBigDataLogic<CaseDocument, CaseDocumentPK, ICaseDocumentAction>
@@ -102,52 +105,58 @@ public class CaseDocumentLogic extends WsClientBigDataLogic<CaseDocument, CaseDo
 
 	@Override
 	public List<CaseDocument> findAllVersionsByCaseId(Context context, Long caseObjId) throws MercuryException {
-		return getEntityCollection(context, getService().findAllVersionsByCaseId(context, caseObjId));
+		if (caseObjId != null) {
+			return getEntityCollection(context, getService().findAllVersionsByCaseId(context, caseObjId));
+		}
+		return Collections.emptyList();
 	}
 
 	@Override
 	public List<CaseDocument> findLastVersionsByCaseId(Context context, Long caseObjId) throws MercuryException {
-		return getEntityCollection(context, getService().findLastVersionsByCaseId(context, caseObjId));
-	}
-
-	@Override
-	public List<CaseDocument> getAllByVerionSeries(Context context, CaseDocument caseDoc) throws MercuryException {
-		if (caseDoc.getId() == null) {
-			throw new InternalErrorException(
-					"Brak definicji identyfikatora, na podstawie, którego ma zostać zdefiniowana wartość pola 'versionSeriesId'.");
+		if (caseObjId != null) {
+			return getEntityCollection(context, getService().findLastVersionsByCaseId(context, caseObjId));
 		}
-		return getAllByVerionSeries(context, caseDoc.getId().getVersionSeriesId());
+		return Collections.emptyList();
 	}
 
 	@Override
-	public List<CaseDocument> getAllByVerionSeries(Context context, String versionSeriesId) throws MercuryException {
-		return getEntityCollection(context,
-				getService().findAllCasesByVersionSeries(context, (versionSeriesId == null) ? null : versionSeriesId));
+	public CaseDocument findLastVersionByCaseAndVerionSeries(Context context, Long caseId, String versionSeriesId)
+			throws MercuryException {
+		if (versionSeriesId != null && caseId != null) {
+			return getEntity(context, getService().findLastVersionByCaseIdAndSeries(context, caseId, versionSeriesId));
+		}
+		return null;
+	}
+
+	@Override
+	public List<CaseDocument> findAllByVersionSeries(Context context, CaseDocument caseDoc) throws MercuryException {
+		String versionSeriesId = null;
+		if (caseDoc != null && caseDoc.getId() != null) {
+			versionSeriesId = caseDoc.getId().getVersionSeriesId();
+		}
+		return findAllByVersionSeries(context, versionSeriesId);
+	}
+
+	@Override
+	public List<CaseDocument> findAllByVersionSeries(Context context, String versionSeriesId) throws MercuryException {
+		if (StringUtils.isNotBlank(versionSeriesId)) {
+			return getEntityCollection(context, getService().findAllVersionsByVersionSeries(context, versionSeriesId));
+		}
+		return Collections.emptyList();
 	}
 
 	@Override
 	public List<CaseDocument> findByObjectId(Context context, String objectId) throws MercuryException {
-		return getEntityCollection(context, getService().findByObjectId(context, (objectId == null) ? null : objectId));
+		if (StringUtils.isNotBlank(objectId)) {
+			return getEntityCollection(context, getService().findByObjectId(context, objectId));
+		}
+		return Collections.emptyList();
 	}
 
 	@Override
-	public CaseDocument getLastVersionByCaseAndSeries(Context context, Long caseId, String versionSeriesId)
-			throws MercuryException {
-		return getEntity(context, getService().findLastVersionByCaseIdAndSeries(context, caseId, versionSeriesId));
+	public void clearQueryCache(Context context) throws MercuryException {
+		WsStatus wsStatus = getService().clearQueryCache(context);
+		checkWsStatus(wsStatus);
 	}
 
-	@Override
-	public List<CaseDocument> getAllLastVersionsByCaseId(Context context, Long caseId) throws MercuryException {
-		return getEntityCollection(context, getService().findAllLastVersionsByCaseId(context, caseId));
-	}
-
-	@Override
-	public List<CaseDocument> getAllVersionsByCaseId(Context context, Long caseId) throws MercuryException {
-		return getEntityCollection(context, getService().findAllVersionsByCaseId(context, caseId));
-	}
-
-	@Override
-	public List<CaseDocument> findAll(Context context) throws MercuryException {
-		return getEntityCollection(context, getService().findAll(context));
-	}
 }

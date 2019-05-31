@@ -769,7 +769,7 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 						logger.info("e.id={} e.versionLabel={} e.comment={} e.author={}" + " e.id.versionSeries={}",
 								new Object[] { e.getId(), e.getVersionLabel(), e.getModifyComment(), e.getAuthor(),
 										e.getId().getVersionSeriesId() });
-						List<CaseDocument> bag = logic.getAllByVerionSeries(context, e);
+						List<CaseDocument> bag = logic.findAllByVersionSeries(context, e);
 						final CaseDocument e4Update = new CaseDocument();
 						e.copyTo(e4Update);
 						final String text = "[" + Calendar.getInstance().getTimeInMillis() + "] &ampersand&";
@@ -817,7 +817,7 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 
 						assert comment.equals(e.getModifyComment()) : "Nie zmieniono caseDocument.comment3";
 						assert text.equals(e.getVersionLabel()) : "Nie zmieniono caseDocument.versionLabel3";
-						bag = logic.getAllVersionsByCaseId(context, e.getId().getCaseId());
+						bag = logic.findAllVersionsByCaseId(context, e.getId().getCaseId());
 						assert (bag != null) && (!bag.isEmpty()) : "Nie znaleziono caseDocuments";
 						List<CaseDocumentPK> pks = new ArrayList<CaseDocumentPK>();
 						int i = 0;

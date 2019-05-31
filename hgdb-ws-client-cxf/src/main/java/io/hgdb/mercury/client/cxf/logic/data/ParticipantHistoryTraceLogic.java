@@ -14,6 +14,7 @@ import pro.ibpm.mercury.logic.paging.IPage;
 import pro.ibpm.mercury.logic.paging.IPagedResult;
 import pro.ibpm.mercury.ws.server.api.actions.data.IParticipantHistoryTraceAction;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithPagedResult;
+import pro.ibpm.mercury.ws.server.api.returns.WsStatus;
 
 /**
  * @author Karol Kowalczyk
@@ -59,4 +60,11 @@ public class ParticipantHistoryTraceLogic
 			IPage page) throws MercuryException {
 		throw new LC025MethodNotSupportedException();
 	}
+
+	@Override
+	public void clearQueryCache(Context context) throws MercuryException {
+		WsStatus wsStatus = getService().clearQueryCache(context);
+		checkWsStatus(wsStatus);
+	}
+
 }

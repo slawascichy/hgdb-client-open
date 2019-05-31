@@ -697,4 +697,10 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 		this.isRemote = isRemote;
 	}
 
+	@Override
+	public void clearQueryCache(Context context) throws MercuryException {
+		WsStatus wsStatus = getService().clearQueryCache(context);
+		checkWsStatus(wsStatus);
+	}
+
 }
