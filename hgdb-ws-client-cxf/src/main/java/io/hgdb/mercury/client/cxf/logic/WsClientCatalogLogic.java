@@ -25,7 +25,6 @@ import pro.ibpm.mercury.exceptions.MercuryException;
 import pro.ibpm.mercury.logic.MCatalogLogic;
 import pro.ibpm.mercury.utils.property.config.ObjectMetaData;
 import pro.ibpm.mercury.utils.property.config.ObjectMetaDataHelper;
-import pro.ibpm.mercury.ws.server.api.actions.IActionNVP;
 import pro.ibpm.mercury.ws.server.api.actions.IActionRoot;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatus;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithDtos;
@@ -55,7 +54,7 @@ public abstract class WsClientCatalogLogic<
 		/* 3 */
 		Id,
 		/* 4 */
-		Ws extends IActionRoot & IActionNVP> extends WsClientBigDataLogic<Relationship, RelationshipId, Ws>
+		Ws extends IActionRoot> extends WsClientBigDataLogic<Relationship, RelationshipId, Ws>
 		implements MCatalogLogic<Relationship, RelationshipId, Node, Id> {
 
 	/** Obiekt klasy node. */

@@ -21,6 +21,7 @@ import io.hgdb.mercury.client.test.TestPropertiesLoader;
 import junit.framework.TestCase;
 import pro.ibpm.mercury.config.MercuryConfig;
 import pro.ibpm.mercury.ws.server.api.actions.INotyficationAction;
+import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithStringValue;
 
 /**
  * 
@@ -80,7 +81,8 @@ public class SimpleClientTest extends TestCase {
 
 		INotyficationAction service = (INotyficationAction) factory.create();
 
-		String echoResponse = service.echo(MercuryConfig.createDefaultContext(), "Test");
+		WsStatusWithStringValue returnValue = service.echo(MercuryConfig.createDefaultContext(), "Test");
+		String echoResponse = returnValue.getValue();
 		System.out.println("--->testSoapSecurityConnection: " + echoResponse);
 
 	}
@@ -99,7 +101,8 @@ public class SimpleClientTest extends TestCase {
 
 		INotyficationAction service = (INotyficationAction) remote.getObject();
 
-		String echoResponse = service.echo(MercuryConfig.createDefaultContext(), "Test");
+		WsStatusWithStringValue returnValue = service.echo(MercuryConfig.createDefaultContext(), "Test");
+		String echoResponse = returnValue.getValue();
 		System.out.println("--->testRemoteSecurityConnection: " + echoResponse);
 
 	}

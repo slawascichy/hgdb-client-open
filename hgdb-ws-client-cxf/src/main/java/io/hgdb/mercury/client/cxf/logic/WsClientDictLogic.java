@@ -3,8 +3,11 @@
  */
 package io.hgdb.mercury.client.cxf.logic;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +44,7 @@ import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithNameValuePairDtos;
  * @param <Ws>
  */
 @SuppressWarnings("serial")
-public abstract class WsClientDictLogic<E extends MEntity & MIdModifier<Pk>, Pk, Ws extends IActionRoot & IActionNVP>
+public abstract class WsClientDictLogic<E extends MEntity & MIdModifier<Pk>, Pk, Ws extends IActionRoot>
 		extends WsClientRoot<E, Pk, Ws> implements MDictLogic<E, Pk>, IWsClientDictLogic<E, Pk> {
 
 	/** Obiekt klasy encji. */
@@ -113,14 +116,56 @@ public abstract class WsClientDictLogic<E extends MEntity & MIdModifier<Pk>, Pk,
 		if (id == null) {
 			return null;
 		}
-		WsStatusWithNameValuePairDto dto = getService().loadNameValuePair(context, id);
-		return dto.getDto();
+		Ws service = getService();
+		if (service instanceof IActionNVP) {
+			return executeLoadNameValuePair((IActionNVP) service, context, id);
+		} else {
+			throw new LC025MethodNotSupportedException();
+		}
+	}
+
+	protected NameValuePair executeLoadNameValuePair(IActionNVP service, Context context, String id)
+			throws LC025MethodNotSupportedException {
+		final String methodName = "loadNameValuePair";
+		Class<?> parTypes[] = new Class[] { Context.class, String.class };
+		Method method;
+		try {
+			method = service.getClass().getMethod(methodName, parTypes);
+			WsStatusWithNameValuePairDto dto = (WsStatusWithNameValuePairDto) method.invoke(service, context, id);
+			return dto.getDto();
+		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			throw new LC025MethodNotSupportedException(e);
+		}
 	}
 
 	@Override
 	public List<NameValuePair> searchNameValuePairByName(Context context, String searchText) throws MercuryException {
-		WsStatusWithNameValuePairDtos dtos = getService().searchNameValuePairByName(context, searchText);
-		return dtos.getDtos() != null ? new ArrayList<NameValuePair>(dtos.getDtos()) : new ArrayList<NameValuePair>();
+		if (searchText == null) {
+			return Collections.emptyList();
+		}
+		Ws service = getService();
+		if (service instanceof IActionNVP) {
+			return executeSearchNameValuePairByNamer((IActionNVP) service, context, searchText);
+		} else {
+			throw new LC025MethodNotSupportedException();
+		}
+	}
+
+	protected List<NameValuePair> executeSearchNameValuePairByNamer(IActionNVP service, Context context,
+			String searchText) throws LC025MethodNotSupportedException {
+		final String methodName = "searchNameValuePairByName";
+		Class<?> parTypes[] = new Class[] { Context.class, String.class };
+		Method method;
+		try {
+			method = service.getClass().getMethod(methodName, parTypes);
+			WsStatusWithNameValuePairDtos dtos = (WsStatusWithNameValuePairDtos) method.invoke(service, context,
+					searchText);
+			return dtos.getDtos() != null ? new ArrayList<>(dtos.getDtos()) : new ArrayList<>();
+		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			throw new LC025MethodNotSupportedException(e);
+		}
 	}
 
 	@Override

@@ -15,7 +15,6 @@ import pro.ibpm.mercury.exceptions.MercuryException;
 import pro.ibpm.mercury.logic.MDataLogic;
 import pro.ibpm.mercury.logic.MModifyInfoHelper;
 import pro.ibpm.mercury.logic.exceptions.LC025MethodNotSupportedException;
-import pro.ibpm.mercury.ws.server.api.actions.IActionNVP;
 import pro.ibpm.mercury.ws.server.api.actions.IActionRoot;
 
 /**
@@ -30,7 +29,7 @@ import pro.ibpm.mercury.ws.server.api.actions.IActionRoot;
  * @param <Ws>
  */
 @SuppressWarnings("serial")
-public abstract class WsClientDataLogic<E extends MEntity & MIdModifier<Pk>, Pk, Ws extends IActionRoot & IActionNVP>
+public abstract class WsClientDataLogic<E extends MEntity & MIdModifier<Pk>, Pk, Ws extends IActionRoot>
 		extends WsClientDictLogic<E, Pk, Ws> implements MDataLogic<E, Pk> {
 
 	@Override

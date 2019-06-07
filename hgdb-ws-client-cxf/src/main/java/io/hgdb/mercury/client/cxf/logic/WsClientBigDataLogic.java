@@ -15,7 +15,6 @@ import pro.ibpm.mercury.logic.MBigDataLogic;
 import pro.ibpm.mercury.logic.exceptions.LC025MethodNotSupportedException;
 import pro.ibpm.mercury.logic.paging.IPage;
 import pro.ibpm.mercury.logic.paging.IPagedResult;
-import pro.ibpm.mercury.ws.server.api.actions.IActionNVP;
 import pro.ibpm.mercury.ws.server.api.actions.IActionRoot;
 
 /**
@@ -30,7 +29,7 @@ import pro.ibpm.mercury.ws.server.api.actions.IActionRoot;
  * @param <Ws>
  */
 @SuppressWarnings("serial")
-public abstract class WsClientBigDataLogic<E extends MIdModifier<Pk> & _ICopyable<E> & MEntity, Pk, Ws extends IActionRoot & IActionNVP>
+public abstract class WsClientBigDataLogic<E extends MIdModifier<Pk> & _ICopyable<E> & MEntity, Pk, Ws extends IActionRoot>
 		extends WsClientDataLogic<E, Pk, Ws> implements MBigDataLogic<E, Pk> {
 
 	@Override
