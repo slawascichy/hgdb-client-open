@@ -39,15 +39,22 @@
 		<dom4j.version>1.6.1</dom4j.version>
 		<xerces.version>2.11.0</xerces.version>
 		<xml-apis.version>1.4.01</xml-apis.version>
+		<!-- Cache - pamięci podręczne -->
+		<ehcache.version>3.6.1</ehcache.version>
 
 		<!-- SC - komponenty Sławka Cichego <slawas@slawas.pl> -->
+		<!-- schelper ZASTAPIONY PRZEZ sccommon-utils -->
+		<!-- 
 		<schelper.version>0.0.12.1</schelper.version>
+		 -->
+		<!-- scjdbc4jpa ZASTAPIONY PRZEZ sccommon-utils -->
+		<!-- 
+		<scjdbc4jpa.version>0.0.7</scjdbc4jpa.version>
+		 -->
+		<sccommon-utils.version>1.0.1-SNAPSHOT</sccommon-utils.version>
 		<!-- UWAGA! pakiet wymaga wersji ehcache minimum 2.10.1 -->
 		<sccommon.version>1.0.2-SNAPSHOT</sccommon.version>
-		<scfilter.version>0.0.4</scfilter.version>
-		<scjdbc4jpa.version>0.0.7</scjdbc4jpa.version>
-		<!-- Cache - pamięci podręczne -->
-		<ehcache.version>2.10.1</ehcache.version>
+		<ccrto-openapi.version>1.0-SNAPSHOT</ccrto-openapi.version>
 
 		<databse.provider>POSTGRESQL</databse.provider>
 		<mercury.project.version>3.0.1.0.1</mercury.project.version>
@@ -328,17 +335,23 @@
 		<!-- SC - komponenty Sławka Cichego <slawas@slawas.pl> - START -->
 		<dependency>
 			<groupId>pl.slawas</groupId>
-			<artifactId>schelper</artifactId>
-			<version>${schelper.version}</version>
+			<artifactId>ccrto-openapi</artifactId>
+			<version>${ccrto-openapi.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>pl.slawas.sccommon</groupId>
+			<artifactId>sccommon-utils</artifactId>
+			<version>${sccommon-utils.version}</version>
 			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
-					<artifactId>commons-logging</artifactId>
-					<groupId>commons-logging</groupId>
+					<artifactId>persistence-api</artifactId>
+					<groupId>javax.persistence</groupId>
 				</exclusion>
 				<exclusion>
-					<artifactId>tools</artifactId>
-					<groupId>com.sun</groupId>
+					<groupId>pro.ibpm.gs</groupId>
+					<artifactId>db2odbcconfigreader</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -358,64 +371,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<dependency>
-			<groupId>pl.slawas</groupId>
-			<artifactId>scjdbc4jpa</artifactId>
-			<version>${scjdbc4jpa.version}</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<artifactId>hibernate</artifactId>
-					<groupId>org.hibernate</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>
-						hibernate-commons-annotations
-					</artifactId>
-					<groupId>org.hibernate</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>hibernate-search</artifactId>
-					<groupId>org.hibernate</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>persistence-api</artifactId>
-					<groupId>javax.persistence</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>spring</artifactId>
-					<groupId>org.springframework</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>schelper</artifactId>
-					<groupId>pl.slawas</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>sccommon-cache</artifactId>
-					<groupId>pl.slawas</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>aspectjweaver</artifactId>
-					<groupId>org.aspectj</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>aspectjrt</artifactId>
-					<groupId>org.aspectj</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>spring-aop</artifactId>
-					<groupId>org.springframework</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>spring-test</artifactId>
-					<groupId>org.springframework</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>hibernate-entitymanager</artifactId>
-					<groupId>org.hibernate</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+
 
 		<!-- Mercury - START -->
 		<dependency>
@@ -725,9 +681,9 @@
 
 		<!-- EhCache -->
 		<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache</artifactId>
-			<version>${ehcache.version}</version>
+		    <groupId>org.ehcache</groupId>
+		    <artifactId>ehcache</artifactId>
+		    <version>${ehcache.version}</version>
 			<scope>provided</scope>
 		</dependency>
 

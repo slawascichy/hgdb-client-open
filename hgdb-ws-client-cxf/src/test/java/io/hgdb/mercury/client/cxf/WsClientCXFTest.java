@@ -25,8 +25,8 @@ import org.xml.sax.InputSource;
 import io.hgdb.mercury.client.cxf.business.data.CaseBusiness;
 import io.hgdb.mercury.client.cxf.test.helpers.WsCaseStreamHistoryHelper;
 import io.hgdb.mercury.client.mock.helpers.MockType;
+import pl.scisoftware.filter.api.ICopyable;
 import pl.slawas.entities.NameValuePair;
-import pl.slawas.entities._ICopyable;
 import pro.ibpm.mercury.business.SecretaryManager;
 import pro.ibpm.mercury.business.attr.api.IType2TypeWithLastVersionBusiness;
 import pro.ibpm.mercury.business.attr.api.ITypeCodeWithLastVersionBusiness;
@@ -1198,7 +1198,7 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 	 * @param <L>
 	 */
 	@SuppressWarnings({ "unchecked" })
-	class AnyTest<E extends MIdModifier<Pk> & _ICopyable<E> & MEntity, Pk, L extends MDictLogic<E, Pk>> {
+	class AnyTest<E extends MIdModifier<Pk> & ICopyable<E> & MEntity, Pk, L extends MDictLogic<E, Pk>> {
 
 		/** nazwa reprezentujące testowaną metodę 'findFirst' */
 		public static final String FIND_FIRST_METHOD = "findFirst";

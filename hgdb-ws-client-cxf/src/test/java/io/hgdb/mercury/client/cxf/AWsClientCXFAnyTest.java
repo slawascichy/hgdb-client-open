@@ -10,8 +10,8 @@ import org.springframework.context.ApplicationContext;
 
 import io.hgdb.mercury.client.test.TestCaseSupport;
 import junit.framework.TestCase;
-import pl.slawas.twl4j.Logger;
-import pl.slawas.twl4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 

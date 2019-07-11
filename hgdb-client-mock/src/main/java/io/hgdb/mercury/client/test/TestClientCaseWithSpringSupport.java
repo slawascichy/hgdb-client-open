@@ -2,13 +2,10 @@ package io.hgdb.mercury.client.test;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 
 import pl.slawas.helpers.Strings;
-import pl.slawas.twl4j.Logger;
-import pl.slawas.twl4j.LoggerFactory;
 import pro.ibpm.mercury.registry.RegistrySupport;
 
 /**
@@ -21,8 +18,6 @@ import pro.ibpm.mercury.registry.RegistrySupport;
  */
 public abstract class TestClientCaseWithSpringSupport extends TestCaseSupport implements BeanFactoryAware {
 
-	protected Logger logger = LoggerFactory.getLogger(getClass());
-
 	private final RegistrySupport registry;
 
 	private boolean firstClean = true;
@@ -33,7 +28,8 @@ public abstract class TestClientCaseWithSpringSupport extends TestCaseSupport im
 	}
 
 	@Override
-	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+	public void setBeanFactory(BeanFactory beanFactory) {
+		/* brak implementacji */
 	}
 
 	@Test
@@ -57,7 +53,7 @@ public abstract class TestClientCaseWithSpringSupport extends TestCaseSupport im
 				if (StringUtils.isNotBlank(propVal)) {
 					skipTest = Boolean.parseBoolean(Strings.lrtrim(getTestProperties().getProperty(propName)));
 				}
-				logger.trace("{}: skipTest={}", new Object[] { propName, skipTest });
+				logger.trace("{}: skipTest={}", propName, skipTest);
 				if (scenario instanceof ScenarioWithSpring) {
 					((ScenarioWithSpring) scenario).init(getRegistry(), null, null, skipTest);
 					propName = TestPropertiesLoader.STATUS_PROP_ALL;
@@ -65,13 +61,12 @@ public abstract class TestClientCaseWithSpringSupport extends TestCaseSupport im
 					propName = TestPropertiesLoader.STATUS_PROP_PREFIX + scenario.getLabel();
 					String lastStatus = getTestProperties().getProperty(propName);
 					/**
-					 * Parametr ten jest ustawiany tylko wtedy gdy scenariusz
-					 * zakończył się porażką/błędem. Zobacz
-					 * {@link TestPropertiesLoader#saveErrorStatus}.
+					 * Parametr ten jest ustawiany tylko wtedy gdy scenariusz zakończył się
+					 * porażką/błędem. Zobacz {@link TestPropertiesLoader#saveErrorStatus}.
 					 */
 					boolean forceCleanAllData = StringUtils.isNotBlank(lastStatus)
 							|| StringUtils.isNotBlank(lastAllStatus);
-					logger.info("{}: forceCleanAllData={}", new Object[] { propName, forceCleanAllData && firstClean });
+					logger.info("{}: forceCleanAllData={}", propName, forceCleanAllData && firstClean);
 					((ScenarioWithSpring) scenario).setForceCleanAllData(forceCleanAllData && firstClean);
 					if (!skipTest) {
 						firstClean = false;

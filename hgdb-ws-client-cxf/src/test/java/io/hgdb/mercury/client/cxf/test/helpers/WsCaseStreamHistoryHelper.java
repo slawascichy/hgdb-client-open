@@ -6,7 +6,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
 import pl.slawas.helpers.Strings;
-import pl.slawas.twl4j.Logger;
+import org.slf4j.Logger;
 import pro.ibpm.mercury.business.data.api.MrcCaseHistoryStream;
 
 public class WsCaseStreamHistoryHelper {

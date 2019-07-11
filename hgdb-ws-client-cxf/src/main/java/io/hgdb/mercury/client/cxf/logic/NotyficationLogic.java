@@ -1,7 +1,7 @@
 package io.hgdb.mercury.client.cxf.logic;
 
-import pl.slawas.twl4j.Logger;
-import pl.slawas.twl4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pro.ibpm.mercury.context.Context;
 import pro.ibpm.mercury.exceptions.MercuryException;
 import pro.ibpm.mercury.logic.api.INotyficationLogic;

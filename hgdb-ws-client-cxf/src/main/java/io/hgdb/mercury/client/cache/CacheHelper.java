@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import pl.slawas.common.cache.CacheConstants;
 import pl.slawas.common.cache.CacheProviderEnum;
@@ -20,8 +22,6 @@ import pl.slawas.common.cache.ehcache.EhCache;
 import pl.slawas.common.cache.ehcache.EhCacheConfig;
 import pl.slawas.entities.NameValuePair;
 import pl.slawas.helpers.Configurations;
-import pl.slawas.twl4j.Logger;
-import pl.slawas.twl4j.LoggerFactory;
 import pro.ibpm.mercury.config.MercuryConfig;
 import pro.ibpm.mercury.entities.MEntityCacheConfig;
 import pro.ibpm.mercury.entities.cache.IStatsInfoRecord;

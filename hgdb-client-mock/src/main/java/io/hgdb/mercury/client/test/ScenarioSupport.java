@@ -3,13 +3,12 @@ package io.hgdb.mercury.client.test;
 import java.util.Calendar;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
-
-import org.apache.commons.lang.StringUtils;
-
-import pl.slawas.twl4j.Logger;
-import pl.slawas.twl4j.LoggerFactory;
 
 public abstract class ScenarioSupport extends TestCase implements Scenario {
 
@@ -45,8 +44,7 @@ public abstract class ScenarioSupport extends TestCase implements Scenario {
 		}
 
 		logger.info(
-				"\n************************************"
-						+ "\n*  START SCENARIUSZA {}..."
+				"\n************************************" + "\n*  START SCENARIUSZA {}..."
 						+ "\n************************************",
 				new Object[] { StringUtils.isBlank(label) ? getClass() : label });
 
@@ -69,10 +67,10 @@ public abstract class ScenarioSupport extends TestCase implements Scenario {
 		}
 		Long endTime = Calendar.getInstance().getTimeInMillis();
 		this.executionTime = endTime - startTime;
-		logger.info("\n************************************"
-				+ "\n*  KONIEC SCENARIUSZA {}: {}"
-				+ "\n************************************", new Object[] {
-				StringUtils.isBlank(label) ? getClass() : label, status });
+		logger.info(
+				"\n************************************" + "\n*  KONIEC SCENARIUSZA {}: {}"
+						+ "\n************************************",
+				new Object[] { StringUtils.isBlank(label) ? getClass() : label, status });
 		return status;
 
 	}
@@ -82,8 +80,7 @@ public abstract class ScenarioSupport extends TestCase implements Scenario {
 	 * @return
 	 * @throws Exception
 	 */
-	protected abstract Map<String, Object> step0InitExpectedParams()
-			throws Exception;
+	protected abstract Map<String, Object> step0InitExpectedParams() throws Exception;
 
 	/**
 	 * 
@@ -91,8 +88,7 @@ public abstract class ScenarioSupport extends TestCase implements Scenario {
 	 * @throws AssertionFailedError
 	 * @throws Exception
 	 */
-	protected abstract void step1RunScenario(Map<String, Object> expectedValues)
-			throws AssertionFailedError, Exception;
+	protected abstract void step1RunScenario(Map<String, Object> expectedValues) throws AssertionFailedError, Exception;
 
 	/**
 	 * 

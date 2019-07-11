@@ -11,8 +11,8 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import io.hgdb.mercury.client.services.EntityPropertyMapper;
-import pl.slawas.twl4j.Logger;
-import pl.slawas.twl4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pro.ibpm.mercury.context.Context;
 import pro.ibpm.mercury.dao.services.IEntityPropertyMapper;
 import pro.ibpm.mercury.dto.DtoObject;

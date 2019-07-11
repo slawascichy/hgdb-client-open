@@ -8,11 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
 
 import io.hgdb.mercury.client.mock.helpers.MockSingleUtils;
 import junit.framework.AssertionFailedError;
-import pl.slawas.twl4j.Logger;
-import pl.slawas.twl4j.LoggerFactory;
 import pro.ibpm.mercury.entities.MEntity;
 import pro.ibpm.mercury.entities.MIdModifier;
 import pro.ibpm.mercury.exceptions.MercuryException;
@@ -20,17 +19,15 @@ import pro.ibpm.mercury.registry.RegistrySupport;
 
 public abstract class ClientScenarioWithSpringSupport extends ScenarioSupport implements ScenarioWithSpring {
 
-	protected Logger logger = LoggerFactory.getLogger(getClass());
-
-	private Map<Class<? extends MEntity>, List<EntityObjectWithDbStatus>> usedValues = new HashMap<Class<? extends MEntity>, List<EntityObjectWithDbStatus>>();
+	private Map<Class<? extends MEntity>, List<EntityObjectWithDbStatus>> usedValues = new HashMap<>();
 
 	private RegistrySupport registry;
 
 	private boolean forceCleanAllData = false;
 
 	/**
-	 * Flaga z informacją czy było pełne czyszczenie bazy danych, aby nie
-	 * duplikować tej operacji
+	 * Flaga z informacją czy było pełne czyszczenie bazy danych, aby nie duplikować
+	 * tej operacji
 	 */
 	private boolean cleanedDB = false;
 
@@ -85,8 +82,8 @@ public abstract class ClientScenarioWithSpringSupport extends ScenarioSupport im
 				cleanAllDataFromDB(logger);
 			}
 			/*
-			 * resetuję czas startu testu bo inicjalizacja kontekstu spring'a
-			 * nie powinna być wliczana do czasu wykonania testu.
+			 * resetuję czas startu testu bo inicjalizacja kontekstu spring'a nie powinna
+			 * być wliczana do czasu wykonania testu.
 			 */
 			startTime = Calendar.getInstance().getTimeInMillis();
 			/* Inicjalizacja oczekiwanych parametrów */
@@ -161,8 +158,8 @@ public abstract class ClientScenarioWithSpringSupport extends ScenarioSupport im
 	protected abstract List<Object> step1PrepareTestData(Map<String, Object> expectedValues) throws Exception;
 
 	/**
-	 * Metoda czyszczenia bazy danych zaimplementowana tak aby wykonywana była
-	 * tylko raz.
+	 * Metoda czyszczenia bazy danych zaimplementowana tak aby wykonywana była tylko
+	 * raz.
 	 * 
 	 * @see #cleanedDB
 	 * 

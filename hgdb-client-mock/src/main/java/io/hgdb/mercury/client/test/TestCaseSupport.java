@@ -18,13 +18,12 @@ package io.hgdb.mercury.client.test;
 import java.util.Map;
 import java.util.Properties;
 
-import junit.framework.TestCase;
-
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import junit.framework.TestCase;
 import pl.slawas.helpers.Strings;
-import pl.slawas.twl4j.Logger;
-import pl.slawas.twl4j.LoggerFactory;
 
 /**
  * TestCaseSupport - abstrakcja dla realizacji prostych scenariuszy testowych
@@ -44,8 +43,8 @@ public abstract class TestCaseSupport extends TestCase {
 	private final boolean skipPackageTest;
 
 	static {
-		Map<String, String> _Properties = TestPropertiesLoader.loadProperties();
-		testProperties.putAll(_Properties);
+		Map<String, String> tProperties = TestPropertiesLoader.loadProperties();
+		testProperties.putAll(tProperties);
 	}
 
 	protected TestCaseSupport(boolean skipPackageTest) {
@@ -66,15 +65,12 @@ public abstract class TestCaseSupport extends TestCase {
 		try {
 			for (Scenario scenario : scenarios) {
 				currScenario = scenario;
-				boolean skipTest = Boolean.parseBoolean(testProperties
-						.getProperty(TEST_SKIP_PREFIX + scenario.getLabel()));
+				boolean skipTest = Boolean
+						.parseBoolean(testProperties.getProperty(TEST_SKIP_PREFIX + scenario.getLabel()));
 				scenario.init(skipTest);
 				scenarioStatus = scenario.execute();
-				TestPropertiesLoader.saveErrorStatus(scenario.getLabel(),
-						scenarioStatus, logger);
-				assertEquals(
-						scenario.getLabel(),
-						(!skipTest ? ScenarioStatus.OK : ScenarioStatus.SKIPED),
+				TestPropertiesLoader.saveErrorStatus(scenario.getLabel(), scenarioStatus, logger);
+				assertEquals(scenario.getLabel(), (!skipTest ? ScenarioStatus.OK : ScenarioStatus.SKIPED),
 						scenarioStatus);
 			}
 		} finally {
@@ -88,8 +84,7 @@ public abstract class TestCaseSupport extends TestCase {
 	private static final int row3size = 17;
 
 	protected void printResult2Log(Scenario[] result, Scenario lastExecuted) {
-		StringBuffer out = new StringBuffer("\n Statystyka " + result.length
-				+ " testów");
+		StringBuffer out = new StringBuffer("\n Statystyka " + result.length + " testów");
 		out.append("\n+-" + Strings.lpad("-", "-", row1size));
 		out.append("-+-" + Strings.rpad("-", "-", row2size));
 		out.append("-+-" + Strings.lpad("-", "-", row3size));
@@ -101,23 +96,21 @@ public abstract class TestCaseSupport extends TestCase {
 		out.append("-+");
 		Long summaryExecutionTime = 0L;
 		for (Scenario scenario : result) {
-			out.append(printRow(scenario.getLabel(), scenario.getStatus()
-					.name(), Long.toString(scenario.getExecutionTime())));
-			summaryExecutionTime = summaryExecutionTime
-					+ scenario.getExecutionTime();
+			out.append(printRow(scenario.getLabel(), scenario.getStatus().name(),
+					Long.toString(scenario.getExecutionTime())));
+			summaryExecutionTime = summaryExecutionTime + scenario.getExecutionTime();
 		}
 		out.append("\n+-" + Strings.lpad("-", "-", row1size));
 		out.append("-+-" + Strings.rpad("-", "-", row2size));
 		out.append("-+-" + Strings.lpad("-", "-", row3size));
 		out.append("-+");
-		out.append(printRow(
-				"Summary Report",
-				(lastExecuted != null ? (lastExecuted.getStatus().equals(
-						ScenarioStatus.OK)
-						|| lastExecuted.getStatus().equals(
-								ScenarioStatus.SKIPED) ? "BUILD SUCCESS"
-						: lastExecuted.getStatus().name()) : "n/a"), Long
-						.toString(summaryExecutionTime)));
+		out.append(printRow("Summary Report",
+				(lastExecuted != null
+						? (lastExecuted.getStatus().equals(ScenarioStatus.OK)
+								|| lastExecuted.getStatus().equals(ScenarioStatus.SKIPED) ? "BUILD SUCCESS"
+										: lastExecuted.getStatus().name())
+						: "n/a"),
+				Long.toString(summaryExecutionTime)));
 		out.append("\n+-" + Strings.lpad("-", "-", row1size));
 		out.append("-+-" + Strings.rpad("-", "-", row2size));
 		out.append("-+-" + Strings.lpad("-", "-", row3size));

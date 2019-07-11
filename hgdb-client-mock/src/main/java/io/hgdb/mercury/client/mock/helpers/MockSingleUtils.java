@@ -5,8 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import pl.slawas.twl4j.Logger;
-import pl.slawas.twl4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import pro.ibpm.mercury.entities.MIdModifier;
 
 /**
@@ -20,15 +21,18 @@ import pro.ibpm.mercury.entities.MIdModifier;
  */
 public class MockSingleUtils {
 
-	private static transient Logger logger = LoggerFactory.getLogger(MockSingleUtils.class);
+	private static Logger logger = LoggerFactory.getLogger(MockSingleUtils.class);
+
+	private MockSingleUtils() {
+	}
 
 	/**
 	 * Metoda pomocnicza do przygotowania odpowiedniej mapy encji
 	 * 
 	 * @param entities
 	 *            lista encji (różnych typów)
-	 * @return mapa encji gdzie kluczem jest nazwa klasy encji a obiektem jest
-	 *         lista encji danego typu.
+	 * @return mapa encji gdzie kluczem jest nazwa klasy encji a obiektem jest lista
+	 *         encji danego typu.
 	 */
 	@SuppressWarnings("rawtypes")
 	public static Map<Class<?>, List<Object>> prepareEntitiesMap(List<Object> entities) {

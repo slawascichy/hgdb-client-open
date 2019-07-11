@@ -8,19 +8,28 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import org.apache.log4j.config.PropertyPrinter;
+import org.slf4j.Logger;
 
-import pl.slawas.entities.NameValuePair;
 import pl.slawas.helpers.Configurations;
-import pl.slawas.twl4j.Logger;
-import pl.slawas.twl4j.config.LoggerConfig;
 import pro.ibpm.mercury.config.MercuryConfig;
 
+/**
+ * 
+ * TestPropertiesLoader
+ *
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+ * @version $Revision: 1.1 $ 
+ *
+ */
 public class TestPropertiesLoader {
 
 	private static boolean LOG4J_PRINT_FLAG = true;
 	private static final String STATUS_FILE_NAME = "testStatus.properties";
 	public static final String STATUS_PROP_PREFIX = "test.status.";
 	public static final String STATUS_PROP_ALL = "test.status.all";
+
+	private TestPropertiesLoader() {
+	}
 
 	/**
 	 * Ładowanie parametrów testów.
@@ -35,34 +44,29 @@ public class TestPropertiesLoader {
 			PropertyPrinter pp = new PropertyPrinter(pw);
 			pp.print(pw);
 			System.out.println("#End of Config");
-			System.out.println("#sclogger Config");
-			for (NameValuePair nvp : LoggerConfig.getInstance().getPropertyList()) {
-				System.out.println(nvp.getName() + "=" + nvp.getValue());
-			}
-			System.out.println("#sclogger End of Config");
 			LOG4J_PRINT_FLAG = false;
 		}
 
-		Map<String, String> props = new Hashtable<String, String>();
+		Map<String, String> props = new Hashtable<>();
 
 		final String propkFileName = "/test.properties";
-		Map<String, String> _Properties = null;
-		_Properties = Configurations.loadHashtable(TestPropertiesLoader.class, propkFileName);
-		props.putAll(_Properties);
+		Map<String, String> tProperties = null;
+		tProperties = Configurations.loadHashtable(TestPropertiesLoader.class, propkFileName);
+		props.putAll(tProperties);
 
 		/** załadowanie ustawień */
-		final String mockFileName = _Properties.get("test.file.ext");
+		final String mockFileName = tProperties.get("test.file.ext");
 		System.out.println("Loading test properties from " + mockFileName + "....");
-		_Properties = Configurations.loadHashtable(TestPropertiesLoader.class, mockFileName);
-		props.putAll(_Properties);
+		tProperties = Configurations.loadHashtable(TestPropertiesLoader.class, mockFileName);
+		props.putAll(tProperties);
 		MercuryConfig.getInstance();
 
 		/** załadowanie statusu wykonania ostatniego testu */
 		File statusFile = new File(STATUS_FILE_NAME);
 		if (statusFile.exists()) {
 			System.out.println("Loading test properties from " + mockFileName + "....");
-			_Properties = Configurations.loadHashtable(TestPropertiesLoader.class, STATUS_FILE_NAME);
-			props.putAll(_Properties);
+			tProperties = Configurations.loadHashtable(TestPropertiesLoader.class, STATUS_FILE_NAME);
+			props.putAll(tProperties);
 		}
 		return props;
 	}

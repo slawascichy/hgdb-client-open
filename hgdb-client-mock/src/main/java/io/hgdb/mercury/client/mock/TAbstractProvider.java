@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import io.hgdb.mercury.client.mock.helpers.MockType;
 import pl.slawas.entities.NameValuePair;
-import pl.slawas.helpers.MockLoader;
+import pl.slawas.helpers.CSVLoader;
 import pro.ibpm.mercury.entities.MEntity;
 import pro.ibpm.mercury.entities.MEntityWithPublishVersion;
 
@@ -43,7 +43,7 @@ import pro.ibpm.mercury.entities.MEntityWithPublishVersion;
  */
 public abstract class TAbstractProvider<T extends MEntity> implements TProvider<T> {
 
-	final protected Logger logger = LoggerFactory.getLogger(getClass());
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	private SortedMap<Object, T> rows = null;
 
@@ -79,12 +79,12 @@ public abstract class TAbstractProvider<T extends MEntity> implements TProvider<
 			if (rows == null) {
 				this.logger.debug("Ładowanie danych testowych z pliku {}...", sourceFile);
 				/* Inicjalizacja mapy wierszy */
-				rows = new TreeMap<Object, T>();
-				List<String[]> readedRows = MockLoader.loadCSV(TAbstractProvider.class, this.sourceFile);
+				rows = new TreeMap<>();
+				List<String[]> readedRows = CSVLoader.loadCSV(TAbstractProvider.class, this.sourceFile);
 				if (readedRows != null && !readedRows.isEmpty()) {
 					/* plik nie jest pusty - START */
 					setNULL(readedRows);
-					String[] header = new String[0];
+					String[] header;
 					/* jeśli plik CVS zawiera nagłówek to wczytaj nagłówek */
 					if (fileHasHeader) {
 						/* plik zawiera nagłówek */
@@ -92,11 +92,10 @@ public abstract class TAbstractProvider<T extends MEntity> implements TProvider<
 						for (String[] row : readedRows) {
 							T val = rowMapper(row, header);
 							if (val != null) {
-								if (val instanceof MEntityWithPublishVersion) {
-									if (StringUtils.isBlank(((MEntityWithPublishVersion) val).getPublishVersion())) {
-										String versionUUID = UUID.randomUUID().toString();
-										((MEntityWithPublishVersion) val).setPublishVersion(versionUUID);
-									}
+								if (val instanceof MEntityWithPublishVersion
+										&& StringUtils.isBlank(((MEntityWithPublishVersion) val).getPublishVersion())) {
+									String versionUUID = UUID.randomUUID().toString();
+									((MEntityWithPublishVersion) val).setPublishVersion(versionUUID);
 								}
 								if (StringUtils.isNotBlank(((NameValuePair) val).getValue())) {
 									rows.put(((NameValuePair) val).getValue(), val);
@@ -108,11 +107,11 @@ public abstract class TAbstractProvider<T extends MEntity> implements TProvider<
 						for (String[] row : readedRows) {
 							T val = rowMapper(row);
 							if (val != null) {
-								if (val instanceof MEntityWithPublishVersion) {
-									if (StringUtils.isBlank(((MEntityWithPublishVersion) val).getPublishVersion())) {
-										String versionUUID = UUID.randomUUID().toString();
-										((MEntityWithPublishVersion) val).setPublishVersion(versionUUID);
-									}
+								if (val instanceof MEntityWithPublishVersion
+										&& StringUtils.isBlank(((MEntityWithPublishVersion) val).getPublishVersion())) {
+									String versionUUID = UUID.randomUUID().toString();
+									((MEntityWithPublishVersion) val).setPublishVersion(versionUUID);
+
 								}
 								rows.put(((NameValuePair) val).getValue(), val);
 							}
@@ -141,7 +140,7 @@ public abstract class TAbstractProvider<T extends MEntity> implements TProvider<
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Collection<T> getCollection() {
-		return rows != null ? rows.values() : new ArrayList<T>();
+		return rows != null ? rows.values() : new ArrayList<>();
 	}
 
 	/**
