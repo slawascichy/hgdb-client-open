@@ -30,6 +30,8 @@ import pl.slawas.entities.NameValuePair;
 import pro.ibpm.mercury.business.SecretaryManager;
 import pro.ibpm.mercury.business.attr.api.IType2TypeWithLastVersionBusiness;
 import pro.ibpm.mercury.business.attr.api.ITypeCodeWithLastVersionBusiness;
+import pro.ibpm.mercury.business.data.api.Case2CaseRelationship;
+import pro.ibpm.mercury.business.data.api.ICase2CaseBusiness;
 import pro.ibpm.mercury.business.data.api.ICaseBusiness;
 import pro.ibpm.mercury.business.data.api.ICaseBusinessXML;
 import pro.ibpm.mercury.business.data.api.ICaseHistoryStreamBusiness;
@@ -634,7 +636,14 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 						assert comment.equals(e.getModifyComment()) : "Nie zmieniono case2Case.comment";
 						logger.info("comment={}", new Object[] { e.getModifyComment() });
 
-						List<Case2Case> bag = logic.getAllByPathStartsWith(context, "%");
+						final ICase2CaseBusiness busines = (ICase2CaseBusiness) applicationContext
+								.getBean("case2CaseBusiness");
+						IPagedResult<Case2CaseRelationship, IPage> pagedResult = busines.getAllByPathStartsWith(context,
+								"%", null, new PageTransportable());
+						Collection<Case2CaseRelationship> list = pagedResult.getResult();
+						assert (list != null) && (!list.isEmpty()) : "Nie znaleziono case2Cases";
+
+						List<Case2Case> bag = logic.getAllByPathStartsWith(context, "%", null);
 						assert (bag != null) && (!bag.isEmpty()) : "Nie znaleziono case2Cases";
 						for (Case2Case t : bag) {
 							t.setModifyComment(comment);

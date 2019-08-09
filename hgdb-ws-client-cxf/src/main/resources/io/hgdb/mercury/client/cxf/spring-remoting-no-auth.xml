@@ -677,6 +677,21 @@
 	</bean>
 	<!-- CaseBusiness -->
 	
+	<!-- Case2CaseBusiness -->
+	<bean id="springBean.InvokerCase2CaseBusinessService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/Case2CaseBusinessAction" />
+		<property name="serviceInterface"
+			value="pro.ibpm.mercury.ws.server.api.actions.business.data.ICase2CaseBusinessAction" />
+		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
+	</bean>
+	<bean id="case2CaseBusiness" scope="singleton"
+		class="pro.ibpm.mercury.ws.client.cxf.business.data.Case2CaseBusiness">
+		<property name="service" ref="springBean.InvokerCase2CaseBusinessService" />
+		<property name="isRemote" ref="springBean.isRemote"/>
+	</bean>
+	<!-- Case2CaseBusiness -->
+	
 	<!-- CaseHistoryStreamBusiness -->
 	<bean id="springBean.InvokerCaseHistoryStreamBusinessService" scope="singleton"
 		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">

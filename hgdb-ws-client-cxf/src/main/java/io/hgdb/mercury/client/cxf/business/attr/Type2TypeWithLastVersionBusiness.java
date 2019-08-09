@@ -24,7 +24,7 @@ import pro.ibpm.mercury.ws.server.api.returns.WsStatus;
  * Type2TypeWithLastVersionBusiness
  *
  * @author Sławomir Cichy &lt;slawomir.cichy@ibpm.pro&gt;
- * @version $Revision: 1.1 $ 
+ * @version $Revision: 1.1 $
  *
  */
 public class Type2TypeWithLastVersionBusiness extends
@@ -141,10 +141,10 @@ public class Type2TypeWithLastVersionBusiness extends
 	}
 
 	@Override
-	public List<Type2TypeWithLastVersion> getAllByPathStartsWith(Context context, String preffix)
+	public List<Type2TypeWithLastVersion> getAllByPathStartsWith(Context context, String preffix, String mountPoint)
 			throws MercuryException {
 		return (List<Type2TypeWithLastVersion>) getEntityCollection(context,
-				getService().getAllByPathStartsWith(context, preffix));
+				getService().getAllByPathStartsWith(context, preffix, mountPoint));
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
