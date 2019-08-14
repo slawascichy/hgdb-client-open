@@ -703,4 +703,27 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 		checkWsStatus(wsStatus);
 	}
 
+	@Override
+	public Long initModelXML(Context context, Element documentXML, Boolean forceAddStore2Type) throws MercuryException {
+		WsStatusWithLongValue wsStatus = getService().initModelXML(context, documentXML, forceAddStore2Type);
+		checkWsStatus(wsStatus);
+		return wsStatus.getValue();
+	}
+
+	@Override
+	public Long initModel(Context context, MrcObject entityObject, boolean forceAddStore2Type) throws MercuryException {
+		DtoMrcObject e4Update = DtoMrcDataUtils.toDtoMrcObject(context, entityObject);
+		WsStatusWithLongValue wsStatus = getService().initModel(context, e4Update, forceAddStore2Type);
+		checkWsStatus(wsStatus);
+		return wsStatus.getValue();
+	}
+
+	@Override
+	public Long changeModel(Context context, Long fromTypeId, Long toTypeId, boolean forceAddStore2Type)
+			throws MercuryException {
+		WsStatusWithLongValue wsStatus = getService().changeModel(context, fromTypeId, toTypeId, forceAddStore2Type);
+		checkWsStatus(wsStatus);
+		return wsStatus.getValue();
+	}
+
 }

@@ -99,8 +99,7 @@ public class Case2CaseBusiness extends WsClient<ICase2CaseBusinessAction>
 				Case2CaseRelationshipPagedResult pagedResultDto = wsStatusWithPagedResult.getPagedResult();
 				Collection<Case2CaseRelationship> dtos = pagedResultDto.getResult();
 				/* Teraz trzeba utworzyć obiekt stronicowanego wyniku z encją */
-				PagedResult<Case2CaseRelationship> result = new PagedResult<>(
-						new PagingInfo(pagedResultDto));
+				PagedResult<Case2CaseRelationship> result = new PagedResult<>(new PagingInfo(pagedResultDto));
 				result.setResult(dtos);
 				return result;
 			} catch (Exception e) {
@@ -154,37 +153,37 @@ public class Case2CaseBusiness extends WsClient<ICase2CaseBusinessAction>
 	}
 
 	@Override
-	public MrcPagedResult getAllDependsNodes(Context context, Long caseId, String mountPoint, IPage page)
-			throws MercuryException {
+	public MrcPagedResult getAllDependsNodes(Context context, Long caseId, String mountPoint, IPage page,
+			Integer caseMaxDepth) throws MercuryException {
 		WsStatusWithMrcObject result = getService().getAllDependsNodes(context, caseId, mountPoint,
-				(PageTransportable) page);
+				(PageTransportable) page, caseMaxDepth);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
 	}
 
 	@Override
-	public MrcPagedResult getAllChildrenNodes(Context context, Long caseId, String mountPoint, IPage page)
-			throws MercuryException {
+	public MrcPagedResult getAllChildrenNodes(Context context, Long caseId, String mountPoint, IPage page,
+			Integer caseMaxDepth) throws MercuryException {
 		WsStatusWithMrcObject result = getService().getAllChildrenNodes(context, caseId, mountPoint,
-				(PageTransportable) page);
+				(PageTransportable) page, caseMaxDepth);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
 	}
 
 	@Override
 	public MrcPagedResult getAllChildrenNodesWithTheTypeCode(Context context, Long caseId, String typeCode,
-			String mountPoint, IPage page) throws MercuryException {
+			String mountPoint, IPage page, Integer caseMaxDepth) throws MercuryException {
 		WsStatusWithMrcObject result = getService().getAllChildrenNodesWithTheTypeCode(context, caseId, typeCode,
-				mountPoint, (PageTransportable) page);
+				mountPoint, (PageTransportable) page, caseMaxDepth);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
 	}
 
 	@Override
-	public MrcPagedResult getAllParentsNodes(Context context, Long caseId, String mountPoint, IPage page)
-			throws MercuryException {
+	public MrcPagedResult getAllParentsNodes(Context context, Long caseId, String mountPoint, IPage page,
+			Integer caseMaxDepth) throws MercuryException {
 		WsStatusWithMrcObject result = getService().getAllParentsNodes(context, caseId, mountPoint,
-				(PageTransportable) page);
+				(PageTransportable) page, caseMaxDepth);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
 	}
@@ -237,34 +236,34 @@ public class Case2CaseBusiness extends WsClient<ICase2CaseBusinessAction>
 	}
 
 	@Override
-	public Document getAllDependsNodesXML(Context context, Long caseId, String mountPoint, IPage page)
-			throws MercuryException {
+	public Document getAllDependsNodesXML(Context context, Long caseId, String mountPoint, IPage page,
+			Integer caseMaxDepth) throws MercuryException {
 		WsStatusWithXML result = getService().getAllDependsNodesXML(context, caseId, mountPoint,
-				(PageTransportable) page);
+				(PageTransportable) page, caseMaxDepth);
 		return createDocument(result);
 	}
 
 	@Override
-	public Document getAllChildrenNodesXML(Context context, Long caseId, String mountPoint, IPage page)
-			throws MercuryException {
+	public Document getAllChildrenNodesXML(Context context, Long caseId, String mountPoint, IPage page,
+			Integer caseMaxDepth) throws MercuryException {
 		WsStatusWithXML result = getService().getAllChildrenNodesXML(context, caseId, mountPoint,
-				(PageTransportable) page);
+				(PageTransportable) page, caseMaxDepth);
 		return createDocument(result);
 	}
 
 	@Override
 	public Document getAllChildrenNodesWithTheTypeCodeXML(Context context, Long caseId, String typeCode,
-			String mountPoint, IPage page) throws MercuryException {
+			String mountPoint, IPage page, Integer caseMaxDepth) throws MercuryException {
 		WsStatusWithXML result = getService().getAllChildrenNodesWithTheTypeCodeXML(context, caseId, typeCode,
-				mountPoint, (PageTransportable) page);
+				mountPoint, (PageTransportable) page, caseMaxDepth);
 		return createDocument(result);
 	}
 
 	@Override
-	public Document getAllParentsNodesXML(Context context, Long caseId, String mountPoint, IPage page)
-			throws MercuryException {
+	public Document getAllParentsNodesXML(Context context, Long caseId, String mountPoint, IPage page,
+			Integer caseMaxDepth) throws MercuryException {
 		WsStatusWithXML result = getService().getAllParentsNodesXML(context, caseId, mountPoint,
-				(PageTransportable) page);
+				(PageTransportable) page, caseMaxDepth);
 		return createDocument(result);
 	}
 
