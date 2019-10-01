@@ -46,16 +46,14 @@ import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithDtos;
 @SuppressWarnings("serial")
 public abstract class WsClientCatalogLogic<
 		/* 0 */
-		Relationship extends MCatalog<Relationship, RelationshipId, Node, Id> & MEntity & MIdModifier<RelationshipId>,
+		Relationship extends MCatalog<Relationship, Node, Id> & MEntity & MIdModifier<String>,
 		/* 1 */
-		RelationshipId,
-		/* 2 */
 		Node extends MIdModifier<Id>,
-		/* 3 */
+		/* 2 */
 		Id,
-		/* 4 */
-		Ws extends IActionRoot> extends WsClientBigDataLogic<Relationship, RelationshipId, Ws>
-		implements MCatalogLogic<Relationship, RelationshipId, Node, Id> {
+		/* 3 */
+		Ws extends IActionRoot> extends WsClientBigDataLogic<Relationship, String, Ws>
+		implements MCatalogLogic<Relationship, Node, Id> {
 
 	/** Obiekt klasy node. */
 	private final Class<Node> nodeClass;
@@ -70,7 +68,7 @@ public abstract class WsClientCatalogLogic<
 			tmpClass = tmpClass.getSuperclass();
 		}
 		this.nodeClass = (Class<Node>) ((ParameterizedType) tmpClass.getGenericSuperclass())
-				.getActualTypeArguments()[2];
+				.getActualTypeArguments()[1];
 
 		String persistentClassDtoName = EntityHelper.DTO_PACKAGE_NAME + MercuryConfig.DOT + nodeClass.getSimpleName()
 				+ EntityHelper.DTO_NAME_SUFFIX;

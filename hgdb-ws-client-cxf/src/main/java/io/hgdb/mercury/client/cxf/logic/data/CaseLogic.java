@@ -88,9 +88,14 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 	}
 
 	@Override
+	public Case findLastVersion(Context context, Long rootVersionId) throws MercuryException {
+		return getEntity(context, getService().findLastVersion(context, rootVersionId));
+	}
+
+	@Override
 	public Map<String, SearchFieldSimple> getLuceneSearchableFields(Context context) throws MercuryException {
 		final Map<String, SearchFieldSimple> map = getMap(getService().getLuceneSearchableFields(context));
-		return (map == null) ? null : new HashMap<String, SearchFieldSimple>((Map<String, SearchFieldSimple>) map);
+		return (map == null) ? null : new HashMap<>(map);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

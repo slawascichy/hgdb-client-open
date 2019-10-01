@@ -456,18 +456,6 @@
 	<!-- data -->
 
 	<!-- arch -->
-	<bean id="springBean.InvokerArchCase2CaseService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-		<property name="serviceUrl" value="${mercury.ws.url}/ArchCase2CaseAction" />
-		<property name="serviceInterface"
-			value="pro.ibpm.mercury.ws.server.api.actions.arch.IArchCase2CaseAction" />
-		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
-	</bean>
-	<bean id="archCase2CaseLogic" scope="singleton"
-		class="io.hgdb.mercury.client.cxf.logic.arch.ArchCase2CaseLogic">
-		<property name="service" ref="springBean.InvokerArchCase2CaseService" />
-	</bean>
-
 	<bean id="springBean.InvokerArchCaseDocumentService" scope="singleton"
 		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/ArchCaseDocumentAction" />

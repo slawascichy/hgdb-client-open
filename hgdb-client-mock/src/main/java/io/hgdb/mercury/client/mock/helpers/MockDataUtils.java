@@ -23,7 +23,6 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
 import io.hgdb.mercury.client.mock.TProvider;
-import io.hgdb.mercury.client.mock.arch.TArchCase2CaseProvider;
 import io.hgdb.mercury.client.mock.arch.TArchCaseDocumentProvider;
 import io.hgdb.mercury.client.mock.arch.TArchCaseHistoryStreamProvider;
 import io.hgdb.mercury.client.mock.arch.TArchCaseHistoryTraceProvider;
@@ -91,8 +90,7 @@ public class MockDataUtils {
 	/**
 	 * Hierarchia dostawców testowych obiektów tożsama z hierarchią encji
 	 * 
-	 * FIXME Jeżeli dodajemy nową encję/dostawcę trzeba go umieścić na tej
-	 * liście.
+	 * FIXME Jeżeli dodajemy nową encję/dostawcę trzeba go umieścić na tej liście.
 	 */
 	private static final TProvider<?>[] hierarchy = {
 			/*************** dict ***********************/
@@ -171,8 +169,6 @@ public class MockDataUtils {
 			TArchGroupCase2ParticipantProvider.getInstance(),
 			/** Grupy spraw do użytkowników */
 			TArchCaseProvider.getInstance(),
-			/** Zależności między sprawami */
-			TArchCase2CaseProvider.getInstance(),
 			/** Dokumenty sprawy */
 			TArchCaseDocumentProvider.getInstance(),
 			/** Zadania */

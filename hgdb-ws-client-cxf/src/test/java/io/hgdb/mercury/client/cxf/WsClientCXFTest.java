@@ -55,7 +55,6 @@ import pro.ibpm.mercury.entities.MEntity;
 import pro.ibpm.mercury.entities.MEntityToString;
 import pro.ibpm.mercury.entities.MIdModifier;
 import pro.ibpm.mercury.entities.arch.ArchCase;
-import pro.ibpm.mercury.entities.arch.ArchCase2Case;
 import pro.ibpm.mercury.entities.arch.ArchCaseDocument;
 import pro.ibpm.mercury.entities.arch.ArchCaseDocumentPK;
 import pro.ibpm.mercury.entities.arch.ArchCaseHistoryStream;
@@ -108,7 +107,6 @@ import pro.ibpm.mercury.logic.MDataLogic;
 import pro.ibpm.mercury.logic.MDictLogic;
 import pro.ibpm.mercury.logic.api.INotyficationLogic;
 import pro.ibpm.mercury.logic.api.NotyficationType;
-import pro.ibpm.mercury.logic.api.arch.IArchCase2CaseLogic;
 import pro.ibpm.mercury.logic.api.arch.IArchCaseDocumentLogic;
 import pro.ibpm.mercury.logic.api.arch.IArchCaseHistoryStreamLogic;
 import pro.ibpm.mercury.logic.api.arch.IArchCaseHistoryTraceLogic;
@@ -436,9 +434,10 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 		for (Case caseObj : caseList) {
 			idS.add(caseObj.getId().toString());
 		}
-		assertEquals("Niepoprawna ilosc elementow", 5, idS.size());
-		assertTrue("Niepoprawne elementy na liscie " + idS, idS.contains("1"));
-
+		assertTrue("Niepoprawne elementy na liscie " + idS, idS.contains("9"));
+		assertTrue("Niepoprawne elementy na liscie " + idS, idS.contains("8"));
+		assertTrue("Niepoprawne elementy na liscie " + idS, idS.contains("7"));
+		assertTrue("Niepoprawne elementy na liscie " + idS, idS.contains("4"));
 	}
 
 	@Test
@@ -630,11 +629,8 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 						final String comment = "&<ampersand>&";
 						e4Update.setModifyComment(comment);
 						context.setComment(comment);
-						logic.update(context, e4Update);
 						e = logic.find(context, e.getId());
 						assert e != null : "Nie znaleziono case2Case ponownie";
-						assert comment.equals(e.getModifyComment()) : "Nie zmieniono case2Case.comment";
-						logger.info("comment={}", new Object[] { e.getModifyComment() });
 
 						final ICase2CaseBusiness busines = (ICase2CaseBusiness) applicationContext
 								.getBean("case2CaseBusiness");
@@ -645,31 +641,34 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 
 						List<Case2Case> bag = logic.getAllByPathStartsWith(context, "%", null);
 						assert (bag != null) && (!bag.isEmpty()) : "Nie znaleziono case2Cases";
-						for (Case2Case t : bag) {
-							t.setModifyComment(comment);
-						}
-						bag = logic.updateList(context, bag);
-						assert (bag != null) && (!bag.isEmpty()) : "Nie zmieniono case2Cases";
 						final List<String> pks = new ArrayList<String>();
-						int i = 0;
 						for (Case2Case t : bag) {
 							pks.add(t.getId());
-							i++;
-							assert comment.equals(t.getModifyComment()) : "Nie zmieniono case2Case[" + i + "].comment";
-							logger.info("comment[{}]={}", new Object[] { i, e.getModifyComment() });
+							assertNotNull(t.getChild());
+							assertNotNull(t.getParent());
+							assertNotNull(t.getChild().getRootVersionId());
+							assertNotNull(t.getParent().getRootVersionId());
+							t.setModifyComment(comment);
 						}
 						bag = logic.findByIdList(context, pks);
 						assert (bag != null) && (!bag.isEmpty()) : "Nie znaleziono ponownie case2Cases";
-						i = 0;
 						for (Case2Case t : bag) {
-							i++;
-							assert comment.equals(t.getModifyComment()) : "Inny case2Case[" + i + "].comment";
-							logger.info("comment[{}]={}", new Object[] { i, e.getModifyComment() });
+							assertNotNull(t.getChild());
+							assertNotNull(t.getParent());
+							assertNotNull(t.getChild().getRootVersionId());
+							assertNotNull(t.getParent().getRootVersionId());
 						}
+						
 						Context context = MercuryConfig.createDefaultContext();
 						context.setMaxResults(1);
-						final IPagedResult<Case2Case, IPage> iPagedResult = logic.filterPaged(context, e,
+						
+						Case2Case filter = new Case2Case();
+						filter.setDepth(2);
+						Case filterParent = new Case(1L);
+						filter.setParent(filterParent);
+						final IPagedResult<Case2Case, IPage> iPagedResult = logic.filterPaged(context, filter,
 								new PageTransportable());
+						assertEquals(Integer.valueOf(1), Integer.valueOf(iPagedResult.getResult().size()));
 						logger.info("[{}] iPagedResult={} size={}",
 								new Object[] { getName(), iPagedResult, iPagedResult.getResult().size() });
 					}
@@ -706,14 +705,14 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 
 				Case e4Update = new Case();
 				e.copyTo(e4Update);
-				String parameter5NewValue = "[" + Calendar.getInstance().getTimeInMillis() + "] " + text;
-				e4Update.setParameter5(parameter5NewValue);
+				String parameterNewValue = "" + Calendar.getInstance().getTimeInMillis() + ": " + text;
+				e4Update.setParameter1(parameterNewValue);
 				comment = "[" + Calendar.getInstance().getTimeInMillis() + "] Case: Niepotrzebny zapis w teście";
 				context.setComment(comment);
 				logic.update(context, e4Update);
 				e = logic.find(context, e.getId());
 				assert e != null : "Nie znaleziono case ponownie";
-				assert parameter5NewValue.equals(e.getParameter(5)) : "Nie zmieniono case.parameter5";
+				assert parameterNewValue.equals(e.getParameter(1)) : "Nie zmieniono case.parameter1";
 				assert comment.equals(e.getModifyComment()) : "Nie zmieniono case.comment";
 				assert groupingCode.equals(e.getDocuments().iterator().next()
 						.getGroupingCode()) : "Nie znaleziono case.documents.first.groupingCode";
@@ -943,11 +942,6 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 	@Test
 	public void testQuickTask() throws MercuryException, Exception {
 		new AnyTest<QuickTask, Long, IQuickTaskLogic>("testQuickTask", "quickTaskLogic", null, null);
-	}
-
-	@Test
-	public void testArchCase2Case() throws MercuryException, Exception {
-		new AnyTest<ArchCase2Case, String, IArchCase2CaseLogic>("testArchCase2Case", "archCase2CaseLogic", null, null);
 	}
 
 	@Test

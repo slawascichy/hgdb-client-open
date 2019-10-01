@@ -1,26 +1,39 @@
 package io.hgdb.mercury.client.cxf.logic.data;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import io.hgdb.mercury.client.cxf.logic.WsClientCatalogLogic;
 import pro.ibpm.mercury.context.Context;
+import pro.ibpm.mercury.dto.CaseCatalogDto;
+import pro.ibpm.mercury.dto.CaseDto;
+import pro.ibpm.mercury.dto.CaseRootVersionDto;
+import pro.ibpm.mercury.dto.SystemUserDto;
 import pro.ibpm.mercury.dto.paging.PageTransportable;
 import pro.ibpm.mercury.entities.beans.EntityList;
 import pro.ibpm.mercury.entities.data.Case;
 import pro.ibpm.mercury.entities.data.Case2Case;
+import pro.ibpm.mercury.entities.data.CaseCatalog;
+import pro.ibpm.mercury.entities.data.CaseRootVersion;
+import pro.ibpm.mercury.entities.data.SystemUser;
 import pro.ibpm.mercury.exceptions.MercuryException;
 import pro.ibpm.mercury.logic.api.data.ICase2CaseLogic;
 import pro.ibpm.mercury.logic.paging.IPage;
 import pro.ibpm.mercury.logic.paging.IPagedResult;
 import pro.ibpm.mercury.ws.server.api.actions.data.ICase2CaseAction;
+import pro.ibpm.mercury.ws.server.api.returns.IWsStatus;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithPagedResult;
+import pro.ibpm.mercury.ws.server.api.returns.WsStatus;
+import pro.ibpm.mercury.ws.server.api.returns.data.WsStatusWithCaseCatalogDto;
+import pro.ibpm.mercury.ws.server.api.returns.data.WsStatusWithCaseCatalogDtos;
 
 /**
  * @author Karol Kowalczyk
  * 
  */
-public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, String, Case, Long, ICase2CaseAction>
+public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, Case, Long, ICase2CaseAction>
 		implements ICase2CaseLogic {
 
 	private static final long serialVersionUID = -5323157854323141221L;
@@ -166,4 +179,117 @@ public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, String, Case
 		getService().removeNodeFromMountPoint(paramContext, paramNodeArg, paramString);
 	}
 
+	@Override
+	public CaseCatalog insertCatalogEntry(Context context, CaseCatalog caseCatalog) throws MercuryException {
+		if (caseCatalog == null) {
+			return null;
+		}
+		WsStatusWithCaseCatalogDto wsStatusWithDto = getService().insertCatalogEntry(context, caseCatalog);
+		if (checkWsStatus((IWsStatus) wsStatusWithDto)) {
+			CaseCatalogDto catalogDto = wsStatusWithDto.getDto();
+			return createCaseCatalog(catalogDto);
+		}
+		return null;
+	}
+
+	@Override
+	public List<CaseCatalog> insertCatalogEntries(Context context, List<CaseCatalog> caseCatalogs)
+			throws MercuryException {
+		if (caseCatalogs == null || caseCatalogs.isEmpty()) {
+			return Collections.emptyList();
+		}
+		WsStatusWithCaseCatalogDtos wsStatusWithDtos = getService().insertCatalogEntries(context, caseCatalogs);
+		if (checkWsStatus((IWsStatus) wsStatusWithDtos)) {
+			Collection<CaseCatalogDto> entries = wsStatusWithDtos.getDtos();
+			if (entries == null || entries.isEmpty()) {
+				return Collections.emptyList();
+			}
+			List<CaseCatalog> result = new ArrayList<>();
+			for (CaseCatalogDto cc : entries) {
+				result.add(createCaseCatalog(cc));
+			}
+			return result;
+		}
+		return Collections.emptyList();
+	}
+
+	@Override
+	public String removeCatalogEntry(Context context, CaseCatalog caseCatalog) throws MercuryException {
+		if (caseCatalog == null) {
+			return null;
+		}
+		WsStatus wsStatus = getService().removeCatalogEntry(context, caseCatalog);
+		if (checkWsStatus((IWsStatus) wsStatus)) {
+			return caseCatalog.getId();
+		}
+		return null;
+	}
+
+	@Override
+	public List<String> removeCatalogEntries(Context context, List<CaseCatalog> caseCatalogs) throws MercuryException {
+		if (caseCatalogs == null || caseCatalogs.isEmpty()) {
+			return null;
+		}
+		WsStatus wsStatus = getService().removeCatalogEntries(context, caseCatalogs);
+		if (checkWsStatus((IWsStatus) wsStatus)) {
+			List<String> result = new ArrayList<>();
+			for (CaseCatalog cc : caseCatalogs) {
+				result.add(cc.getId());
+			}
+			return result;
+		}
+		return null;
+	}
+
+	private SystemUser createSystemUser(SystemUserDto systemUser) {
+		SystemUser user;
+		user = new SystemUser();
+		user.setFullname(systemUser.getFullname());
+		user.setId(systemUser.getId());
+		user.setIsActive(systemUser.getIsActive());
+		user.setIsTechnical(systemUser.getIsTechnical());
+		user.setLocale(systemUser.getLocale());
+		user.setUserName(systemUser.getUserName());
+		user.setTimeZone(systemUser.getTimeZone());
+		return user;
+	}
+
+	private CaseRootVersion createCaseRootVersion(CaseRootVersionDto caseRootVersion) {
+		CaseRootVersion rootVersion;
+		Case lastVersion;
+		rootVersion = new CaseRootVersion();
+		rootVersion.setId(caseRootVersion.getId());
+		CaseDto lastVersionDto = caseRootVersion.getLastVersion();
+		lastVersion = new Case();
+		lastVersion.setId(lastVersionDto.getId());
+		lastVersion.setPreviousVersionId(lastVersionDto.getPreviousVersionId());
+		lastVersion.setRootVersionId(lastVersionDto.getRootVersionId());
+		rootVersion.setLastVersion(lastVersion);
+		return rootVersion;
+	}
+
+	private CaseCatalog createCaseCatalog(CaseCatalogDto entry) {
+		if (entry == null) {
+			return null;
+		}
+		CaseCatalog catalog = new CaseCatalog();
+		CaseRootVersionDto childDto = entry.getChild();
+		catalog.setChild(createCaseRootVersion(childDto));
+		catalog.setCreateDate(entry.getCreateDate());
+
+		SystemUserDto createdByDto = entry.getCreatedBy();
+		catalog.setCreatedBy(createSystemUser(createdByDto));
+		catalog.setDepth(entry.getDepth());
+		catalog.setId(entry.getId());
+
+		SystemUserDto lastModifiedByDto = entry.getLastModifiedBy();
+		catalog.setLastModifiedBy(createSystemUser(lastModifiedByDto));
+		catalog.setLastModifyDate(entry.getLastModifyDate());
+		catalog.setModifyComment(entry.getModifyComment());
+		catalog.setMountPoint(entry.getMountPoint());
+
+		CaseRootVersionDto parentDto = entry.getChild();
+		catalog.setParent(createCaseRootVersion(parentDto));
+		return catalog;
+	}
 }

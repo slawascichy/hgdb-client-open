@@ -23,7 +23,7 @@ import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithPagedResult;
  * @author Karol Kowalczyk
  * 
  */
-public class Type2TypeLogic extends WsClientCatalogLogic<Type2Type, String, TypeCode, String, IType2TypeAction>
+public class Type2TypeLogic extends WsClientCatalogLogic<Type2Type, TypeCode, String, IType2TypeAction>
 		implements IType2TypeLogic {
 
 	private static final long serialVersionUID = 6353138670210031878L;

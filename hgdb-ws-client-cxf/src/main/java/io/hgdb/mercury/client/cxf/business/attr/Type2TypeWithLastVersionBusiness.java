@@ -28,7 +28,7 @@ import pro.ibpm.mercury.ws.server.api.returns.WsStatus;
  *
  */
 public class Type2TypeWithLastVersionBusiness extends
-		WsClientCatalogLogic<Type2TypeWithLastVersion, String, TypeCodeWithLastVersion, String, IType2TypeWithLastVersionBusinessAction>
+		WsClientCatalogLogic<Type2TypeWithLastVersion, TypeCodeWithLastVersion, String, IType2TypeWithLastVersionBusinessAction>
 		implements IType2TypeWithLastVersionBusiness {
 
 	private static final long serialVersionUID = 6353138670210031878L;
