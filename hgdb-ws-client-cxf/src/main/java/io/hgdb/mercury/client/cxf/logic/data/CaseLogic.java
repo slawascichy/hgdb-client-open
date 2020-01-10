@@ -437,4 +437,12 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 		WsStatus wsStatus = getService().clearQueryCache(context);
 		checkWsStatus(wsStatus);
 	}
+
+	@Override
+	public Case findActiveByBpmId(Context context, Long bpmProcessId) throws MercuryException {
+		if (bpmProcessId == null) {
+			return null;
+		}
+		return getEntity(context, getService().findActiveByBpmId(context, bpmProcessId.toString()));
+	}
 }
