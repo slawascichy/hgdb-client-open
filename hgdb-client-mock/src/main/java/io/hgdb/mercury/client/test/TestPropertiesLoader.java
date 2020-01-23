@@ -18,7 +18,7 @@ import pro.ibpm.mercury.config.MercuryConfig;
  * TestPropertiesLoader
  *
  * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
- * @version $Revision: 1.1 $ 
+ * @version $Revision: 1.1 $
  *
  */
 public class TestPropertiesLoader {
@@ -81,8 +81,8 @@ public class TestPropertiesLoader {
 			try {
 				fw = new FileWriter(statusFile);
 				fw.append((new StringBuilder()).append(STATUS_PROP_PREFIX).append(testLabel)
-						.append(MercuryConfig.EQUALS).append(status.name()).append("\n").toString());
-				fw.append((new StringBuilder()).append(STATUS_PROP_ALL).append(MercuryConfig.EQUALS)
+						.append(MercuryConfig.EQUALS_STR).append(status.name()).append("\n").toString());
+				fw.append((new StringBuilder()).append(STATUS_PROP_ALL).append(MercuryConfig.EQUALS_STR)
 						.append(status.name()).toString());
 				fw.flush();
 				System.out.println("Saved test status in " + statusFile.getCanonicalPath());
