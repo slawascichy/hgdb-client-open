@@ -52,7 +52,7 @@ public class Case2CaseBusiness extends WsClient<ICase2CaseBusinessAction>
 						StringUtils.isBlank(wsStatusWithXML.getErrorMessage()) ? "OK"
 								: wsStatusWithXML.getErrorMessage());
 			}
-			Element response = (Element) wsStatusWithXML.getDocument();
+			Element response = (Element) wsStatusWithXML.getDto();
 			if (response != null) {
 				String responseNodeName = response.getNodeName();
 				if ("document".equals(responseNodeName)) {

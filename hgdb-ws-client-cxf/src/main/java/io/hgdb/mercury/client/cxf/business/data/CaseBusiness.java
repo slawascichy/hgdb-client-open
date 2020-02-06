@@ -99,7 +99,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 						StringUtils.isBlank(wsStatusWithXML.getErrorMessage()) ? "OK"
 								: wsStatusWithXML.getErrorMessage());
 			}
-			Element response = (Element) wsStatusWithXML.getDocument();
+			Element response = (Element) wsStatusWithXML.getDto();
 			if (response != null) {
 				String responseNodeName = response.getNodeName();
 				if (logger.isDebugEnabled()) {
