@@ -51,10 +51,10 @@
 		<!-- 
 		<scjdbc4jpa.version>0.0.7</scjdbc4jpa.version>
 		 -->
-		<sccommon-utils.version>1.0.1-SNAPSHOT</sccommon-utils.version>
+		<sccommon-utils.version>1.0.2</sccommon-utils.version>
 		<!-- UWAGA! pakiet wymaga wersji ehcache minimum 2.10.1 -->
-		<sccommon.version>1.0.2-SNAPSHOT</sccommon.version>
-		<ccrto-openapi.version>1.0-SNAPSHOT</ccrto-openapi.version>
+		<sccommon.version>1.0.2</sccommon.version>
+		<ccrto-openapi.version>1.0</ccrto-openapi.version>
 
 		<databse.provider>POSTGRESQL</databse.provider>
 		<mercury.project.version>3.0.1.0.1</mercury.project.version>
@@ -348,10 +348,6 @@
 				<exclusion>
 					<artifactId>persistence-api</artifactId>
 					<groupId>javax.persistence</groupId>
-				</exclusion>
-				<exclusion>
-					<groupId>pro.ibpm.gs</groupId>
-					<artifactId>db2odbcconfigreader</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>

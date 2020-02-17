@@ -21,6 +21,33 @@
 	</properties>
 
 	<build>
+		<plugins>
+					<!-- Kopiowanie wymaganych bibliotek do katalogow -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.9</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<phase>package</phase>
+						<configuration>
+							<skip>false</skip>
+							<includeScope>provided</includeScope>
+							<outputDirectory>${project.build.directory}/dependencies</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<excludeTypes>war</excludeTypes>
+							<stripVersion>false</stripVersion>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
