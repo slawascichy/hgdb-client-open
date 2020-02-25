@@ -12,7 +12,7 @@ import pro.ibpm.mercury.ws.server.api.returns.WsStatus;
 
 public class NotyficationLogic implements INotyficationLogic {
 
-	final protected Logger logger = LoggerFactory.getLogger(getClass());
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	private INotyficationAction service;
 

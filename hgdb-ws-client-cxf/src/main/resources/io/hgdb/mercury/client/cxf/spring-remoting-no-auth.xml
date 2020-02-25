@@ -29,6 +29,19 @@
 	</bean>
  	-->
  
+ 	<!-- Sekwencje -->
+	<bean id="springBean.InvokerSequenceService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/SequenceAction" />
+		<property name="serviceInterface"
+			value="org.mercury.ws.server.api.actions.common.ISequenceAction" />
+		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
+	</bean>
+	<bean id="sequenceAction" scope="singleton"
+		class="io.hgdb.mercury.client.cxf.common.SequenceAction">
+		<property name="service" ref="springBean.InvokerSequenceService" />
+	</bean>
+ 
 	<!-- Notyfikacje -->
 	<bean id="springBean.InvokerNotyficationService" scope="singleton"
 		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
