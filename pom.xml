@@ -91,10 +91,17 @@
 	</developers>
 
 	<organization>
-		<name>Sci Software</name>
-		<url>https://scisoftware.pl</url>
+		<name>Sci Software Sławomir Cichy</name>
+		<url>http://scisoftware.pl</url>
 	</organization>
 
+	<licenses>
+		<license>
+			<name>HgDb Client License 1.0</name>
+			<url>http://hgdb.io/HGDB_Client_LICENSE.1.0.txt</url>
+		</license>
+	</licenses>
+	
 	<reporting>
 		<plugins>
 			<!-- To jest dla maven 3 -->
