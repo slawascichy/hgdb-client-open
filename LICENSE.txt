@@ -23,10 +23,10 @@ The license is based on **BSD 3-Clause License** with additional restrictions.
    contributors may be used to endorse or promote products derived from
    this software without specific prior written permission.
    
-4. Redistributions in binary are only allowed for the distribution of client 
-   software  performing the task of communicating with the Mercury DB (HgDB) 
+4. Redistributions in binary form are only allowed for the distribution of client 
+   software performing the task of communicating with the Mercury DB (HgDB) 
    database server, which is produced and distributed by 
-   SciSoftware Sławomir Cichy on other principles, also commercial.
+   SciSoftware Sławomir Cichy on other type of licenses.
 
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -40,4 +40,5 @@ The license is based on **BSD 3-Clause License** with additional restrictions.
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  ---
- http://scisoftware.pl
+The 3-Clause BSD License: https://opensource.org/licenses/BSD-3-Clause
+Sci Software Sławomir Cichy: http://scisoftware.pl
