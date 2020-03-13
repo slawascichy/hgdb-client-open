@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>io.hgdb.mercury</groupId>
+		<artifactId>mercury-lib</artifactId>
+		<version>3.0.1.0.1</version>
+	</parent>
+	<artifactId>mercury-ws-server-api</artifactId>
+	<name>WS Server API</name>
+	<description>API dla  WebService'ów (usług) SOAP oraz RMI w oparciu o framework CXF.</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<additionalArgLine>-Dsclogger.config.file=/sclogger.properties</additionalArgLine>
+		<site.out.dir>${local-project-workspace-path}/mercury-lib/site/${project.artifactId}</site.out.dir>
+	</properties>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>false</filtering>
+			</testResource>
+		</testResources>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<!-- Musi być do lokalnego ze względu na wygenerowane klasy -->
+			<groupId>io.hgdb.mercury</groupId>
+			<artifactId>mercury-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<!-- Musi być do lokalnego ze względu na wygenerowane klasy -->
+			<groupId>io.hgdb.mercury</groupId>
+			<artifactId>mercury-entities</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<!-- Musi być do lokalnego ze względu na wygenerowane klasy -->
+			<groupId>io.hgdb.mercury</groupId>
+			<artifactId>mercury-ws-dto-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.hgdb.mercury</groupId>
+			<artifactId>mercury-srv-api</artifactId>
+			<version>${project.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>io.hgdb.mercury</groupId>
+					<artifactId>mercury</artifactId>
+				</exclusion>
+				<exclusion>
+					<artifactId>mercury-core</artifactId>
+					<groupId>io.hgdb.mercury</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>mercury-entities</artifactId>
+					<groupId>io.hgdb.mercury</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<!-- tylko dla adnotacji do wyłączania zbędnych setterów/getterów dla 
+				cxf -->
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-databinding-aegis</artifactId>
+			<version>${cxf.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.cxf</groupId>
+					<artifactId>cxf-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.cxf</groupId>
+					<artifactId>cxf-rt-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.cxf</groupId>
+					<artifactId>cxf-rt-frontend-simple</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+</project>

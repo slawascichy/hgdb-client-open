@@ -9,6 +9,7 @@
 	<packaging>pom</packaging>
 	<version>3.0.1-SNAPSHOT</version>
 	<name>Mercury Client</name>
+	<url>https://github.com/slawascichy/hgdb-client-open</url>
 	<description>Zbiór integracji z IBM BPM i nie tylko do komunikacji z serwerem bazy Mercury.</description>
 
 	<properties>
@@ -35,7 +36,6 @@
 		<cxf.version>3.0.10</cxf.version>
 		<!-- Zależności JAXB dla CXF - pozwala na obsługę SOAP -->
 		<jaxb.version>2.2.11</jaxb.version>
-		<poi.version>3.9-20121203</poi.version>
 		<dom4j.version>1.6.1</dom4j.version>
 		<xerces.version>2.11.0</xerces.version>
 		<xml-apis.version>1.4.01</xml-apis.version>
@@ -90,6 +90,17 @@
 		</developer>
 	</developers>
 
+	<scm>
+		<url>https://github.com/slawascichy/hgdb-client-open</url>
+		<connection>scm:git:https://github.com/slawascichy/hgdb-client-open</connection>
+		<developerConnection>scm:git:https://slawascichy@github.com/slawascichy/hgdb-client-open</developerConnection>
+	</scm>
+
+	<issueManagement>
+		<url>https://github.com/slawascichy/hgdb-client-open/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
+
 	<organization>
 		<name>Sci Software Sławomir Cichy</name>
 		<url>http://scisoftware.pl</url>
@@ -101,6 +112,36 @@
 			<url>http://hgdb.io/HGDB_Client_LICENSE.1.0.txt</url>
 		</license>
 	</licenses>
+
+	<repositories>
+		<!--other repositories if any -->
+		<repository>
+			<id>project.local</id>
+			<name>project</name>
+			<url>file://${project.local.repo}</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>github</id>
+			<name>GitHub slawascichy Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/slawascichy/hgdb-client-open</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
 	
 	<reporting>
 		<plugins>
@@ -323,15 +364,6 @@
 		</testResources>
 	</build>
 
-	<repositories>
-		<!--other repositories if any -->
-		<repository>
-			<id>project.local</id>
-			<name>project</name>
-			<url>file://${project.local.repo}</url>
-		</repository>
-	</repositories>
-
 	<modules>
 		<module>hgdb-client-mock</module>
 		<module>hgdb-ws-client-cxf</module>
@@ -378,34 +410,228 @@
 
 		<!-- Mercury - START -->
 		<dependency>
-			<groupId>pro.ibpm.mercury</groupId>
+			<groupId>io.hgdb.mercury</groupId>
 			<artifactId>mercury-core</artifactId>
 			<version>${mercury.project.version}</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>pl.slawas</groupId>
+					<artifactId>schelper</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>pl.slawas</groupId>
+					<artifactId>scjdbc4jpa</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.xmlbeans</groupId>
+					<artifactId>xmlbeans-xmlpublic</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.cxf</groupId>
+					<artifactId>cxf-rt-databinding-aegis</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-ooxml</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-excelant</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-ooxml-schemas</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-scratchpad</artifactId>
+				</exclusion>
+			</exclusions>			
 		</dependency>
 		<dependency>
-			<groupId>pro.ibpm.mercury</groupId>
+			<groupId>io.hgdb.mercury</groupId>
 			<artifactId>mercury-entities</artifactId>
 			<version>${databse.provider}-${mercury.project.version}</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>pl.slawas</groupId>
+					<artifactId>schelper</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>pl.slawas</groupId>
+					<artifactId>scjdbc4jpa</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.xmlbeans</groupId>
+					<artifactId>xmlbeans-xmlpublic</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.cxf</groupId>
+					<artifactId>cxf-rt-databinding-aegis</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>net.sf.ehcache</groupId>
+					<artifactId>ehcache</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>io.hgdb.mercury</groupId>
+					<artifactId>mercury-entities-dto-generator</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun</groupId>
+					<artifactId>tools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-ooxml</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-excelant</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-ooxml-schemas</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-scratchpad</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>pro.ibpm.mercury</groupId>
+			<groupId>io.hgdb.mercury</groupId>
 			<artifactId>mercury-srv-api</artifactId>
 			<version>${mercury.project.version}</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>pl.slawas</groupId>
+					<artifactId>schelper</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>pl.slawas</groupId>
+					<artifactId>scjdbc4jpa</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>stax</groupId>
+					<artifactId>stax</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-ooxml</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-excelant</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-ooxml-schemas</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-scratchpad</artifactId>
+				</exclusion>
+			</exclusions>			
 		</dependency>
 		<dependency>
-			<groupId>pro.ibpm.mercury</groupId>
+			<groupId>io.hgdb.mercury</groupId>
 			<artifactId>mercury-ws-dto-api</artifactId>
 			<version>${mercury.project.version}</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>pl.slawas</groupId>
+					<artifactId>schelper</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>pl.slawas</groupId>
+					<artifactId>scjdbc4jpa</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>net.sf.ehcache</groupId>
+					<artifactId>ehcache</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>io.hgdb.mercury</groupId>
+					<artifactId>mercury-entities-dto-generator</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun</groupId>
+					<artifactId>tools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-ooxml</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-excelant</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-ooxml-schemas</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-scratchpad</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>pro.ibpm.mercury</groupId>
+			<groupId>io.hgdb.mercury</groupId>
 			<artifactId>mercury-ws-server-${mercury.api.version}</artifactId>
 			<version>${mercury.project.version}</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>pl.slawas</groupId>
+					<artifactId>schelper</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>pl.slawas</groupId>
+					<artifactId>scjdbc4jpa</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-ooxml</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-excelant</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-ooxml-schemas</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-scratchpad</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -689,59 +915,6 @@
 		    <version>${ehcache.version}</version>
 			<scope>provided</scope>
 		</dependency>
-
-		<!-- WS IBM librares -->
-		<!-- potrzebne np. do kodowania haseł -->
-		<dependency>
-			<groupId>org.eclipse.wst.common</groupId>
-			<artifactId>emf</artifactId>
-			<version>1.1.103.v200706071630</version>
-		</dependency>
-		<dependency>
-			<groupId>com.ibm.ws.ejb</groupId>
-			<artifactId>thinclient</artifactId>
-			<version>7.0.0</version>
-		</dependency>
-		<!-- Produkt IBM BPM: KONIEC -->
-
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>${poi.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-excelant</artifactId>
-			<version>${poi.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>${poi.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml-schemas</artifactId>
-			<version>${poi.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-scratchpad</artifactId>
-			<version>${poi.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.xmlbeans</groupId>
-			<artifactId>xmlbeans-xmlpublic</artifactId>
-			<version>2.5.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.xmlbeans</groupId>
-			<artifactId>xmlbeans</artifactId>
-			<version>2.5.0</version>
-		</dependency>
-		<!-- Apache POI: KONIEC -->
 
 		<!-- https://mvnrepository.com/artifact/xerces/xercesImpl -->
 		<dependency>

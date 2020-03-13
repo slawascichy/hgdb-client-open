@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" ?>
+<settings>
+	<interactiveMode>false</interactiveMode>
+	<profiles>
+		<profile>
+			<id>main</id>
+			<repositories>
+				<!-- Potrzebne do ściągania artefaktow -->
+				<repository>
+					<id>DefaultRepositoryMaven</id>
+					<url>https://mvnrepository.com/artifact</url>
+					<releases>
+						<enabled>true</enabled>
+						<updatePolicy>never</updatePolicy>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+						<updatePolicy>never</updatePolicy>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>CentralRepositoryMaven2</id>
+					<url>https://repo1.maven.org/maven2</url>
+					<releases>
+						<enabled>true</enabled>
+						<updatePolicy>never</updatePolicy>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+						<updatePolicy>never</updatePolicy>
+					</snapshots>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>central</id>
+					<name>Central Repository</name>
+					<url>https://repo.maven.apache.org/maven2</url>
+					<layout>default</layout>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+					<releases>
+						<updatePolicy>never</updatePolicy>
+					</releases>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+	</profiles>
+	<activeProfiles>
+		<activeProfile>main</activeProfile>
+	</activeProfiles>
+</settings>

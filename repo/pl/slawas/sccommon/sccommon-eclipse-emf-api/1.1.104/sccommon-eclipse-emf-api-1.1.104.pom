@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>pl.slawas.sccommon</groupId>
+	<artifactId>sccommon-eclipse-emf-api</artifactId>
+	<version>1.1.104</version>
+	<name>sccommon-eclipse-emf-api</name>
+
+	<description>
+		Biblioteka zawierająca API niezbędene do kodowania i dekodowania haseł.
+		API oryginalnie pochodzą z biblioteki emf-1.1.104-v200709131115.jar.
+	</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<licenses>
+		<license>
+			<name>Eclipse Public License 1.0 (EPL-1.0)</name>
+			<url>https://opensource.org/licenses/EPL-1.0t</url>
+			<comments>Licencja biblioteki emf-1.1.104-v200709131115.jar</comments>
+		</license>
+	</licenses>
+
+</project>

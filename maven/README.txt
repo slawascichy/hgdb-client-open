@@ -1,0 +1,1 @@
+Tutaj sobie ładuję moje ustawienia maven'a
