@@ -17,6 +17,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mercury.business.data.api.ICaseHistoryTraceBusiness;
+import org.mercury.cxf.client.business.data.ICaseHistoryTraceBusinessXML;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.w3c.dom.Document;
@@ -36,12 +38,15 @@ import pro.ibpm.mercury.business.data.api.ICaseBusiness;
 import pro.ibpm.mercury.business.data.api.ICaseBusinessXML;
 import pro.ibpm.mercury.business.data.api.ICaseHistoryStreamBusiness;
 import pro.ibpm.mercury.business.data.api.IMrcObject;
+import pro.ibpm.mercury.business.data.api.IMrcPagedResult;
 import pro.ibpm.mercury.business.data.api.IParticipant2TypeStatsBusiness;
 import pro.ibpm.mercury.business.data.api.IStore2TypeLastVersionBusiness;
 import pro.ibpm.mercury.business.data.api.IStore2TypeStatsBusiness;
 import pro.ibpm.mercury.business.data.api.MrcCaseHistoryStream;
 import pro.ibpm.mercury.business.data.api.MrcDataUtils;
 import pro.ibpm.mercury.business.data.api.MrcObject;
+import pro.ibpm.mercury.business.data.api.MrcPagedResult;
+import pro.ibpm.mercury.business.data.api.MrcSimpleProperty;
 import pro.ibpm.mercury.business.data.utils.MrcObjectUtils;
 import pro.ibpm.mercury.business.entities.Store2TypeLastVersion;
 import pro.ibpm.mercury.business.entities.Type2TypeWithLastVersion;
@@ -151,6 +156,7 @@ import pro.ibpm.mercury.logic.paging.IPagedResult;
 import pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmBPDInstanceBufferSecretaryManagerAction;
 import pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmTaskBufferSecretaryManagerAction;
 import pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmTaskNarrativeBufferSecretaryManagerAction;
+import pro.ibpm.mercury.xml.w3c.dom.XMLUtils;
 
 /**
  * 
@@ -164,6 +170,7 @@ import pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmTaskNarrativeBuff
 @ContextConfiguration("spring-test.xml")
 public class WsClientCXFTest extends AWsClientCXFAnyTest {
 
+	private static final long CASE_ID = 2004L;
 	private final Context context = new Context("ttesteusz", "WsClientCXFTest", "001", "10", "1000");
 
 	public WsClientCXFTest() {
@@ -258,28 +265,51 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 
 		final String methodName = "testCaseHistoryStreamBusiness";
 		final String beanName = "caseHistoryStreamBusiness";
-
 		logger.info("Start testu... " + "\n************************************" + "\n*  SCENARIUSZ {}()  *"
 				+ "\n************************************", new Object[] { methodName });
-
 		String result = "OK";
-
 		try {
 
 			final ICaseHistoryStreamBusiness business = (ICaseHistoryStreamBusiness) applicationContext
 					.getBean(beanName);
 			assert business != null : "Nie znaleziono beana " + beanName;
-
-			IPagedResult<MrcCaseHistoryStream, IPage> pagedResult = business.loadCaseHistoryStream(context, 2003L,
+			IPagedResult<MrcCaseHistoryStream, IPage> pagedResult = business.loadCaseHistoryStream(context, CASE_ID,
 					/* isAsc */ true, /* page */ null);
 			WsCaseStreamHistoryHelper.printResult2Log(logger, pagedResult.getResult());
-
 		} catch (Exception ex) {
 			logger.error("ERROR : wyjatek", ex);
 			result = "BAD";
 			throw ex;
 		}
+		assert result.equals("OK") : "Test zakończył się porażką";
+	}
 
+	@Test
+	public void testCaseHistoryTraceBusiness() throws MercuryException, Exception {
+
+		final String methodName = "testCaseHistoryTraceBusiness";
+		final String beanName = "caseHistoryTraceBusiness";
+		logger.info("Start testu... " + "\n************************************" + "\n*  SCENARIUSZ {}()  *"
+				+ "\n************************************", new Object[] { methodName });
+		String result = "OK";
+		try {
+
+			final ICaseHistoryTraceBusiness business = (ICaseHistoryTraceBusiness) applicationContext.getBean(beanName);
+			assert business != null : "Nie znaleziono beana " + beanName;
+			MrcPagedResult pagedResult = business.findByCaseIdAllVersions(context, CASE_ID, /* isAsc */ true,
+					/* page */ null);
+			logger.info("-->testCaseHistoryTraceBusiness: resultSize: {}", ((MrcSimpleProperty) pagedResult
+					.getPropertyValue(IMrcPagedResult.MrcPagedResultField.resultSize.name())).getValue());
+			assertNotNull(pagedResult.getPropertyValue(IMrcPagedResult.MrcPagedResultField.resultSize.name()));
+
+			Document xmlResult = ((ICaseHistoryTraceBusinessXML) business).findByCaseIdAllVersionsXML(context, CASE_ID,
+					/* isAsc */ true, /* page */ null);
+			logger.info("-->testCaseHistoryTraceBusiness: result: \n{}", XMLUtils.nodeToString(xmlResult));
+		} catch (Exception ex) {
+			logger.error("ERROR : wyjatek", ex);
+			result = "BAD";
+			throw ex;
+		}
 		assert result.equals("OK") : "Test zakończył się porażką";
 	}
 
@@ -658,10 +688,10 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 							assertNotNull(t.getChild().getRootVersionId());
 							assertNotNull(t.getParent().getRootVersionId());
 						}
-						
+
 						Context context = MercuryConfig.createDefaultContext();
 						context.setMaxResults(1);
-						
+
 						Case2Case filter = new Case2Case();
 						filter.setDepth(2);
 						Case filterParent = new Case(1L);

@@ -703,6 +703,21 @@
 		<property name="service" ref="springBean.InvokerCaseHistoryStreamBusinessService" />
 	</bean>
 	<!-- CaseHistoryStreamBusiness -->
+	
+	<!-- CaseHistoryStreamBusiness -->
+	<bean id="springBean.InvokerCaseHistoryTraceBusinessService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/CaseHistoryTraceBusinessAction" />
+		<property name="serviceInterface"
+			value="org.mercury.ws.server.api.actions.business.data.ICaseHistoryTraceBusinessAction" />
+		<property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/>
+	</bean>
+	<bean id="caseHistoryTraceBusiness" scope="singleton"
+		class="io.hgdb.mercury.client.cxf.business.data.CaseHistoryTraceBusiness">
+		<property name="service" ref="springBean.InvokerCaseHistoryTraceBusinessService" />
+		<property name="isRemote" ref="springBean.isRemote"/>
+	</bean>
+	<!-- CaseHistoryStreamBusiness -->
 
 	<!-- Store2TypeLastVersionBusiness -->
 	<bean id="springBean.InvokerStore2TypeLastVersionBusinessService"
@@ -720,7 +735,6 @@
 			ref="springBean.InvokerStore2TypeLastVersionBusinessService" />
 	</bean>
 	<!-- Store2TypeLastVersionBusiness -->
-
 
 	<!-- TypeCodeWithLastVersionBusiness -->
 	<bean id="springBean.InvokerTypeCodeWithLastVersionBusinessService"

@@ -51,7 +51,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="notyficationLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.NotyficationLogic">
+		class="io.hgdb.mercury.client.cxf.logic.NotyficationLogic">
 		<property name="service" ref="springBean.InvokerNotyficationService" />
 	</bean>
 
@@ -94,7 +94,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="roleLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.dict.RoleLogic">
+		class="io.hgdb.mercury.client.cxf.logic.dict.RoleLogic">
 		<property name="service" ref="springBean.InvokerRoleService" />
 	</bean>
 
@@ -106,7 +106,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="typeKindLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.dict.TypeKindLogic">
+		class="io.hgdb.mercury.client.cxf.logic.dict.TypeKindLogic">
 		<property name="service" ref="springBean.InvokerTypeKindService" />
 	</bean>
 
@@ -118,7 +118,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="sourceLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.dict.SourceLogic">
+		class="io.hgdb.mercury.client.cxf.logic.dict.SourceLogic">
 		<property name="service" ref="springBean.InvokerSourceService" />
 	</bean>
 
@@ -130,7 +130,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="initStatusLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.dict.InitStatusLogic">
+		class="io.hgdb.mercury.client.cxf.logic.dict.InitStatusLogic">
 		<property name="service" ref="springBean.InvokerInitStatusService" />
 	</bean>
 	<!-- dict -->
@@ -144,7 +144,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="caseViewDefinitionLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.attr.CaseViewDefinitionLogic">
+		class="io.hgdb.mercury.client.cxf.logic.attr.CaseViewDefinitionLogic">
 		<property name="service" ref="springBean.InvokerCaseViewDefinitionService" />
 	</bean>
 
@@ -156,7 +156,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="typeParamRoleLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.attr.TypeParamRoleLogic">
+		class="io.hgdb.mercury.client.cxf.logic.attr.TypeParamRoleLogic">
 		<property name="service" ref="springBean.InvokerTypeParamRoleService" />
 	</bean>
 
@@ -168,7 +168,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="typeParamActionLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.attr.TypeParamActionLogic">
+		class="io.hgdb.mercury.client.cxf.logic.attr.TypeParamActionLogic">
 		<property name="service" ref="springBean.InvokerTypeParamActionService" />
 	</bean>
 
@@ -180,7 +180,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="typeCaseLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.attr.TypeCaseLogic">
+		class="io.hgdb.mercury.client.cxf.logic.attr.TypeCaseLogic">
 		<property name="service" ref="springBean.InvokerTypeCaseService" />
 	</bean>
 
@@ -192,7 +192,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="typeCodeLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.attr.TypeCodeLogic">
+		class="io.hgdb.mercury.client.cxf.logic.attr.TypeCodeLogic">
 		<property name="service" ref="springBean.InvokerTypeCodeService" />
 	</bean>
 
@@ -204,7 +204,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="type2TypeLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.attr.Type2TypeLogic">
+		class="io.hgdb.mercury.client.cxf.logic.attr.Type2TypeLogic">
 		<property name="service" ref="springBean.InvokerType2TypeService" />
 	</bean>
 
@@ -216,7 +216,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="typeParamLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.attr.TypeParamLogic">
+		class="io.hgdb.mercury.client.cxf.logic.attr.TypeParamLogic">
 		<property name="service" ref="springBean.InvokerTypeParamService" />
 	</bean>
 
@@ -228,7 +228,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="paramDefinitionLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.attr.ParamDefinitionLogic">
+		class="io.hgdb.mercury.client.cxf.logic.attr.ParamDefinitionLogic">
 		<property name="service" ref="springBean.InvokerParamDefinitionService" />
 	</bean>
 	<!-- attr -->
@@ -242,7 +242,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="case2CaseLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.Case2CaseLogic">
+		class="io.hgdb.mercury.client.cxf.logic.data.Case2CaseLogic">
 		<property name="service" ref="springBean.InvokerCase2CaseService" />
 	</bean>
 
@@ -254,7 +254,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="caseLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.CaseLogic">
+		class="io.hgdb.mercury.client.cxf.logic.data.CaseLogic">
 		<property name="service" ref="springBean.InvokerCaseService" />
 	</bean>
 
@@ -266,7 +266,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="caseDocumentLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.CaseDocumentLogic">
+		class="io.hgdb.mercury.client.cxf.logic.data.CaseDocumentLogic">
 		<property name="service" ref="springBean.InvokerCaseDocumentService" />
 	</bean>
 
@@ -278,7 +278,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="caseHistoryStreamLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.CaseHistoryStreamLogic">
+		class="io.hgdb.mercury.client.cxf.logic.data.CaseHistoryStreamLogic">
 		<property name="service" ref="springBean.InvokerCaseHistoryStreamService" />
 	</bean>
 
@@ -290,7 +290,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="caseHistoryTraceLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.CaseHistoryTraceLogic">
+		class="io.hgdb.mercury.client.cxf.logic.data.CaseHistoryTraceLogic">
 		<property name="service" ref="springBean.InvokerCaseHistoryTraceService" />
 	</bean>
 
@@ -302,7 +302,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="groupCaseLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.GroupCaseLogic">
+		class="io.hgdb.mercury.client.cxf.logic.data.GroupCaseLogic">
 		<property name="service" ref="springBean.InvokerGroupCaseService" />
 	</bean>
 
@@ -314,7 +314,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="systemUserLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.SystemUserLogic">
+		class="io.hgdb.mercury.client.cxf.logic.data.SystemUserLogic">
 		<property name="service" ref="springBean.InvokerSystemUserService" />
 	</bean>
 
@@ -326,7 +326,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="storeLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.StoreLogic">
+		class="io.hgdb.mercury.client.cxf.logic.data.StoreLogic">
 		<property name="service" ref="springBean.InvokerStoreService" />
 	</bean>
 
@@ -338,7 +338,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="commentLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.CommentLogic">
+		class="io.hgdb.mercury.client.cxf.logic.data.CommentLogic">
 		<property name="service" ref="springBean.InvokerCommentService" />
 	</bean>
 
@@ -350,7 +350,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="quickTaskLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.QuickTaskLogic">
+		class="io.hgdb.mercury.client.cxf.logic.data.QuickTaskLogic">
 		<property name="service" ref="springBean.InvokerQuickTaskService" />
 	</bean>
 
@@ -362,7 +362,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="ktmNumberLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.KtmNumberLogic">
+		class="io.hgdb.mercury.client.cxf.logic.data.KtmNumberLogic">
 		<property name="service" ref="springBean.InvokerKtmNumberService" />
 	</bean>
 
@@ -374,7 +374,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="loggerEventLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.LoggerEventLogic">
+		class="io.hgdb.mercury.client.cxf.logic.data.LoggerEventLogic">
 		<property name="service" ref="springBean.InvokerLoggerEventService" />
 	</bean>
 
@@ -386,7 +386,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="participantLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.ParticipantLogic">
+		class="io.hgdb.mercury.client.cxf.logic.data.ParticipantLogic">
 		<property name="service" ref="springBean.InvokerParticipantService" />
 	</bean>
 
@@ -400,7 +400,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="participantHistoryStreamLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.ParticipantHistoryStreamLogic">
+		class="io.hgdb.mercury.client.cxf.logic.data.ParticipantHistoryStreamLogic">
 		<property name="service"
 			ref="springBean.InvokerParticipantHistoryStreamService" />
 	</bean>
@@ -414,7 +414,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="participantHistoryTraceLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.ParticipantHistoryTraceLogic">
+		class="io.hgdb.mercury.client.cxf.logic.data.ParticipantHistoryTraceLogic">
 		<property name="service"
 			ref="springBean.InvokerParticipantHistoryTraceService" />
 	</bean>
@@ -427,7 +427,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="store2TypeLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.Store2TypeLogic">
+		class="io.hgdb.mercury.client.cxf.logic.data.Store2TypeLogic">
 		<property name="service" ref="springBean.InvokerStore2TypeService" />
 	</bean>
 
@@ -439,7 +439,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="storeHistoryStreamLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.StoreHistoryStreamLogic">
+		class="io.hgdb.mercury.client.cxf.logic.data.StoreHistoryStreamLogic">
 		<property name="service" ref="springBean.InvokerStoreHistoryStreamService" />
 	</bean>
 
@@ -452,7 +452,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="groupCase2ParticipantLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.GroupCase2ParticipantLogic">
+		class="io.hgdb.mercury.client.cxf.logic.data.GroupCase2ParticipantLogic">
 		<property name="service"
 			ref="springBean.InvokerGroupCase2ParticipantService" />
 	</bean>
@@ -465,7 +465,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="case2SubCaseLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.data.Case2SubCaseLogic">
+		class="io.hgdb.mercury.client.cxf.logic.data.Case2SubCaseLogic">
 		<property name="service" ref="springBean.InvokerCase2SubCaseService" />
 	</bean>
 
@@ -480,7 +480,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="archCaseDocumentLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.arch.ArchCaseDocumentLogic">
+		class="io.hgdb.mercury.client.cxf.logic.arch.ArchCaseDocumentLogic">
 		<property name="service" ref="springBean.InvokerArchCaseDocumentService" />
 	</bean>
 
@@ -493,7 +493,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="archCaseHistoryStreamLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.arch.ArchCaseHistoryStreamLogic">
+		class="io.hgdb.mercury.client.cxf.logic.arch.ArchCaseHistoryStreamLogic">
 		<property name="service"
 			ref="springBean.InvokerArchCaseHistoryStreamService" />
 	</bean>
@@ -506,7 +506,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="archCaseHistoryTraceLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.arch.ArchCaseHistoryTraceLogic">
+		class="io.hgdb.mercury.client.cxf.logic.arch.ArchCaseHistoryTraceLogic">
 		<property name="service"
 			ref="springBean.InvokerArchCaseHistoryTraceService" />
 	</bean>
@@ -519,7 +519,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="archCaseLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.arch.ArchCaseLogic">
+		class="io.hgdb.mercury.client.cxf.logic.arch.ArchCaseLogic">
 		<property name="service" ref="springBean.InvokerArchCaseService" />
 	</bean>
 
@@ -531,7 +531,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="archCommentLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.arch.ArchCommentLogic">
+		class="io.hgdb.mercury.client.cxf.logic.arch.ArchCommentLogic">
 		<property name="service" ref="springBean.InvokerArchCommentService" />
 	</bean>
 
@@ -545,7 +545,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="archGroupCase2ParticipantLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.arch.ArchGroupCase2ParticipantLogic">
+		class="io.hgdb.mercury.client.cxf.logic.arch.ArchGroupCase2ParticipantLogic">
 		<property name="service"
 			ref="springBean.InvokerArchGroupCase2ParticipantService" />
 	</bean>
@@ -560,7 +560,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="archGroupCaseHistoryStreamLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.arch.ArchGroupCaseHistoryStreamLogic">
+		class="io.hgdb.mercury.client.cxf.logic.arch.ArchGroupCaseHistoryStreamLogic">
 		<property name="service"
 			ref="springBean.InvokerArchGroupCaseHistoryStreamService" />
 	</bean>
@@ -573,7 +573,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="archGroupCaseLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.arch.ArchGroupCaseLogic">
+		class="io.hgdb.mercury.client.cxf.logic.arch.ArchGroupCaseLogic">
 		<property name="service" ref="springBean.InvokerArchGroupCaseService" />
 	</bean>
 
@@ -585,7 +585,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="archKtmNumberLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.arch.ArchKtmNumberLogic">
+		class="io.hgdb.mercury.client.cxf.logic.arch.ArchKtmNumberLogic">
 		<property name="service" ref="springBean.InvokerArchKtmNumberService" />
 	</bean>
 
@@ -597,7 +597,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="archQuickTaskLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.arch.ArchQuickTaskLogic">
+		class="io.hgdb.mercury.client.cxf.logic.arch.ArchQuickTaskLogic">
 		<property name="service" ref="springBean.InvokerArchQuickTaskService" />
 	</bean>
 	<!-- arch -->
@@ -611,7 +611,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="cacheManagerLogic" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.logic.cache.CacheManagerLogic">
+		class="io.hgdb.mercury.client.cxf.logic.cache.CacheManagerLogic">
 		<property name="service" ref="springBean.InvokerCacheManagerService" />
 	</bean>
 	<!-- pamięć podręczna -->
@@ -627,7 +627,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="bpmBPDInstanceBufferSecretaryManager" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.business.bpm.BpmBPDInstanceBufferSecretaryManager">
+		class="io.hgdb.mercury.client.cxf.business.bpm.BpmBPDInstanceBufferSecretaryManager">
 		<property name="service"
 			ref="springBean.InvokerBpmBPDInstanceBufferSecretaryManagerService" />
 	</bean>
@@ -642,7 +642,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="bpmTaskBufferSecretaryManager" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.business.bpm.BpmTaskBufferSecretaryManager">
+		class="io.hgdb.mercury.client.cxf.business.bpm.BpmTaskBufferSecretaryManager">
 		<property name="service"
 			ref="springBean.InvokerBpmTaskBufferSecretaryManagerService" />
 	</bean>
@@ -657,7 +657,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="bpmTaskNarrativeBufferSecretaryManager" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.business.bpm.BpmTaskNarrativeBufferSecretaryManager">
+		class="io.hgdb.mercury.client.cxf.business.bpm.BpmTaskNarrativeBufferSecretaryManager">
 		<property name="service"
 			ref="springBean.InvokerBpmTaskNarrativeBufferSecretaryManagerService" />
 	</bean>
@@ -672,7 +672,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="caseBusiness" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.business.data.CaseBusiness">
+		class="io.hgdb.mercury.client.cxf.business.data.CaseBusiness">
 		<property name="service" ref="springBean.InvokerCaseBusinessService" />
 		<property name="isRemote" ref="springBean.isRemote"/>
 	</bean>
@@ -687,7 +687,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="case2CaseBusiness" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.business.data.Case2CaseBusiness">
+		class="io.hgdb.mercury.client.cxf.business.data.Case2CaseBusiness">
 		<property name="service" ref="springBean.InvokerCase2CaseBusinessService" />
 		<property name="isRemote" ref="springBean.isRemote"/>
 	</bean>
@@ -702,10 +702,25 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="caseHistoryStreamBusiness" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.business.data.CaseHistoryStreamBusiness">
+		class="io.hgdb.mercury.client.cxf.business.data.CaseHistoryStreamBusiness">
 		<property name="service" ref="springBean.InvokerCaseHistoryStreamBusinessService" />
 	</bean>
 	<!-- CaseHistoryStreamBusiness -->
+
+	<!-- CaseHistoryTraceBusiness -->
+	<bean id="springBean.InvokerCaseHistoryTraceBusinessService" scope="singleton"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${mercury.ws.url}/CaseHistoryTraceBusinessAction" />
+		<property name="serviceInterface"
+			value="org.mercury.ws.server.api.actions.business.data.ICaseHistoryTraceBusinessAction" />
+		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
+	</bean>
+	<bean id="caseHistoryTraceBusiness" scope="singleton"
+		class="io.hgdb.mercury.client.cxf.business.data.CaseHistoryTraceBusiness">
+		<property name="service" ref="springBean.InvokerCaseHistoryTraceBusinessService" />
+		<property name="isRemote" ref="springBean.isRemote"/>
+	</bean>
+	<!-- CaseHistoryTraceBusiness -->
 
 	<!-- Store2TypeLastVersionBusiness -->
 	<bean id="springBean.InvokerStore2TypeLastVersionBusinessService"
@@ -718,12 +733,11 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="store2TypeLastVersionBusiness" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.business.data.Store2TypeLastVersionBusiness">
+		class="io.hgdb.mercury.client.cxf.business.data.Store2TypeLastVersionBusiness">
 		<property name="service"
 			ref="springBean.InvokerStore2TypeLastVersionBusinessService" />
 	</bean>
 	<!-- Store2TypeLastVersionBusiness -->
-
 
 	<!-- TypeCodeWithLastVersionBusiness -->
 	<bean id="springBean.InvokerTypeCodeWithLastVersionBusinessService"
@@ -736,7 +750,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="typeCodeWithLastVersionBusiness" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.business.attr.TypeCodeWithLastVersionBusiness">
+		class="io.hgdb.mercury.client.cxf.business.attr.TypeCodeWithLastVersionBusiness">
 		<property name="service"
 			ref="springBean.InvokerTypeCodeWithLastVersionBusinessService" />
 	</bean>
@@ -753,7 +767,7 @@
 		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
 	</bean>
 	<bean id="type2TypeWithLastVersionBusiness" scope="singleton"
-		class="pro.ibpm.mercury.ws.client.cxf.business.attr.Type2TypeWithLastVersionBusiness">
+		class="io.hgdb.mercury.client.cxf.business.attr.Type2TypeWithLastVersionBusiness">
 		<property name="service"
 			ref="springBean.InvokerType2TypeWithLastVersionBusinessService" />
 	</bean>
