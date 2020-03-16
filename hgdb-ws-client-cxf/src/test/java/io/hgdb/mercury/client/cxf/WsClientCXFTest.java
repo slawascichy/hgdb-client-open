@@ -44,6 +44,7 @@ import pro.ibpm.mercury.business.data.api.IStore2TypeLastVersionBusiness;
 import pro.ibpm.mercury.business.data.api.IStore2TypeStatsBusiness;
 import pro.ibpm.mercury.business.data.api.MrcCaseHistoryStream;
 import pro.ibpm.mercury.business.data.api.MrcDataUtils;
+import pro.ibpm.mercury.business.data.api.MrcList;
 import pro.ibpm.mercury.business.data.api.MrcObject;
 import pro.ibpm.mercury.business.data.api.MrcPagedResult;
 import pro.ibpm.mercury.business.data.api.MrcSimpleProperty;
@@ -288,7 +289,7 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 	public void testCaseHistoryTraceBusiness() throws MercuryException, Exception {
 
 		final String methodName = "testCaseHistoryTraceBusiness";
-		final String beanName = "caseHistoryTraceBusiness";
+		String beanName = "caseHistoryTraceBusiness";
 		logger.info("Start testu... " + "\n************************************" + "\n*  SCENARIUSZ {}()  *"
 				+ "\n************************************", new Object[] { methodName });
 		String result = "OK";
@@ -301,10 +302,15 @@ public class WsClientCXFTest extends AWsClientCXFAnyTest {
 			logger.info("-->testCaseHistoryTraceBusiness: resultSize: {}", ((MrcSimpleProperty) pagedResult
 					.getPropertyValue(IMrcPagedResult.MrcPagedResultField.resultSize.name())).getValue());
 			assertNotNull(pagedResult.getPropertyValue(IMrcPagedResult.MrcPagedResultField.resultSize.name()));
-
 			Document xmlResult = ((ICaseHistoryTraceBusinessXML) business).findByCaseIdAllVersionsXML(context, CASE_ID,
 					/* isAsc */ true, /* page */ null);
 			logger.info("-->testCaseHistoryTraceBusiness: result: \n{}", XMLUtils.nodeToString(xmlResult));
+			beanName = "caseBusiness";
+			final ICaseBusiness caseBusiness = (ICaseBusiness) applicationContext.getBean(beanName);
+			assert business != null : "Nie znaleziono beana " + beanName;
+			MrcList list = caseBusiness.loadCaseHistoryTraces(context, CASE_ID, /* isAsc */ true);
+			logger.info("-->testCaseHistoryTraceBusiness: caseBusiness.loadCaseHistoryTraces: \n{}",
+					MrcObjectUtils.printMrcList("list", list, CaseBusiness.FIRST_ITERATION));
 		} catch (Exception ex) {
 			logger.error("ERROR : wyjatek", ex);
 			result = "BAD";
