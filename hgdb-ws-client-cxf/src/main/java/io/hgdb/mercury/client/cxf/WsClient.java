@@ -8,14 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-
+import org.mercury.cxf.client.WsStatusUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import pro.ibpm.mercury.config.MercuryConfig;
 import pro.ibpm.mercury.context.Context;
 import pro.ibpm.mercury.exceptions.MercuryException;
-import pro.ibpm.mercury.exceptions.SQLNoDataFoundException;
 import pro.ibpm.mercury.ws.server.api.actions.IActionRoot;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatus;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithBag;
@@ -23,7 +22,6 @@ import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithDto;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithDtos;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithMap;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithValue;
-import pro.ibpm.mercury.ws.server.api.returns.WsErrorCode;
 
 /**
  * 
@@ -32,25 +30,35 @@ import pro.ibpm.mercury.ws.server.api.returns.WsErrorCode;
  * @author Sławomir Cichy &lt;slawomir.cichy@ibpm.pro&gt;
  * @version $Revision: 1.1 $
  *
- * @param <Ws>
+ * @param <W>
+ *            interfejs zdalnej usługi
  */
-public abstract class WsClient<Ws extends IActionRoot> {
+public abstract class WsClient<W extends IActionRoot> {
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-	private Ws service;
+	/**
+	 * instancja zdalnej usługi spełniającej odpowiedni interfejs zdefiniowany w
+	 * parametrze abstrakcji.
+	 */
+	private W service;
 
 	/**
 	 * Ustawia instancję zdalnej usługi.
+	 * 
+	 * @param service
+	 *            instancja zdalnej usługi
 	 */
-	public void setService(Ws service) {
+	public void setService(W service) {
 		this.service = service;
 	}
 
 	/**
 	 * Zwraca instancję zdalnej usługi.
+	 * 
+	 * @return instancja zdalnej usługi
 	 */
-	public Ws getService() {
+	public W getService() {
 		return service;
 	}
 
@@ -65,25 +73,7 @@ public abstract class WsClient<Ws extends IActionRoot> {
 	 * @throws MercuryException
 	 */
 	protected boolean checkWsStatus(final IWsStatus wsStatus) throws MercuryException {
-		if (wsStatus != null) {
-			if (StringUtils.isNotBlank(wsStatus.getErrorCode())) {
-				/* Kod błędu jest przesyłany tylko wtedy gdy wystąpił błąd */
-				WsErrorCode wsErrorCode = WsErrorCode.decodeErrorCode(wsStatus.getErrorCode());
-				String errorCode = wsErrorCode.getErrorCode();
-				String errorUUID = wsErrorCode.getErrorUUID();
-				if (errorCode.equals(SQLNoDataFoundException.ERROR_CODE)) {
-					logger.warn("--> checkStatus: {}", wsStatus.getErrorMessage());
-				} else {
-					String errorMessage = wsStatus.getErrorMessage();
-					String message = (new StringBuilder()).append(errorMessage.endsWith(".") ? StringUtils.EMPTY : '.')
-							.append(" Sprawdź logi serwera. Błąd został oznaczony etykietą [").append(errorUUID)
-							.append("].").toString();
-					throw new MercuryException(errorCode, message);
-				}
-			}
-			return true;
-		}
-		return false;
+		return WsStatusUtils.checkWsStatus(wsStatus);
 	}
 
 	protected <T> T getValue(Context context, final IWsStatusWithValue<T> wsStatusWithValue) throws MercuryException {
@@ -149,7 +139,7 @@ public abstract class WsClient<Ws extends IActionRoot> {
 		if (idList == null) {
 			return Collections.emptyList();
 		}
-		Collection<String> ret = new ArrayList<String>();
+		Collection<String> ret = new ArrayList<>();
 		for (final Object id : idList) {
 			ret.add(id.toString());
 		}

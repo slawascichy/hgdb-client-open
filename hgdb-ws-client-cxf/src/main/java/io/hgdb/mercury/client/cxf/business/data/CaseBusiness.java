@@ -7,16 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.FactoryConfigurationError;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.commons.lang.StringUtils;
+import org.mercury.cxf.client.WsStatusUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import io.hgdb.mercury.client.cxf.WsClient;
 import pro.ibpm.mercury.attrs.CaseDateUtils;
@@ -78,7 +73,15 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	public static final int FIRST_ITERATION = 0;
 
-	private Boolean isRemote;
+	/**
+	 * parametr mówiący o tym, czy usługa klienta wykorzystuje usługi "remoting"
+	 * (nie SOAP). Dla usług pobierających XML ma to znaczenie, bo pobieranie wyniku
+	 * w postaci XML dla "remoting" się nie opłaca. Lepiej pobrać MrcObject i
+	 * przekształcić go do XML'a już lokalnie. Z kolei dla usług SOAP lepiej pobrać
+	 * dokument XML. Nasza implementacja klienta nastawiona jest na komunikację
+	 * "remoting" zatem domyślna wartość to {@code true}.
+	 */
+	private Boolean isRemote = true;
 
 	protected DtoMrcList getDtoList(final WsStatusWithMrcList wsStatusWithDto) throws MercuryException {
 		if (checkWsStatus((IWsStatus) wsStatusWithDto)) {
@@ -91,61 +94,19 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 		return null;
 	}
 
-	protected Element getDtoXMLElement(final WsStatusWithXML wsStatusWithXML) throws MercuryException {
-		Element currElement = null;
-		if (checkWsStatus((IWsStatus) wsStatusWithXML)) {
-			if (logger.isDebugEnabled()) {
-				logger.debug("-->getDtoXMLElement: status: {}",
-						StringUtils.isBlank(wsStatusWithXML.getErrorMessage()) ? "OK"
-								: wsStatusWithXML.getErrorMessage());
-			}
-			Element response = (Element) wsStatusWithXML.getDto();
-			if (response != null) {
-				String responseNodeName = response.getNodeName();
-				if (logger.isDebugEnabled()) {
-					logger.debug("-->getDtoXMLElement: response.nodeName: {}", responseNodeName);
-				}
-				if ("document".equals(responseNodeName)) {
-					NodeList children = response.getChildNodes();
-					int numChildren = children.getLength();
-					for (int i = 0; i < numChildren; i++) {
-						Node child = children.item(i);
-						if (child instanceof Element) {
-							currElement = (Element) child;
-							break;
-						}
-					}
-				} else {
-					currElement = response;
-				}
-			} else if (logger.isDebugEnabled()) {
-				logger.debug("-->getDtoXMLElement: response is NULL!");
-			}
-		}
-		return currElement;
+	/**
+	 * @return the {@link #isRemote}
+	 */
+	public Boolean getIsRemote() {
+		return isRemote == null || isRemote.booleanValue();
 	}
 
-	private Document createDocument(WsStatusWithXML result) throws MercuryException, FactoryConfigurationError {
-		Long startTime = Calendar.getInstance().getTimeInMillis();
-		Element xmlElement = getDtoXMLElement(result);
-		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder dBuilder;
-		try {
-			dBuilder = dbFactory.newDocumentBuilder();
-			Document document = dBuilder.newDocument();
-			if (xmlElement != null) {
-				Node firstDocImportedNode = document.importNode(xmlElement, true);
-				document.appendChild(firstDocImportedNode);
-			}
-			return document;
-		} catch (ParserConfigurationException e) {
-			throw new InternalErrorException(e);
-		} finally {
-			if (logger.isDebugEnabled()) {
-				Long endTime = Calendar.getInstance().getTimeInMillis();
-				logger.debug("-->createDocument: time: {}[ms]", endTime - startTime);
-			}
-		}
+	/**
+	 * @param isRemote
+	 *            the {@link #isRemote} to set
+	 */
+	public void setIsRemote(Boolean isRemote) {
+		this.isRemote = isRemote == null || isRemote.booleanValue();
 	}
 
 	@Override
@@ -267,7 +228,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	public Document loadSubCaseXML(Context context, Long caseId, String fieldName, int maxDepth)
 			throws MercuryException {
 		WsStatusWithXML result = getService().loadSubCaseXML(context, caseId, fieldName, maxDepth);
-		return createDocument(result);
+		return WsStatusUtils.createDocument(result);
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -281,7 +242,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public Document loadCaseXML(Context context, Long caseId, int maxDepth) throws MercuryException {
 		WsStatusWithXML result = getService().findXML(context, caseId);
-		return createDocument(result);
+		return WsStatusUtils.createDocument(result);
 	}
 
 	@Override
@@ -315,28 +276,28 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public Document findXML(Context context, Long id) throws MercuryException {
 		WsStatusWithXML result = getService().findXML(context, id);
-		return createDocument(result);
+		return WsStatusUtils.createDocument(result);
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Document findFirstXML(Context context) throws MercuryException {
 		WsStatusWithXML result = getService().findFirstXML(context);
-		return createDocument(result);
+		return WsStatusUtils.createDocument(result);
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Document findByIdListXML(Context context, List<Long> idList) throws MercuryException {
 		WsStatusWithXML result = getService().findByIdListXML(context, idList);
-		return createDocument(result);
+		return WsStatusUtils.createDocument(result);
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Document saveXML(Context context, Element documentXML, Boolean forceAddStore2Type) throws MercuryException {
 		WsStatusWithXML result = getService().saveXML(context, documentXML, forceAddStore2Type);
-		return createDocument(result);
+		return WsStatusUtils.createDocument(result);
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -356,7 +317,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 		}
 		WsStatusWithXML result = getService().searchInDBXML(context, paramsMap, mode, objectId, versionSeriesId,
 				gc2pList, header, cDateFrom, cDateTo, getOnlyLastCase, (PageTransportable) page);
-		return createDocument(result);
+		return WsStatusUtils.createDocument(result);
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -365,7 +326,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 			IPage page) throws MercuryException {
 		WsStatusWithXML result = getService().searchLuceneByParamsXML(context, paramsMap, mode,
 				(PageTransportable) page);
-		return createDocument(result);
+		return WsStatusUtils.createDocument(result);
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -376,7 +337,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 			return loadMrcPagedResultXML(context, mrcPagedResult);
 		} else {
 			WsStatusWithXML result = getService().searchLuceneByQueryXML(context, query, (PageTransportable) page);
-			return createDocument(result);
+			return WsStatusUtils.createDocument(result);
 		}
 	}
 
@@ -388,7 +349,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 			return loadMrcObjectXML(context, mrcObject);
 		} else {
 			WsStatusWithXML result = getService().findLastByBpmIdXML(context, bpmProcessId);
-			return createDocument(result);
+			return WsStatusUtils.createDocument(result);
 		}
 	}
 
@@ -400,7 +361,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 			return loadMrcListXML(context, mrcList);
 		} else {
 			WsStatusWithXML result = getService().findByGroupCaseIdsXML(context, groupCaseIds);
-			return createDocument(result);
+			return WsStatusUtils.createDocument(result);
 		}
 	}
 
@@ -427,7 +388,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 			return loadMrcPagedResultXML(context, mrcPagedResult);
 		} else {
 			WsStatusWithXML result = getService().loadLastUpdatedXML(context, (PageTransportable) page);
-			return createDocument(result);
+			return WsStatusUtils.createDocument(result);
 		}
 	}
 
@@ -440,7 +401,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 		} else {
 			WsStatusWithXML result = getService().loadLastUpdatedByTypeCodesXML(context, typeCodes,
 					(PageTransportable) page);
-			return createDocument(result);
+			return WsStatusUtils.createDocument(result);
 		}
 	}
 
@@ -457,7 +418,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	public Document searchLuceneWithQueriesXML(Context context, Map<String, String> queriesMap, IPage page)
 			throws MercuryException {
 		WsStatusWithXML result = getService().searchLuceneWithQueriesXML(context, queriesMap, (PageTransportable) page);
-		return createDocument(result);
+		return WsStatusUtils.createDocument(result);
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -548,17 +509,29 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 		return Collections.emptyList();
 	}
 
+	/**
+	 * @deprecated metoda przestarzała. Obecnie istnieje usługa dedykowana do
+	 *             wykonywania tej operacji. Zobacz implementację
+	 *             {@link CaseHistoryTraceBusiness}
+	 */
 	@Override
+	@Deprecated
 	public MrcList loadCaseHistoryTraces(Context context, Long caseId, Boolean isAsc) throws MercuryException {
 		WsStatusWithMrcList result = getService().loadCaseHistoryTraces(context, caseId, isAsc);
 		DtoMrcList dtoList = getDtoList(result);
 		return (MrcList) DtoMrcDataUtils.toMrcList(context, dtoList);
 	}
 
+	/**
+	 * @deprecated metoda przestarzała. Obecnie istnieje usługa dedykowana do
+	 *             wykonywania tej operacji. Zobacz implementację
+	 *             {@link CaseHistoryTraceBusiness}
+	 */
 	@Override
+	@Deprecated
 	public Document loadCaseHistoryTracesXML(Context context, Long caseId, Boolean isAsc) throws MercuryException {
 		WsStatusWithXML result = getService().loadCaseHistoryTracesXML(context, caseId, isAsc);
-		return createDocument(result);
+		return WsStatusUtils.createDocument(result);
 	}
 
 	@Override
@@ -597,7 +570,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 			throws MercuryException {
 		WsStatusWithXML result = getService().loadSubCaseListXML(context, caseId, fieldName, maxDepth,
 				(PageTransportable) page);
-		return createDocument(result);
+		return WsStatusUtils.createDocument(result);
 	}
 
 	@Override
@@ -622,14 +595,14 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public Document findByPKPropertyXML(Context context, String typeCode, String paramValue) throws MercuryException {
 		WsStatusWithXML result = getService().findByPKPropertyXML(context, typeCode, paramValue);
-		return createDocument(result);
+		return WsStatusUtils.createDocument(result);
 
 	}
 
 	@Override
 	public Document searchLuceneByIdXML(Context context, Long caseId) throws MercuryException {
 		WsStatusWithXML result = getService().searchLuceneByIdXML(context, caseId);
-		return createDocument(result);
+		return WsStatusUtils.createDocument(result);
 	}
 
 	@Override
@@ -637,7 +610,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 			throws MercuryException {
 		WsStatusWithXML result = getService().searchLuceneByInventoryCodeXML(context, searchText,
 				(PageTransportable) page);
-		return createDocument(result);
+		return WsStatusUtils.createDocument(result);
 	}
 
 	@Override
@@ -659,13 +632,13 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public Document loadSampleByTypeCodeXML(Context context, String typeCode) throws MercuryException {
 		WsStatusWithXML result = getService().loadSampleByTypeCodeXML(context, typeCode);
-		return createDocument(result);
+		return WsStatusUtils.createDocument(result);
 	}
 
 	@Override
 	public Document loadSampleByTypeNameXML(Context context, String typeName) throws MercuryException {
 		WsStatusWithXML result = getService().loadSampleByTypeNameXML(context, typeName);
-		return createDocument(result);
+		return WsStatusUtils.createDocument(result);
 	}
 
 	@Override
@@ -680,21 +653,6 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 		WsStatusWithMrcObject result = getService().loadSampleByTypeName(context, typeName);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
-	}
-
-	/**
-	 * @return the {@link #isRemote}
-	 */
-	public Boolean getIsRemote() {
-		return isRemote;
-	}
-
-	/**
-	 * @param isRemote
-	 *            the {@link #isRemote} to set
-	 */
-	public void setIsRemote(Boolean isRemote) {
-		this.isRemote = isRemote;
 	}
 
 	@Override
