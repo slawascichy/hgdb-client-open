@@ -84,7 +84,7 @@ public abstract class TestCaseSupport extends TestCase {
 	private static final int row3size = 17;
 
 	protected void printResult2Log(Scenario[] result, Scenario lastExecuted) {
-		StringBuffer out = new StringBuffer("\n Statystyka " + result.length + " testów");
+		StringBuilder out = new StringBuilder("\n Statystyka " + result.length + " testów");
 		out.append("\n+-" + Strings.lpad("-", "-", row1size));
 		out.append("-+-" + Strings.rpad("-", "-", row2size));
 		out.append("-+-" + Strings.lpad("-", "-", row3size));
@@ -104,23 +104,23 @@ public abstract class TestCaseSupport extends TestCase {
 		out.append("-+-" + Strings.rpad("-", "-", row2size));
 		out.append("-+-" + Strings.lpad("-", "-", row3size));
 		out.append("-+");
-		out.append(printRow("Summary Report",
-				(lastExecuted != null
-						? (lastExecuted.getStatus().equals(ScenarioStatus.OK)
-								|| lastExecuted.getStatus().equals(ScenarioStatus.SKIPED) ? "BUILD SUCCESS"
-										: lastExecuted.getStatus().name())
-						: "n/a"),
-				Long.toString(summaryExecutionTime)));
+		String buildStstus = "n/a";
+		if (lastExecuted != null) {
+			buildStstus = ScenarioStatus.OK.equals(lastExecuted.getStatus())
+					|| ScenarioStatus.SKIPED.equals(lastExecuted.getStatus()) ? "BUILD SUCCESS"
+							: lastExecuted.getStatus().name();
+		}
+		out.append(printRow("Summary Report", buildStstus, Long.toString(summaryExecutionTime)));
 		out.append("\n+-" + Strings.lpad("-", "-", row1size));
 		out.append("-+-" + Strings.rpad("-", "-", row2size));
 		out.append("-+-" + Strings.lpad("-", "-", row3size));
 		out.append("-+");
 
-		logger.info("{}", out.toString());
+		logger.info("{}", out);
 	}
 
 	private String printRow(String name, String status, String executionTime) {
-		StringBuffer out = new StringBuffer();
+		StringBuilder out = new StringBuilder();
 		out.append("\n| " + Strings.rpad(name, " ", row1size));
 		out.append(" | " + Strings.lpad(status, " ", row2size));
 		out.append(" | " + Strings.lpad(executionTime, " ", row3size));
@@ -128,7 +128,7 @@ public abstract class TestCaseSupport extends TestCase {
 		return out.toString();
 	}
 
-	abstract protected Scenario[] createScenarioList();
+	protected abstract Scenario[] createScenarioList();
 
 	/**
 	 * @return the {@link #testProperties}

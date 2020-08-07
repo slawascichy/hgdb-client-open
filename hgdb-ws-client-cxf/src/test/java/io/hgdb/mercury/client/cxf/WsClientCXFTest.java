@@ -169,7 +169,7 @@ import pro.ibpm.mercury.xml.w3c.dom.XMLUtils;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("spring-test.xml")
-public class WsClientCXFTest extends AWsClientCXFAnyTest {
+public class WsClientCXFTest extends SpringClientTestSupport {
 
 	private static final long CASE_ID = 2004L;
 	private final Context context = new Context("ttesteusz", "WsClientCXFTest", "001", "10", "1000");

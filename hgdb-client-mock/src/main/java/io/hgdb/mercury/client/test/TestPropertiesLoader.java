@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.config.PropertyPrinter;
@@ -47,7 +47,7 @@ public class TestPropertiesLoader {
 			LOG4J_PRINT_FLAG = false;
 		}
 
-		Map<String, String> props = new Hashtable<>();
+		Map<String, String> props = new HashMap<>();
 
 		final String propkFileName = "/test.properties";
 		Map<String, String> tProperties = null;
@@ -59,6 +59,10 @@ public class TestPropertiesLoader {
 		System.out.println("Loading test properties from " + mockFileName + "....");
 		tProperties = Configurations.loadHashtable(TestPropertiesLoader.class, mockFileName);
 		props.putAll(tProperties);
+
+		if (props.get("mercury.config.file") != null) {
+			System.setProperty("mercury.config.file", props.get("mercury.config.file"));
+		}
 		MercuryConfig.getInstance();
 
 		/** załadowanie statusu wykonania ostatniego testu */
