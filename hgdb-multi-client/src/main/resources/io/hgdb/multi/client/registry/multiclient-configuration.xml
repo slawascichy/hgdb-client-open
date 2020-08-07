@@ -22,11 +22,11 @@
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ICaseAction">/CaseAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.attr.ITypeCodeWithLastVersionBusinessAction">/TypeCodeWithLastVersionBusinessAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.attr.IType2TypeWithLastVersionBusinessAction">/Type2TypeWithLastVersionBusinessAction</prop>
-				<!-- 
+
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmBPDInstanceBufferSecretaryManagerAction">/BpmBPDInstanceBufferSecretaryManagerAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmTaskBufferSecretaryManagerAction">/BpmTaskBufferSecretaryManagerAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmTaskNarrativeBufferSecretaryManagerAction">/BpmTaskNarrativeBufferSecretaryManagerAction</prop>
-				 -->
+
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.data.ICaseBusinessAction">/CaseBusinessAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.data.ICaseSearchAction">/CaseSearchAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.data.ICaseHistoryStreamBusinessAction">/CaseHistoryStreamBusinessAction</prop>
@@ -35,15 +35,41 @@
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.data.IStore2TypeStatsBusinessAction">/Store2TypeStatsBusinessAction</prop>
 				<prop key="org.mercury.ws.server.api.actions.business.data.ICaseHistoryTraceBusinessAction">/CaseHistoryTraceBusinessAction</prop>
 				<prop key="org.mercury.ws.server.api.actions.common.ISequenceAction">/SequenceAction</prop>
+
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.attr.ICaseViewDefinitionAction">/CaseViewDefinitionAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.attr.IParamDefinitionAction">/ParamDefinitionAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.attr.IType2TypeAction">/Type2TypeAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.attr.ITypeCaseAction">/TypeCaseAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.attr.ITypeCodeAction">/TypeCodeAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.attr.ITypeParamActionAction">/TypeParamActionAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.attr.ITypeParamAction">/TypeParamAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.attr.ITypeParamRoleAction">/TypeParamRoleAction</prop>
+				
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ICase2SubCaseAction">/Case2SubCaseAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ICaseDocumentAction">/CaseDocumentAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ICommentAction">/CommentAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.IGroupCase2ParticipantAction">/GroupCase2ParticipantAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.IGroupCaseAction">/GroupCaseAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.IKtmNumberAction">/KtmNumberAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.IParticipantAction">/ParticipantAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.IQuickTaskAction">/QuickTaskAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.IStore2TypeAction">/Store2TypeAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.IStoreAction">/StoreAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ISystemUserAction">/SystemUserAction</prop>
+				
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.dict.IInitStatusAction">/InitStatusAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.dict.IRoleAction">/RoleAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.dict.ISourceAction">/SourceAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.dict.ITypeKindAction">/TypeKindAction</prop>
 				
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.lucene.ICaseIndexSecretaryManagerAction">/CaseIndexSecretaryManagerAction</prop>
 				<prop key="org.mercury.ws.server.api.actions.secretaries.ICaseMigratorSecretaryManagerAction">/CaseMigratorSecretaryManagerAction</prop>
 				<prop key="org.mercury.ws.server.api.actions.secretaries.IReportExportSecretaryManagerAction">/ReportExportSecretaryManagerAction</prop>	
 				<prop key="org.mercury.ws.server.api.actions.secretaries.IReportImportSecretaryManagerAction">/ReportImportSecretaryManagerAction</prop>	
 				<prop key="org.mercury.ws.server.api.actions.secretaries.IStatsBufferSecretaryManagerAction">/StatsBufferSecretaryManagerAction</prop>	
-				
+
 				<prop key="org.mercury.ws.server.api.actions.reports.IExportGeneratorAction">/ExportGeneratorAction</prop>	
-				<prop key="org.mercury.ws.server.api.actions.reports.IImportGeneratorAction">/ImportGeneratorAction</prop>	
+				<prop key="org.mercury.ws.server.api.actions.reports.IImportGeneratorAction">/ImportGeneratorAction</prop>
 			</props>
 		</property>
 		<property name="errorHandlerClass" value="io.hgdb.multi.client.registry.error.InstanceHttpInvokerProxyFactoryErrorHandler"/>

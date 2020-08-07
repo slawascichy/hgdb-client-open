@@ -34,11 +34,14 @@ import pro.ibpm.mercury.registry.RegistrySupport;
  */
 public class HttpInvokerProxyFactoryDynamicRegistry implements ApplicationContextAware, IClientDynamicRegistry {
 
+	private static final long serialVersionUID = 4726926603168066912L;
 	private static Logger logger = LoggerFactory.getLogger(HttpInvokerProxyFactoryDynamicRegistry.class);
+	@SuppressWarnings("squid:S1948")
 	private ApplicationContext registryCtx;
 	private final Map<String, String> interface2conextUrlMap = new HashMap<>();
 	private String defaultServiceUrl;
 	private Class<? extends IHttpInvokerProxyFactoryErrorHandler> errorHandlerClass;
+	@SuppressWarnings("squid:S1948")
 	private BasicHttpInvokerRequestExecutor basicHttpInvokerRequestExecutor;
 
 	@Override

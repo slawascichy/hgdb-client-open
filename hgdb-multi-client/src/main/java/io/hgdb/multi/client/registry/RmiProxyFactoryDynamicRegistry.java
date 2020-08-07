@@ -32,7 +32,9 @@ import pro.ibpm.mercury.registry.RegistrySupport;
  */
 public class RmiProxyFactoryDynamicRegistry implements ApplicationContextAware, IClientDynamicRegistry {
 
+	private static final long serialVersionUID = -5232779850731064315L;
 	private static Logger logger = LoggerFactory.getLogger(RmiProxyFactoryDynamicRegistry.class);
+	@SuppressWarnings("squid:S1948")
 	private ApplicationContext registryCtx;
 	private final Map<String, String> interface2conextUrlMap = new HashMap<>();
 	private Class<? extends IRmiProxyFactoryErrorHandler> errorHandlerClass;

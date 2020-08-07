@@ -1,11 +1,12 @@
 package io.hgdb.multi.client.registry;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.Properties;
 
 import pro.ibpm.mercury.context.Context;
 
-public interface IClientDynamicRegistry {
+public interface IClientDynamicRegistry extends Serializable {
 
 	/**
 	 * Pobranie bean'a bezpośrednio z kontekstu Spring'a
