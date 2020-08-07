@@ -42,7 +42,9 @@ public class HttpInvokerProxyFactoryDynamicRegistry implements ApplicationContex
 	private String defaultServiceUrl;
 	private Class<? extends IHttpInvokerProxyFactoryErrorHandler> errorHandlerClass;
 	@SuppressWarnings("squid:S1948")
-	private BasicHttpInvokerRequestExecutor basicHttpInvokerRequestExecutor;
+	private final Map<String, BasicHttpInvokerRequestExecutor> basicHttpInvokerRequestExecutorsMap = new HashMap<>();
+	@SuppressWarnings("squid:S1948")
+	private final Object basicHttpInvokerRequestExecutorLock = new Object();
 
 	@Override
 	public void setApplicationContext(ApplicationContext arg0) {
@@ -98,7 +100,7 @@ public class HttpInvokerProxyFactoryDynamicRegistry implements ApplicationContex
 
 	private <T> String buildServiceUrl(String instanceName, Class<T> clazz) {
 		MercuryConfig config = MercuryConfig.getInstance();
-		String serviceUrl = config.get(String.format(ClientConfigParams.WS_REMOTE_SERVICE_URL, instanceName));
+		String serviceUrl = config.get(String.format(ClientConfigParams.WS_REMOTE_SERVICE_URL_PROP, instanceName));
 		String getContextUrl = interface2conextUrlMap.get(clazz.getName());
 		if (StringUtils.isNotBlank(getContextUrl)) {
 			return serviceUrl + getContextUrl;
@@ -172,33 +174,38 @@ public class HttpInvokerProxyFactoryDynamicRegistry implements ApplicationContex
 		if (!isRemoteSecurityEnabled) {
 			return null;
 		}
-		MercuryConfig config = MercuryConfig.getInstance();
-		if (basicHttpInvokerRequestExecutor == null) {
-			basicHttpInvokerRequestExecutor = new BasicHttpInvokerRequestExecutor();
-			basicHttpInvokerRequestExecutor.setIdentifier(
-					config.get(String.format(ClientConfigParams.WS_SECURITY_IDENTIFIER_PROP, instanceName)));
-			basicHttpInvokerRequestExecutor
-					.setToken(config.get(String.format(ClientConfigParams.WS_SECURITY_TOKEN_PROP, instanceName)));
+		synchronized (basicHttpInvokerRequestExecutorLock) {
+			MercuryConfig config = MercuryConfig.getInstance();
+			BasicHttpInvokerRequestExecutor basicHttpInvokerRequestExecutor = basicHttpInvokerRequestExecutorsMap
+					.get(instanceName);
+			if (basicHttpInvokerRequestExecutor == null) {
+				basicHttpInvokerRequestExecutor = new BasicHttpInvokerRequestExecutor();
+				basicHttpInvokerRequestExecutor.setIdentifier(
+						config.get(String.format(ClientConfigParams.WS_SECURITY_IDENTIFIER_PROP, instanceName)));
+				basicHttpInvokerRequestExecutor
+						.setToken(config.get(String.format(ClientConfigParams.WS_SECURITY_TOKEN_PROP, instanceName)));
 
-			int readTimeout = ClientConfigParams.getConnectionReadTimeout();
-			if (ClientConfigParams.DEFAULT_READ_TIMEOUT_MILLISECONDS != readTimeout) {
-				basicHttpInvokerRequestExecutor.setReadTimeout(readTimeout);
+				int readTimeout = ClientConfigParams.getConnectionReadTimeout();
+				if (ClientConfigParams.DEFAULT_READ_TIMEOUT_MILLISECONDS != readTimeout) {
+					basicHttpInvokerRequestExecutor.setReadTimeout(readTimeout);
+				}
+				int connectionTimeout = ClientConfigParams.getConnectionConnectionTimeout();
+				if (connectionTimeout != 0) {
+					basicHttpInvokerRequestExecutor.setConnectTimeout(connectionTimeout);
+				}
+				int connectionRequestTimeout = ClientConfigParams.getConnectionConnectionRequestTimeout();
+				if (connectionRequestTimeout != 0) {
+					basicHttpInvokerRequestExecutor.setConnectionRequestTimeout(connectionRequestTimeout);
+				}
+				basicHttpInvokerRequestExecutorsMap.put(instanceName, basicHttpInvokerRequestExecutor);
 			}
-			int connectionTimeout = ClientConfigParams.getConnectionConnectionTimeout();
-			if (connectionTimeout != 0) {
-				basicHttpInvokerRequestExecutor.setConnectTimeout(connectionTimeout);
-			}
-			int connectionRequestTimeout = ClientConfigParams.getConnectionConnectionRequestTimeout();
-			if (connectionRequestTimeout != 0) {
-				basicHttpInvokerRequestExecutor.setConnectionRequestTimeout(connectionRequestTimeout);
-			}
+			return basicHttpInvokerRequestExecutor;
 		}
-		return basicHttpInvokerRequestExecutor;
 	}
 
 	public boolean isRemoteSecurityEnabled(String instanceName) {
-		String securityEnabledPropValue = MercuryConfig.getInstance()
-				.get(String.format(ClientConfigParams.WS_REMOTE_SECURITY_ENABLED_PROP, instanceName));
+		String propertyName = String.format(ClientConfigParams.WS_REMOTE_SECURITY_ENABLED_PROP, instanceName);
+		String securityEnabledPropValue = MercuryConfig.getInstance().get(propertyName);
 		return securityEnabledPropValue != null && Boolean.parseBoolean(securityEnabledPropValue);
 	}
 

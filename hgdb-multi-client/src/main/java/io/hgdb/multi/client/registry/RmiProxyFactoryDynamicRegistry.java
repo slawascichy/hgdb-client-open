@@ -82,7 +82,7 @@ public class RmiProxyFactoryDynamicRegistry implements ApplicationContextAware, 
 
 	private <T> String buildServiceUrl(String instanceName, Class<T> clazz) {
 		MercuryConfig config = MercuryConfig.getInstance();
-		String serviceUrl = config.get(String.format(ClientConfigParams.RMI_REMOTE_SERVICE_URL, instanceName));
+		String serviceUrl = config.get(String.format(ClientConfigParams.RMI_REMOTE_SERVICE_URL_PROP, instanceName));
 		String getContextUrl = interface2conextUrlMap.get(clazz.getName());
 		if (StringUtils.isNotBlank(getContextUrl)) {
 			return serviceUrl + getContextUrl;

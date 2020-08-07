@@ -36,6 +36,7 @@
 				<prop key="org.mercury.ws.server.api.actions.business.data.ICaseHistoryTraceBusinessAction">/CaseHistoryTraceBusinessAction</prop>
 				<prop key="org.mercury.ws.server.api.actions.common.ISequenceAction">/SequenceAction</prop>
 
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.INotyficationAction">/NotyficationAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.attr.ICaseViewDefinitionAction">/CaseViewDefinitionAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.attr.IParamDefinitionAction">/ParamDefinitionAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.attr.IType2TypeAction">/Type2TypeAction</prop>
@@ -45,8 +46,11 @@
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.attr.ITypeParamAction">/TypeParamAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.attr.ITypeParamRoleAction">/TypeParamRoleAction</prop>
 				
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.cache.ICacheManagerAction">/CacheManagerAction</prop>
+				
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ICase2SubCaseAction">/Case2SubCaseAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ICaseDocumentAction">/CaseDocumentAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ICaseAction">/CaseAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ICommentAction">/CommentAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.IGroupCase2ParticipantAction">/GroupCase2ParticipantAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.IGroupCaseAction">/GroupCaseAction</prop>
