@@ -40,84 +40,85 @@ public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, Case, Long, 
 
 	@Override
 	public Case2Case insert(Context context, final Case2Case e) throws MercuryException {
-		return getEntity(context, getService().insert(context, e));
+		return getEntity(context, getService(context).insert(context, e));
 	}
 
 	@Override
 	public EntityList<Case2Case, String> insertList(Context context, List<Case2Case> eBag) throws MercuryException {
-		return getEntityCollection(context, getService().insertBag(context, (Collection<Case2Case>) eBag));
+		return getEntityCollection(context, getService(context).insertBag(context, (Collection<Case2Case>) eBag));
 	}
 
 	@Override
 	public String remove(Context context, final Case2Case e) throws MercuryException {
-		return getId(getService().remove(context, e), e);
+		return getId(getService(context).remove(context, e), e);
 	}
 
 	@Override
 	public List<String> removeList(Context context, final List<Case2Case> eBag) throws MercuryException {
-		return getIds(getService().removeBag(context, (Collection<Case2Case>) eBag), eBag);
+		return getIds(getService(context).removeBag(context, (Collection<Case2Case>) eBag), eBag);
 	}
 
 	@Override
 	public Case2Case find(Context context, final String pk) throws MercuryException {
-		return getEntity(context, getService().findByKey(context, pk));
+		return getEntity(context, getService(context).findByKey(context, pk));
 	}
 
 	@Override
 	public Case2Case findFirst(Context context) throws MercuryException {
-		return getEntity(context, getService().findFirst(context));
+		return getEntity(context, getService(context).findFirst(context));
 	}
 
 	@Override
 	public Case2Case update(Context context, Case2Case e) throws MercuryException {
-		return getEntity(context, getService().update(context, e));
+		return getEntity(context, getService(context).update(context, e));
 	}
 
 	@Override
 	public EntityList<Case2Case, String> updateList(Context context, List<Case2Case> eBag) throws MercuryException {
-		return getEntityCollection(context, getService().updateBag(context, (Collection<Case2Case>) eBag));
+		return getEntityCollection(context, getService(context).updateBag(context, (Collection<Case2Case>) eBag));
 	}
 
 	@Override
 	public List<Case2Case> getAllParentsRelationshipsByNodeId(Context context, Long n, String mountPoint)
 			throws MercuryException {
 		return (List<Case2Case>) getEntityCollection(context,
-				getService().getAllParentsRelationshipsByNodeIdStr(context, Long.toString(n), mountPoint));
+				getService(context).getAllParentsRelationshipsByNodeIdStr(context, Long.toString(n), mountPoint));
 	}
 
 	@Override
 	public List<Case2Case> getAllChildrenRelationshipsByNodeId(Context context, Long n, String mountPoint)
 			throws MercuryException {
 		return (List<Case2Case>) getEntityCollection(context,
-				getService().getAllChildrenRelationshipsByNodeIdStr(context, Long.toString(n), mountPoint));
+				getService(context).getAllChildrenRelationshipsByNodeIdStr(context, Long.toString(n), mountPoint));
 	}
 
 	@Override
 	public List<Case> getAllDependsNodesByNodes(Context context, List<Case> nBag, String mountPoint)
 			throws MercuryException {
-		return (List<Case>) getNodeList(context, getService().getAllDependsNodesByNodes(context, nBag, mountPoint));
+		return (List<Case>) getNodeList(context,
+				getService(context).getAllDependsNodesByNodes(context, nBag, mountPoint));
 	}
 
 	@Override
 	public List<Case> getAllDependsNodes(Context context, Case n, String mountPoint) throws MercuryException {
-		return (List<Case>) getNodeList(context, getService().getAllDependsNodes(context, n, mountPoint));
+		return (List<Case>) getNodeList(context, getService(context).getAllDependsNodes(context, n, mountPoint));
 	}
 
 	@Override
 	public List<Case> getAllChildrenNodes(Context context, Case n, String mountPoint) throws MercuryException {
-		return (List<Case>) getNodeList(context, getService().getAllChildrenNodes(context, n, mountPoint));
+		return (List<Case>) getNodeList(context, getService(context).getAllChildrenNodes(context, n, mountPoint));
 	}
 
 	@Override
 	public List<Case> getAllParentsNodes(Context context, Case n, String mountPoint) throws MercuryException {
-		return (List<Case>) getNodeList(context, getService().getAllParentsNodes(context, n, mountPoint));
+		return (List<Case>) getNodeList(context, getService(context).getAllParentsNodes(context, n, mountPoint));
 	}
 
 	@Override
 	public List<Case> getAllChildrenNodesWithTheTypeCode(Context context, Case n, String typeCode, String mountPoint)
 			throws MercuryException {
 		return (List<Case>) getNodeList(context,
-				getService().getAllChildrenNodesWithTheTypeCode(context, n, typeCode, mountPoint));
+				getService(context).getAllChildrenNodesWithTheTypeCode(context, n, typeCode, mountPoint));
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -125,58 +126,59 @@ public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, Case, Long, 
 	public IPagedResult<Case2Case, IPage> filterPaged(Context context, Case2Case e, IPage page)
 			throws MercuryException {
 		return getPagedResult(context,
-				(IWsStatusWithPagedResult) getService().filterPaged(context, e, (PageTransportable) page));
+				(IWsStatusWithPagedResult) getService(context).filterPaged(context, e, (PageTransportable) page));
 	}
 
 	@Override
 	public List<Case2Case> getAllByPathStartsWith(Context context, String preffix, String mountPoint)
 			throws MercuryException {
 		return (List<Case2Case>) getEntityCollection(context,
-				getService().getAllByPathStartsWith(context, preffix, mountPoint));
+				getService(context).getAllByPathStartsWith(context, preffix, mountPoint));
 	}
 
 	@Override
 	public List<Case> getAllDependsNodesByNodesWithoutMe(Context context, List<Case> nBag, String mountPoint)
 			throws MercuryException {
 		return (List<Case>) getNodeList(context,
-				getService().getAllDependsNodesByNodesWithoutMe(context, nBag, mountPoint));
+				getService(context).getAllDependsNodesByNodesWithoutMe(context, nBag, mountPoint));
 	}
 
 	@Override
 	public List<Case2Case> getAllDependsRelationshipsByNodes(Context context, List<Case> nBag, String mountPoint)
 			throws MercuryException {
 		return (List<Case2Case>) getEntityCollection(context,
-				getService().getAllDependsRelationshipsByNodes(context, nBag, mountPoint));
+				getService(context).getAllDependsRelationshipsByNodes(context, nBag, mountPoint));
 	}
 
 	@Override
 	public List<Case2Case> getAllDependsRelationshipsByNodesWithoutMe(Context context, List<Case> nBag,
 			String mountPoint) throws MercuryException {
 		return (List<Case2Case>) getEntityCollection(context,
-				getService().getAllDependsRelationshipsByNodesWithoutMe(context, nBag, mountPoint));
+				getService(context).getAllDependsRelationshipsByNodesWithoutMe(context, nBag, mountPoint));
 	}
 
 	@Override
 	public List<Case2Case> findByIdList(Context context, List<String> idList) throws MercuryException {
 		return (List<Case2Case>) getEntityCollection(context,
-				getService().findByKeyBag(context, (Collection<String>) idList));
+				getService(context).findByKeyBag(context, (Collection<String>) idList));
 	}
 
 	@Override
 	public List<Case2Case> findAll(Context context) throws MercuryException {
-		return (List<Case2Case>) getEntityCollection(context, getService().findAll(context));
+		return (List<Case2Case>) getEntityCollection(context, getService(context).findAll(context));
 	}
 
 	@Override
 	public Case2Case addNodeToMountPoint(Context paramContext, Case paramNodeArg, String paramString)
 			throws MercuryException {
-		return getEntity(paramContext, getService().addNodeToMountPoint(paramContext, paramNodeArg, paramString));
+		return getEntity(paramContext,
+				getService(paramContext).addNodeToMountPoint(paramContext, paramNodeArg, paramString));
 	}
 
 	@Override
 	public void removeNodeFromMountPoint(Context paramContext, Case paramNodeArg, String paramString)
 			throws MercuryException {
-		getService().removeNodeFromMountPoint(paramContext, paramNodeArg, paramString);
+		getService(paramContext).removeNodeFromMountPoint(paramContext, paramNodeArg, paramString);
 	}
 
 	@Override
@@ -184,7 +186,7 @@ public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, Case, Long, 
 		if (caseCatalog == null) {
 			return null;
 		}
-		WsStatusWithCaseCatalogDto wsStatusWithDto = getService().insertCatalogEntry(context, caseCatalog);
+		WsStatusWithCaseCatalogDto wsStatusWithDto = getService(context).insertCatalogEntry(context, caseCatalog);
 		if (checkWsStatus((IWsStatus) wsStatusWithDto)) {
 			CaseCatalogDto catalogDto = wsStatusWithDto.getDto();
 			return createCaseCatalog(catalogDto);
@@ -198,7 +200,7 @@ public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, Case, Long, 
 		if (caseCatalogs == null || caseCatalogs.isEmpty()) {
 			return Collections.emptyList();
 		}
-		WsStatusWithCaseCatalogDtos wsStatusWithDtos = getService().insertCatalogEntries(context, caseCatalogs);
+		WsStatusWithCaseCatalogDtos wsStatusWithDtos = getService(context).insertCatalogEntries(context, caseCatalogs);
 		if (checkWsStatus((IWsStatus) wsStatusWithDtos)) {
 			Collection<CaseCatalogDto> entries = wsStatusWithDtos.getDtos();
 			if (entries == null || entries.isEmpty()) {
@@ -218,7 +220,7 @@ public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, Case, Long, 
 		if (caseCatalog == null) {
 			return null;
 		}
-		WsStatus wsStatus = getService().removeCatalogEntry(context, caseCatalog);
+		WsStatus wsStatus = getService(context).removeCatalogEntry(context, caseCatalog);
 		if (checkWsStatus((IWsStatus) wsStatus)) {
 			return caseCatalog.getId();
 		}
@@ -230,7 +232,7 @@ public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, Case, Long, 
 		if (caseCatalogs == null || caseCatalogs.isEmpty()) {
 			return null;
 		}
-		WsStatus wsStatus = getService().removeCatalogEntries(context, caseCatalogs);
+		WsStatus wsStatus = getService(context).removeCatalogEntries(context, caseCatalogs);
 		if (checkWsStatus((IWsStatus) wsStatus)) {
 			List<String> result = new ArrayList<>();
 			for (CaseCatalog cc : caseCatalogs) {

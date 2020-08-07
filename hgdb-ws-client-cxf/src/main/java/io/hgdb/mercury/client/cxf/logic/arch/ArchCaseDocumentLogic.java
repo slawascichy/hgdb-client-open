@@ -29,7 +29,7 @@ public class ArchCaseDocumentLogic
 	@Override
 	public ArchCaseDocument insert(Context context, final ArchCaseDocument e)
 			throws MercuryException {
-		return getEntity(context, getService().insert(context, e));
+		return getEntity(context, getService(context).insert(context, e));
 	}
 
 	@Override
@@ -37,36 +37,36 @@ public class ArchCaseDocumentLogic
 			Context context, List<ArchCaseDocument> eBag)
 			throws MercuryException {
 		return getEntityCollection(context,
-				getService().insertBag(context, eBag));
+				getService(context).insertBag(context, eBag));
 	}
 
 	@Override
 	public ArchCaseDocumentPK remove(Context context, final ArchCaseDocument e)
 			throws MercuryException {
-		return getId(getService().remove(context, e), e);
+		return getId(getService(context).remove(context, e), e);
 	}
 
 	@Override
 	public List<ArchCaseDocumentPK> removeList(Context context,
 			final List<ArchCaseDocument> eBag) throws MercuryException {
-		return getIds(getService().removeBag(context, eBag), eBag);
+		return getIds(getService(context).removeBag(context, eBag), eBag);
 	}
 
 	@Override
 	public ArchCaseDocument find(Context context, final ArchCaseDocumentPK pk)
 			throws MercuryException {
-		return getEntity(context, getService().findByKey(context, pk));
+		return getEntity(context, getService(context).findByKey(context, pk));
 	}
 
 	@Override
 	public ArchCaseDocument findFirst(Context context) throws MercuryException {
-		return getEntity(context, getService().findFirst(context));
+		return getEntity(context, getService(context).findFirst(context));
 	}
 
 	@Override
 	public ArchCaseDocument update(Context context, ArchCaseDocument e)
 			throws MercuryException {
-		return getEntity(context, getService().update(context, e));
+		return getEntity(context, getService(context).update(context, e));
 	}
 
 	@Override
@@ -74,14 +74,14 @@ public class ArchCaseDocumentLogic
 			Context context, List<ArchCaseDocument> eBag)
 			throws MercuryException {
 		return getEntityCollection(context,
-				getService().updateBag(context, eBag));
+				getService(context).updateBag(context, eBag));
 	}
 
 	@Override
 	public List<ArchCaseDocument> filter(Context context, ArchCaseDocument e)
 			throws MercuryException {
 		return (List<ArchCaseDocument>) getEntityCollection(context,
-				getService().filter(context, e));
+				getService(context).filter(context, e));
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class ArchCaseDocumentLogic
 			List<ArchCaseDocumentPK> idList) throws MercuryException {
 		return (List<ArchCaseDocument>) getEntityCollection(
 				context,
-				getService().findByKeyBag(context,
+				getService(context).findByKeyBag(context,
 						(Collection<ArchCaseDocumentPK>) idList));
 	}
 
@@ -97,7 +97,7 @@ public class ArchCaseDocumentLogic
 	public List<ArchCaseDocument> findAll(Context context)
 			throws MercuryException {
 		return (List<ArchCaseDocument>) getEntityCollection(context,
-				getService().findAll(context));
+				getService(context).findAll(context));
 	}
 
 }

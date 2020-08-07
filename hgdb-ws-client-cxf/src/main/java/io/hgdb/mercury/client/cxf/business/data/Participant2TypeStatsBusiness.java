@@ -30,45 +30,45 @@ public class Participant2TypeStatsBusiness
 
 	@Override
 	public void repairStats(Context context) throws MercuryException {
-		WsStatus wsStatus = getService().repairStats(context);
+		WsStatus wsStatus = getService(context).repairStats(context);
 		checkWsStatus(wsStatus);
 	}
 
 	@Override
 	public void repairStatsByParticipantId(Context context, Long participantId) throws MercuryException {
-		WsStatus wsStatus = getService().repairStatsByParticipantId(context, participantId);
+		WsStatus wsStatus = getService(context).repairStatsByParticipantId(context, participantId);
 		checkWsStatus(wsStatus);
 	}
 
 	@Override
 	public Participant2TypeStats findFirst(Context context) throws MercuryException {
-		WsStatusWithParticipant2TypeStatsDto result = getService().findFirst(context);
+		WsStatusWithParticipant2TypeStatsDto result = getService(context).findFirst(context);
 		return getEntity(context, result);
 	}
 
 	@Override
 	public Participant2TypeStats find(Context context, Participant2TypeStatsPK pk) throws MercuryException {
-		WsStatusWithParticipant2TypeStatsDto result = getService().findByKey(context, pk);
+		WsStatusWithParticipant2TypeStatsDto result = getService(context).findByKey(context, pk);
 		return getEntity(context, result);
 	}
 
 	@Override
 	public List<Participant2TypeStats> findByIdList(Context context, Collection<Participant2TypeStatsPK> pkBag)
 			throws MercuryException {
-		WsStatusWithParticipant2TypeStatsDtos result = getService().findByKeyBag(context, pkBag);
+		WsStatusWithParticipant2TypeStatsDtos result = getService(context).findByKeyBag(context, pkBag);
 		return getEntityCollection(context, result);
 	}
 
 	@Override
 	public List<Participant2TypeStats> filter(Context context, Participant2TypeStats e) throws MercuryException {
-		WsStatusWithParticipant2TypeStatsDtos result = getService().filter(context, e);
+		WsStatusWithParticipant2TypeStatsDtos result = getService(context).filter(context, e);
 		return getEntityCollection(context, result);
 	}
 
 	@Override
 	public List<Participant2TypeStats> findByParticipantId(Context context, Long participantId)
 			throws MercuryException {
-		WsStatusWithParticipant2TypeStatsDtos result = getService().findByParticipantId(context, participantId);
+		WsStatusWithParticipant2TypeStatsDtos result = getService(context).findByParticipantId(context, participantId);
 		return getEntityCollection(context, result);
 	}
 

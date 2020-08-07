@@ -29,58 +29,58 @@ public class CaseViewDefinitionLogic extends WsClientDataLogic<CaseViewDefinitio
 
 	@Override
 	public CaseViewDefinition find(Context context, String pk) throws MercuryException {
-		return getEntity(context, getService().findByKey(context, pk));
+		return getEntity(context, getService(context).findByKey(context, pk));
 	}
 
 	@Override
 	public List<CaseViewDefinition> findAll(Context context) throws MercuryException {
-		return (List<CaseViewDefinition>) getEntityCollection(context, getService().findAll(context));
+		return (List<CaseViewDefinition>) getEntityCollection(context, getService(context).findAll(context));
 	}
 
 	@Override
 	public CaseViewDefinition findFirst(Context context) throws MercuryException {
-		return getEntity(context, getService().findFirst(context));
+		return getEntity(context, getService(context).findFirst(context));
 	}
 
 	@Override
 	public CaseViewDefinition insert(Context context, CaseViewDefinition e) throws MercuryException {
-		return getEntity(context, getService().insert(context, e));
+		return getEntity(context, getService(context).insert(context, e));
 	}
 
 	@Override
 	public List<CaseViewDefinition> insertList(Context context, List<CaseViewDefinition> eBag) throws MercuryException {
-		return getEntityCollection(context, getService().insertBag(context, (Collection<CaseViewDefinition>) eBag));
+		return getEntityCollection(context, getService(context).insertBag(context, (Collection<CaseViewDefinition>) eBag));
 	}
 
 	@Override
 	public String remove(Context context, CaseViewDefinition e) throws MercuryException {
-		return getId(getService().remove(context, e), e);
+		return getId(getService(context).remove(context, e), e);
 	}
 
 	@Override
 	public List<String> removeList(Context context, List<CaseViewDefinition> eBag) throws MercuryException {
-		return getIds(getService().removeBag(context, (Collection<CaseViewDefinition>) eBag), eBag);
+		return getIds(getService(context).removeBag(context, (Collection<CaseViewDefinition>) eBag), eBag);
 	}
 
 	@Override
 	public CaseViewDefinition update(Context context, CaseViewDefinition e) throws MercuryException {
-		return getEntity(context, getService().update(context, e));
+		return getEntity(context, getService(context).update(context, e));
 	}
 
 	@Override
 	public List<CaseViewDefinition> updateList(Context context, List<CaseViewDefinition> eBag) throws MercuryException {
-		return getEntityCollection(context, getService().updateBag(context, (Collection<CaseViewDefinition>) eBag));
+		return getEntityCollection(context, getService(context).updateBag(context, (Collection<CaseViewDefinition>) eBag));
 	}
 
 	@Override
 	public List<CaseViewDefinition> filter(Context context, CaseViewDefinition arg1) throws MercuryException {
-		return getEntityCollection(context, getService().filter(context, arg1));
+		return getEntityCollection(context, getService(context).filter(context, arg1));
 	}
 
 	@Override
 	public List<CaseViewDefinition> findByIdList(Context context, List<String> idList) throws MercuryException {
 		return (List<CaseViewDefinition>) getEntityCollection(context,
-				getService().findByKeyBag(context, (Collection<String>) idList));
+				getService(context).findByKeyBag(context, (Collection<String>) idList));
 	}
 
 	@Override
@@ -97,18 +97,18 @@ public class CaseViewDefinitionLogic extends WsClientDataLogic<CaseViewDefinitio
 			cDateFrom = new CaseDate();
 			CaseDateUtils.setDateValue(cDateFrom, dateFrom);
 		}
-		return getEntity(context, getService().createView(context, viewName, typeParams, cDateFrom, cDateTo,
+		return getEntity(context, getService(context).createView(context, viewName, typeParams, cDateFrom, cDateTo,
 				credentialsMode, skipHeaderFields, ignoreAlternateFields, baseTypeCodes));
 	}
 
 	@Override
 	public CaseViewDefinition dropView(Context context, String viewName) throws MercuryException {
-		return getEntity(context, getService().dropView(context, viewName));
+		return getEntity(context, getService(context).dropView(context, viewName));
 	}
 
 	@Override
 	public CaseViewDefinition generateView(Context context, String viewName, boolean force) throws MercuryException {
-		return getEntity(context, getService().generateView(context, viewName, force));
+		return getEntity(context, getService(context).generateView(context, viewName, force));
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public class CaseViewDefinitionLogic extends WsClientDataLogic<CaseViewDefinitio
 			cDateFrom = new CaseDate();
 			CaseDateUtils.setDateValue(cDateFrom, dateFrom);
 		}
-		return getEntity(context, getService().updateView(context, viewName, typeParams, cDateFrom, cDateTo,
+		return getEntity(context, getService(context).updateView(context, viewName, typeParams, cDateFrom, cDateTo,
 				credentialsMode, skipHeaderFields, ignoreAlternateFields, baseTypeCodes));
 	}
 

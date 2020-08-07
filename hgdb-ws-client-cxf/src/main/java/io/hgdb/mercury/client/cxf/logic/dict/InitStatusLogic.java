@@ -27,58 +27,58 @@ public class InitStatusLogic extends
 	@Override
 	public InitStatus insert(Context context, final InitStatus e)
 			throws MercuryException {
-		return getEntity(context, getService().insert(context, e));
+		return getEntity(context, getService(context).insert(context, e));
 	}
 
 	@Override
 	public EntityList<InitStatus, String> insertList(Context context,
 			List<InitStatus> eBag) throws MercuryException {
 		return getEntityCollection(context,
-				getService().insertBag(context, (Collection<InitStatus>) eBag));
+				getService(context).insertBag(context, (Collection<InitStatus>) eBag));
 	}
 
 	@Override
 	public InitStatus update(Context context, final InitStatus e)
 			throws MercuryException {
-		return getEntity(context, getService().update(context, e));
+		return getEntity(context, getService(context).update(context, e));
 	}
 
 	@Override
 	public EntityList<InitStatus, String> updateList(Context context,
 			final List<InitStatus> eBag) throws MercuryException {
 		return getEntityCollection(context,
-				getService().updateBag(context, (Collection<InitStatus>) eBag));
+				getService(context).updateBag(context, (Collection<InitStatus>) eBag));
 	}
 
 	@Override
 	public String remove(Context context, final InitStatus e)
 			throws MercuryException {
-		return getId(getService().remove(context, e), e);
+		return getId(getService(context).remove(context, e), e);
 	}
 
 	@Override
 	public List<String> removeList(Context context, final List<InitStatus> eBag)
 			throws MercuryException {
 		return getIds(
-				getService().removeBag(context, (Collection<InitStatus>) eBag),
+				getService(context).removeBag(context, (Collection<InitStatus>) eBag),
 				eBag);
 	}
 
 	@Override
 	public List<InitStatus> findAll(Context context) throws MercuryException {
-		return (List<InitStatus>) getEntityCollection(context, getService()
+		return (List<InitStatus>) getEntityCollection(context, getService(context)
 				.findAll(context));
 	}
 
 	@Override
 	public InitStatus find(Context context, final String pk)
 			throws MercuryException {
-		return getEntity(context, getService().findByKey(context, pk));
+		return getEntity(context, getService(context).findByKey(context, pk));
 	}
 
 	@Override
 	public InitStatus findFirst(Context context) throws MercuryException {
-		return getEntity(context, getService().findFirst(context));
+		return getEntity(context, getService(context).findFirst(context));
 	}
 
 }

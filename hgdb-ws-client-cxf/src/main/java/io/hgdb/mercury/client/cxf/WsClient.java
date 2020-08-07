@@ -56,9 +56,11 @@ public abstract class WsClient<W extends IActionRoot> {
 	/**
 	 * Zwraca instancję zdalnej usługi.
 	 * 
+	 * @param context
+	 *            Kontekst wykonywanej operacji
 	 * @return instancja zdalnej usługi
 	 */
-	public W getService() {
+	public W getService(Context context) {
 		return service;
 	}
 

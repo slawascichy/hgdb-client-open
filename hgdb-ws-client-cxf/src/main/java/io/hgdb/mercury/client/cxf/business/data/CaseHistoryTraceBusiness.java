@@ -52,7 +52,7 @@ public class CaseHistoryTraceBusiness implements ICaseHistoryTraceBusiness, ICas
 	 * 
 	 * @return instancja zdalnej usługi
 	 */
-	public ICaseHistoryTraceBusinessAction getService() {
+	public ICaseHistoryTraceBusinessAction getService(Context context) {
 		return service;
 	}
 
@@ -96,7 +96,7 @@ public class CaseHistoryTraceBusiness implements ICaseHistoryTraceBusiness, ICas
 
 	@Override
 	public MrcObject find(Context context, Long versionId) throws MercuryException {
-		WsStatusWithMrcObject result = getService().find(context, versionId);
+		WsStatusWithMrcObject result = getService(context).find(context, versionId);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
 	}
@@ -104,7 +104,8 @@ public class CaseHistoryTraceBusiness implements ICaseHistoryTraceBusiness, ICas
 	@Override
 	public MrcPagedResult findByCaseId(Context context, Long caseId, Boolean isAsc, IPage page)
 			throws MercuryException {
-		WsStatusWithMrcObject result = getService().findByCaseId(context, caseId, isAsc, (PageTransportable) page);
+		WsStatusWithMrcObject result = getService(context).findByCaseId(context, caseId, isAsc,
+				(PageTransportable) page);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
 	}
@@ -112,7 +113,7 @@ public class CaseHistoryTraceBusiness implements ICaseHistoryTraceBusiness, ICas
 	@Override
 	public MrcPagedResult findByCaseIdAllVersions(Context context, Long caseId, Boolean isAsc, IPage page)
 			throws MercuryException {
-		WsStatusWithMrcObject result = getService().findByCaseIdAllVersions(context, caseId, isAsc,
+		WsStatusWithMrcObject result = getService(context).findByCaseIdAllVersions(context, caseId, isAsc,
 				(PageTransportable) page);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
@@ -121,12 +122,12 @@ public class CaseHistoryTraceBusiness implements ICaseHistoryTraceBusiness, ICas
 	@Override
 	public Document findXML(Context context, Long versionId) throws MercuryException {
 		if (getIsRemote()) {
-			WsStatusWithMrcObject result = getService().find(context, versionId);
+			WsStatusWithMrcObject result = getService(context).find(context, versionId);
 			DtoMrcObject dtoObject = getDto(result);
 			MrcObject mrcObject = (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
 			return loadMrcObjectXML(context, mrcObject);
 		} else {
-			WsStatusWithXML result = getService().findXML(context, versionId);
+			WsStatusWithXML result = getService(context).findXML(context, versionId);
 			return WsStatusUtils.createDocument(result);
 		}
 	}
@@ -134,12 +135,14 @@ public class CaseHistoryTraceBusiness implements ICaseHistoryTraceBusiness, ICas
 	@Override
 	public Document findByCaseIdXML(Context context, Long caseId, Boolean isAsc, IPage page) throws MercuryException {
 		if (getIsRemote()) {
-			WsStatusWithMrcObject result = getService().findByCaseId(context, caseId, isAsc, (PageTransportable) page);
+			WsStatusWithMrcObject result = getService(context).findByCaseId(context, caseId, isAsc,
+					(PageTransportable) page);
 			DtoMrcObject dtoObject = getDto(result);
 			MrcPagedResult mrcPagedResult = (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
 			return loadMrcPagedResultXML(context, mrcPagedResult);
 		} else {
-			WsStatusWithXML result = getService().findByCaseIdXML(context, caseId, isAsc, (PageTransportable) page);
+			WsStatusWithXML result = getService(context).findByCaseIdXML(context, caseId, isAsc,
+					(PageTransportable) page);
 			return WsStatusUtils.createDocument(result);
 		}
 	}
@@ -148,13 +151,13 @@ public class CaseHistoryTraceBusiness implements ICaseHistoryTraceBusiness, ICas
 	public Document findByCaseIdAllVersionsXML(Context context, Long caseId, Boolean isAsc, IPage page)
 			throws MercuryException {
 		if (getIsRemote()) {
-			WsStatusWithMrcObject result = getService().findByCaseIdAllVersions(context, caseId, isAsc,
+			WsStatusWithMrcObject result = getService(context).findByCaseIdAllVersions(context, caseId, isAsc,
 					(PageTransportable) page);
 			DtoMrcObject dtoObject = getDto(result);
 			MrcPagedResult mrcPagedResult = (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
 			return loadMrcPagedResultXML(context, mrcPagedResult);
 		} else {
-			WsStatusWithXML result = getService().findByCaseIdAllVersionsXML(context, caseId, isAsc,
+			WsStatusWithXML result = getService(context).findByCaseIdAllVersionsXML(context, caseId, isAsc,
 					(PageTransportable) page);
 			return WsStatusUtils.createDocument(result);
 		}

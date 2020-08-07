@@ -25,53 +25,53 @@ public class RoleLogic extends WsClientDictLogic<Role, String, IRoleAction>
 
 	@Override
 	public Role insert(Context context, final Role e) throws MercuryException {
-		return getEntity(context, getService().insert(context, e));
+		return getEntity(context, getService(context).insert(context, e));
 	}
 
 	@Override
 	public EntityList<Role, String> insertList(Context context, List<Role> eBag)
 			throws MercuryException {
 		return getEntityCollection(context,
-				getService().insertBag(context, (Collection<Role>) eBag));
+				getService(context).insertBag(context, (Collection<Role>) eBag));
 	}
 
 	@Override
 	public Role update(Context context, final Role e) throws MercuryException {
-		return getEntity(context, getService().update(context, e));
+		return getEntity(context, getService(context).update(context, e));
 	}
 
 	@Override
 	public EntityList<Role, String> updateList(Context context,
 			final List<Role> eBag) throws MercuryException {
 		return getEntityCollection(context,
-				getService().updateBag(context, (Collection<Role>) eBag));
+				getService(context).updateBag(context, (Collection<Role>) eBag));
 	}
 
 	@Override
 	public String remove(Context context, final Role e) throws MercuryException {
-		return getId(getService().remove(context, e), e);
+		return getId(getService(context).remove(context, e), e);
 	}
 
 	@Override
 	public List<String> removeList(Context context, final List<Role> eBag)
 			throws MercuryException {
-		return getIds(getService().removeBag(context, (Collection<Role>) eBag),
+		return getIds(getService(context).removeBag(context, (Collection<Role>) eBag),
 				eBag);
 	}
 
 	@Override
 	public List<Role> findAll(Context context) throws MercuryException {
 		return (List<Role>) getEntityCollection(context,
-				getService().findAll(context));
+				getService(context).findAll(context));
 	}
 
 	@Override
 	public Role find(Context context, final String pk) throws MercuryException {
-		return getEntity(context, getService().findByKey(context, pk));
+		return getEntity(context, getService(context).findByKey(context, pk));
 	}
 
 	@Override
 	public Role findFirst(Context context) throws MercuryException {
-		return getEntity(context, getService().findFirst(context));
+		return getEntity(context, getService(context).findFirst(context));
 	}
 }

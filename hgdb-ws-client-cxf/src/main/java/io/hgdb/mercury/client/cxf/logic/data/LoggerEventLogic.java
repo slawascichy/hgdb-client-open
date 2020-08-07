@@ -25,47 +25,47 @@ public class LoggerEventLogic extends WsClientBigDataLogic<LoggerEvent, Long, IL
 
 	@Override
 	public LoggerEvent insert(Context context, final LoggerEvent e) throws MercuryException {
-		return getEntity(context, getService().insert(context, e));
+		return getEntity(context, getService(context).insert(context, e));
 	}
 
 	@Override
 	public EntityList<LoggerEvent, Long> insertList(Context context, List<LoggerEvent> eBag) throws MercuryException {
-		return getEntityCollection(context, getService().insertBag(context, eBag));
+		return getEntityCollection(context, getService(context).insertBag(context, eBag));
 	}
 
 	@Override
 	public Long remove(Context context, final LoggerEvent e) throws MercuryException {
-		return getId(getService().remove(context, e), e);
+		return getId(getService(context).remove(context, e), e);
 	}
 
 	@Override
 	public List<Long> removeList(Context context, final List<LoggerEvent> eBag) throws MercuryException {
-		return getIds(getService().removeBag(context, eBag), eBag);
+		return getIds(getService(context).removeBag(context, eBag), eBag);
 	}
 
 	@Override
 	public LoggerEvent find(Context context, final Long pk) throws MercuryException {
-		return getEntity(context, getService().findByKey(context, pk));
+		return getEntity(context, getService(context).findByKey(context, pk));
 	}
 
 	@Override
 	public LoggerEvent findFirst(Context context) throws MercuryException {
-		return getEntity(context, getService().findFirst(context));
+		return getEntity(context, getService(context).findFirst(context));
 	}
 
 	@Override
 	public LoggerEvent update(Context context, LoggerEvent e) throws MercuryException {
-		return getEntity(context, getService().update(context, e));
+		return getEntity(context, getService(context).update(context, e));
 	}
 
 	@Override
 	public EntityList<LoggerEvent, Long> updateList(Context context, List<LoggerEvent> eBag) throws MercuryException {
-		return getEntityCollection(context, getService().updateBag(context, eBag));
+		return getEntityCollection(context, getService(context).updateBag(context, eBag));
 	}
 
 	@Override
 	public List<LoggerEvent> findByIdList(Context context, List<Long> idList) throws MercuryException {
-		return getEntityCollection(context, getService().findByKeyBag(context, idList));
+		return getEntityCollection(context, getService(context).findByKeyBag(context, idList));
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -73,17 +73,17 @@ public class LoggerEventLogic extends WsClientBigDataLogic<LoggerEvent, Long, IL
 	public IPagedResult<LoggerEvent, IPage> filterPaged(Context context, LoggerEvent e, IPage page)
 			throws MercuryException {
 		return getPagedResult(context,
-				(IWsStatusWithPagedResult) getService().filterPaged(context, e, (PageTransportable) page));
+				(IWsStatusWithPagedResult) getService(context).filterPaged(context, e, (PageTransportable) page));
 	}
 
 	@Override
 	public List<LoggerEvent> findByDocumentId(Context context, final String documentId) throws MercuryException {
-		return getEntityCollection(context, getService().findByDocumentId(context, documentId));
+		return getEntityCollection(context, getService(context).findByDocumentId(context, documentId));
 	}
 
 	@Override
 	public List<LoggerEvent> findAll(Context context) throws MercuryException {
-		return getEntityCollection(context, getService().findAll(context));
+		return getEntityCollection(context, getService(context).findAll(context));
 	}
 
 }

@@ -27,26 +27,26 @@ public class Store2TypeLogic extends
 	@Override
 	public Store2Type insert(Context context, final Store2Type e)
 			throws MercuryException {
-		return getEntity(context, getService().insert(context, e));
+		return getEntity(context, getService(context).insert(context, e));
 	}
 
 	@Override
 	public EntityList<Store2Type, Store2TypePK> insertList(Context context,
 			List<Store2Type> eBag) throws MercuryException {
 		return getEntityCollection(context,
-				getService().insertBag(context, eBag));
+				getService(context).insertBag(context, eBag));
 	}
 
 	@Override
 	public Store2TypePK remove(Context context, final Store2Type e)
 			throws MercuryException {
-		return getId(getService().remove(context, e), e);
+		return getId(getService(context).remove(context, e), e);
 	}
 
 	@Override
 	public List<Store2TypePK> removeList(Context context,
 			final List<Store2Type> eBag) throws MercuryException {
-		return getIds(getService().removeBag(context, eBag), eBag);
+		return getIds(getService(context).removeBag(context, eBag), eBag);
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class Store2TypeLogic extends
 		logger.debug("Store2TypeLogic:findByKey:pk={}", new Object[] { pk });
 		return getEntity(
 				context,
-				getService().findByKey(
+				getService(context).findByKey(
 						context,
 						new Store2TypePK(new Store(pk.getStore().getId()),
 								new TypeCode(pk.getTypeCode().getId()))));
@@ -63,53 +63,53 @@ public class Store2TypeLogic extends
 
 	@Override
 	public Store2Type findFirst(Context context) throws MercuryException {
-		return getEntity(context, getService().findFirst(context));
+		return getEntity(context, getService(context).findFirst(context));
 	}
 
 	@Override
 	public Store2Type update(Context context, Store2Type e)
 			throws MercuryException {
-		return getEntity(context, getService().update(context, e));
+		return getEntity(context, getService(context).update(context, e));
 	}
 
 	@Override
 	public EntityList<Store2Type, Store2TypePK> updateList(Context context,
 			List<Store2Type> eBag) throws MercuryException {
 		return getEntityCollection(context,
-				getService().updateBag(context, eBag));
+				getService(context).updateBag(context, eBag));
 	}
 
 	@Override
 	public List<Store2Type> findByIdList(Context context,
 			List<Store2TypePK> idList) throws MercuryException {
-		return (List<Store2Type>) getEntityCollection(context, getService()
+		return (List<Store2Type>) getEntityCollection(context, getService(context)
 				.findByKeyBag(context, (Collection<Store2TypePK>) idList));
 	}
 
 	@Override
 	public List<Store2Type> filter(Context context, Store2Type e)
 			throws MercuryException {
-		return (List<Store2Type>) getEntityCollection(context, getService()
+		return (List<Store2Type>) getEntityCollection(context, getService(context)
 				.filter(context, e));
 	}
 
 	@Override
 	public List<Store2Type> findByTypeName(Context context, String typeName)
 			throws MercuryException {
-		return (List<Store2Type>) getEntityCollection(context, getService()
+		return (List<Store2Type>) getEntityCollection(context, getService(context)
 				.findByTypeName(context, typeName));
 	}
 
 	@Override
 	public List<Store2Type> findByTypeCode(Context context, String typeCode)
 			throws MercuryException {
-		return (List<Store2Type>) getEntityCollection(context, getService()
+		return (List<Store2Type>) getEntityCollection(context, getService(context)
 				.findByTypeCode(context, typeCode));
 	}
 
 	@Override
 	public List<Store2Type> findAll(Context context) throws MercuryException {
-		return (List<Store2Type>) getEntityCollection(context, getService()
+		return (List<Store2Type>) getEntityCollection(context, getService(context)
 				.findAll(context));
 	}
 

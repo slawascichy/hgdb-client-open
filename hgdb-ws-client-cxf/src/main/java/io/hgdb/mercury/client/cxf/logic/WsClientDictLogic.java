@@ -116,7 +116,7 @@ public abstract class WsClientDictLogic<E extends MEntity & MIdModifier<Pk>, Pk,
 		if (id == null) {
 			return null;
 		}
-		Ws service = getService();
+		Ws service = getService(context);
 		if (service instanceof IActionNVP) {
 			return executeLoadNameValuePair((IActionNVP) service, context, id);
 		} else {
@@ -144,7 +144,7 @@ public abstract class WsClientDictLogic<E extends MEntity & MIdModifier<Pk>, Pk,
 		if (searchText == null) {
 			return Collections.emptyList();
 		}
-		Ws service = getService();
+		Ws service = getService(context);
 		if (service instanceof IActionNVP) {
 			return executeSearchNameValuePairByNamer((IActionNVP) service, context, searchText);
 		} else {

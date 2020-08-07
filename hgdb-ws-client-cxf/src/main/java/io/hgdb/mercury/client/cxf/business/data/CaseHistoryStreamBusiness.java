@@ -78,7 +78,7 @@ public class CaseHistoryStreamBusiness extends WsClient<ICaseHistoryStreamBusine
 	@Override
 	public IPagedResult<MrcCaseHistoryStream, IPage> loadCaseHistoryStream(Context context, Long caseId, Boolean isAsc,
 			PageTransportable page) throws MercuryException {
-		WsStatusWithMrcCaseHistoryStreamPagedResult result = getService().loadCaseHistoryStream(context, caseId, isAsc,
+		WsStatusWithMrcCaseHistoryStreamPagedResult result = getService(context).loadCaseHistoryStream(context, caseId, isAsc,
 				page);
 		return getMrcCaseHistoryStreamPagedResult(context, result);
 	}
@@ -86,7 +86,7 @@ public class CaseHistoryStreamBusiness extends WsClient<ICaseHistoryStreamBusine
 	@Override
 	public IPagedResult<MrcCaseHistoryStream, IPage> loadCaseHistoryStreamAllVersions(Context context, Long caseId,
 			Boolean isAsc, PageTransportable page) throws MercuryException {
-		WsStatusWithMrcCaseHistoryStreamPagedResult result = getService().loadCaseHistoryStreamAllVersions(context,
+		WsStatusWithMrcCaseHistoryStreamPagedResult result = getService(context).loadCaseHistoryStreamAllVersions(context,
 				caseId, isAsc, page);
 		return getMrcCaseHistoryStreamPagedResult(context, result);
 	}
@@ -94,7 +94,7 @@ public class CaseHistoryStreamBusiness extends WsClient<ICaseHistoryStreamBusine
 	@Override
 	public IPagedResult<BpmCaseHistoryStream, IPage> loadBpmCaseHistoryStream(Context context, Long caseId,
 			Set<String> bpmTaskStatuses, Boolean isAsc, PageTransportable page) throws MercuryException {
-		WsStatusWithBpmCaseHistoryStreamPagedResult result = getService().loadBpmCaseHistoryStream(context, caseId,
+		WsStatusWithBpmCaseHistoryStreamPagedResult result = getService(context).loadBpmCaseHistoryStream(context, caseId,
 				bpmTaskStatuses, isAsc, page);
 		return getBpmCaseHistoryStreamPagedResult(context, result);
 	}
@@ -102,7 +102,7 @@ public class CaseHistoryStreamBusiness extends WsClient<ICaseHistoryStreamBusine
 	@Override
 	public IPagedResult<BpmCaseHistoryStream, IPage> loadBpmCaseHistoryStreamAllVersions(Context context, Long caseId,
 			Set<String> bpmTaskStatuses, Boolean isAsc, PageTransportable page) throws MercuryException {
-		WsStatusWithBpmCaseHistoryStreamPagedResult result = getService().loadBpmCaseHistoryStreamAllVersions(context,
+		WsStatusWithBpmCaseHistoryStreamPagedResult result = getService(context).loadBpmCaseHistoryStreamAllVersions(context,
 				caseId, bpmTaskStatuses, isAsc, page);
 		return getBpmCaseHistoryStreamPagedResult(context, result);
 	}
@@ -110,7 +110,7 @@ public class CaseHistoryStreamBusiness extends WsClient<ICaseHistoryStreamBusine
 	@Override
 	public IPagedResult<MrcCaseHistoryStream, IPage> loadFieldHistoryStream(Context context, Long caseId,
 			String fieldName, Boolean isAsc, PageTransportable page) throws MercuryException {
-		WsStatusWithMrcCaseHistoryStreamPagedResult result = getService().loadFieldHistoryStream(context, caseId,
+		WsStatusWithMrcCaseHistoryStreamPagedResult result = getService(context).loadFieldHistoryStream(context, caseId,
 				fieldName, isAsc, page);
 		return getMrcCaseHistoryStreamPagedResult(context, result);
 	}
@@ -118,7 +118,7 @@ public class CaseHistoryStreamBusiness extends WsClient<ICaseHistoryStreamBusine
 	@Override
 	public IPagedResult<MrcCaseHistoryStream, IPage> loadFieldHistoryStreamAllVersions(Context context, Long caseId,
 			String fieldName, Boolean isAsc, PageTransportable page) throws MercuryException {
-		WsStatusWithMrcCaseHistoryStreamPagedResult result = getService().loadFieldHistoryStreamAllVersions(context,
+		WsStatusWithMrcCaseHistoryStreamPagedResult result = getService(context).loadFieldHistoryStreamAllVersions(context,
 				caseId, fieldName, isAsc, page);
 		return getMrcCaseHistoryStreamPagedResult(context, result);
 	}

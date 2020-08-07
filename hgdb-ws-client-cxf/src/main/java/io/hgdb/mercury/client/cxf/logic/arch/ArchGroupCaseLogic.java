@@ -28,49 +28,49 @@ public class ArchGroupCaseLogic extends WsClientBigDataLogic<ArchGroupCase, Long
 
 	@Override
 	public ArchGroupCase insert(Context context, final ArchGroupCase e) throws MercuryException {
-		return getEntity(context, getService().insert(context, e));
+		return getEntity(context, getService(context).insert(context, e));
 	}
 
 	@Override
 	public EntityList<ArchGroupCase, Long> insertList(Context context, List<ArchGroupCase> eBag)
 			throws MercuryException {
-		return getEntityCollection(context, getService().insertBag(context, eBag));
+		return getEntityCollection(context, getService(context).insertBag(context, eBag));
 	}
 
 	@Override
 	public Long remove(Context context, final ArchGroupCase e) throws MercuryException {
-		return getId(getService().remove(context, e), e);
+		return getId(getService(context).remove(context, e), e);
 	}
 
 	@Override
 	public List<Long> removeList(Context context, final List<ArchGroupCase> eBag) throws MercuryException {
-		return getIds(getService().removeBag(context, eBag), eBag);
+		return getIds(getService(context).removeBag(context, eBag), eBag);
 	}
 
 	@Override
 	public ArchGroupCase find(Context context, final Long pk) throws MercuryException {
-		return getEntity(context, getService().findByKey(context, pk));
+		return getEntity(context, getService(context).findByKey(context, pk));
 	}
 
 	@Override
 	public ArchGroupCase findFirst(Context context) throws MercuryException {
-		return getEntity(context, getService().findFirst(context));
+		return getEntity(context, getService(context).findFirst(context));
 	}
 
 	@Override
 	public ArchGroupCase update(Context context, ArchGroupCase e) throws MercuryException {
-		return getEntity(context, getService().update(context, e));
+		return getEntity(context, getService(context).update(context, e));
 	}
 
 	@Override
 	public EntityList<ArchGroupCase, Long> updateList(Context context, List<ArchGroupCase> eBag)
 			throws MercuryException {
-		return getEntityCollection(context, getService().updateBag(context, eBag));
+		return getEntityCollection(context, getService(context).updateBag(context, eBag));
 	}
 
 	@Override
 	public List<ArchGroupCase> findByIdList(Context context, List<Long> idList) throws MercuryException {
-		return getEntityCollection(context, getService().findByKeyBag(context, idList));
+		return getEntityCollection(context, getService(context).findByKeyBag(context, idList));
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -78,12 +78,12 @@ public class ArchGroupCaseLogic extends WsClientBigDataLogic<ArchGroupCase, Long
 	public IPagedResult<ArchGroupCase, IPage> filterPaged(Context context, ArchGroupCase e, IPage page)
 			throws MercuryException {
 		return getPagedResult(context,
-				(IWsStatusWithPagedResult) getService().filterPaged(context, e, (PageTransportable) page));
+				(IWsStatusWithPagedResult) getService(context).filterPaged(context, e, (PageTransportable) page));
 	}
 
 	@Override
 	public List<ArchGroupCase> findAll(Context context) throws MercuryException {
-		return getEntityCollection(context, getService().findAll(context));
+		return getEntityCollection(context, getService(context).findAll(context));
 	}
 
 }

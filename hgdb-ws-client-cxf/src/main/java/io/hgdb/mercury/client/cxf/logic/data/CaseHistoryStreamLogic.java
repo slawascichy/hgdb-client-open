@@ -25,38 +25,38 @@ public class CaseHistoryStreamLogic extends WsClientCustomLogic<CaseHistoryStrea
 
 	@Override
 	public CaseHistoryStream insert(Context context, final CaseHistoryStream e) throws MercuryException {
-		return getEntity(context, getService().insert(context, e));
+		return getEntity(context, getService(context).insert(context, e));
 	}
 
 	@Override
 	public EntityList<CaseHistoryStream, Long> insertList(Context context, List<CaseHistoryStream> eBag)
 			throws MercuryException {
-		return getEntityCollection(context, getService().insertBag(context, eBag));
+		return getEntityCollection(context, getService(context).insertBag(context, eBag));
 	}
 
 	@Override
 	public CaseHistoryStream find(Context context, final Long pk) throws MercuryException {
-		return getEntity(context, getService().findByKey(context, pk));
+		return getEntity(context, getService(context).findByKey(context, pk));
 	}
 
 	@Override
 	public CaseHistoryStream findFirst(Context context) throws MercuryException {
-		return getEntity(context, getService().findFirst(context));
+		return getEntity(context, getService(context).findFirst(context));
 	}
 
 	@Override
 	public List<CaseHistoryStream> filter(Context context, CaseHistoryStream e) throws MercuryException {
-		return getEntityCollection(context, getService().filter(context, e));
+		return getEntityCollection(context, getService(context).filter(context, e));
 	}
 
 	@Override
 	public List<CaseHistoryStream> findByIdList(Context context, List<Long> idList) throws MercuryException {
-		return getEntityCollection(context, getService().findByKeyBag(context, idList));
+		return getEntityCollection(context, getService(context).findByKeyBag(context, idList));
 	}
 
 	@Override
 	public List<CaseHistoryStream> findByCaseId(Context context, Long caseId) throws MercuryException {
-		return getEntityCollection(context, getService().findByCaseId(context, caseId));
+		return getEntityCollection(context, getService(context).findByCaseId(context, caseId));
 	}
 
 }

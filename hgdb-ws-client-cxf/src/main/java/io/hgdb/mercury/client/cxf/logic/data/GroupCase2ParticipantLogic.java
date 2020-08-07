@@ -30,7 +30,7 @@ public class GroupCase2ParticipantLogic
 	@Override
 	public GroupCase2Participant insert(Context context,
 			final GroupCase2Participant e) throws MercuryException {
-		return getEntity(context, getService().insert(context, e));
+		return getEntity(context, getService(context).insert(context, e));
 	}
 
 	@Override
@@ -38,37 +38,37 @@ public class GroupCase2ParticipantLogic
 			Context context, List<GroupCase2Participant> eBag)
 			throws MercuryException {
 		return getEntityCollection(context,
-				getService().insertBag(context, eBag));
+				getService(context).insertBag(context, eBag));
 	}
 
 	@Override
 	public GroupCase2ParticipantPK remove(Context context,
 			final GroupCase2Participant e) throws MercuryException {
-		return getId(getService().remove(context, e), e);
+		return getId(getService(context).remove(context, e), e);
 	}
 
 	@Override
 	public List<GroupCase2ParticipantPK> removeList(Context context,
 			final List<GroupCase2Participant> eBag) throws MercuryException {
-		return getIds(getService().removeBag(context, eBag), eBag);
+		return getIds(getService(context).removeBag(context, eBag), eBag);
 	}
 
 	@Override
 	public GroupCase2Participant find(Context context,
 			final GroupCase2ParticipantPK pk) throws MercuryException {
-		return getEntity(context, getService().findByKey(context, pk));
+		return getEntity(context, getService(context).findByKey(context, pk));
 	}
 
 	@Override
 	public GroupCase2Participant findFirst(Context context)
 			throws MercuryException {
-		return getEntity(context, getService().findFirst(context));
+		return getEntity(context, getService(context).findFirst(context));
 	}
 
 	@Override
 	public GroupCase2Participant update(Context context, GroupCase2Participant e)
 			throws MercuryException {
-		return getEntity(context, getService().update(context, e));
+		return getEntity(context, getService(context).update(context, e));
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class GroupCase2ParticipantLogic
 			Context context, List<GroupCase2Participant> eBag)
 			throws MercuryException {
 		return getEntityCollection(context,
-				getService().updateBag(context, eBag));
+				getService(context).updateBag(context, eBag));
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class GroupCase2ParticipantLogic
 			List<GroupCase2ParticipantPK> idList) throws MercuryException {
 		return (List<GroupCase2Participant>) getEntityCollection(
 				context,
-				getService().findByKeyBag(context,
+				getService(context).findByKeyBag(context,
 						(Collection<GroupCase2ParticipantPK>) idList));
 	}
 
@@ -92,7 +92,7 @@ public class GroupCase2ParticipantLogic
 	@Override
 	public IPagedResult<GroupCase2Participant, IPage> filterPaged(Context context,
 			GroupCase2Participant e, IPage page) throws MercuryException {
-		return getPagedResult(context, (IWsStatusWithPagedResult) getService()
+		return getPagedResult(context, (IWsStatusWithPagedResult) getService(context)
 				.filterPaged(context, e, (PageTransportable) page));
 	}
 
@@ -100,7 +100,7 @@ public class GroupCase2ParticipantLogic
 	public List<GroupCase2Participant> findAll(Context context)
 			throws MercuryException {
 		return (List<GroupCase2Participant>) getEntityCollection(context,
-				getService().findAll(context));
+				getService(context).findAll(context));
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -108,14 +108,14 @@ public class GroupCase2ParticipantLogic
 	public IPagedResult<GroupCase2Participant, IPage> findByGroupId(Context context, Long groupId, IPage page)
 			throws MercuryException {
 		return getPagedResult(context,
-				(IWsStatusWithPagedResult) getService().findByGroupId(context, groupId, (PageTransportable) page));
+				(IWsStatusWithPagedResult) getService(context).findByGroupId(context, groupId, (PageTransportable) page));
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public IPagedResult<GroupCase2Participant, IPage> findByParticipantId(Context context, Long participantId,
 			IPage page) throws MercuryException {
-		return getPagedResult(context, (IWsStatusWithPagedResult) getService().findByParticipantId(context,
+		return getPagedResult(context, (IWsStatusWithPagedResult) getService(context).findByParticipantId(context,
 				participantId, (PageTransportable) page));
 	}
 

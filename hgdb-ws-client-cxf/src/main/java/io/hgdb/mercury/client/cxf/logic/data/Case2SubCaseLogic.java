@@ -145,7 +145,7 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 
 	@Override
 	public Case2SubCase insert(Context context, Case2SubCase entityObject) throws MercuryException {
-		return getEntity(context, getService().insert(context, entityObject));
+		return getEntity(context, getService(context).insert(context, entityObject));
 	}
 
 	/**
@@ -177,7 +177,7 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 
 	@Override
 	public Long remove(Context context, Case2SubCase entityObject) throws MercuryException {
-		return getId(getService().removeByReferenceId(context, entityObject.getId()), entityObject);
+		return getId(getService(context).removeByReferenceId(context, entityObject.getId()), entityObject);
 	}
 
 	/**
@@ -216,20 +216,20 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 	public Case2SubCase findReferenceByKnownRelationShip(Context context, Long parentCaseId, String fieldName,
 			Long subCaseId) throws MercuryException {
 		return getEntity(context,
-				getService().findReferenceByKnownRelationShip(context, parentCaseId, fieldName, subCaseId));
+				getService(context).findReferenceByKnownRelationShip(context, parentCaseId, fieldName, subCaseId));
 	}
 
 	@Override
 	public Case2SubCase findFirstReferenceByParentCaseIdAndFieldName(Context context, Long parentCaseId,
 			String fieldName) throws MercuryException {
 		return getEntity(context,
-				getService().findFirstReferenceByParentCaseIdAndFieldName(context, parentCaseId, fieldName));
+				getService(context).findFirstReferenceByParentCaseIdAndFieldName(context, parentCaseId, fieldName));
 	}
 
 	@Override
 	public Set<Long> checkSubCaseIdByParentCaseIdAndFieldName(Context context, Long parentCaseId, String fieldName,
 			List<Long> subCaseIds) throws MercuryException {
-		WsStatusWithLongBag wsStatusWithDtos = getService().checkSubCaseIdByParentCaseIdAndFieldName(context,
+		WsStatusWithLongBag wsStatusWithDtos = getService(context).checkSubCaseIdByParentCaseIdAndFieldName(context,
 				parentCaseId, fieldName, subCaseIds);
 		if (wsStatusWithDtos == null) {
 			return Collections.emptySet();
@@ -246,7 +246,7 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 	@Override
 	public IPagedResult<Case2SubCase, IPage> findReferencesByParentCaseIdAndFieldName(Context context,
 			Long parentCaseId, String fieldName, IPage page) throws MercuryException {
-		WsStatusWithCase2SubCasePagedResult result = getService().findReferencesByParentCaseIdAndFieldName(context,
+		WsStatusWithCase2SubCasePagedResult result = getService(context).findReferencesByParentCaseIdAndFieldName(context,
 				parentCaseId, fieldName, (PageTransportable) page);
 		return getPagedResult(context, result);
 	}
@@ -274,7 +274,7 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 	@Override
 	public List<Long> findSubCaseIdsByParentCaseIdAndFieldName(Context context, Long parentCaseId, String fieldName)
 			throws MercuryException {
-		WsStatusWithLongBag wsStatusWithDtos = getService().findSubCaseIdsByParentCaseIdAndFieldName(context,
+		WsStatusWithLongBag wsStatusWithDtos = getService(context).findSubCaseIdsByParentCaseIdAndFieldName(context,
 				parentCaseId, fieldName);
 		if (wsStatusWithDtos == null) {
 			return Collections.emptyList();
@@ -290,7 +290,7 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 
 	@Override
 	public List<Long> findAllReferenceIdsByParentCaseId(Context context, Long parentCaseId) throws MercuryException {
-		WsStatusWithLongBag wsStatusWithDtos = getService().findAllReferenceIdsByParentCaseId(context, parentCaseId);
+		WsStatusWithLongBag wsStatusWithDtos = getService(context).findAllReferenceIdsByParentCaseId(context, parentCaseId);
 		if (wsStatusWithDtos == null) {
 			return Collections.emptyList();
 		}
@@ -304,7 +304,7 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 
 	@Override
 	public int remove(Context context, Long parentCaseId, String fieldName, Long subCaseId) throws MercuryException {
-		WsStatusWithLongValue wsStatusWithDtos = getService().removeSubCase(context, parentCaseId, fieldName,
+		WsStatusWithLongValue wsStatusWithDtos = getService(context).removeSubCase(context, parentCaseId, fieldName,
 				subCaseId);
 		if (wsStatusWithDtos == null) {
 			return 0;
@@ -318,7 +318,7 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 
 	@Override
 	public int remove(Context context, Long parentCaseId, String fieldName) throws MercuryException {
-		WsStatusWithLongValue wsStatusWithDtos = getService().removeSubCasesList(context, parentCaseId, fieldName);
+		WsStatusWithLongValue wsStatusWithDtos = getService(context).removeSubCasesList(context, parentCaseId, fieldName);
 		if (wsStatusWithDtos == null) {
 			return 0;
 		}
@@ -331,7 +331,7 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 
 	@Override
 	public int remove(Context context, Long parentCaseId) throws MercuryException {
-		WsStatusWithLongValue wsStatusWithDtos = getService().removeSubCasesAll(context, parentCaseId);
+		WsStatusWithLongValue wsStatusWithDtos = getService(context).removeSubCasesAll(context, parentCaseId);
 		if (wsStatusWithDtos == null) {
 			return 0;
 		}
@@ -355,7 +355,7 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Long removeByReferenceId(Context context, Long referenceId) throws MercuryException {
-		WsStatus wsStatus = getService().removeByReferenceId(context, referenceId);
+		WsStatus wsStatus = getService(context).removeByReferenceId(context, referenceId);
 		if (wsStatus == null) {
 			return null;
 		}

@@ -30,76 +30,76 @@ public class Store2TypeLastVersionBusiness
 
 	@Override
 	public Store2TypeLastVersion insert(Context context, final Store2TypeLastVersion e) throws MercuryException {
-		return getEntity(context, getService().insert(context, e));
+		return getEntity(context, getService(context).insert(context, e));
 	}
 
 	@Override
 	public EntityList<Store2TypeLastVersion, Store2TypePK> insertList(Context context, List<Store2TypeLastVersion> eBag)
 			throws MercuryException {
-		return getEntityCollection(context, getService().insertBag(context, eBag));
+		return getEntityCollection(context, getService(context).insertBag(context, eBag));
 	}
 
 	@Override
 	public Store2TypePK remove(Context context, final Store2TypeLastVersion e) throws MercuryException {
-		return getId(getService().remove(context, e), e);
+		return getId(getService(context).remove(context, e), e);
 	}
 
 	@Override
 	public List<Store2TypePK> removeList(Context context, final List<Store2TypeLastVersion> eBag)
 			throws MercuryException {
-		return getIds(getService().removeBag(context, eBag), eBag);
+		return getIds(getService(context).removeBag(context, eBag), eBag);
 	}
 
 	@Override
 	public Store2TypeLastVersion find(Context context, final Store2TypePK pk) throws MercuryException {
 		logger.debug("Store2TypeLastVersionBusiness:findByKey:pk={}", new Object[] { pk });
-		return getEntity(context, getService().findByKey(context,
+		return getEntity(context, getService(context).findByKey(context,
 				new Store2TypePK(new Store(pk.getStore().getId()), new TypeCode(pk.getTypeCode().getId()))));
 	}
 
 	@Override
 	public Store2TypeLastVersion findFirst(Context context) throws MercuryException {
-		return getEntity(context, getService().findFirst(context));
+		return getEntity(context, getService(context).findFirst(context));
 	}
 
 	@Override
 	public Store2TypeLastVersion update(Context context, Store2TypeLastVersion e) throws MercuryException {
-		return getEntity(context, getService().update(context, e));
+		return getEntity(context, getService(context).update(context, e));
 	}
 
 	@Override
 	public EntityList<Store2TypeLastVersion, Store2TypePK> updateList(Context context, List<Store2TypeLastVersion> eBag)
 			throws MercuryException {
-		return getEntityCollection(context, getService().updateBag(context, eBag));
+		return getEntityCollection(context, getService(context).updateBag(context, eBag));
 	}
 
 	@Override
 	public List<Store2TypeLastVersion> findByIdList(Context context, List<Store2TypePK> idList)
 			throws MercuryException {
 		return (List<Store2TypeLastVersion>) getEntityCollection(context,
-				getService().findByKeyBag(context, (Collection<Store2TypePK>) idList));
+				getService(context).findByKeyBag(context, (Collection<Store2TypePK>) idList));
 	}
 
 	@Override
 	public List<Store2TypeLastVersion> filter(Context context, Store2TypeLastVersion e) throws MercuryException {
-		return (List<Store2TypeLastVersion>) getEntityCollection(context, getService().filter(context, e));
+		return (List<Store2TypeLastVersion>) getEntityCollection(context, getService(context).filter(context, e));
 	}
 
 	@Override
 	public List<Store2TypeLastVersion> findByTypeName(Context context, String typeName) throws MercuryException {
 		return (List<Store2TypeLastVersion>) getEntityCollection(context,
-				getService().findByTypeName(context, typeName));
+				getService(context).findByTypeName(context, typeName));
 	}
 
 	@Override
 	public List<Store2TypeLastVersion> findByTypeCode(Context context, String typeCode) throws MercuryException {
 		return (List<Store2TypeLastVersion>) getEntityCollection(context,
-				getService().findByTypeCode(context, typeCode));
+				getService(context).findByTypeCode(context, typeCode));
 	}
 
 	@Override
 	public List<Store2TypeLastVersion> findAll(Context context) throws MercuryException {
-		return (List<Store2TypeLastVersion>) getEntityCollection(context, getService().findAll(context));
+		return (List<Store2TypeLastVersion>) getEntityCollection(context, getService(context).findAll(context));
 	}
 
 }

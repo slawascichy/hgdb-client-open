@@ -18,17 +18,17 @@ public class CacheManagerLogic extends WsClientRoot<StatsInfoRecord, String, ICa
 
 	@Override
 	public void clearCache(Context context, String cacheName) {
-		getService().clearCache(context, cacheName);
+		getService(context).clearCache(context, cacheName);
 	}
 
 	@Override
 	public void clearEntityCaches(Context context, String entityName) throws MercuryException {
-		getService().clearEntityCaches(context, entityName);
+		getService(context).clearEntityCaches(context, entityName);
 	}
 
 	@Override
 	public IPagedResult<String, IPage> getCacheNames(Context context, IPage page) throws MercuryException {
-		return getStringPagedResult(context, getService().getCacheNames(context, new PageTransportable(page)));
+		return getStringPagedResult(context, getService(context).getCacheNames(context, new PageTransportable(page)));
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -36,7 +36,7 @@ public class CacheManagerLogic extends WsClientRoot<StatsInfoRecord, String, ICa
 	public IPagedResult<StatsInfoRecord, IPage> getCachesStatistics(Context context, IPage page)
 			throws MercuryException {
 		return getPagedResult(context,
-				(IWsStatusWithPagedResult) getService().getCachesStatistics(context, new PageTransportable(page)));
+				(IWsStatusWithPagedResult) getService(context).getCachesStatistics(context, new PageTransportable(page)));
 	}
 
 	@Override

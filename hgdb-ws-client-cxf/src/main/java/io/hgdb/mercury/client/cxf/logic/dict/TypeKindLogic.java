@@ -27,57 +27,57 @@ public class TypeKindLogic extends
 	@Override
 	public TypeKind insert(Context context, final TypeKind e)
 			throws MercuryException {
-		return getEntity(context, getService().insert(context, e));
+		return getEntity(context, getService(context).insert(context, e));
 	}
 
 	@Override
 	public EntityList<TypeKind, String> insertList(Context context,
 			List<TypeKind> eBag) throws MercuryException {
 		return getEntityCollection(context,
-				getService().insertBag(context, (Collection<TypeKind>) eBag));
+				getService(context).insertBag(context, (Collection<TypeKind>) eBag));
 	}
 
 	@Override
 	public TypeKind update(Context context, final TypeKind e)
 			throws MercuryException {
-		return getEntity(context, getService().update(context, e));
+		return getEntity(context, getService(context).update(context, e));
 	}
 
 	@Override
 	public EntityList<TypeKind, String> updateList(Context context,
 			final List<TypeKind> eBag) throws MercuryException {
 		return getEntityCollection(context,
-				getService().updateBag(context, (Collection<TypeKind>) eBag));
+				getService(context).updateBag(context, (Collection<TypeKind>) eBag));
 	}
 
 	@Override
 	public String remove(Context context, final TypeKind e)
 			throws MercuryException {
-		return getId(getService().remove(context, e), e);
+		return getId(getService(context).remove(context, e), e);
 	}
 
 	@Override
 	public List<String> removeList(Context context, final List<TypeKind> eBag)
 			throws MercuryException {
 		return getIds(
-				getService().removeBag(context, (Collection<TypeKind>) eBag),
+				getService(context).removeBag(context, (Collection<TypeKind>) eBag),
 				eBag);
 	}
 
 	@Override
 	public List<TypeKind> findAll(Context context) throws MercuryException {
-		return (List<TypeKind>) getEntityCollection(context, getService()
+		return (List<TypeKind>) getEntityCollection(context, getService(context)
 				.findAll(context));
 	}
 
 	@Override
 	public TypeKind find(Context context, final String pk)
 			throws MercuryException {
-		return getEntity(context, getService().findByKey(context, pk));
+		return getEntity(context, getService(context).findByKey(context, pk));
 	}
 
 	@Override
 	public TypeKind findFirst(Context context) throws MercuryException {
-		return getEntity(context, getService().findFirst(context));
+		return getEntity(context, getService(context).findFirst(context));
 	}
 }

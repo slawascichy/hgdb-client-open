@@ -37,12 +37,12 @@ public class TypeCaseLogic extends WsClientDataLogic<TypeCase, Long, ITypeCaseAc
 		if (e.getVersionMinor() == null) {
 			e.setVersionMinor(0.0);
 		}
-		return getEntity(context, getService().insert(context, e));
+		return getEntity(context, getService(context).insert(context, e));
 	}
 
 	@Override
 	public EntityList<TypeCase, Long> insertList(Context context, List<TypeCase> eBag) throws MercuryException {
-		return getEntityCollection(context, getService().insertBag(context, (Collection<TypeCase>) eBag));
+		return getEntityCollection(context, getService(context).insertBag(context, (Collection<TypeCase>) eBag));
 	}
 
 	@Override
@@ -51,27 +51,27 @@ public class TypeCaseLogic extends WsClientDataLogic<TypeCase, Long, ITypeCaseAc
 		if (e.getVersionMinor() == null) {
 			e.setVersionMinor(0.0);
 		}
-		return getId(getService().remove(context, e), e);
+		return getId(getService(context).remove(context, e), e);
 	}
 
 	@Override
 	public List<Long> removeList(Context context, final List<TypeCase> eBag) throws MercuryException {
-		return getIds(getService().removeBag(context, (Collection<TypeCase>) eBag), eBag);
+		return getIds(getService(context).removeBag(context, (Collection<TypeCase>) eBag), eBag);
 	}
 
 	@Override
 	public List<TypeCase> findAll(Context context) throws MercuryException {
-		return getEntityCollection(context, getService().findAll(context));
+		return getEntityCollection(context, getService(context).findAll(context));
 	}
 
 	@Override
 	public TypeCase find(Context context, final Long pk) throws MercuryException {
-		return getEntity(context, getService().findByKey(context, pk));
+		return getEntity(context, getService(context).findByKey(context, pk));
 	}
 
 	@Override
 	public TypeCase findFirst(Context context) throws MercuryException {
-		return getEntity(context, getService().findFirst(context));
+		return getEntity(context, getService(context).findFirst(context));
 	}
 
 	@Override
@@ -80,63 +80,63 @@ public class TypeCaseLogic extends WsClientDataLogic<TypeCase, Long, ITypeCaseAc
 		if (e.getVersionMinor() == null) {
 			e.setVersionMinor(0.0);
 		}
-		return getEntity(context, getService().update(context, e));
+		return getEntity(context, getService(context).update(context, e));
 	}
 
 	@Override
 	public EntityList<TypeCase, Long> updateList(Context context, List<TypeCase> eBag) throws MercuryException {
-		return getEntityCollection(context, getService().updateBag(context, (Collection<TypeCase>) eBag));
+		return getEntityCollection(context, getService(context).updateBag(context, (Collection<TypeCase>) eBag));
 	}
 
 	@Override
 	public EntityList<TypeCase, Long> findLastVersionByTypeName(Context context, String typeName)
 			throws MercuryException {
-		return getEntityCollection(context, getService().findLastVersionByTypeName(context, typeName));
+		return getEntityCollection(context, getService(context).findLastVersionByTypeName(context, typeName));
 	}
 
 	@Override
 	public TypeCase findLastVersionByTypeCode(Context context, String typeCode) throws MercuryException {
-		return getEntity(context, getService().findLastVersionByTypeCode(context, typeCode));
+		return getEntity(context, getService(context).findLastVersionByTypeCode(context, typeCode));
 	}
 
 	@Override
 	public List<TypeCase> getAllDocumentTypes(Context context) throws MercuryException {
-		return getEntityCollection(context, getService().getAllDocumentTypes(context));
+		return getEntityCollection(context, getService(context).getAllDocumentTypes(context));
 	}
 
 	@Override
 	public List<TypeCase> getAllCaseTypes(Context context) throws MercuryException {
-		return getEntityCollection(context, getService().getAllCaseTypes(context));
+		return getEntityCollection(context, getService(context).getAllCaseTypes(context));
 	}
 
 	@Override
 	public List<TypeCase> findByIdList(Context context, List<Long> idList) throws MercuryException {
-		return getEntityCollection(context, getService().findByKeyBag(context, idList));
+		return getEntityCollection(context, getService(context).findByKeyBag(context, idList));
 	}
 
 	@Override
 	public List<TypeCase> filter(Context context, TypeCase e) throws MercuryException {
-		return getEntityCollection(context, getService().filter(context, e));
+		return getEntityCollection(context, getService(context).filter(context, e));
 	}
 
 	@Override
 	public void setQueryCacheEnabled(Context context, boolean queryCacheEnabled) {
-		getService().setQueryCacheEnabled(context, queryCacheEnabled);
+		getService(context).setQueryCacheEnabled(context, queryCacheEnabled);
 	}
 
 	@Override
 	public void synchronizationWithCMIS(Context context) throws MercuryException {
-		getService().synchronizationWithCMIS(context);
+		getService(context).synchronizationWithCMIS(context);
 	}
 
 	@Override
 	public void checkSynchronizationWithCMIS(Context context) throws MercuryException {
-		getService().checkSynchronizationWithCMIS(context);
+		getService(context).checkSynchronizationWithCMIS(context);
 	}
 
 	@Override
 	public List<TypeCase> findAllVersionByTypeCode(Context context, String typeCode) throws MercuryException {
-		return getEntityCollection(context, getService().findAllVersionByTypeCode(context, typeCode));
+		return getEntityCollection(context, getService(context).findAllVersionByTypeCode(context, typeCode));
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -196,26 +196,28 @@ public class TypeCaseLogic extends WsClientDataLogic<TypeCase, Long, ITypeCaseAc
 	/* Overridden (non-Javadoc) */
 	@Override
 	public List<TypeCase> findAllBySumControl(Context paramContext, String paramString) throws MercuryException {
-		return getEntityCollection(paramContext, getService().findAllBySumControl(paramContext, paramString));
+		return getEntityCollection(paramContext,
+				getService(paramContext).findAllBySumControl(paramContext, paramString));
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
 	public List<TypeCase> findLatestVersionBySumControl(Context paramContext, String paramString)
 			throws MercuryException {
-		return getEntityCollection(paramContext, getService().findLatestVersionBySumControl(paramContext, paramString));
+		return getEntityCollection(paramContext,
+				getService(paramContext).findLatestVersionBySumControl(paramContext, paramString));
 	}
 
 	@Override
 	public List<TypeCase> findByKindCode(Context context, String kindCode) throws MercuryException {
-		return getEntityCollection(context, getService().findByKindCode(context, kindCode));
+		return getEntityCollection(context, getService(context).findByKindCode(context, kindCode));
 	}
 
 	@Override
 	public List<TypeCase> findByObjectIdAndRootVersionContextID(Context context, String objectID,
 			String rootVersionContextID) throws MercuryException {
 		return getEntityCollection(context,
-				getService().findByObjectIdAndRootVersionContextID(context, objectID, rootVersionContextID));
+				getService(context).findByObjectIdAndRootVersionContextID(context, objectID, rootVersionContextID));
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -223,20 +225,20 @@ public class TypeCaseLogic extends WsClientDataLogic<TypeCase, Long, ITypeCaseAc
 	public List<TypeCase> findByIdentity(Context context, String typeCode, String objectID, String rootVersionContextID)
 			throws MercuryException {
 		return getEntityCollection(context,
-				getService().findByIdentity(context, typeCode, objectID, rootVersionContextID));
+				getService(context).findByIdentity(context, typeCode, objectID, rootVersionContextID));
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
 	public List<TypeCase> findByIdentityPart(Context context, String typeCode, String objectID)
 			throws MercuryException {
-		return getEntityCollection(context, getService().findByIdentityPart(context, typeCode, objectID));
+		return getEntityCollection(context, getService(context).findByIdentityPart(context, typeCode, objectID));
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
 	public CaseHeader getSampleCaseHeaderByTypeId(Context context, Long typeId) throws MercuryException {
-		WsStatusWithCaseHeader result = getService().getSampleCaseHeaderByTypeId(context, typeId);
+		WsStatusWithCaseHeader result = getService(context).getSampleCaseHeaderByTypeId(context, typeId);
 		if (checkWsStatus((IWsStatus) result)) {
 			return result.getValue();
 		}
@@ -246,7 +248,7 @@ public class TypeCaseLogic extends WsClientDataLogic<TypeCase, Long, ITypeCaseAc
 	/* Overridden (non-Javadoc) */
 	@Override
 	public CaseHeader getSampleCaseHeaderByTypeCode(Context context, String typeCode) throws MercuryException {
-		WsStatusWithCaseHeader result = getService().getSampleCaseHeaderByTypeCode(context, typeCode);
+		WsStatusWithCaseHeader result = getService(context).getSampleCaseHeaderByTypeCode(context, typeCode);
 		if (checkWsStatus((IWsStatus) result)) {
 			return result.getValue();
 		}
@@ -271,6 +273,6 @@ public class TypeCaseLogic extends WsClientDataLogic<TypeCase, Long, ITypeCaseAc
 	/* Overridden (non-Javadoc) */
 	@Override
 	public List<TypeCase> findAllVersionByTypeName(Context context, String typeName) throws MercuryException {
-		return getEntityCollection(context, getService().findAllVersionByTypeName(context, typeName));
+		return getEntityCollection(context, getService(context).findAllVersionByTypeName(context, typeName));
 	}
 }

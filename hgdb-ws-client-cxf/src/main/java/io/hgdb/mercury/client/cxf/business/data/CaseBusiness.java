@@ -123,35 +123,35 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	@Override
 	public MrcObject find(Context context, Long id) throws MercuryException {
-		WsStatusWithMrcObject result = getService().find(context, id);
+		WsStatusWithMrcObject result = getService(context).find(context, id);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
 	}
 
 	@Override
 	public MrcObject findFirst(Context context) throws MercuryException {
-		WsStatusWithMrcObject result = getService().findFirst(context);
+		WsStatusWithMrcObject result = getService(context).findFirst(context);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
 	}
 
 	@Override
 	public Long remove(Context context, Long caseId) throws MercuryException {
-		WsStatus result = getService().remove(context, caseId);
+		WsStatus result = getService(context).remove(context, caseId);
 		checkWsStatus(result);
 		return caseId;
 	}
 
 	@Override
 	public List<Long> removeList(Context context, List<Long> idList) throws MercuryException {
-		WsStatus result = getService().removeList(context, idList);
+		WsStatus result = getService(context).removeList(context, idList);
 		checkWsStatus(result);
 		return idList;
 	}
 
 	@Override
 	public MrcList findByIdList(Context context, List<Long> idList) throws MercuryException {
-		WsStatusWithMrcList result = getService().findByIdList(context, idList);
+		WsStatusWithMrcList result = getService(context).findByIdList(context, idList);
 		DtoMrcList dtoList = getDtoList(result);
 		return (MrcList) DtoMrcDataUtils.toMrcList(context, dtoList);
 	}
@@ -159,7 +159,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public MrcObject save(Context context, MrcObject entityObject, boolean forceAddStore2Type) throws MercuryException {
 		DtoMrcObject e4Update = DtoMrcDataUtils.toDtoMrcObject(context, entityObject);
-		WsStatusWithMrcObject result = getService().save(context, e4Update, forceAddStore2Type);
+		WsStatusWithMrcObject result = getService(context).save(context, e4Update, forceAddStore2Type);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
 	}
@@ -168,7 +168,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	public MrcList saveList(Context context, MrcList entityObjects, boolean forceAddStore2Type)
 			throws MercuryException {
 		DtoMrcList e4Update = DtoMrcDataUtils.toDtoMrcList(context, entityObjects);
-		WsStatusWithMrcList result = getService().saveList(context, e4Update, forceAddStore2Type);
+		WsStatusWithMrcList result = getService(context).saveList(context, e4Update, forceAddStore2Type);
 		DtoMrcList dtoList = getDtoList(result);
 		return (MrcList) DtoMrcDataUtils.toMrcList(context, dtoList);
 	}
@@ -188,7 +188,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 			cDateFrom = new CaseDate();
 			CaseDateUtils.setDateValue(cDateFrom, dateFrom);
 		}
-		WsStatusWithMrcObject result = getService().searchInDB(context, paramsMap, mode, objectId, versionSeriesId,
+		WsStatusWithMrcObject result = getService(context).searchInDB(context, paramsMap, mode, objectId, versionSeriesId,
 				gc2pList, header, cDateFrom, cDateTo, getOnlyLastCase, (PageTransportable) page);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
@@ -197,7 +197,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public MrcPagedResult searchLuceneByParams(Context context, Map<String, String> paramsMap, CredentialsMode mode,
 			IPage page) throws MercuryException {
-		WsStatusWithMrcObject result = getService().searchLuceneByParams(context, paramsMap, mode,
+		WsStatusWithMrcObject result = getService(context).searchLuceneByParams(context, paramsMap, mode,
 				(PageTransportable) page);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
@@ -205,21 +205,21 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	@Override
 	public MrcPagedResult searchLuceneByQuery(Context context, String query, IPage page) throws MercuryException {
-		WsStatusWithMrcObject result = getService().searchLuceneByQuery(context, query, (PageTransportable) page);
+		WsStatusWithMrcObject result = getService(context).searchLuceneByQuery(context, query, (PageTransportable) page);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
 	}
 
 	@Override
 	public MrcObject findLastByBpmId(Context context, Long bpmProcessId) throws MercuryException {
-		WsStatusWithMrcObject result = getService().findLastByBpmId(context, bpmProcessId);
+		WsStatusWithMrcObject result = getService(context).findLastByBpmId(context, bpmProcessId);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
 	}
 
 	@Override
 	public MrcList findByGroupCaseIds(Context context, List<Long> groupCaseIds) throws MercuryException {
-		WsStatusWithMrcList result = getService().findByGroupCaseIds(context, groupCaseIds);
+		WsStatusWithMrcList result = getService(context).findByGroupCaseIds(context, groupCaseIds);
 		DtoMrcList dtoList = getDtoList(result);
 		return (MrcList) DtoMrcDataUtils.toMrcList(context, dtoList);
 	}
@@ -227,7 +227,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public Document loadSubCaseXML(Context context, Long caseId, String fieldName, int maxDepth)
 			throws MercuryException {
-		WsStatusWithXML result = getService().loadSubCaseXML(context, caseId, fieldName, maxDepth);
+		WsStatusWithXML result = getService(context).loadSubCaseXML(context, caseId, fieldName, maxDepth);
 		return WsStatusUtils.createDocument(result);
 	}
 
@@ -241,7 +241,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	@Override
 	public Document loadCaseXML(Context context, Long caseId, int maxDepth) throws MercuryException {
-		WsStatusWithXML result = getService().findXML(context, caseId);
+		WsStatusWithXML result = getService(context).findXML(context, caseId);
 		return WsStatusUtils.createDocument(result);
 	}
 
@@ -275,28 +275,28 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Document findXML(Context context, Long id) throws MercuryException {
-		WsStatusWithXML result = getService().findXML(context, id);
+		WsStatusWithXML result = getService(context).findXML(context, id);
 		return WsStatusUtils.createDocument(result);
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Document findFirstXML(Context context) throws MercuryException {
-		WsStatusWithXML result = getService().findFirstXML(context);
+		WsStatusWithXML result = getService(context).findFirstXML(context);
 		return WsStatusUtils.createDocument(result);
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Document findByIdListXML(Context context, List<Long> idList) throws MercuryException {
-		WsStatusWithXML result = getService().findByIdListXML(context, idList);
+		WsStatusWithXML result = getService(context).findByIdListXML(context, idList);
 		return WsStatusUtils.createDocument(result);
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Document saveXML(Context context, Element documentXML, Boolean forceAddStore2Type) throws MercuryException {
-		WsStatusWithXML result = getService().saveXML(context, documentXML, forceAddStore2Type);
+		WsStatusWithXML result = getService(context).saveXML(context, documentXML, forceAddStore2Type);
 		return WsStatusUtils.createDocument(result);
 	}
 
@@ -315,7 +315,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 			cDateFrom = new CaseDate();
 			CaseDateUtils.setDateValue(cDateFrom, dateFrom);
 		}
-		WsStatusWithXML result = getService().searchInDBXML(context, paramsMap, mode, objectId, versionSeriesId,
+		WsStatusWithXML result = getService(context).searchInDBXML(context, paramsMap, mode, objectId, versionSeriesId,
 				gc2pList, header, cDateFrom, cDateTo, getOnlyLastCase, (PageTransportable) page);
 		return WsStatusUtils.createDocument(result);
 	}
@@ -324,7 +324,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public Document searchLuceneByParamsXML(Context context, Map<String, String> paramsMap, CredentialsMode mode,
 			IPage page) throws MercuryException {
-		WsStatusWithXML result = getService().searchLuceneByParamsXML(context, paramsMap, mode,
+		WsStatusWithXML result = getService(context).searchLuceneByParamsXML(context, paramsMap, mode,
 				(PageTransportable) page);
 		return WsStatusUtils.createDocument(result);
 	}
@@ -336,7 +336,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 			MrcPagedResult mrcPagedResult = searchLuceneByQuery(context, query, (PageTransportable) page);
 			return loadMrcPagedResultXML(context, mrcPagedResult);
 		} else {
-			WsStatusWithXML result = getService().searchLuceneByQueryXML(context, query, (PageTransportable) page);
+			WsStatusWithXML result = getService(context).searchLuceneByQueryXML(context, query, (PageTransportable) page);
 			return WsStatusUtils.createDocument(result);
 		}
 	}
@@ -348,7 +348,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 			MrcObject mrcObject = findLastByBpmId(context, bpmProcessId);
 			return loadMrcObjectXML(context, mrcObject);
 		} else {
-			WsStatusWithXML result = getService().findLastByBpmIdXML(context, bpmProcessId);
+			WsStatusWithXML result = getService(context).findLastByBpmIdXML(context, bpmProcessId);
 			return WsStatusUtils.createDocument(result);
 		}
 	}
@@ -360,14 +360,14 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 			MrcList mrcList = findByGroupCaseIds(context, groupCaseIds);
 			return loadMrcListXML(context, mrcList);
 		} else {
-			WsStatusWithXML result = getService().findByGroupCaseIdsXML(context, groupCaseIds);
+			WsStatusWithXML result = getService(context).findByGroupCaseIdsXML(context, groupCaseIds);
 			return WsStatusUtils.createDocument(result);
 		}
 	}
 
 	@Override
 	public MrcPagedResult loadLastUpdated(Context context, IPage page) throws MercuryException {
-		WsStatusWithMrcObject result = getService().loadLastUpdated(context, (PageTransportable) page);
+		WsStatusWithMrcObject result = getService(context).loadLastUpdated(context, (PageTransportable) page);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
 	}
@@ -375,7 +375,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public MrcPagedResult loadLastUpdatedByTypeCodes(Context context, Set<String> typeCodes, IPage page)
 			throws MercuryException {
-		WsStatusWithMrcObject result = getService().loadLastUpdatedByTypeCodes(context, typeCodes,
+		WsStatusWithMrcObject result = getService(context).loadLastUpdatedByTypeCodes(context, typeCodes,
 				(PageTransportable) page);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
@@ -387,7 +387,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 			MrcPagedResult mrcPagedResult = loadLastUpdated(context, page);
 			return loadMrcPagedResultXML(context, mrcPagedResult);
 		} else {
-			WsStatusWithXML result = getService().loadLastUpdatedXML(context, (PageTransportable) page);
+			WsStatusWithXML result = getService(context).loadLastUpdatedXML(context, (PageTransportable) page);
 			return WsStatusUtils.createDocument(result);
 		}
 	}
@@ -399,7 +399,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 			MrcPagedResult mrcPagedResult = loadLastUpdatedByTypeCodes(context, typeCodes, page);
 			return loadMrcPagedResultXML(context, mrcPagedResult);
 		} else {
-			WsStatusWithXML result = getService().loadLastUpdatedByTypeCodesXML(context, typeCodes,
+			WsStatusWithXML result = getService(context).loadLastUpdatedByTypeCodesXML(context, typeCodes,
 					(PageTransportable) page);
 			return WsStatusUtils.createDocument(result);
 		}
@@ -408,7 +408,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public MrcPagedResult searchLuceneWithQueries(Context context, Map<String, String> gueriesMap, IPage page)
 			throws MercuryException {
-		WsStatusWithMrcObject result = getService().searchLuceneWithQueries(context, gueriesMap,
+		WsStatusWithMrcObject result = getService(context).searchLuceneWithQueries(context, gueriesMap,
 				(PageTransportable) page);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
@@ -417,14 +417,14 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public Document searchLuceneWithQueriesXML(Context context, Map<String, String> queriesMap, IPage page)
 			throws MercuryException {
-		WsStatusWithXML result = getService().searchLuceneWithQueriesXML(context, queriesMap, (PageTransportable) page);
+		WsStatusWithXML result = getService(context).searchLuceneWithQueriesXML(context, queriesMap, (PageTransportable) page);
 		return WsStatusUtils.createDocument(result);
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Long getSystemChangeNumber(Context context, Long caseId) throws MercuryException {
-		WsStatusWithLongValue result = getService().getSystemChangeNumber(context, caseId);
+		WsStatusWithLongValue result = getService(context).getSystemChangeNumber(context, caseId);
 		if (checkWsStatus((IWsStatus) result)) {
 			return result.getValue();
 		}
@@ -435,7 +435,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public MrcSimplePropertyMapGroupedByCaseId getCaseParamsByParamNames(Context context, Long caseId,
 			Set<String> fields) throws MercuryException {
-		WsStatusWithMrcSimplePropertyMapGroupedByCaseIdDto result = getService().getCaseParamsByParamNames(context,
+		WsStatusWithMrcSimplePropertyMapGroupedByCaseIdDto result = getService(context).getCaseParamsByParamNames(context,
 				caseId, fields);
 		if (checkWsStatus((IWsStatus) result)) {
 			return result.getDto();
@@ -447,7 +447,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public MrcSimplePropertyMapGroupedByCaseId updateCaseParamsByParams(Context context,
 			MrcSimplePropertyMapGroupedByCaseId mrcSimplePropertyMapGroupedByCaseId) throws MercuryException {
-		WsStatusWithMrcSimplePropertyMapGroupedByCaseIdDto result = getService().updateCaseParamsByParams(context,
+		WsStatusWithMrcSimplePropertyMapGroupedByCaseIdDto result = getService(context).updateCaseParamsByParams(context,
 				mrcSimplePropertyMapGroupedByCaseId);
 		if (checkWsStatus((IWsStatus) result)) {
 			return result.getDto();
@@ -458,7 +458,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Long checkCaseStatus(Context context, Long caseId) throws MercuryException {
-		WsStatusWithLongValue result = getService().checkCaseStatus(context, caseId);
+		WsStatusWithLongValue result = getService(context).checkCaseStatus(context, caseId);
 		if (checkWsStatus((IWsStatus) result)) {
 			return result.getValue();
 		}
@@ -468,7 +468,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Map<String, String> validateMrcObject(Context context, Case entityObject) throws MercuryException {
-		WsStatusWithMapString2String result = getService().validateMrcObject(context, entityObject);
+		WsStatusWithMapString2String result = getService(context).validateMrcObject(context, entityObject);
 		if (checkWsStatus((IWsStatus) result)) {
 			return result.getMap();
 		}
@@ -478,7 +478,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public List<MrcSimplePropertyMapGroupedByCaseId> updateCasesParamsByParams(Context context,
 			List<MrcSimplePropertyMapGroupedByCaseId> mrcSimplePropertyMapsGroupedByCaseId) throws MercuryException {
-		WsStatusWithMrcSimplePropertyMapGroupedByCaseIdDtos result = getService().updateCasesParamsByParams(context,
+		WsStatusWithMrcSimplePropertyMapGroupedByCaseIdDtos result = getService(context).updateCasesParamsByParams(context,
 				mrcSimplePropertyMapsGroupedByCaseId);
 		if (checkWsStatus((IWsStatus) result)) {
 			return new ArrayList<>(result.getDtos());
@@ -489,7 +489,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public List<MrcCaseHistoryStream> loadCaseHistoryStream(Context context, Long caseId, Boolean isAsc)
 			throws MercuryException {
-		WsStatusWithMrcCaseHistoryStreamDtos result = getService().loadCaseHistoryStream(context, caseId, isAsc);
+		WsStatusWithMrcCaseHistoryStreamDtos result = getService(context).loadCaseHistoryStream(context, caseId, isAsc);
 		if (checkWsStatus((IWsStatus) result)) {
 			return (result.getDtos() != null ? new ArrayList<MrcCaseHistoryStream>(result.getDtos())
 					: new ArrayList<MrcCaseHistoryStream>());
@@ -500,7 +500,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public List<BpmCaseHistoryStream> loadBpmCaseHistoryStream(Context context, Long caseId,
 			Set<String> bpmTaskStatuses, Boolean isAsc) throws MercuryException {
-		WsStatusWithBpmCaseHistoryStreamDtos result = getService().loadBpmCaseHistoryStream(context, caseId,
+		WsStatusWithBpmCaseHistoryStreamDtos result = getService(context).loadBpmCaseHistoryStream(context, caseId,
 				bpmTaskStatuses, isAsc);
 		if (checkWsStatus((IWsStatus) result)) {
 			return (result.getDtos() != null ? new ArrayList<BpmCaseHistoryStream>(result.getDtos())
@@ -517,7 +517,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	@Deprecated
 	public MrcList loadCaseHistoryTraces(Context context, Long caseId, Boolean isAsc) throws MercuryException {
-		WsStatusWithMrcList result = getService().loadCaseHistoryTraces(context, caseId, isAsc);
+		WsStatusWithMrcList result = getService(context).loadCaseHistoryTraces(context, caseId, isAsc);
 		DtoMrcList dtoList = getDtoList(result);
 		return (MrcList) DtoMrcDataUtils.toMrcList(context, dtoList);
 	}
@@ -530,13 +530,13 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	@Deprecated
 	public Document loadCaseHistoryTracesXML(Context context, Long caseId, Boolean isAsc) throws MercuryException {
-		WsStatusWithXML result = getService().loadCaseHistoryTracesXML(context, caseId, isAsc);
+		WsStatusWithXML result = getService(context).loadCaseHistoryTracesXML(context, caseId, isAsc);
 		return WsStatusUtils.createDocument(result);
 	}
 
 	@Override
 	public List<MrcComment> loadCaseComments(Context context, Long caseId, Boolean isAsc) throws MercuryException {
-		WsStatusWithMrcCommentDtos result = getService().loadCaseComments(context, caseId, isAsc);
+		WsStatusWithMrcCommentDtos result = getService(context).loadCaseComments(context, caseId, isAsc);
 		if (checkWsStatus((IWsStatus) result)) {
 			return (result.getDtos() != null ? new ArrayList<MrcComment>(result.getDtos())
 					: new ArrayList<MrcComment>());
@@ -546,7 +546,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	@Override
 	public List<MrcQuickTask> loadCaseQuickTasks(Context context, Long caseId, Boolean isAsc) throws MercuryException {
-		WsStatusWithMrcQuickTaskDtos result = getService().loadCaseQuickTasks(context, caseId, isAsc);
+		WsStatusWithMrcQuickTaskDtos result = getService(context).loadCaseQuickTasks(context, caseId, isAsc);
 		if (checkWsStatus((IWsStatus) result)) {
 			return (result.getDtos() != null ? new ArrayList<MrcQuickTask>(result.getDtos())
 					: new ArrayList<MrcQuickTask>());
@@ -557,7 +557,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public List<MrcCaseDocument> loadCaseDocuments(Context context, Long caseId, Boolean isAsc)
 			throws MercuryException {
-		WsStatusWithMrcCaseDocumentDtos result = getService().loadCaseDocuments(context, caseId, isAsc);
+		WsStatusWithMrcCaseDocumentDtos result = getService(context).loadCaseDocuments(context, caseId, isAsc);
 		if (checkWsStatus((IWsStatus) result)) {
 			return (result.getDtos() != null ? new ArrayList<MrcCaseDocument>(result.getDtos())
 					: new ArrayList<MrcCaseDocument>());
@@ -568,7 +568,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public Document loadSubCaseListXML(Context context, Long caseId, String fieldName, int maxDepth, IPage page)
 			throws MercuryException {
-		WsStatusWithXML result = getService().loadSubCaseListXML(context, caseId, fieldName, maxDepth,
+		WsStatusWithXML result = getService(context).loadSubCaseListXML(context, caseId, fieldName, maxDepth,
 				(PageTransportable) page);
 		return WsStatusUtils.createDocument(result);
 	}
@@ -576,7 +576,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public MrcPagedResult loadSubCaseList(Context context, Long caseId, String fieldName, int maxDepth, IPage page)
 			throws MercuryException {
-		WsStatusWithMrcObject result = getService().loadSubCaseList(context, caseId, fieldName, maxDepth,
+		WsStatusWithMrcObject result = getService(context).loadSubCaseList(context, caseId, fieldName, maxDepth,
 				(PageTransportable) page);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
@@ -586,7 +586,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	/* Overridden (non-Javadoc) */
 	@Override
 	public MrcObject findByPKProperty(Context context, String typeCode, String paramValue) throws MercuryException {
-		WsStatusWithMrcObject result = getService().findByPKProperty(context, typeCode, paramValue);
+		WsStatusWithMrcObject result = getService(context).findByPKProperty(context, typeCode, paramValue);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
 	}
@@ -594,28 +594,28 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Document findByPKPropertyXML(Context context, String typeCode, String paramValue) throws MercuryException {
-		WsStatusWithXML result = getService().findByPKPropertyXML(context, typeCode, paramValue);
+		WsStatusWithXML result = getService(context).findByPKPropertyXML(context, typeCode, paramValue);
 		return WsStatusUtils.createDocument(result);
 
 	}
 
 	@Override
 	public Document searchLuceneByIdXML(Context context, Long caseId) throws MercuryException {
-		WsStatusWithXML result = getService().searchLuceneByIdXML(context, caseId);
+		WsStatusWithXML result = getService(context).searchLuceneByIdXML(context, caseId);
 		return WsStatusUtils.createDocument(result);
 	}
 
 	@Override
 	public Document searchLuceneByInventoryCodeXML(Context context, String searchText, IPage page)
 			throws MercuryException {
-		WsStatusWithXML result = getService().searchLuceneByInventoryCodeXML(context, searchText,
+		WsStatusWithXML result = getService(context).searchLuceneByInventoryCodeXML(context, searchText,
 				(PageTransportable) page);
 		return WsStatusUtils.createDocument(result);
 	}
 
 	@Override
 	public MrcObject searchLuceneById(Context context, Long caseId) throws MercuryException {
-		WsStatusWithMrcObject result = getService().searchLuceneById(context, caseId);
+		WsStatusWithMrcObject result = getService(context).searchLuceneById(context, caseId);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
 	}
@@ -623,7 +623,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public MrcPagedResult searchLuceneByInventoryCode(Context context, String searchText, IPage page)
 			throws MercuryException {
-		WsStatusWithMrcObject result = getService().searchLuceneByInventoryCode(context, searchText,
+		WsStatusWithMrcObject result = getService(context).searchLuceneByInventoryCode(context, searchText,
 				(PageTransportable) page);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
@@ -631,39 +631,39 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	@Override
 	public Document loadSampleByTypeCodeXML(Context context, String typeCode) throws MercuryException {
-		WsStatusWithXML result = getService().loadSampleByTypeCodeXML(context, typeCode);
+		WsStatusWithXML result = getService(context).loadSampleByTypeCodeXML(context, typeCode);
 		return WsStatusUtils.createDocument(result);
 	}
 
 	@Override
 	public Document loadSampleByTypeNameXML(Context context, String typeName) throws MercuryException {
-		WsStatusWithXML result = getService().loadSampleByTypeNameXML(context, typeName);
+		WsStatusWithXML result = getService(context).loadSampleByTypeNameXML(context, typeName);
 		return WsStatusUtils.createDocument(result);
 	}
 
 	@Override
 	public MrcObject loadSampleByTypeCode(Context context, String typeCode) throws MercuryException {
-		WsStatusWithMrcObject result = getService().loadSampleByTypeCode(context, typeCode);
+		WsStatusWithMrcObject result = getService(context).loadSampleByTypeCode(context, typeCode);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
 	}
 
 	@Override
 	public MrcObject loadSampleByTypeName(Context context, String typeName) throws MercuryException {
-		WsStatusWithMrcObject result = getService().loadSampleByTypeName(context, typeName);
+		WsStatusWithMrcObject result = getService(context).loadSampleByTypeName(context, typeName);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
 	}
 
 	@Override
 	public void clearQueryCache(Context context) throws MercuryException {
-		WsStatus wsStatus = getService().clearQueryCache(context);
+		WsStatus wsStatus = getService(context).clearQueryCache(context);
 		checkWsStatus(wsStatus);
 	}
 
 	@Override
 	public Long initModelXML(Context context, Element documentXML, Boolean forceAddStore2Type) throws MercuryException {
-		WsStatusWithLongValue wsStatus = getService().initModelXML(context, documentXML, forceAddStore2Type);
+		WsStatusWithLongValue wsStatus = getService(context).initModelXML(context, documentXML, forceAddStore2Type);
 		checkWsStatus(wsStatus);
 		return wsStatus.getValue();
 	}
@@ -671,7 +671,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public Long initModel(Context context, MrcObject entityObject, boolean forceAddStore2Type) throws MercuryException {
 		DtoMrcObject e4Update = DtoMrcDataUtils.toDtoMrcObject(context, entityObject);
-		WsStatusWithLongValue wsStatus = getService().initModel(context, e4Update, forceAddStore2Type);
+		WsStatusWithLongValue wsStatus = getService(context).initModel(context, e4Update, forceAddStore2Type);
 		checkWsStatus(wsStatus);
 		return wsStatus.getValue();
 	}
@@ -679,7 +679,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public Long changeModel(Context context, Long fromTypeId, Long toTypeId, boolean forceAddStore2Type)
 			throws MercuryException {
-		WsStatusWithLongValue wsStatus = getService().changeModel(context, fromTypeId, toTypeId, forceAddStore2Type);
+		WsStatusWithLongValue wsStatus = getService(context).changeModel(context, fromTypeId, toTypeId, forceAddStore2Type);
 		checkWsStatus(wsStatus);
 		return wsStatus.getValue();
 	}

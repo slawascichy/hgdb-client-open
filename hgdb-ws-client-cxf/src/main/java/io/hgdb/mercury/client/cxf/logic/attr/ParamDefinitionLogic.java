@@ -46,7 +46,7 @@ public class ParamDefinitionLogic extends WsClientDataLogic<ParamDefinition, Par
 			AttributeType at = AttributeType.valueOf(e.getParamType());
 			e.setSubType(at.getDefaultSubType());
 		}
-		return getEntity(context, getService().insert(context, e));
+		return getEntity(context, getService(context).insert(context, e));
 	}
 
 	@Override
@@ -62,33 +62,33 @@ public class ParamDefinitionLogic extends WsClientDataLogic<ParamDefinition, Par
 				e.setSubType(at.getDefaultSubType());
 			}
 		}
-		return getEntityCollection(context, getService().insertBag(context, (Collection<ParamDefinition>) eBag));
+		return getEntityCollection(context, getService(context).insertBag(context, (Collection<ParamDefinition>) eBag));
 	}
 
 	@Override
 	public ParamDefinitionPK remove(Context context, final ParamDefinition e) throws MercuryException {
-		return getId(getService().remove(context, e), e);
+		return getId(getService(context).remove(context, e), e);
 	}
 
 	@Override
 	public List<ParamDefinitionPK> removeList(Context context, final List<ParamDefinition> eBag)
 			throws MercuryException {
-		return getIds(getService().removeBag(context, (Collection<ParamDefinition>) eBag), eBag);
+		return getIds(getService(context).removeBag(context, (Collection<ParamDefinition>) eBag), eBag);
 	}
 
 	@Override
 	public List<ParamDefinition> findAll(Context context) throws MercuryException {
-		return getEntityCollection(context, getService().findAll(context));
+		return getEntityCollection(context, getService(context).findAll(context));
 	}
 
 	@Override
 	public ParamDefinition find(Context context, final ParamDefinitionPK pk) throws MercuryException {
-		return getEntity(context, getService().findByKey(context, pk));
+		return getEntity(context, getService(context).findByKey(context, pk));
 	}
 
 	@Override
 	public ParamDefinition findFirst(Context context) throws MercuryException {
-		return getEntity(context, getService().findFirst(context));
+		return getEntity(context, getService(context).findFirst(context));
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class ParamDefinitionLogic extends WsClientDataLogic<ParamDefinition, Par
 			AttributeType at = AttributeType.valueOf(e.getParamType());
 			e.setSubType(at.getDefaultSubType());
 		}
-		return getEntity(context, getService().update(context, e));
+		return getEntity(context, getService(context).update(context, e));
 	}
 
 	@Override
@@ -114,49 +114,49 @@ public class ParamDefinitionLogic extends WsClientDataLogic<ParamDefinition, Par
 				e.setSubType(at.getDefaultSubType());
 			}
 		}
-		return getEntityCollection(context, getService().updateBag(context, (Collection<ParamDefinition>) eBag));
+		return getEntityCollection(context, getService(context).updateBag(context, (Collection<ParamDefinition>) eBag));
 	}
 
 	@Override
 	public ParamDefinition findLastVersionByDefinitionName(Context context, String definitionName)
 			throws MercuryException {
-		return getEntity(context, getService().findLastVersionByDefinitionName(context, definitionName));
+		return getEntity(context, getService(context).findLastVersionByDefinitionName(context, definitionName));
 	}
 
 	@Override
 	public List<ParamDefinition> findLastVersionsByDefinitionNames(Context context,
 			Collection<String> definitionNameList) throws MercuryException {
 		return getEntityCollection(context,
-				getService().findLastVersionsByDefinitionNames(context, definitionNameList));
+				getService(context).findLastVersionsByDefinitionNames(context, definitionNameList));
 	}
 
 	@Override
 	public List<ParamDefinition> findForCasesOnlyAllVersions(Context context) throws MercuryException {
-		return getEntityCollection(context, getService().findForCasesOnlyAllVersions(context));
+		return getEntityCollection(context, getService(context).findForCasesOnlyAllVersions(context));
 	}
 
 	@Override
 	public List<ParamDefinition> findForDocumentsOnlyAllVersions(Context context) throws MercuryException {
-		return getEntityCollection(context, getService().findForDocumentsOnlyAllVersions(context));
+		return getEntityCollection(context, getService(context).findForDocumentsOnlyAllVersions(context));
 	}
 
 	@Override
 	public String encodeValue(Context context, ParamDefinition paramDefinition, String value) throws MercuryException {
-		WsStatusWithStringValue vDto = getService().encodeValue(context, paramDefinition, value);
+		WsStatusWithStringValue vDto = getService(context).encodeValue(context, paramDefinition, value);
 		return vDto.getValue();
 	}
 
 	@Override
 	public NameValuePair getValue(Context context, ParamDefinition paramDefinition, String key)
 			throws MercuryException {
-		WsStatusWithNameValuePairDto dto = getService().getValue(context, paramDefinition, key);
+		WsStatusWithNameValuePairDto dto = getService(context).getValue(context, paramDefinition, key);
 		return dto.getDto();
 	}
 
 	@Override
 	public List<NameValuePair> getValues(Context context, ParamDefinition paramDefinition,
 			ParamDefinition superiorLovPd, String superiorKey) throws MercuryException {
-		WsStatusWithNameValuePairDtos dtos = getService().getValues(context, paramDefinition, superiorLovPd,
+		WsStatusWithNameValuePairDtos dtos = getService(context).getValues(context, paramDefinition, superiorLovPd,
 				superiorKey);
 		return dtos.getDtos() != null ? new ArrayList<NameValuePair>(dtos.getDtos()) : new ArrayList<NameValuePair>();
 	}
@@ -164,7 +164,7 @@ public class ParamDefinitionLogic extends WsClientDataLogic<ParamDefinition, Par
 	@Override
 	public List<NameValuePair> getValuesLastVersions(Context context, String paramDefinitionName,
 			String superiorParamDefinitionName, String superiorKey) throws MercuryException {
-		WsStatusWithNameValuePairDtos dtos = getService().getValuesLastVersion(context, paramDefinitionName,
+		WsStatusWithNameValuePairDtos dtos = getService(context).getValuesLastVersion(context, paramDefinitionName,
 				superiorParamDefinitionName, superiorKey);
 		return dtos.getDtos() != null ? new ArrayList<NameValuePair>(dtos.getDtos()) : new ArrayList<NameValuePair>();
 	}
@@ -172,24 +172,24 @@ public class ParamDefinitionLogic extends WsClientDataLogic<ParamDefinition, Par
 	@Override
 	public void reloadPredefinedDefinitions() throws MercuryException {
 		Context context = ContextHelper.createContext(MUser.DEFAULT_SYSTEM_USER_NAME, createComment());
-		checkWsStatus(getService().reloadPredefinedDefinitions(context));
+		checkWsStatus(getService(context).reloadPredefinedDefinitions(context));
 	}
 
 	@Override
 	public List<ParamDefinition> findByIdList(Context context, List<ParamDefinitionPK> idList) throws MercuryException {
-		return getEntityCollection(context, getService().findByKeyBag(context, (Collection<ParamDefinitionPK>) idList));
+		return getEntityCollection(context, getService(context).findByKeyBag(context, (Collection<ParamDefinitionPK>) idList));
 	}
 
 	@Override
 	public List<ParamDefinition> filter(Context context, ParamDefinition e) throws MercuryException {
-		return getEntityCollection(context, getService().filter(context, e));
+		return getEntityCollection(context, getService(context).filter(context, e));
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
 	public ParamDefinition findLatestByNameAndType(Context context, String definitionName, String paramType,
 			String subType) throws MercuryException {
-		return getEntity(context, getService().findLatestByNameAndType(context, definitionName, paramType, subType));
+		return getEntity(context, getService(context).findLatestByNameAndType(context, definitionName, paramType, subType));
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -202,7 +202,7 @@ public class ParamDefinitionLogic extends WsClientDataLogic<ParamDefinition, Par
 	@Override
 	public IAttributeTypeParameter load(Context context, IAttributeTypeParameterPK arg1) throws MercuryException {
 		ParamDefinitionPK pk = new ParamDefinitionPK(arg1.getDefinitionName(), arg1.getVersion());
-		return getEntity(context, getService().findByKey(context, pk));
+		return getEntity(context, getService(context).findByKey(context, pk));
 	}
 
 	@Override
@@ -214,7 +214,7 @@ public class ParamDefinitionLogic extends WsClientDataLogic<ParamDefinition, Par
 	@Override
 	public NameValuePair getValueWithArg3(Context context, ParamDefinition paramDefinition, String key, boolean arg3)
 			throws MercuryException {
-		WsStatusWithNameValuePairDto dto = getService().getValueWithArg3(context, paramDefinition, key, arg3);
+		WsStatusWithNameValuePairDto dto = getService(context).getValueWithArg3(context, paramDefinition, key, arg3);
 		return dto.getDto();
 	}
 }

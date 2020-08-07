@@ -24,7 +24,7 @@ public class TypeParamActionLogic extends
 	@Override
 	public TypeParamAction insert(Context context, final TypeParamAction e)
 			throws MercuryException {
-		return getEntity(context, getService().insert(context, e));
+		return getEntity(context, getService(context).insert(context, e));
 	}
 
 	@Override
@@ -32,21 +32,21 @@ public class TypeParamActionLogic extends
 			List<TypeParamAction> eBag) throws MercuryException {
 		return getEntityCollection(
 				context,
-				getService().insertBag(context,
+				getService(context).insertBag(context,
 						(Collection<TypeParamAction>) eBag));
 	}
 
 	@Override
 	public Long remove(Context context, final TypeParamAction e)
 			throws MercuryException {
-		return getId(getService().remove(context, e), e);
+		return getId(getService(context).remove(context, e), e);
 	}
 
 	@Override
 	public List<Long> removeList(Context context,
 			final List<TypeParamAction> eBag) throws MercuryException {
 		return getIds(
-				getService().removeBag(context,
+				getService(context).removeBag(context,
 						(Collection<TypeParamAction>) eBag), eBag);
 	}
 
@@ -54,24 +54,24 @@ public class TypeParamActionLogic extends
 	public List<TypeParamAction> findAll(Context context)
 			throws MercuryException {
 		return (List<TypeParamAction>) getEntityCollection(context,
-				getService().findAll(context));
+				getService(context).findAll(context));
 	}
 
 	@Override
 	public TypeParamAction find(Context context, final Long pk)
 			throws MercuryException {
-		return getEntity(context, getService().findByKey(context, pk));
+		return getEntity(context, getService(context).findByKey(context, pk));
 	}
 
 	@Override
 	public TypeParamAction findFirst(Context context) throws MercuryException {
-		return getEntity(context, getService().findFirst(context));
+		return getEntity(context, getService(context).findFirst(context));
 	}
 
 	@Override
 	public TypeParamAction update(Context context, TypeParamAction e)
 			throws MercuryException {
-		return getEntity(context, getService().update(context, e));
+		return getEntity(context, getService(context).update(context, e));
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class TypeParamActionLogic extends
 			List<TypeParamAction> eBag) throws MercuryException {
 		return getEntityCollection(
 				context,
-				getService().updateBag(context,
+				getService(context).updateBag(context,
 						(Collection<TypeParamAction>) eBag));
 	}
 
@@ -87,14 +87,14 @@ public class TypeParamActionLogic extends
 	public List<TypeParamAction> findByIdList(Context context, List<Long> idList)
 			throws MercuryException {
 		return (List<TypeParamAction>) getEntityCollection(context,
-				getService().findByKeyBag(context, (Collection<Long>) idList));
+				getService(context).findByKeyBag(context, (Collection<Long>) idList));
 	}
 
 	@Override
 	public List<TypeParamAction> filter(Context context, TypeParamAction e)
 			throws MercuryException {
 		return (List<TypeParamAction>) getEntityCollection(context,
-				getService().filter(context, e));
+				getService(context).filter(context, e));
 	}
 
 }

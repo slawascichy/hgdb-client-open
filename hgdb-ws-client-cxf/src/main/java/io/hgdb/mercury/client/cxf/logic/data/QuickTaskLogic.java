@@ -24,47 +24,47 @@ public class QuickTaskLogic extends WsClientBigDataLogic<QuickTask, Long, IQuick
 
 	@Override
 	public QuickTask insert(Context context, final QuickTask e) throws MercuryException {
-		return getEntity(context, getService().insert(context, e));
+		return getEntity(context, getService(context).insert(context, e));
 	}
 
 	@Override
 	public EntityList<QuickTask, Long> insertList(Context context, List<QuickTask> eBag) throws MercuryException {
-		return getEntityCollection(context, getService().insertBag(context, eBag));
+		return getEntityCollection(context, getService(context).insertBag(context, eBag));
 	}
 
 	@Override
 	public Long remove(Context context, final QuickTask e) throws MercuryException {
-		return getId(getService().remove(context, e), e);
+		return getId(getService(context).remove(context, e), e);
 	}
 
 	@Override
 	public List<Long> removeList(Context context, final List<QuickTask> eBag) throws MercuryException {
-		return getIds(getService().removeBag(context, eBag), eBag);
+		return getIds(getService(context).removeBag(context, eBag), eBag);
 	}
 
 	@Override
 	public QuickTask find(Context context, final Long pk) throws MercuryException {
-		return getEntity(context, getService().findByKey(context, pk));
+		return getEntity(context, getService(context).findByKey(context, pk));
 	}
 
 	@Override
 	public QuickTask findFirst(Context context) throws MercuryException {
-		return getEntity(context, getService().findFirst(context));
+		return getEntity(context, getService(context).findFirst(context));
 	}
 
 	@Override
 	public QuickTask update(Context context, QuickTask e) throws MercuryException {
-		return getEntity(context, getService().update(context, e));
+		return getEntity(context, getService(context).update(context, e));
 	}
 
 	@Override
 	public EntityList<QuickTask, Long> updateList(Context context, List<QuickTask> eBag) throws MercuryException {
-		return getEntityCollection(context, getService().updateBag(context, eBag));
+		return getEntityCollection(context, getService(context).updateBag(context, eBag));
 	}
 
 	@Override
 	public List<QuickTask> findByIdList(Context context, List<Long> idList) throws MercuryException {
-		return getEntityCollection(context, getService().findByKeyBag(context, idList));
+		return getEntityCollection(context, getService(context).findByKeyBag(context, idList));
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -72,12 +72,12 @@ public class QuickTaskLogic extends WsClientBigDataLogic<QuickTask, Long, IQuick
 	public IPagedResult<QuickTask, IPage> filterPaged(Context context, QuickTask e, IPage page)
 			throws MercuryException {
 		return getPagedResult(context,
-				(IWsStatusWithPagedResult) getService().filterPaged(context, e, (PageTransportable) page));
+				(IWsStatusWithPagedResult) getService(context).filterPaged(context, e, (PageTransportable) page));
 	}
 
 	@Override
 	public List<QuickTask> findAll(Context context) throws MercuryException {
-		return getEntityCollection(context, getService().findAll(context));
+		return getEntityCollection(context, getService(context).findAll(context));
 	}
 
 }

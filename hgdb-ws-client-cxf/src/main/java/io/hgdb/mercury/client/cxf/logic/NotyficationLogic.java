@@ -2,6 +2,7 @@ package io.hgdb.mercury.client.cxf.logic;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import pro.ibpm.mercury.context.Context;
 import pro.ibpm.mercury.exceptions.MercuryException;
 import pro.ibpm.mercury.logic.api.INotyficationLogic;
@@ -26,7 +27,7 @@ public class NotyficationLogic implements INotyficationLogic {
 	/**
 	 * Zwraca instancję zdalnej usługi.
 	 */
-	public INotyficationAction getService() {
+	public INotyficationAction getService(Context context) {
 		return service;
 	}
 
@@ -43,13 +44,13 @@ public class NotyficationLogic implements INotyficationLogic {
 
 	@Override
 	public void sendNotyfication(Context context, NotyficationType notType) throws MercuryException {
-		WsStatus wsStatus = getService().sendNotyfication(context, notType);
+		WsStatus wsStatus = getService(context).sendNotyfication(context, notType);
 		checkStatus(wsStatus);
 	}
 
 	@Override
 	public void sendNotyfication(Context context, NotyficationType notType, String content) throws MercuryException {
-		WsStatus wsStatus = getService().sendNotyficationWithContent(context, notType, content);
+		WsStatus wsStatus = getService(context).sendNotyficationWithContent(context, notType, content);
 		checkStatus(wsStatus);
 	}
 

@@ -33,7 +33,7 @@ public class ArchGroupCase2ParticipantLogic
 	@Override
 	public ArchGroupCase2Participant insert(Context context,
 			final ArchGroupCase2Participant e) throws MercuryException {
-		return getEntity(context, getService().insert(context, e));
+		return getEntity(context, getService(context).insert(context, e));
 	}
 
 	@Override
@@ -41,37 +41,37 @@ public class ArchGroupCase2ParticipantLogic
 			Context context, List<ArchGroupCase2Participant> eBag)
 			throws MercuryException {
 		return getEntityCollection(context,
-				getService().insertBag(context, eBag));
+				getService(context).insertBag(context, eBag));
 	}
 
 	@Override
 	public ArchGroupCase2ParticipantPK remove(Context context,
 			final ArchGroupCase2Participant e) throws MercuryException {
-		return getId(getService().remove(context, e), e);
+		return getId(getService(context).remove(context, e), e);
 	}
 
 	@Override
 	public List<ArchGroupCase2ParticipantPK> removeList(Context context,
 			final List<ArchGroupCase2Participant> eBag) throws MercuryException {
-		return getIds(getService().removeBag(context, eBag), eBag);
+		return getIds(getService(context).removeBag(context, eBag), eBag);
 	}
 
 	@Override
 	public ArchGroupCase2Participant find(Context context,
 			final ArchGroupCase2ParticipantPK pk) throws MercuryException {
-		return getEntity(context, getService().findByKey(context, pk));
+		return getEntity(context, getService(context).findByKey(context, pk));
 	}
 
 	@Override
 	public ArchGroupCase2Participant findFirst(Context context)
 			throws MercuryException {
-		return getEntity(context, getService().findFirst(context));
+		return getEntity(context, getService(context).findFirst(context));
 	}
 
 	@Override
 	public ArchGroupCase2Participant update(Context context,
 			ArchGroupCase2Participant e) throws MercuryException {
-		return getEntity(context, getService().update(context, e));
+		return getEntity(context, getService(context).update(context, e));
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class ArchGroupCase2ParticipantLogic
 			Context context, List<ArchGroupCase2Participant> eBag)
 			throws MercuryException {
 		return getEntityCollection(context,
-				getService().updateBag(context, eBag));
+				getService(context).updateBag(context, eBag));
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class ArchGroupCase2ParticipantLogic
 			List<ArchGroupCase2ParticipantPK> idList) throws MercuryException {
 		return (List<ArchGroupCase2Participant>) getEntityCollection(
 				context,
-				getService().findByKeyBag(context,
+				getService(context).findByKeyBag(context,
 						(Collection<ArchGroupCase2ParticipantPK>) idList));
 	}
 
@@ -96,7 +96,7 @@ public class ArchGroupCase2ParticipantLogic
 	public IPagedResult<ArchGroupCase2Participant, IPage> filterPaged(
 			Context context, ArchGroupCase2Participant e, IPage page)
 			throws MercuryException {
-		return getPagedResult(context, (IWsStatusWithPagedResult) getService()
+		return getPagedResult(context, (IWsStatusWithPagedResult) getService(context)
 				.filterPaged(context, e, (PageTransportable) page));
 	}
 
@@ -104,7 +104,7 @@ public class ArchGroupCase2ParticipantLogic
 	public List<ArchGroupCase2Participant> findAll(Context context)
 			throws MercuryException {
 		return (List<ArchGroupCase2Participant>) getEntityCollection(context,
-				getService().findAll(context));
+				getService(context).findAll(context));
 	}
 
 }

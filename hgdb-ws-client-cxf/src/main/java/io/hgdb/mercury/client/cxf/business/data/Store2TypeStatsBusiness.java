@@ -28,31 +28,31 @@ public class Store2TypeStatsBusiness extends WsClientRoot<Store2TypeStats, Store
 
 	@Override
 	public void repairStats(Context context) throws MercuryException {
-		WsStatus wsStatus = getService().repairStats(context);
+		WsStatus wsStatus = getService(context).repairStats(context);
 		checkWsStatus(wsStatus);
 	}
 
 	@Override
 	public Store2TypeStats sumByTypeName(Context context, String typeName) throws MercuryException {
-		WsStatusWithStore2TypeStatsDto result = getService().sumByTypeName(context, typeName);
+		WsStatusWithStore2TypeStatsDto result = getService(context).sumByTypeName(context, typeName);
 		return getEntity(context, result);
 	}
 
 	@Override
 	public Store2TypeStats sumByTypeCode(Context context, String typeCode) throws MercuryException {
-		WsStatusWithStore2TypeStatsDto result = getService().sumByTypeCode(context, typeCode);
+		WsStatusWithStore2TypeStatsDto result = getService(context).sumByTypeCode(context, typeCode);
 		return getEntity(context, result);
 	}
 
 	@Override
 	public List<Store2TypeStats> findByTypeName(Context context, String typeName) throws MercuryException {
-		WsStatusWithStore2TypeStatsDtos result = getService().findByTypeName(context, typeName);
+		WsStatusWithStore2TypeStatsDtos result = getService(context).findByTypeName(context, typeName);
 		return getEntityCollection(context, result);
 	}
 
 	@Override
 	public List<Store2TypeStats> findByTypeCode(Context context, String typeCode) throws MercuryException {
-		WsStatusWithStore2TypeStatsDtos result = getService().findByTypeCode(context, typeCode);
+		WsStatusWithStore2TypeStatsDtos result = getService(context).findByTypeCode(context, typeCode);
 		return getEntityCollection(context, result);
 	}
 

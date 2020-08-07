@@ -13,7 +13,7 @@ public class SequenceAction extends WsClient<ISequenceAction> implements ISequen
 	public WsStatusWithSequenceReturnValue incremetSequenceId(Context context, String seqClassName,
 			Long incremetValue) {
 		try {
-			WsStatusWithSequenceReturnValue returnValue = getService().incremetSequenceId(context, seqClassName,
+			WsStatusWithSequenceReturnValue returnValue = getService(context).incremetSequenceId(context, seqClassName,
 					incremetValue);
 			checkWsStatus(returnValue);
 			return returnValue;
