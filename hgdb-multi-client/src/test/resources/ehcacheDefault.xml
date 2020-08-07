@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eh:config
+	xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+	xmlns:terracotta='http://www.ehcache.org/v3/clustered'
+	xmlns:eh='http://www.ehcache.org/v3'
+	xmlns:jsr107='http://www.ehcache.org/v3/jsr107'
+	xsi:schemaLocation="
+        http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.5.xsd
+        http://www.ehcache.org/v3/clustered http://www.ehcache.org/schema/ehcache-clustered-ext-3.5.xsd
+        http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext-3.3.xsd">
+
+	<eh:cache-template name="default">
+		<eh:key-type>java.lang.String</eh:key-type>
+		<eh:value-type>pl.slawas.common.cache.ehcache.Element</eh:value-type>
+		<eh:heap unit="entries">1000</eh:heap>
+	</eh:cache-template>
+
+	<eh:cache alias="MercuryCore">
+		<eh:key-type>java.lang.String</eh:key-type>
+		<eh:value-type>pl.slawas.common.cache.ehcache.Element</eh:value-type>
+		<eh:resources>
+			<eh:heap unit="entries">1000</eh:heap>
+			<eh:offheap unit="MB">10</eh:offheap>
+		</eh:resources>
+	</eh:cache>
+
+	<eh:cache alias="default-update-timestamps-region">
+		<eh:key-type>java.lang.String</eh:key-type>
+		<eh:value-type>pl.slawas.common.cache.ehcache.Element</eh:value-type>
+		<eh:resources>
+			<eh:heap unit="entries">1000</eh:heap>
+			<eh:offheap unit="MB">10</eh:offheap>
+		</eh:resources>
+	</eh:cache>
+
+	<eh:cache alias="default-query-results-region">
+		<eh:key-type>java.lang.String</eh:key-type>
+		<eh:value-type>pl.slawas.common.cache.ehcache.Element</eh:value-type>
+		<eh:resources>
+			<eh:heap unit="entries">1000</eh:heap>
+			<eh:offheap unit="MB">10</eh:offheap>
+		</eh:resources>
+	</eh:cache>
+
+	<eh:cache alias="org.hibernate.cache.StandardQueryCache">
+		<eh:key-type>java.lang.String</eh:key-type>
+		<eh:value-type>pl.slawas.common.cache.ehcache.Element</eh:value-type>
+		<eh:resources>
+			<eh:heap unit="entries">1000</eh:heap>
+			<eh:offheap unit="MB">10</eh:offheap>
+		</eh:resources>
+	</eh:cache>
+
+	<eh:cache alias="CaseGlobalTransactionCache">
+		<eh:key-type>java.lang.String</eh:key-type>
+		<eh:value-type>pl.slawas.common.cache.ehcache.Element</eh:value-type>
+		<eh:expiry>
+			<eh:ttl unit="seconds">86400</eh:ttl>
+		</eh:expiry>
+		<eh:resources>
+			<eh:heap unit="entries">20000</eh:heap>
+			<eh:offheap unit="MB">50</eh:offheap>
+		</eh:resources>
+	</eh:cache>
+
+	<eh:cache alias="CaseLocalTransactionCache">
+		<eh:key-type>java.lang.String</eh:key-type>
+		<eh:value-type>pl.slawas.common.cache.ehcache.Element</eh:value-type>
+		<eh:expiry>
+			<eh:ttl unit="seconds">86400</eh:ttl>
+		</eh:expiry>
+		<eh:resources>
+			<eh:heap unit="entries">10000</eh:heap>
+			<eh:offheap unit="MB">50</eh:offheap>
+		</eh:resources>
+	</eh:cache>
+
+</eh:config>
