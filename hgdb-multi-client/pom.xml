@@ -132,20 +132,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.iron.poi</groupId>
-			<artifactId>poi-toolkit</artifactId>
-			<version>${poi-toolkit.version}</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>pl.slawas</groupId>
-					<artifactId>schelper</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-
 	</dependencies>
 
 
