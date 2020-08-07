@@ -18,6 +18,7 @@
 	    <!-- maven.test.skip>true</maven.test.skip -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<poi-toolkit.version>4.0.1</poi-toolkit.version>
 	</properties>
 
 	<build>
@@ -130,6 +131,20 @@
 			<version>4.5.2</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.iron.poi</groupId>
+			<artifactId>poi-toolkit</artifactId>
+			<version>${poi-toolkit.version}</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>pl.slawas</groupId>
+					<artifactId>schelper</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
 
 	</dependencies>
 

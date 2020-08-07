@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="
+	    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	    http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+	    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	    http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd">
+
+	<bean id="httpClientDynamicRegistry" scope="singleton"
+		lazy-init="false"
+		class="io.hgdb.multi.client.registry.HttpInvokerProxyFactoryDynamicRegistry">
+		<property name="interface2conextUrlMap">
+			<props>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ICaseAction">/CaseAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.attr.ITypeCodeWithLastVersionBusinessAction">/TypeCodeWithLastVersionBusinessAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.attr.IType2TypeWithLastVersionBusinessAction">/Type2TypeWithLastVersionBusinessAction</prop>
+				<!-- 
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmBPDInstanceBufferSecretaryManagerAction">/BpmBPDInstanceBufferSecretaryManagerAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmTaskBufferSecretaryManagerAction">/BpmTaskBufferSecretaryManagerAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmTaskNarrativeBufferSecretaryManagerAction">/BpmTaskNarrativeBufferSecretaryManagerAction</prop>
+				 -->
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.data.ICaseBusinessAction">/CaseBusinessAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.data.ICaseSearchAction">/CaseSearchAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.data.ICaseHistoryStreamBusinessAction">/CaseHistoryStreamBusinessAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.data.IParticipant2TypeStatsBusinessAction">/Participant2TypeStatsBusinessAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.data.IStore2TypeLastVersionBusinessAction">/Store2TypeLastVersionBusinessAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.data.IStore2TypeStatsBusinessAction">/Store2TypeStatsBusinessAction</prop>
+				<prop key="org.mercury.ws.server.api.actions.business.data.ICaseHistoryTraceBusinessAction">/CaseHistoryTraceBusinessAction</prop>
+				<prop key="org.mercury.ws.server.api.actions.common.ISequenceAction">/SequenceAction</prop>
+				
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.lucene.ICaseIndexSecretaryManagerAction">/CaseIndexSecretaryManagerAction</prop>
+				<prop key="org.mercury.ws.server.api.actions.secretaries.ICaseMigratorSecretaryManagerAction">/CaseMigratorSecretaryManagerAction</prop>
+				<prop key="org.mercury.ws.server.api.actions.secretaries.IReportExportSecretaryManagerAction">/ReportExportSecretaryManagerAction</prop>	
+				<prop key="org.mercury.ws.server.api.actions.secretaries.IReportImportSecretaryManagerAction">/ReportImportSecretaryManagerAction</prop>	
+				<prop key="org.mercury.ws.server.api.actions.secretaries.IStatsBufferSecretaryManagerAction">/StatsBufferSecretaryManagerAction</prop>	
+				
+				<prop key="org.mercury.ws.server.api.actions.reports.IExportGeneratorAction">/ExportGeneratorAction</prop>	
+				<prop key="org.mercury.ws.server.api.actions.reports.IImportGeneratorAction">/ImportGeneratorAction</prop>	
+			</props>
+		</property>
+		<property name="errorHandlerClass" value="io.hgdb.multi.client.registry.error.InstanceHttpInvokerProxyFactoryErrorHandler"/>
+	</bean>
+	
+	<bean id="rmiClientDynamicRegistry" scope="singleton"
+		lazy-init="false"
+		class="io.hgdb.multi.client.registry.RmiProxyFactoryDynamicRegistry">
+		<property name="interface2conextUrlMap">
+			<props>
+				<prop key="org.mercury.rmi.server.api.actions.IFileTransferRMI">/filetransferrmi</prop>
+				<prop key="org.mercury.rmi.server.api.actions.ICaseSearcherRMI">/casesearcherrmi</prop>
+				<prop key="org.iron.poi.excel.server.remote.api.ILoadRemote">/LoadRemoteService</prop>
+			</props>
+		</property>
+		<property name="errorHandlerClass" value="io.hgdb.multi.client.registry.error.InstanceRmiProxyFactoryErrorHandler"/>
+	</bean>
+	
+	<context:component-scan	base-package="io.hgdb.multi.client.cxf" />
+	<context:component-scan	base-package="io.hgdb.multi.client.rmi" />
+
+</beans>

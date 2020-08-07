@@ -21,10 +21,12 @@ public class ClientConfigParams {
 	public static final String WS_DEFAULT_IDENTIFIER = "cxf";
 	public static final String WS_DEFAULT_TOKEN = "secret";
 
+	public static final String RMI_DEFAULT_SERVICE = "mercury.rmi.service.default";
 	public static final String RMI_REMOTE_SERVICE_URL = "%s.rmi.url";
 	public static final String RMI_SECURITY_IDENTIFIER_PROP = "%s.rmi.security.identifier";
 	public static final String RMI_SECURITY_TOKEN_PROP = "%s.rmi.security.token";
 
+	public static final String WS_DEFAULT_SERVICE = "mercury.ws.service.default";
 	public static final String WS_REMOTE_SERVICE_URL = "%s.ws.url";
 	public static final String WS_SECURITY_IDENTIFIER_PROP = "%s.ws.security.identifier";
 	public static final String WS_SECURITY_TOKEN_PROP = "%s.ws.security.token";
