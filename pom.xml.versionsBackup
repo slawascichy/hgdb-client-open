@@ -7,7 +7,7 @@
 	<groupId>io.hgdb.mercury</groupId>
 	<artifactId>hgdb-client-open</artifactId>
 	<packaging>pom</packaging>
-	<version>3.1.1-SNAPSHOT</version>
+	<version>3.0.1-SNAPSHOT</version>
 	<name>Mercury Client</name>
 	<url>https://github.com/slawascichy/hgdb-client-open</url>
 	<description>Zbiór integracji z IBM BPM i nie tylko do komunikacji z serwerem bazy Mercury.</description>

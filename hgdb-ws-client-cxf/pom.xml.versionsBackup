@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>io.hgdb.mercury</groupId>
 		<artifactId>hgdb-client-open</artifactId>
-		<version>3.1.1-SNAPSHOT</version>
+		<version>3.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>hgdb-ws-client-cxf</artifactId>
 	<name>WS Client CXF</name>
