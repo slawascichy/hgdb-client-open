@@ -1,0 +1,18 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Mar 05 11:32:11 CET 2021
+https\://repo1.maven.org/maven2/.error=
+https\://support.ibpm.pro\:9443/nexus/content/repositories/releases/.lastUpdated=1614940328293
+https\://maven.pkg.github.com/slawascichy/sccommon-utils/.error=
+https\://repo1.maven.org/maven2/.lastUpdated=1614940328863
+https\://maven.pkg.github.com/slawascichy/http-client/.error=
+https\://repo.maven.apache.org/maven2/.lastUpdated=1614940331439
+https\://maven.pkg.github.com/slawascichy/poi-toolkit/.error=
+@default-DefaultRepositoryMaven-https\://mvnrepository.com/artifact/.lastUpdated=1614940328444
+https\://maven.pkg.github.com/slawascichy/sccommon/.lastUpdated=1614940329932
+https\://maven.pkg.github.com/slawascichy/http-client/.lastUpdated=1614940329382
+https\://repo.maven.apache.org/maven2/.error=
+https\://support.ibpm.pro\:9443/nexus/content/repositories/releases/.error=
+https\://mvnrepository.com/artifact/.error=Could not transfer artifact com.sun\:tools\:jar\:javadoc\:1.7.0_25 from/to DefaultRepositoryMaven (https\://mvnrepository.com/artifact)\: Access denied to https\://mvnrepository.com/artifact/com/sun/tools/1.7.0_25/tools-1.7.0_25-javadoc.jar. Error code 403, 
+https\://maven.pkg.github.com/slawascichy/sccommon/.error=
+https\://maven.pkg.github.com/slawascichy/sccommon-utils/.lastUpdated=1614940330447
+https\://maven.pkg.github.com/slawascichy/poi-toolkit/.lastUpdated=1614940330986

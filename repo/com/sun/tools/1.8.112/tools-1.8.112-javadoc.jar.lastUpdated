@@ -1,0 +1,20 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed Mar 03 19:28:15 CET 2021
+https\://repo1.maven.org/maven2/.error=
+https\://support.ibpm.pro\:9443/nexus/content/repositories/releases/.lastUpdated=1614792797801
+https\://maven.pkg.github.com/slawascichy/sccommon-utils/.error=
+https\://repo1.maven.org/maven2/.lastUpdated=1614796095257
+https\://maven.pkg.github.com/slawascichy/http-client/.error=
+https\://repo.maven.apache.org/maven2/.lastUpdated=1614792799463
+https\://maven.pkg.github.com/slawascichy/poi-toolkit/.error=
+https\://maven.pkg.github.com/slawascichy/sccommon/.lastUpdated=1614792798428
+@default-DefaultRepositoryMaven-https\://mvnrepository.com/artifact/.lastUpdated=1614792797907
+file\://D\:\\workspace\\git/mercury/repo/.error=
+https\://maven.pkg.github.com/slawascichy/http-client/.lastUpdated=1614792798160
+https\://repo.maven.apache.org/maven2/.error=
+https\://mvnrepository.com/artifact/.error=Could not transfer artifact com.sun\:tools\:jar\:javadoc\:1.8.112 from/to DefaultRepositoryMaven (https\://mvnrepository.com/artifact)\: Access denied to https\://mvnrepository.com/artifact/com/sun/tools/1.8.112/tools-1.8.112-javadoc.jar. Error code 403, Forbidden
+https\://maven.pkg.github.com/slawascichy/sccommon/.error=
+https\://support.ibpm.pro\:9443/nexus/content/repositories/releases/.error=
+https\://maven.pkg.github.com/slawascichy/sccommon-utils/.lastUpdated=1614792798683
+file\://D\:\\workspace\\git/mercury/repo/.lastUpdated=1614792799022
+https\://maven.pkg.github.com/slawascichy/poi-toolkit/.lastUpdated=1614792799013
