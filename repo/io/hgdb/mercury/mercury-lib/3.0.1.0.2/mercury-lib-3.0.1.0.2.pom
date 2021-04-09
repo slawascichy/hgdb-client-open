@@ -1,0 +1,975 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>io.hgdb.mercury</groupId>
+	<artifactId>mercury-lib</artifactId>
+	<packaging>pom</packaging>
+	<version>3.0.1.0.2</version>
+	<name>Mercury Main Library</name>
+	<url>https://github.com/slawascichy/hgdb-lib</url>
+	<description>Zbiór głównych komponentów systemu bazy danych Mercury DB.</description>
+
+	<properties>
+		<additionalArgLine>-XX:MaxPermSize=512m</additionalArgLine>
+		<build.timestamp>${maven.build.timestamp}</build.timestamp>
+		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+		<maven.exec.skip>false</maven.exec.skip>
+		<dependency.scope>provided</dependency.scope>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.system.libs>${local-project-workspace-path}/mercury-lib/integrations</project.system.libs>
+		<project.local.repo>${local-project-workspace-path}/mercury-lib/repo</project.local.repo>
+		<site.out.dir>${local-project-workspace-path}/mercury-lib/site</site.out.dir>
+		<!-- SPRING -->
+		<org.springframework.version>2.5.6</org.springframework.version>
+		<spring.ws.version>1.5.10</spring.ws.version>
+		<spring.test.version>2.5.6</spring.test.version>
+		<!--persistence-api.version>1.0-rev-1</persistence-api.version -->
+		<!--persistence-api.version>1.0.2</persistence-api.version -->
+		<persistence-api.version>2.1.0</persistence-api.version>
+		<!-- Cache - pamięci podręczne -->
+		<ehcache.version>2.10.1</ehcache.version>
+		<!-- LUCENE -->
+		<!-- lucene.version>6.2.1</lucene.version -->
+		<lucene.version>6.2.1</lucene.version>
+		<!-- IBM BPM -->
+		<ibm.bpm.version>8.5.6</ibm.bpm.version>
+		<ibm.bpm.test>8.5.6</ibm.bpm.test>
+		<WebSphere.lib.path>${local-websphere-72-lib-path}</WebSphere.lib.path>
+		<Teamworks.lib.path>${local-teamworks-80-lib-path}</Teamworks.lib.path>
+		<TWPortal.lib.path>${local-twportal-80-lib-path}</TWPortal.lib.path>
+		<Teamworks855.lib.path>${local-lib-path}/TeamWorks-${ibm.bpm.version}</Teamworks855.lib.path>
+		<Teamworks.lib.path>${Teamworks855.lib.path}</Teamworks.lib.path>
+		<!-- Sun Java -->
+		<java.tools.version>1.6.0_37</java.tools.version>
+		<!-- java.tools.version>1.8.112</java.tools.version -->
+		<reflections.version>0.9.9-RC1</reflections.version>
+		<Sun.java.home>${local-java-home-path}</Sun.java.home>
+		<!-- JNDI - local file repository -->
+		<fscontext.version>1.2-beta-3</fscontext.version>
+		<providerutil.version>1.2</providerutil.version>
+		<!-- apache common -->
+		<commons-io.version>1.4</commons-io.version>
+		<commons-lang.version>2.4</commons-lang.version>
+		<commons-httpclient.version>3.1</commons-httpclient.version>
+		<commons-fileupload.version>1.3.2</commons-fileupload.version>
+		<!-- loggery -->
+		<slf4j.version>1.5.6</slf4j.version>
+		<log4j.version>1.2.14</log4j.version>
+		<!-- apache POI -->
+		<poi.version>3.9-20121203</poi.version>
+		<!-- Klient CMIS. Uwaga!!! klient CMIS jest powiązany z CXF - zmiana implikuje 
+			weryfikację wersji CXF. https://chemistry.apache.org/java/1.0.0/maven/chemistry-opencmis-dist/dependencies.html -->
+		<chemistry.version>1.0.0</chemistry.version>
+		<!-- CXF/Axis - obsługa webservices. -->
+		<cxf.api.version>2.7.18</cxf.api.version>
+		<!-- Uwaga!!! CXF jest powiązany z klientem CMIS - zmiana implikuje weryfikację 
+			wersji klienta CMIS -->
+		<cxf.version>3.0.10</cxf.version>
+		<!-- nie kompatybilny z chemistry 1.0.0 -->
+		<!-- <cxf.version>3.1.8</cxf.version> -->
+		<axis.version>1.4</axis.version>
+		<dom4j.version>1.6.1</dom4j.version>
+		<xerces.version>2.11.0</xerces.version>
+		<xml-apis.version>1.4.01</xml-apis.version>
+		<!-- Inne ważne -->
+		<mail.version>1.4.5</mail.version>
+		<!-- aspectj.version>1.6.11</aspectj.version -->
+		<aspectj.version>1.7.3</aspectj.version>
+		<asm.version>3.1</asm.version>
+		<cglib.version>2.2</cglib.version>
+		<jsp-api.version>2.1</jsp-api.version>
+		<servlet-api.version>2.5</servlet-api.version>
+		<servlet-jstl.version>1.2</servlet-jstl.version>
+		<!-- SC - komponenty Sławka Cichego <slawas@slawas.pl> -->
+		<schelper.version>0.0.10.1</schelper.version>
+		<sccommon.version>0.0.3-20180724</sccommon.version>
+		<scjdbc4jpa.version>0.0.7</scjdbc4jpa.version>
+		<http_client.version>0.0.1.20170422</http_client.version>
+		<!-- testy -->
+		<junit.version>4.12</junit.version>
+		<!-- używane w modułach: mercury-ws-server-api, mercury-ws-server oraz 
+			mercury-ws-app w celu spójności kompilacji dla cxf'a -->
+		<mercury.static.version>3.0.1.0.1</mercury.static.version>
+		<!-- Możliwe wartości: MYSQL,ORACLE,POSTGRESQL,DB2,MSSQL,HSQL Zobacz implementację 
+			pro.ibpm.mercury.entities.DbDialect -->
+		<databse.provider>POSTGRESQL</databse.provider>
+		<jackson.databind.version>2.5.3</jackson.databind.version>
+		<jackson.annotations.version>2.5.0</jackson.annotations.version>
+		<jta.version>1.1</jta.version>
+
+		<!-- The destination file for the code coverage report has to be set to 
+			the same value in the parent pom and in each module pom. Then JaCoCo will 
+			add up information in the same report, so that, it will give the cross-module 
+			code coverage. -->
+		<sonar.jacoco.reportPaths>${local-project-workspace-path}/mercury-lib/target/jacoco-it.exec</sonar.jacoco.reportPaths>
+		<jacoco.outputDirectory>${local-project-workspace-path}/mercury-lib/target/jacoco-ut</jacoco.outputDirectory>
+		<sonar.exclusions>mercury-server/**,tmp/**,db/**,docs/**,Scripts/**,**/*.jsp,**/*.css,**/*.js,**/*.log,**/*.sh,**/*.xml,**/src/main/generated/**,mercury-srv/generated-type-sources/**,**/*.jar,**/*.html,**/src/test/**,**/classes/org/apache/jsp/**,mercury-ws-server-api20-generator/**,mercury-mock/**,mercury-ws-app-rest-generator/**,**/target/**,repo/**</sonar.exclusions>
+		<sonar.projectKey>io.hgdb:mercury-lib</sonar.projectKey>
+		<sonar.moduleKey>${project.groupId}.${project.artifactId}</sonar.moduleKey>
+	</properties>
+
+	<repositories>
+		<!--other repositories if any -->
+		<repository>
+			<id>project.local</id>
+			<name>project</name>
+			<url>file://${project.local.repo}</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>github</id>
+			<name>GitHub slawascichy Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/slawascichy/hgdb-client-open</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<developers>
+		<developer>
+			<id>slawas</id>
+			<name>Sławomir Cichy</name>
+			<email>slawas@slawas.pl</email>
+			<roles>
+				<role>developer</role>
+				<role>architect</role>
+				<role>manager</role>
+			</roles>
+			<url>http://slawas.pl/aboutme.html</url>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+
+	<scm>
+		<url>https://github.com/slawascichy/hgdb-lib</url>
+		<connection>scm:git:https://github.com/slawascichy/hgdb-lib</connection>
+		<developerConnection>scm:git:https://slawascichy@github.com/slawascichy/hgdb-lib</developerConnection>
+	</scm>
+
+	<issueManagement>
+		<url>https://github.com/slawascichy/hgdb-lib/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
+
+	<organization>
+		<name>Sci Software Sławomir Cichy</name>
+		<url>http://scisoftware.pl</url>
+	</organization>
+
+	<licenses>
+		<license>
+			<name>HgDb Client License 1.0</name>
+			<url>http://hgdb.io/HGDB_Client_LICENSE.1.0.txt</url>
+		</license>
+	</licenses>
+	
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub slawascichy Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/slawascichy/hgdb-client-open</url>
+		</repository>
+	</distributionManagement>
+	
+	<reporting>
+		<plugins>
+			<!-- To jest dla maven 3 -->
+			<!-- 
+			<plugin>
+				<groupId>nl.demon.shadowland.maven.plugins</groupId>
+				<artifactId>sonarqube-maven-report</artifactId>
+				<version>0.2.2</version>
+			</plugin>			 
+			-->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<!-- select non-aggregate reports -->
+							<report>report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<outputDirectory>${site.out.dir}</outputDirectory>
+					<inputEncoding>${project.reporting.outputEncoding}</inputEncoding>
+					<outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<doclint>none</doclint>
+					<outputDirectory>${site.out.dir}</outputDirectory>
+					<outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
+					<encoding>${project.reporting.outputEncoding}</encoding>				
+					<show>public</show>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changelog-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<type>range</type>
+					<range>120</range>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+
+	<profiles>
+		<profile>
+			<id>skipInstall</id>
+			<activation>
+				<property>
+					<name>maven.install.skip</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-install-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>default-install</id>
+									<phase>none</phase>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+	</profiles>
+	
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-webdav</artifactId>
+				<version>1.0-beta-2</version>
+			</extension>
+		</extensions>
+		<plugins>
+			<plugin>
+			    <groupId>com.jakewharton</groupId>
+			    <artifactId>github-deploy-maven-plugin</artifactId>
+			    <version>1.0.0</version>
+				<executions>
+			        <execution>
+			            <goals>
+			                <goal>deploy</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.4.201502262128</version>
+				<executions>
+					<!-- pre-unit-test execution helps setting up some maven property, which 
+						will be used later by JaCoCo -->
+					<execution>
+						<id>pre-unit-test</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<destFile>${sonar.jacoco.reportPaths}</destFile>
+							<!-- passing property which will contains settings for JaCoCo agent. 
+								If not specified, then "argLine" would be used for "jar" packaging -->
+							<propertyName>surefireArgLine</propertyName>
+						</configuration>
+					</execution>
+					<!-- report phase setup -->
+					<execution>
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<!-- output file with report data. -->
+							<dataFile>${sonar.jacoco.reportPaths}</dataFile>
+							<!-- output directory for the reports. -->
+							<outputDirectory>${jacoco.outputDirectory}</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.14.1</version>
+				<executions>
+					<execution>
+						<id>default-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<argLine>${additionalArgLine} ${surefireArgLine}</argLine>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<argLine>${additionalArgLine}</argLine>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.sonar</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>4.5.7</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<executions>
+					<execution>
+						<id>default-compile</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<configuration>
+							<skipMain>${maven.exec.skip}</skipMain>
+							<encoding>UTF-8</encoding>
+							<source>1.6</source>
+							<target>1.6</target>
+						</configuration>
+					</execution>
+				</executions>			
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<outputDirectory>${site.out.dir}</outputDirectory>
+					<inputEncoding>${project.reporting.outputEncoding}</inputEncoding>
+					<outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
+					<locales>pl</locales>
+				</configuration>
+				<dependencies>
+					<dependency><!-- add support for ssh/scp -->
+						<groupId>org.apache.maven.wagon</groupId>
+						<artifactId>wagon-ssh</artifactId>
+						<version>1.0</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<phase>test</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Implementation-Version>${project.version}</Implementation-Version>
+							<Implementation-Title>${project.artifactId}</Implementation-Title>
+							<Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+							<Specification-Title>${project.name}</Specification-Title>
+							<Specification-Version>${project.version}</Specification-Version>
+							<Specification-Vendor>${project.organization.name}</Specification-Vendor>
+						</manifestEntries>
+					</archive>
+					<outputDirectory>${project.local.repo}/io/hgdb/mercury/${project.artifactId}/${mercury.static.version}</outputDirectory>
+					<finalName>${project.artifactId}-${mercury.static.version}</finalName>
+				</configuration>
+			</plugin>
+		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>false</filtering>
+			</testResource>
+		</testResources>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-compiler-plugin
+										</artifactId>
+										<versionRange>
+											[3.3,)
+										</versionRange>
+										<goals>
+											<goal>compile</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											exec-maven-plugin
+										</artifactId>
+										<versionRange>
+											[1.5.0,)
+										</versionRange>
+										<goals>
+											<goal>java</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<dependencies>
+		<!-- SC - komponenty Sławka Cichego <slawas@slawas.pl> - START -->
+		<dependency>
+			<groupId>pl.slawas</groupId>
+			<artifactId>schelper</artifactId>
+			<version>${schelper.version}</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>tools</artifactId>
+					<groupId>com.sun</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>pl.slawas</groupId>
+			<artifactId>scjdbc4jpa</artifactId>
+			<version>${scjdbc4jpa.version}</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>hibernate</artifactId>
+					<groupId>org.hibernate</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>
+						hibernate-commons-annotations
+					</artifactId>
+					<groupId>org.hibernate</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>hibernate-search</artifactId>
+					<groupId>org.hibernate</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>persistence-api</artifactId>
+					<groupId>javax.persistence</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>schelper</artifactId>
+					<groupId>pl.slawas</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>sccommon-cache</artifactId>
+					<groupId>pl.slawas</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>aspectjweaver</artifactId>
+					<groupId>org.aspectj</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>aspectjrt</artifactId>
+					<groupId>org.aspectj</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-aop</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-test</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>hibernate-entitymanager</artifactId>
+					<groupId>org.hibernate</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>pro.ibpm.http</groupId>
+			<artifactId>http-client</artifactId>
+			<version>${http_client.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- SC - komponenty Sławka Cichego <slawas@slawas.pl> - KONIEC -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aspectj.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectj.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- testowy JNDI kontekst START -->
+		<dependency>
+			<groupId>com.sun.jndi</groupId>
+			<artifactId>fscontext</artifactId>
+			<version>${fscontext.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jndi</groupId>
+			<artifactId>providerutil</artifactId>
+			<version>${providerutil.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- testowy JNDI kontekst KONIEC -->
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>${dom4j.version}</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/xerces/xercesImpl -->
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>${xerces.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/xml-apis/xml-apis -->
+		<dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+			<version>${xml-apis.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- spring -->
+		<!-- Core utilities used by other modules. Define this if you use Spring 
+			Utility APIs (org.springframework.core.*/org.springframework.util.*) -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${org.springframework.version}</version>
+			<scope>${dependency.scope}</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Expression Language (depends on spring-core) Define this if you use 
+			Spring Expression APIs (org.springframework.expression.*) -->
+		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-expression</artifactId> 
+			<version>${org.springframework.version}</version> <scope>${dependency.scope}</scope> 
+			</dependency> -->
+
+		<!-- Bean Factory and JavaBeans utilities (depends on spring-core) Define 
+			this if you use Spring Bean APIs (org.springframework.beans.*) -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${org.springframework.version}</version>
+			<scope>${dependency.scope}</scope>
+		</dependency>
+
+		<!-- Aspect Oriented Programming (AOP) Framework (depends on spring-core, 
+			spring-beans) Define this if you use Spring AOP APIs (org.springframework.aop.*) -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${org.springframework.version}</version>
+			<scope>${dependency.scope}</scope>
+		</dependency>
+
+		<!-- Application Context (depends on spring-core, spring-expression, spring-aop, 
+			spring-beans) This is the central artifact for Spring's Dependency Injection 
+			Container and is generally always defined -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework.version}</version>
+			<scope>${dependency.scope}</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-aop</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Various Application Context utilities, including EhCache, JavaMail, 
+			Quartz, and Freemarker integration Define this if you need any of these integrations -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework.version}</version>
+			<scope>${dependency.scope}</scope>
+		</dependency>
+
+		<!-- Transaction Management Abstraction (depends on spring-core, spring-beans, 
+			spring-aop, spring-context) Define this if you use Spring Transactions or 
+			DAO Exception Hierarchy (org.springframework.transaction.*/org.springframework.dao.*) -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${org.springframework.version}</version>
+			<scope>${dependency.scope}</scope>
+		</dependency>
+
+		<!-- JDBC Data Access Library (depends on spring-core, spring-beans, spring-context, 
+			spring-tx) Define this if you use Spring's JdbcTemplate API (org.springframework.jdbc.*) -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework.version}</version>
+			<scope>${dependency.scope}</scope>
+		</dependency>
+
+		<!-- Object-to-Relation-Mapping (ORM) integration with Hibernate, JPA, 
+			and iBatis. (depends on spring-core, spring-beans, spring-context, spring-tx) 
+			Define this if you need ORM (org.springframework.orm.*) -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${org.springframework.version}</version>
+			<scope>${dependency.scope}</scope>
+		</dependency>
+
+		<!-- Object-to-XML Mapping (OXM) abstraction and integration with JAXB, 
+			JiBX, Castor, XStream, and XML Beans. (depends on spring-core, spring-beans, 
+			spring-context) Define this if you need OXM (org.springframework.oxm.*) -->
+		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-oxm</artifactId> 
+			<version>${org.springframework.version}</version> <scope>${dependency.scope}</scope> 
+			</dependency> -->
+		<!-- Web application development utilities applicable to both Servlet and 
+			Portlet Environments (depends on spring-core, spring-beans, spring-context) 
+			Define this if you use Spring MVC, or wish to use Struts, JSF, or another 
+			web framework with Spring (org.springframework.web.*) -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${org.springframework.version}</version>
+			<scope>${dependency.scope}</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-aop</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Spring MVC for Servlet Environments (depends on spring-core, spring-beans, 
+			spring-context, spring-web) Define this if you use Spring MVC with a Servlet 
+			Container such as Apache Tomcat (org.springframework.web.servlet.*) -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework.version}</version>
+			<scope>${dependency.scope}</scope>
+		</dependency>
+
+		<!-- Spring MVC for Portlet Environments (depends on spring-core, spring-beans, 
+			spring-context, spring-web) Define this if you use Spring MVC with a Portlet 
+			Container (org.springframework.web.portlet.*) -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc-portlet</artifactId>
+			<version>${org.springframework.version}</version>
+			<scope>${dependency.scope}</scope>
+		</dependency>
+
+		<!-- Support for testing Spring applications with tools such as JUnit and 
+			TestNG This artifact is generally always defined with a 'test' scope for 
+			the integration testing framework and unit testing stubs -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.test.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Commons -->
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>${commons-httpclient.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons-lang.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>${commons-fileupload.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.2.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+
+		<!-- Do testów -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Oracle Database -->
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- //Oracle Database -->
+		<!-- MySQL Database -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.17</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- //MySQL Database -->
+		<!-- hsqldb -->
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>2.2.7</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- //hsqldb -->
+		<!-- postgresql -->
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4.1212</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- //postgresql -->
+		<!-- //Do testów -->
+
+		<!-- https://mvnrepository.com/artifact/org.eclipse.persistence/javax.persistence -->
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>javax.persistence</artifactId>
+			<version>${persistence-api.version}</version>
+		</dependency>
+		<!-- <dependency> <groupId>javax.persistence</groupId> <artifactId>persistence-api</artifactId> 
+			<version>${persistence-api.version}</version> <scope>provided</scope> </dependency> -->
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>${asm.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>${cglib.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- EhCache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>${ehcache.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- 
+		<dependency>
+			<groupId>org.apache.axis</groupId>
+			<artifactId>axis-jaxrpc</artifactId>
+			<version>${axis.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>${axis.version}</version>
+			<scope>provided</scope>
+		</dependency>
+ 		-->
+ 
+		<!-- API potrzebne np. do kodowania haseł - START -->
+		<dependency>
+			<groupId>pl.slawas.sccommon</groupId>
+			<artifactId>sccommon-eclipse-emf-api</artifactId>
+			<version>1.1.104</version>
+		</dependency>
+		<!-- API potrzebne np. do kodowania haseł - KONIEC -->
+
+		<dependency>
+			<groupId>org.apache.xmlbeans</groupId>
+			<artifactId>xmlbeans-xmlpublic</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.xmlbeans</groupId>
+			<artifactId>xmlbeans</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+
+		<!-- Jackson JSON Processor -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.databind.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>org.eclipse.persistence.moxy</artifactId>
+			<version>2.5.0-RC1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.eclipse.persistence</groupId>
+					<artifactId>commonj.sdo</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+	</dependencies>
+
+	<modules>
+		<module>mercury-core</module>
+		<module>mercury-entities-dto-generator</module>
+		<module>mercury-entities</module>
+		<module>mercury-srv-api</module>
+		<module>mercury-ws-dto-api</module>
+		<module>mercury-ws-server-api</module>
+	</modules>
+
+</project>
