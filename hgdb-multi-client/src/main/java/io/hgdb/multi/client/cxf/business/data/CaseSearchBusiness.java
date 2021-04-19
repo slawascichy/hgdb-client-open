@@ -29,6 +29,7 @@ import pro.ibpm.mercury.ws.server.api.returns.DtoMrcObject;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatus;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithCaseNarrativePagedResult;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithMrcObjectSearchResult;
+import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithStringValue;
 
 @Service
 public class CaseSearchBusiness extends WsClient<ICaseSearchAction>
@@ -39,7 +40,12 @@ public class CaseSearchBusiness extends WsClient<ICaseSearchAction>
 
 	@Override
 	public ICaseSearchAction getService(Context context) {
-		return (ICaseSearchAction) httpClientDynamicRegistry.getBean(context, ICaseSearchAction.class);
+		return httpClientDynamicRegistry.getBean(context, ICaseSearchAction.class);
+	}
+
+	@Override
+	public WsStatusWithStringValue echo(Context context, String a) {
+		return getService(context).echo(context, a);
 	}
 
 	@Override
