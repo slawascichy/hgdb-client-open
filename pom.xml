@@ -27,7 +27,7 @@
 		<aspectj.version>1.7.3</aspectj.version>
 		<fscontext.version>1.2-beta-3</fscontext.version>
 		<providerutil.version>1.2</providerutil.version>
-		<commons-io.version>1.4</commons-io.version>
+		<commons-io.version>2.7</commons-io.version>
 		<junit.version>4.12</junit.version>
 		<cxf.api.version>2.7.18</cxf.api.version>
 		<!-- CXF 3.0.10 -->
