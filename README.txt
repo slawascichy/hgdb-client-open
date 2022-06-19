@@ -2,7 +2,7 @@
 Publiczny projekt klienta Java dla serwera Mercury DB (HgDB)
 ##########################
 
-Zobacz stronę Mercury DB (HgDB): https://hgdb.org
+Zobacz stronę produktu Mercury DB (HgDB): https://hgdb.org
 Zobacz licencję: http://hgdb.io/HGDB_Client_LICENSE.1.0.txt
 
 # Instalacja
