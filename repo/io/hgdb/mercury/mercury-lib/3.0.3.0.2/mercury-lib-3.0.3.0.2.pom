@@ -1,116 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>io.hgdb.mercury</groupId>
-	<artifactId>hgdb-client-open</artifactId>
+	<artifactId>mercury-lib</artifactId>
 	<packaging>pom</packaging>
-	<version>3.1.1-SNAPSHOT</version>
-	<name>Mercury Client</name>
-	<url>https://github.com/slawascichy/hgdb-client-open</url>
-	<description>Zbiór integracji z IBM BPM i nie tylko do komunikacji z serwerem bazy Mercury.</description>
+	<version>3.0.3-SNAPSHOT</version>
+	<name>Mercury Main Library</name>
+	<url>https://github.com/slawascichy/hgdb-lib</url>
+	<description>Zbiór głównych komponentów systemu bazy danych Mercury DB.</description>
 
 	<properties>
+		<!-- Sun Java -->
+		<!-- 
+		<java.tools.version>1.6.0_37</java.tools.version>
+		<java.version>1.8</java.version>
+		 -->
+		<java.tools.version>1.8.112</java.tools.version>
+		<java.version>1.8</java.version>
+		
 		<additionalArgLine>-XX:MaxPermSize=512m</additionalArgLine>
+		<build.timestamp>${maven.build.timestamp}</build.timestamp>
+		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+		<maven.exec.skip>false</maven.exec.skip>
+		<dependency.scope>provided</dependency.scope>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.system.libs>${local-project-workspace-path}/hgdb-client-open/integrations</project.system.libs>
-		<project.local.repo>${local-project-workspace-path}/hgdb-client-open/repo</project.local.repo>
+		<project.system.libs>${local-project-workspace-path}/mercury-lib/integrations</project.system.libs>
+		<project.local.repo>${local-project-workspace-path}/mercury-lib/repo</project.local.repo>
+		<site.out.dir>${local-project-workspace-path}/mercury-lib/site</site.out.dir>
+		<!-- SPRING -->
+		<org.springframework.version>2.5.6</org.springframework.version>
+		<spring.ws.version>1.5.10</spring.ws.version>
+		<spring.test.version>2.5.6</spring.test.version>
+		<!--persistence-api.version>1.0-rev-1</persistence-api.version -->
+		<!--persistence-api.version>1.0.2</persistence-api.version -->
+		<persistence-api.version>2.1.0</persistence-api.version>
+		<!-- Cache - pamięci podręczne -->
+		<ehcache.version>2.10.1</ehcache.version>
+		<!-- LUCENE -->
+		<!-- lucene.version>6.2.1</lucene.version -->
+		<lucene.version>6.2.1</lucene.version>
+		<!-- IBM BPM -->
+		<ibm.bpm.version>8.5.6</ibm.bpm.version>
+		<ibm.bpm.test>8.5.6</ibm.bpm.test>
+		<WebSphere.lib.path>${local-websphere-72-lib-path}</WebSphere.lib.path>
+		<Teamworks.lib.path>${local-teamworks-80-lib-path}</Teamworks.lib.path>
+		<TWPortal.lib.path>${local-twportal-80-lib-path}</TWPortal.lib.path>
+		<Teamworks855.lib.path>${local-lib-path}/TeamWorks-${ibm.bpm.version}</Teamworks855.lib.path>
+		<Teamworks.lib.path>${Teamworks855.lib.path}</Teamworks.lib.path>
+		<reflections.version>0.9.9-RC1</reflections.version>
 		<Sun.java.home>${local-java-home-path}</Sun.java.home>
-
-		<org.springframework.version>5.3.18</org.springframework.version>
-		<spring.ws.version>5.1.0.RELEASE</spring.ws.version>
-		<spring.test.version>5.1.0.RELEASE</spring.test.version>
-		<slf4j.version>1.7.25</slf4j.version>
-		<log4j.version>1.2.14</log4j.version>
-		<!-- aspectj.version>1.6.11</aspectj.version -->
-		<aspectj.version>1.7.3</aspectj.version>
+		<!-- JNDI - local file repository -->
 		<fscontext.version>1.2-beta-3</fscontext.version>
 		<providerutil.version>1.2</providerutil.version>
-		<commons-io.version>2.7</commons-io.version>
-		<junit.version>4.13.1</junit.version>
+		<!-- apache common -->
+		<commons-io.version>1.4</commons-io.version>
+		<commons-lang.version>2.4</commons-lang.version>
+		<commons-httpclient.version>3.1</commons-httpclient.version>
+		<commons-fileupload.version>1.3.2</commons-fileupload.version>
+		<!-- loggery -->
+		<slf4j.version>1.5.6</slf4j.version>
+		<log4j.version>1.2.14</log4j.version>
+		<!-- apache POI -->
+		<poi.version>3.9-20121203</poi.version>
+		<!-- Klient CMIS. Uwaga!!! klient CMIS jest powiązany z CXF - zmiana implikuje 
+			weryfikację wersji CXF. https://chemistry.apache.org/java/1.0.0/maven/chemistry-opencmis-dist/dependencies.html -->
+		<chemistry.version>1.0.0</chemistry.version>
+		<!-- CXF/Axis - obsługa webservices. -->
 		<cxf.api.version>2.7.18</cxf.api.version>
-		<!-- CXF 3.0.10 -->
+		<!-- Uwaga!!! CXF jest powiązany z klientem CMIS - zmiana implikuje weryfikację 
+			wersji klienta CMIS -->
 		<cxf.version>3.0.10</cxf.version>
-		<!-- Zależności JAXB dla CXF - pozwala na obsługę SOAP -->
-		<jaxb.version>2.2.11</jaxb.version>
+		<!-- nie kompatybilny z chemistry 1.0.0 -->
+		<!-- <cxf.version>3.1.8</cxf.version> -->
+		<axis.version>1.4</axis.version>
 		<dom4j.version>1.6.1</dom4j.version>
-		<xerces.version>[2.12.0,)</xerces.version>
+		<xerces.version>2.12.2</xerces.version>
 		<xml-apis.version>1.4.01</xml-apis.version>
-		<!-- Cache - pamięci podręczne -->
-		<ehcache.version>3.6.1</ehcache.version>
-
+		<!-- Inne ważne -->
+		<mail.version>1.4.5</mail.version>
+		<!-- aspectj.version>1.6.11</aspectj.version -->
+		<aspectj.version>1.7.3</aspectj.version>
+		<asm.version>3.1</asm.version>
+		<cglib.version>2.2</cglib.version>
+		<jsp-api.version>2.1</jsp-api.version>
+		<servlet-api.version>2.5</servlet-api.version>
+		<servlet-jstl.version>1.2</servlet-jstl.version>
 		<!-- SC - komponenty Sławka Cichego <slawas@slawas.pl> -->
-		<!-- schelper ZASTAPIONY PRZEZ sccommon-utils -->
-		<!-- 
-		<schelper.version>0.0.12.1</schelper.version>
-		 -->
-		<!-- scjdbc4jpa ZASTAPIONY PRZEZ sccommon-utils -->
-		<!-- 
-		<scjdbc4jpa.version>0.0.7</scjdbc4jpa.version>
-		 -->
-		<sccommon-utils.version>1.0.6</sccommon-utils.version>
-		<!-- UWAGA! pakiet wymaga wersji ehcache minimum 2.10.1 -->
-		<sccommon.version>1.0.6</sccommon.version>
-		<ccrto-openapi.version>1.0</ccrto-openapi.version>
-
+		<sccommon.version>1.0.7</sccommon.version>
+		<!-- testy -->
+		<junit.version>4.13.1</junit.version>
+		<!-- używane w modułach: mercury-ws-server-api, mercury-ws-server oraz 
+			mercury-ws-app w celu spójności kompilacji dla cxf'a -->
+		<mercury.static.version>3.0.2.0.2</mercury.static.version>
+		<!-- Możliwe wartości: MYSQL,ORACLE,POSTGRESQL,DB2,MSSQL,HSQL Zobacz implementację 
+			pro.ibpm.mercury.entities.DbDialect -->
 		<databse.provider>POSTGRESQL</databse.provider>
-		<mercury.project.version>3.0.2.0.2</mercury.project.version>
-		<mercury.client.version>3.1.1.0.1</mercury.client.version>
-		<!-- Użycie API Mercury 2.0 -->
-		<!-- 
-		<mercury.api.version>api20</mercury.api.version>
-		 -->
-		<!-- Użycie API Mercury 3.x -->
-		<mercury.api.version>api</mercury.api.version>
-		<jackson.databind.version>[2.8.11.1,)</jackson.databind.version>
+		<jackson.databind.version>2.12.6.1</jackson.databind.version>
+		<jackson.annotations.version>2.5.0</jackson.annotations.version>
+		<jta.version>1.1</jta.version>
 
 		<!-- The destination file for the code coverage report has to be set to 
 			the same value in the parent pom and in each module pom. Then JaCoCo will 
 			add up information in the same report, so that, it will give the cross-module 
 			code coverage. -->
-		<sonar.jacoco.reportPaths>${local-project-workspace-path}/hgdb-client-open/target/jacoco-it.exec</sonar.jacoco.reportPaths>
-		<jacoco.outputDirectory>${local-project-workspace-path}/hgdb-client-open/target/jacoco-ut</jacoco.outputDirectory>
-		<dependency.scope>provided</dependency.scope>
+		<sonar.jacoco.reportPaths>${local-project-workspace-path}/mercury-lib/target/jacoco-it.exec</sonar.jacoco.reportPaths>
+		<jacoco.outputDirectory>${local-project-workspace-path}/mercury-lib/target/jacoco-ut</jacoco.outputDirectory>
+		<sonar.exclusions>mercury-server/**,tmp/**,db/**,docs/**,Scripts/**,**/*.jsp,**/*.css,**/*.js,**/*.log,**/*.sh,**/*.xml,**/src/main/generated/**,mercury-srv/generated-type-sources/**,**/*.jar,**/*.html,**/src/test/**,**/classes/org/apache/jsp/**,mercury-ws-server-api20-generator/**,mercury-mock/**,mercury-ws-app-rest-generator/**,**/target/**,repo/**</sonar.exclusions>
+		<sonar.projectKey>io.hgdb:mercury-lib</sonar.projectKey>
+		<sonar.moduleKey>${project.groupId}.${project.artifactId}</sonar.moduleKey>
 	</properties>
-
-	<developers>
-		<developer>
-			<id>slawas</id>
-			<name>Sławomir Cichy</name>
-			<email>slawas@slawas.pl</email>
-			<roles>
-				<role>developer</role>
-				<role>architect</role>
-				<role>manager</role>
-			</roles>
-			<url>https://scisoftware.pl/aboutme.html</url>
-			<timezone>+1</timezone>
-		</developer>
-	</developers>
-
-	<scm>
-		<url>https://github.com/slawascichy/hgdb-client-open</url>
-		<connection>scm:git:https://github.com/slawascichy/hgdb-client-open</connection>
-		<developerConnection>scm:git:https://slawascichy@github.com/slawascichy/hgdb-client-open</developerConnection>
-	</scm>
-
-	<issueManagement>
-		<url>https://github.com/slawascichy/hgdb-client-open/issues</url>
-		<system>GitHub Issues</system>
-	</issueManagement>
-
-	<organization>
-		<name>Sci Software Sławomir Cichy</name>
-		<url>http://scisoftware.pl</url>
-	</organization>
-
-	<licenses>
-		<license>
-			<name>HgDb Client License 1.0</name>
-			<url>http://hgdb.io/HGDB_Client_LICENSE.1.0.txt</url>
-		</license>
-	</licenses>
 
 	<repositories>
 		<!--other repositories if any -->
@@ -141,12 +143,63 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+	<developers>
+		<developer>
+			<id>slawas</id>
+			<name>Sławomir Cichy</name>
+			<email>slawas@slawas.pl</email>
+			<roles>
+				<role>developer</role>
+				<role>architect</role>
+				<role>manager</role>
+			</roles>
+			<url>http://slawas.pl/aboutme.html</url>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+
+	<scm>
+		<url>https://github.com/slawascichy/hgdb-lib</url>
+		<connection>scm:git:https://github.com/slawascichy/hgdb-lib</connection>
+		<developerConnection>scm:git:https://slawascichy@github.com/slawascichy/hgdb-lib</developerConnection>
+	</scm>
+
+	<issueManagement>
+		<url>https://github.com/slawascichy/hgdb-lib/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
+
+	<organization>
+		<name>Sci Software Sławomir Cichy</name>
+		<url>http://scisoftware.pl</url>
+	</organization>
+
+	<licenses>
+		<license>
+			<name>HgDb Client License 1.0</name>
+			<url>http://hgdb.io/HGDB_Client_LICENSE.1.0.txt</url>
+		</license>
+	</licenses>
+	
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub slawascichy Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/slawascichy/hgdb-client-open</url>
+		</repository>
+	</distributionManagement>
 	
 	<reporting>
 		<plugins>
 			<!-- To jest dla maven 3 -->
-			<!-- <plugin> <groupId>org.codehaus.sonar-plugins</groupId> <artifactId>maven-report</artifactId> 
-				<version>0.1</version> </plugin> -->
+			<!-- 
+			<plugin>
+				<groupId>nl.demon.shadowland.maven.plugins</groupId>
+				<artifactId>sonarqube-maven-report</artifactId>
+				<version>0.2.2</version>
+			</plugin>			 
+			-->
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -164,9 +217,9 @@
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.3</version>
 				<configuration>
+					<outputDirectory>${site.out.dir}</outputDirectory>
 					<inputEncoding>${project.reporting.outputEncoding}</inputEncoding>
 					<outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
-					<locales>en,pl</locales>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -174,52 +227,53 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.9</version>
 				<configuration>
-					<encoding>${project.reporting.outputEncoding}</encoding>
+					<doclint>none</doclint>
+					<outputDirectory>${site.out.dir}</outputDirectory>
+					<outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
+					<encoding>${project.reporting.outputEncoding}</encoding>				
 					<show>public</show>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jxr-plugin</artifactId>
-				<version>2.2</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.6</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-changelog-plugin</artifactId>
-				<version>2.2</version>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>taglist-maven-plugin</artifactId>
-				<version>2.4</version>
+				<version>2.3</version>
 				<configuration>
-					<tagListOptions>
-						<tagClasses>
-							<tagClass>
-								<displayName>Todo Work</displayName>
-								<tags>
-									<tag>
-										<matchString>TODO</matchString>
-										<matchType>ignoreCase</matchType>
-									</tag>
-									<tag>
-										<matchString>FIXME</matchString>
-										<matchType>ignoreCase</matchType>
-									</tag>
-								</tags>
-							</tagClass>
-						</tagClasses>
-					</tagListOptions>
+					<type>range</type>
+					<range>120</range>
 				</configuration>
 			</plugin>
 		</plugins>
 	</reporting>
 
+	<profiles>
+		<profile>
+			<id>skipInstall</id>
+			<activation>
+				<property>
+					<name>maven.install.skip</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-install-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>default-install</id>
+									<phase>none</phase>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+	</profiles>
+	
 	<build>
 		<extensions>
 			<extension>
@@ -229,6 +283,18 @@
 			</extension>
 		</extensions>
 		<plugins>
+			<plugin>
+			    <groupId>com.jakewharton</groupId>
+			    <artifactId>github-deploy-maven-plugin</artifactId>
+			    <version>1.0.0</version>
+				<executions>
+			        <execution>
+			            <goals>
+			                <goal>deploy</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -301,17 +367,31 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.3</version>
-				<configuration>
-					<encoding>UTF-8</encoding>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
+				<executions>
+					<execution>
+						<id>default-compile</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<configuration>
+							<skipMain>${maven.exec.skip}</skipMain>
+							<encoding>UTF-8</encoding>
+							<source>${java.version}</source>
+							<target>${java.version}</target>
+						</configuration>
+					</execution>
+				</executions>			
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>2.4</version>
+				<version>3.3</version>
 				<configuration>
-					<outputEncoding>UTF-8</outputEncoding>
+					<outputDirectory>${site.out.dir}</outputDirectory>
+					<inputEncoding>${project.reporting.outputEncoding}</inputEncoding>
+					<outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
+					<locales>pl</locales>
 				</configuration>
 				<dependencies>
 					<dependency><!-- add support for ssh/scp -->
@@ -344,8 +424,8 @@
 							<Specification-Vendor>${project.organization.name}</Specification-Vendor>
 						</manifestEntries>
 					</archive>
-					<outputDirectory>${project.local.repo}/io/hgdb/mercury/${project.artifactId}/${mercury.client.version}</outputDirectory>
-					<finalName>${project.artifactId}-${mercury.client.version}</finalName>
+					<outputDirectory>${project.local.repo}/io/hgdb/mercury/${project.artifactId}/${mercury.static.version}</outputDirectory>
+					<finalName>${project.artifactId}-${mercury.static.version}</finalName>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -363,289 +443,78 @@
 		</testResources>
 	</build>
 
-	<modules>
-		<module>hgdb-client-mock</module>
-		<module>hgdb-ws-client-cxf</module>
-    	<module>hgdb-multi-client</module>
-  </modules>
-
 	<dependencies>
-		<!-- slawas -->
 		<!-- SC - komponenty Sławka Cichego <slawas@slawas.pl> - START -->
-		<dependency>
-			<groupId>pl.slawas</groupId>
-			<artifactId>ccrto-openapi</artifactId>
-			<version>${ccrto-openapi.version}</version>
-			<scope>provided</scope>
-		</dependency>
 		<dependency>
 			<groupId>pl.slawas.sccommon</groupId>
 			<artifactId>sccommon-utils</artifactId>
-			<version>${sccommon-utils.version}</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<artifactId>persistence-api</artifactId>
-					<groupId>javax.persistence</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>pl.slawas</groupId>
-			<artifactId>sccommon-cache</artifactId>
 			<version>${sccommon.version}</version>
 			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>tools</artifactId>
+					<groupId>com.sun</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>hibernate</artifactId>
+					<groupId>org.hibernate</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>hibernate-commons-annotations</artifactId>
+					<groupId>org.hibernate</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>hibernate-search</artifactId>
+					<groupId>org.hibernate</groupId>
+				</exclusion>
+				<exclusion>
 					<artifactId>persistence-api</artifactId>
 					<groupId>javax.persistence</groupId>
 				</exclusion>
 				<exclusion>
+					<artifactId>spring</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>aspectjweaver</artifactId>
+					<groupId>org.aspectj</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>aspectjrt</artifactId>
+					<groupId>org.aspectj</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-aop</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-test</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>hibernate-entitymanager</artifactId>
 					<groupId>org.hibernate</groupId>
-					<artifactId>hibernate-ehcache</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
-
-
-		<!-- Mercury - START -->
-		<dependency>
-			<groupId>io.hgdb.mercury</groupId>
-			<artifactId>mercury-core</artifactId>
-			<version>${mercury.project.version}</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>pl.slawas</groupId>
-					<artifactId>schelper</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>pl.slawas</groupId>
-					<artifactId>scjdbc4jpa</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.xmlbeans</groupId>
-					<artifactId>xmlbeans-xmlpublic</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.cxf</groupId>
-					<artifactId>cxf-rt-databinding-aegis</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-excelant</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml-schemas</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-scratchpad</artifactId>
-				</exclusion>
-			</exclusions>			
-		</dependency>
-		<dependency>
-			<groupId>io.hgdb.mercury</groupId>
-			<artifactId>mercury-entities</artifactId>
-			<version>${databse.provider}-${mercury.project.version}</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>pl.slawas</groupId>
-					<artifactId>schelper</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>pl.slawas</groupId>
-					<artifactId>scjdbc4jpa</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.xmlbeans</groupId>
-					<artifactId>xmlbeans-xmlpublic</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.cxf</groupId>
-					<artifactId>cxf-rt-databinding-aegis</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>net.sf.ehcache</groupId>
-					<artifactId>ehcache</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>io.hgdb.mercury</groupId>
-					<artifactId>mercury-entities-dto-generator</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.sun</groupId>
-					<artifactId>tools</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-excelant</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml-schemas</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-scratchpad</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>io.hgdb.mercury</groupId>
-			<artifactId>mercury-srv-api</artifactId>
-			<version>${mercury.project.version}</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>pl.slawas</groupId>
-					<artifactId>schelper</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>pl.slawas</groupId>
-					<artifactId>scjdbc4jpa</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>stax</groupId>
-					<artifactId>stax</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-excelant</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml-schemas</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-scratchpad</artifactId>
-				</exclusion>
-			</exclusions>			
-		</dependency>
-		<dependency>
-			<groupId>io.hgdb.mercury</groupId>
-			<artifactId>mercury-ws-dto-api</artifactId>
-			<version>${mercury.project.version}</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>pl.slawas</groupId>
-					<artifactId>schelper</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>pl.slawas</groupId>
-					<artifactId>scjdbc4jpa</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>net.sf.ehcache</groupId>
-					<artifactId>ehcache</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>io.hgdb.mercury</groupId>
-					<artifactId>mercury-entities-dto-generator</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.sun</groupId>
-					<artifactId>tools</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-excelant</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml-schemas</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-scratchpad</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>io.hgdb.mercury</groupId>
-			<artifactId>mercury-ws-server-${mercury.api.version}</artifactId>
-			<version>${mercury.project.version}</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>pl.slawas</groupId>
-					<artifactId>schelper</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>pl.slawas</groupId>
-					<artifactId>scjdbc4jpa</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-excelant</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml-schemas</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-scratchpad</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
+		<!-- SC - komponenty Sławka Cichego <slawas@slawas.pl> - KONIEC -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
 			<version>${aspectj.version}</version>
-			<scope>test</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
 			<version>${aspectj.version}</version>
-			<scope>test</scope>
+			<scope>provided</scope>
 		</dependency>
+
 		<!-- testowy JNDI kontekst START -->
 		<dependency>
 			<groupId>com.sun.jndi</groupId>
@@ -673,8 +542,39 @@
 			<version>${slf4j.version}</version>
 			<scope>provided</scope>
 		</dependency>
-
-		<!-- spring -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>${dom4j.version}</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/xerces/xercesImpl -->
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>${xerces.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/xml-apis/xml-apis -->
+		<dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+			<version>${xml-apis.version}</version>
+			<scope>provided</scope>
+		</dependency>
 		<!-- spring -->
 		<!-- Core utilities used by other modules. Define this if you use Spring 
 			Utility APIs (org.springframework.core.*/org.springframework.util.*) -->
@@ -693,12 +593,9 @@
 
 		<!-- Expression Language (depends on spring-core) Define this if you use 
 			Spring Expression APIs (org.springframework.expression.*) -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-expression</artifactId>
-			<version>${org.springframework.version}</version>
-			<scope>${dependency.scope}</scope>
-		</dependency>
+		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-expression</artifactId> 
+			<version>${org.springframework.version}</version> <scope>${dependency.scope}</scope> 
+			</dependency> -->
 
 		<!-- Bean Factory and JavaBeans utilities (depends on spring-core) Define 
 			this if you use Spring Bean APIs (org.springframework.beans.*) -->
@@ -776,13 +673,9 @@
 		<!-- Object-to-XML Mapping (OXM) abstraction and integration with JAXB, 
 			JiBX, Castor, XStream, and XML Beans. (depends on spring-core, spring-beans, 
 			spring-context) Define this if you need OXM (org.springframework.oxm.*) -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-oxm</artifactId>
-			<version>${org.springframework.version}</version>
-			<scope>${dependency.scope}</scope>
-		</dependency>
-
+		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-oxm</artifactId> 
+			<version>${org.springframework.version}</version> <scope>${dependency.scope}</scope> 
+			</dependency> -->
 		<!-- Web application development utilities applicable to both Servlet and 
 			Portlet Environments (depends on spring-core, spring-beans, spring-context) 
 			Define this if you use Spring MVC, or wish to use Struts, JSF, or another 
@@ -813,9 +706,12 @@
 		<!-- Spring MVC for Portlet Environments (depends on spring-core, spring-beans, 
 			spring-context, spring-web) Define this if you use Spring MVC with a Portlet 
 			Container (org.springframework.web.portlet.*) -->
-		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-webmvc-portlet</artifactId> 
-			<version>${org.springframework.version}</version> <scope>${dependency.scope}</scope> 
-			</dependency> -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc-portlet</artifactId>
+			<version>${org.springframework.version}</version>
+			<scope>${dependency.scope}</scope>
+		</dependency>
 
 		<!-- Support for testing Spring applications with tools such as JUnit and 
 			TestNG This artifact is generally always defined with a 'test' scope for 
@@ -826,45 +722,24 @@
 			<version>${spring.test.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jms -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jms</artifactId>
-			<version>${org.springframework.version}</version>
-			<scope>${dependency.scope}</scope>
-		</dependency>
-		<!-- //spring -->
-
-		<!-- potrzebne do parsowania JSON'a -->
-		<dependency>
-			<groupId>net.sf.json-lib</groupId>
-			<artifactId>json-lib</artifactId>
-			<version>2.2.3</version>
-			<classifier>jdk15</classifier>
-		</dependency>
-		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-			<version>[3.2.2,)</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>[1.9.4,)</version>
-		</dependency>
-		<!-- potrzebne do parsowania JSON'a -->
 
 		<!-- Commons -->
 		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>${commons-httpclient.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-			<version>2.3</version>
+			<version>${commons-lang.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
-			<version>[1.3.3,)</version>
+			<version>${commons-fileupload.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -874,24 +749,19 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>commons-discovery</groupId>
-			<artifactId>commons-discovery</artifactId>
-			<version>0.4</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.2.2</version>
 			<scope>provided</scope>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
 		<dependency>
-			<groupId>jdom</groupId>
-			<artifactId>jdom</artifactId>
-			<version>1.1</version>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
 			<scope>provided</scope>
 		</dependency>
+
 
 		<!-- Do testów -->
 		<dependency>
@@ -900,35 +770,99 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- //Do testów -->
+		<!-- Oracle Database -->
 		<dependency>
-			<groupId>javax.persistence</groupId>
-			<artifactId>persistence-api</artifactId>
-			<version>1.0</version>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- //Oracle Database -->
+		<!-- MySQL Database -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.17</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- //MySQL Database -->
+		<!-- hsqldb -->
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>2.2.7</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- //hsqldb -->
+		<!-- postgresql -->
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4.1212</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- //postgresql -->
+		<!-- //Do testów -->
+
+		<!-- https://mvnrepository.com/artifact/org.eclipse.persistence/javax.persistence -->
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>javax.persistence</artifactId>
+			<version>${persistence-api.version}</version>
+		</dependency>
+		<!-- <dependency> <groupId>javax.persistence</groupId> <artifactId>persistence-api</artifactId> 
+			<version>${persistence-api.version}</version> <scope>provided</scope> </dependency> -->
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>${asm.version}</version>
 			<scope>provided</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>${cglib.version}</version>
+			<scope>provided</scope>
+		</dependency>
 		<!-- EhCache -->
 		<dependency>
-		    <groupId>org.ehcache</groupId>
-		    <artifactId>ehcache</artifactId>
-		    <version>${ehcache.version}</version>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>${ehcache.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- 
+		<dependency>
+			<groupId>org.apache.axis</groupId>
+			<artifactId>axis-jaxrpc</artifactId>
+			<version>${axis.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>${axis.version}</version>
+			<scope>provided</scope>
+		</dependency>
+ 		-->
+ 
+		<!-- API potrzebne np. do kodowania haseł - START -->
+		<dependency>
+			<groupId>pl.slawas.sccommon</groupId>
+			<artifactId>sccommon-eclipse-emf-api</artifactId>
+			<version>1.1.104</version>
+		</dependency>
+		<!-- API potrzebne np. do kodowania haseł - KONIEC -->
 
-		<!-- https://mvnrepository.com/artifact/xerces/xercesImpl -->
 		<dependency>
-			<groupId>xerces</groupId>
-			<artifactId>xercesImpl</artifactId>
-			<version>${xerces.version}</version>
-			<scope>provided</scope>
+			<groupId>org.apache.xmlbeans</groupId>
+			<artifactId>xmlbeans-xmlpublic</artifactId>
+			<version>2.5.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/xml-apis/xml-apis -->
 		<dependency>
-			<groupId>xml-apis</groupId>
-			<artifactId>xml-apis</artifactId>
-			<version>${xml-apis.version}</version>
-			<scope>provided</scope>
+			<groupId>org.apache.xmlbeans</groupId>
+			<artifactId>xmlbeans</artifactId>
+			<version>2.5.0</version>
 		</dependency>
 
 		<!-- Jackson JSON Processor -->
@@ -951,4 +885,14 @@
 		</dependency>
 
 	</dependencies>
+
+	<modules>
+		<module>mercury-core</module>
+		<module>mercury-entities-dto-generator</module>
+		<module>mercury-entities</module>
+		<module>mercury-srv-api</module>
+		<module>mercury-ws-dto-api</module>
+		<module>mercury-ws-server-api</module>
+	</modules>
+
 </project>

@@ -26,7 +26,6 @@ import pro.ibpm.mercury.ws.server.api.actions.business.data.ICaseSearchAction;
 import pro.ibpm.mercury.ws.server.api.returns.CaseNarrativePagedResult;
 import pro.ibpm.mercury.ws.server.api.returns.DtoMrcDataUtils;
 import pro.ibpm.mercury.ws.server.api.returns.DtoMrcObject;
-import pro.ibpm.mercury.ws.server.api.returns.IWsStatus;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithCaseNarrativePagedResult;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithMrcObjectSearchResult;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithStringValue;
@@ -49,18 +48,18 @@ public class CaseSearchBusiness extends WsClient<ICaseSearchAction>
 	}
 
 	@Override
-	public MrcPagedResult searchByQuery(Context context, String query, IPage page, String sortClause)
-			throws MercuryException {
+	public MrcPagedResult searchByQuery(Context context, String query, IPage page, String sortClause,
+			String additionalDateRange) throws MercuryException {
 		WsStatusWithMrcObjectSearchResult result = getService(context).searchByQuery(context, query,
-				(PageTransportable) page, sortClause);
+				(PageTransportable) page, sortClause, additionalDateRange);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
 	}
 
-	protected IPagedResult<CaseNarrative, IPage> getCaseNarrativePagedResult(Context context,
+	protected IPagedResult<CaseNarrative, IPage> getCaseNarrativePagedResult(
 			WsStatusWithCaseNarrativePagedResult wsStatusWithPagedResult) throws MercuryException {
 		logger.debug("--> getCaseNarrativePagedResult={}", wsStatusWithPagedResult);
-		if (checkWsStatus((IWsStatus) wsStatusWithPagedResult)) {
+		if (checkWsStatus(wsStatusWithPagedResult)) {
 			logger.debug("--> getCaseNarrativePagedResult: wsStatusWithPagedResult={}", wsStatusWithPagedResult);
 			try {
 				/* czytamy rezultat z serwisu */
@@ -79,49 +78,50 @@ public class CaseSearchBusiness extends WsClient<ICaseSearchAction>
 
 	@Override
 	public IPagedResult<CaseNarrative, IPage> searchNarrativeByQuery(Context context, String query, IPage page,
-			String sortClause) throws MercuryException {
+			String sortClause, String additionalDateRange) throws MercuryException {
 		WsStatusWithCaseNarrativePagedResult result = getService(context).searchNarrativeByQuery(context, query,
-				(PageTransportable) page, sortClause);
-		return getCaseNarrativePagedResult(context, result);
+				(PageTransportable) page, sortClause, additionalDateRange);
+		return getCaseNarrativePagedResult(result);
 	}
 
 	@Override
 	public MrcPagedResult searchByQueryWithResultType(Context context, String query, IPage page, String sortClause,
-			String resultTypeName) throws MercuryException {
+			String additionalDateRange, String resultTypeName) throws MercuryException {
 		WsStatusWithMrcObjectSearchResult result = getService(context).searchByQueryWithResultType(context, query,
-				(PageTransportable) page, sortClause, resultTypeName);
+				(PageTransportable) page, sortClause, additionalDateRange, resultTypeName);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
 	}
 
 	@Override
-	public MrcPagedResult groupByQuery(Context context, String query, String groupByClause, IPage page,
-			String resultTypeName, String resultPkPropertyName) throws MercuryException {
+	public MrcPagedResult groupByQuery(Context context, String query, String groupByClause, String additionalDateRange,
+			IPage page, String resultTypeName, String resultPkPropertyName) throws MercuryException {
 		WsStatusWithMrcObjectSearchResult result = getService(context).groupByQuery(context, query, groupByClause,
-				(PageTransportable) page, resultTypeName, resultPkPropertyName);
+				additionalDateRange, (PageTransportable) page, resultTypeName, resultPkPropertyName);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
 	}
 
 	@Override
-	public Document searchByQueryXML(Context context, String query, IPage page, String sortClause)
-			throws MercuryException {
-		MrcPagedResult mrcPagedResult = searchByQuery(context, query, page, sortClause);
+	public Document searchByQueryXML(Context context, String query, IPage page, String sortClause,
+			String additionalDateRange) throws MercuryException {
+		MrcPagedResult mrcPagedResult = searchByQuery(context, query, page, sortClause, additionalDateRange);
 		return loadMrcPagedResultXML(context, mrcPagedResult);
 	}
 
 	@Override
 	public Document searchByQueryWithResultTypeXML(Context context, String query, IPage page, String sortClause,
-			String resultTypeName) throws MercuryException {
-		MrcPagedResult mrcPagedResult = searchByQueryWithResultType(context, query, page, sortClause, resultTypeName);
+			String additionalDateRange, String resultTypeName) throws MercuryException {
+		MrcPagedResult mrcPagedResult = searchByQueryWithResultType(context, query, page, sortClause,
+				additionalDateRange, resultTypeName);
 		return loadMrcPagedResultXML(context, mrcPagedResult);
 	}
 
 	@Override
-	public Document groupByQueryXML(Context context, String query, String groupByClause, IPage page,
-			String resultTypeName, String resultPkPropertyName) throws MercuryException {
-		MrcPagedResult mrcPagedResult = groupByQuery(context, query, groupByClause, page, resultTypeName,
-				resultPkPropertyName);
+	public Document groupByQueryXML(Context context, String query, String groupByClause, String additionalDateRange,
+			IPage page, String resultTypeName, String resultPkPropertyName) throws MercuryException {
+		MrcPagedResult mrcPagedResult = groupByQuery(context, query, groupByClause, additionalDateRange, page,
+				resultTypeName, resultPkPropertyName);
 		return loadMrcPagedResultXML(context, mrcPagedResult);
 	}
 

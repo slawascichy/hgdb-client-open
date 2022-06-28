@@ -4,5 +4,6 @@ encoding//src/main/resources=UTF-8
 encoding//src/test/java=UTF-8
 encoding//src/test/resources=UTF-8
 encoding//src/test/resources-filtered=UTF-8
+encoding//src/test/resources-filtered/properties/sample/test-mercury.properties=UTF-8
 encoding//src/test/resources-filtered/properties/scichy/test-mercury.properties=UTF-8
 encoding/<project>=UTF-8
