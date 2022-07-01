@@ -6,7 +6,17 @@ import pro.ibpm.mercury.business.data.api.MrcObject;
 import pro.ibpm.mercury.context.Context;
 import pro.ibpm.mercury.exceptions.MercuryException;
 import pro.ibpm.mercury.logic.paging.IPage;
+import pro.ibpm.mercury.ws.server.api.actions.business.data.ICaseSearchAction;
 
+/**
+ * 
+ * ICaseSearchBusinessXML - interfejs odwzorowuje metody z {@link ICaseSearchAction}, które zwracają obiekty spraw jako
+ * dowolne obiekty XML.
+ *
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+ * @version $Revision: 1.1 $
+ *
+ */
 public interface ICaseSearchBusinessXML {
 
 	/**
@@ -71,6 +81,8 @@ public interface ICaseSearchBusinessXML {
 	 * @param groupByClause
 	 *                             klauzula "GROUP BY" np.
 	 *                             {@code trunc(createDate, DD) as createDatePerMonth, count(1) as count, sum(price) as sum, max(price) as max, min(price) as min, avg(price) as avg}
+	 * @param filterClause
+	 *                             dodatkowa klauzula filtrowania wyniku agregacji.
 	 * @param additionalDateRange
 	 *                             dodatkowe kryterium zawężające wyniki wyszukiwania oparte do datę np.
 	 *                             "mrc_createDate:[946681200000 TO 1564681107093]"
@@ -86,7 +98,8 @@ public interface ICaseSearchBusinessXML {
 	 * 
 	 * @throws MercuryException
 	 */
-	Document groupByQueryXML(Context context, String query, String groupByClause, String additionalDateRange,
-			IPage page, String resultTypeName, String resultPkPropertyName) throws MercuryException;
+	Document groupByQueryXML(Context context, String query, String groupByClause, String filterClause,
+			String additionalDateRange, IPage page, String resultTypeName, String resultPkPropertyName)
+			throws MercuryException;
 
 }

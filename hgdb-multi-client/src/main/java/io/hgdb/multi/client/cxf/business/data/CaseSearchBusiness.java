@@ -94,10 +94,11 @@ public class CaseSearchBusiness extends WsClient<ICaseSearchAction>
 	}
 
 	@Override
-	public MrcPagedResult groupByQuery(Context context, String query, String groupByClause, String additionalDateRange,
-			IPage page, String resultTypeName, String resultPkPropertyName) throws MercuryException {
+	public MrcPagedResult groupByQuery(Context context, String query, String groupByClause, String filterClause,
+			String additionalDateRange, IPage page, String resultTypeName, String resultPkPropertyName)
+			throws MercuryException {
 		WsStatusWithMrcObjectSearchResult result = getService(context).groupByQuery(context, query, groupByClause,
-				additionalDateRange, (PageTransportable) page, resultTypeName, resultPkPropertyName);
+				filterClause, additionalDateRange, (PageTransportable) page, resultTypeName, resultPkPropertyName);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
 	}
@@ -118,10 +119,11 @@ public class CaseSearchBusiness extends WsClient<ICaseSearchAction>
 	}
 
 	@Override
-	public Document groupByQueryXML(Context context, String query, String groupByClause, String additionalDateRange,
-			IPage page, String resultTypeName, String resultPkPropertyName) throws MercuryException {
-		MrcPagedResult mrcPagedResult = groupByQuery(context, query, groupByClause, additionalDateRange, page,
-				resultTypeName, resultPkPropertyName);
+	public Document groupByQueryXML(Context context, String query, String groupByClause, String filterClause,
+			String additionalDateRange, IPage page, String resultTypeName, String resultPkPropertyName)
+			throws MercuryException {
+		MrcPagedResult mrcPagedResult = groupByQuery(context, query, groupByClause, filterClause, additionalDateRange,
+				page, resultTypeName, resultPkPropertyName);
 		return loadMrcPagedResultXML(context, mrcPagedResult);
 	}
 

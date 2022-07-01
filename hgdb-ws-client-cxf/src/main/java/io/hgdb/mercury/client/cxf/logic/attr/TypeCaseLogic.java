@@ -3,7 +3,6 @@
  */
 package io.hgdb.mercury.client.cxf.logic.attr;
 
-import java.util.Collection;
 import java.util.List;
 
 import io.hgdb.mercury.client.cxf.logic.WsClientDataLogic;
@@ -16,7 +15,6 @@ import pro.ibpm.mercury.exceptions.MercuryException;
 import pro.ibpm.mercury.logic.api.attr.ITypeCaseLogic;
 import pro.ibpm.mercury.logic.exceptions.LC025MethodNotSupportedException;
 import pro.ibpm.mercury.ws.server.api.actions.attr.ITypeCaseAction;
-import pro.ibpm.mercury.ws.server.api.returns.IWsStatus;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithCaseHeader;
 
 /**
@@ -42,7 +40,7 @@ public class TypeCaseLogic extends WsClientDataLogic<TypeCase, Long, ITypeCaseAc
 
 	@Override
 	public EntityList<TypeCase, Long> insertList(Context context, List<TypeCase> eBag) throws MercuryException {
-		return getEntityCollection(context, getService(context).insertBag(context, (Collection<TypeCase>) eBag));
+		return getEntityCollection(context, getService(context).insertBag(context, eBag));
 	}
 
 	@Override
@@ -56,7 +54,7 @@ public class TypeCaseLogic extends WsClientDataLogic<TypeCase, Long, ITypeCaseAc
 
 	@Override
 	public List<Long> removeList(Context context, final List<TypeCase> eBag) throws MercuryException {
-		return getIds(getService(context).removeBag(context, (Collection<TypeCase>) eBag), eBag);
+		return getIds(getService(context).removeBag(context, eBag), eBag);
 	}
 
 	@Override
@@ -85,7 +83,7 @@ public class TypeCaseLogic extends WsClientDataLogic<TypeCase, Long, ITypeCaseAc
 
 	@Override
 	public EntityList<TypeCase, Long> updateList(Context context, List<TypeCase> eBag) throws MercuryException {
-		return getEntityCollection(context, getService(context).updateBag(context, (Collection<TypeCase>) eBag));
+		return getEntityCollection(context, getService(context).updateBag(context, eBag));
 	}
 
 	@Override
@@ -179,21 +177,6 @@ public class TypeCaseLogic extends WsClientDataLogic<TypeCase, Long, ITypeCaseAc
 	}
 
 	/* Overridden (non-Javadoc) */
-	@Deprecated
-	@Override
-	public List<TypeCase> findByObjectIdAndSumControl(Context context, String objectId, String sumControl)
-			throws MercuryException {
-		throw new LC025MethodNotSupportedException();
-	}
-
-	/* Overridden (non-Javadoc) */
-	@Deprecated
-	@Override
-	public List<TypeCase> findByObjectIdLastVersion(Context context, String objectId) throws MercuryException {
-		throw new LC025MethodNotSupportedException();
-	}
-
-	/* Overridden (non-Javadoc) */
 	@Override
 	public List<TypeCase> findAllBySumControl(Context paramContext, String paramString) throws MercuryException {
 		return getEntityCollection(paramContext,
@@ -213,33 +196,11 @@ public class TypeCaseLogic extends WsClientDataLogic<TypeCase, Long, ITypeCaseAc
 		return getEntityCollection(context, getService(context).findByKindCode(context, kindCode));
 	}
 
-	@Override
-	public List<TypeCase> findByObjectIdAndRootVersionContextID(Context context, String objectID,
-			String rootVersionContextID) throws MercuryException {
-		return getEntityCollection(context,
-				getService(context).findByObjectIdAndRootVersionContextID(context, objectID, rootVersionContextID));
-	}
-
-	/* Overridden (non-Javadoc) */
-	@Override
-	public List<TypeCase> findByIdentity(Context context, String typeCode, String objectID, String rootVersionContextID)
-			throws MercuryException {
-		return getEntityCollection(context,
-				getService(context).findByIdentity(context, typeCode, objectID, rootVersionContextID));
-	}
-
-	/* Overridden (non-Javadoc) */
-	@Override
-	public List<TypeCase> findByIdentityPart(Context context, String typeCode, String objectID)
-			throws MercuryException {
-		return getEntityCollection(context, getService(context).findByIdentityPart(context, typeCode, objectID));
-	}
-
 	/* Overridden (non-Javadoc) */
 	@Override
 	public CaseHeader getSampleCaseHeaderByTypeId(Context context, Long typeId) throws MercuryException {
 		WsStatusWithCaseHeader result = getService(context).getSampleCaseHeaderByTypeId(context, typeId);
-		if (checkWsStatus((IWsStatus) result)) {
+		if (checkWsStatus(result)) {
 			return result.getValue();
 		}
 		return null;
@@ -249,7 +210,7 @@ public class TypeCaseLogic extends WsClientDataLogic<TypeCase, Long, ITypeCaseAc
 	@Override
 	public CaseHeader getSampleCaseHeaderByTypeCode(Context context, String typeCode) throws MercuryException {
 		WsStatusWithCaseHeader result = getService(context).getSampleCaseHeaderByTypeCode(context, typeCode);
-		if (checkWsStatus((IWsStatus) result)) {
+		if (checkWsStatus(result)) {
 			return result.getValue();
 		}
 		return null;

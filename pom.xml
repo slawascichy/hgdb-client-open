@@ -5,7 +5,7 @@
 	<groupId>io.hgdb.mercury</groupId>
 	<artifactId>hgdb-client-open</artifactId>
 	<packaging>pom</packaging>
-	<version>3.1.1-SNAPSHOT</version>
+	<version>3.1.2-SNAPSHOT</version>
 	<name>Mercury Client</name>
 	<url>https://github.com/slawascichy/hgdb-client-open</url>
 	<description>Zbiór integracji z IBM BPM i nie tylko do komunikacji z serwerem bazy Mercury.</description>
@@ -41,18 +41,9 @@
 		<ehcache.version>3.6.1</ehcache.version>
 
 		<!-- SC - komponenty Sławka Cichego <slawas@slawas.pl> -->
-		<!-- schelper ZASTAPIONY PRZEZ sccommon-utils -->
-		<!-- 
-		<schelper.version>0.0.12.1</schelper.version>
-		 -->
-		<!-- scjdbc4jpa ZASTAPIONY PRZEZ sccommon-utils -->
-		<!-- 
-		<scjdbc4jpa.version>0.0.7</scjdbc4jpa.version>
-		 -->
-		<sccommon-utils.version>1.0.6</sccommon-utils.version>
 		<!-- UWAGA! pakiet wymaga wersji ehcache minimum 2.10.1 -->
-		<sccommon.version>1.0.6</sccommon.version>
-		<ccrto-openapi.version>1.0</ccrto-openapi.version>
+		<sccommon.version>1.0.7</sccommon.version>
+		<ccrto-openapi.version>1.2-SNAPSHOT</ccrto-openapi.version>
 
 		<databse.provider>POSTGRESQL</databse.provider>
 		<mercury.project.version>3.0.3.0.6</mercury.project.version>
@@ -377,11 +368,29 @@
 			<artifactId>ccrto-openapi</artifactId>
 			<version>${ccrto-openapi.version}</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>pl.slawas.sccommon</groupId>
+					<artifactId>sccommon-utils</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-annotations</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-databind</artifactId>
+				</exclusion>
+			</exclusions>	
 		</dependency>
 		<dependency>
 			<groupId>pl.slawas.sccommon</groupId>
 			<artifactId>sccommon-utils</artifactId>
-			<version>${sccommon-utils.version}</version>
+			<version>${sccommon.version}</version>
 			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
@@ -391,7 +400,7 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>pl.slawas</groupId>
+			<groupId>pl.slawas.sccommon</groupId>
 			<artifactId>sccommon-cache</artifactId>
 			<version>${sccommon.version}</version>
 			<scope>provided</scope>
