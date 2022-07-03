@@ -23,8 +23,6 @@
 
 	<!-- test klientów spring-remoting -->
 	<import resource="classpath:io/hgdb/mercury/client/cxf/spring-remoting.xml" />
-	<!-- test klientów spring-remoting -->
-
 	<import resource="classpath:io/hgdb/mercury/client/cxf/spring.xml" />
 
 </beans>
