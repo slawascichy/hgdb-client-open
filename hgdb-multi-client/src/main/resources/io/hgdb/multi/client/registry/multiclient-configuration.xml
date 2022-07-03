@@ -27,6 +27,7 @@
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmTaskBufferSecretaryManagerAction">/BpmTaskBufferSecretaryManagerAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmTaskNarrativeBufferSecretaryManagerAction">/BpmTaskNarrativeBufferSecretaryManagerAction</prop>
 
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.data.ICase2CaseBusinessAction">/Case2CaseBusinessAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.data.ICaseBusinessAction">/CaseBusinessAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.data.ICaseSearchAction">/CaseSearchAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.data.ICaseHistoryStreamBusinessAction">/CaseHistoryStreamBusinessAction</prop>
@@ -48,16 +49,23 @@
 				
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.cache.ICacheManagerAction">/CacheManagerAction</prop>
 				
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ICase2CaseAction">/Case2CaseAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ICase2SubCaseAction">/Case2SubCaseAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ICaseDocumentAction">/CaseDocumentAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ICaseHistoryStreamAction">/CaseHistoryStreamAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ICaseHistoryTraceAction">/CaseHistoryTraceAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ICaseAction">/CaseAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ICommentAction">/CommentAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.IGroupCase2ParticipantAction">/GroupCase2ParticipantAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.IGroupCaseAction">/GroupCaseAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.IKtmNumberAction">/KtmNumberAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ILoggerEventAction">/LoggerEventAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.IParticipantHistoryStreamAction">/ParticipantHistoryStreamAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.IParticipantHistoryTraceAction">/ParticipantHistoryTraceAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.IParticipantAction">/ParticipantAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.IQuickTaskAction">/QuickTaskAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.IStore2TypeAction">/Store2TypeAction</prop>
+				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.IStoreHistoryStreamAction">/StoreHistoryStreamAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.IStoreAction">/StoreAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ISystemUserAction">/SystemUserAction</prop>
 				

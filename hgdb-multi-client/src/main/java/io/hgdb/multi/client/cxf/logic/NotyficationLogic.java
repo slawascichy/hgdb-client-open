@@ -15,7 +15,7 @@ public class NotyficationLogic extends io.hgdb.mercury.client.cxf.logic.Notyfica
 
 	@Override
 	public INotyficationAction getService(Context context) {
-		return (INotyficationAction) httpClientDynamicRegistry.getBean(context, INotyficationAction.class);
+		return httpClientDynamicRegistry.getBean(context, INotyficationAction.class);
 	}
 
 }

@@ -25,8 +25,7 @@ import pro.ibpm.mercury.registry.RegistrySupport;
 
 /**
  * 
- * HttpInvokerProxyFactoryDynamicRegistry - dynamiczny rejestr połączeń HTTP
- * (SOAP)
+ * HttpInvokerProxyFactoryDynamicRegistry - dynamiczny rejestr połączeń HTTP (SOAP)
  *
  * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * @version $Revision: 1.1 $
@@ -130,7 +129,7 @@ public class HttpInvokerProxyFactoryDynamicRegistry implements ApplicationContex
 
 	/**
 	 * @param defaultServiceUrl
-	 *            the {@link #defaultServiceUrl} to set
+	 *                          the {@link #defaultServiceUrl} to set
 	 */
 	public void setDefaultServiceUrl(String defaultServiceUrl) {
 		this.defaultServiceUrl = defaultServiceUrl;
@@ -141,6 +140,9 @@ public class HttpInvokerProxyFactoryDynamicRegistry implements ApplicationContex
 	public <T> T getBean(Context context, Class<T> clazz) {
 		String instanceName = (String) context
 				.getAdditionalPropertyValue(ClientContextParams.HTTP_INVOCER_PROXY_FACTORY_INSTANCE_NAME);
+		if (StringUtils.isBlank(instanceName)) {
+			instanceName = MercuryConfig.getInstance().get(ClientConfigParams.WS_DEFAULT_SERVICE_PROP);
+		}
 		return getBean(context, instanceName, clazz);
 	}
 
@@ -153,7 +155,7 @@ public class HttpInvokerProxyFactoryDynamicRegistry implements ApplicationContex
 
 	/**
 	 * @param errorHandlerClass
-	 *            the {@link #errorHandlerClass} to set
+	 *                          the {@link #errorHandlerClass} to set
 	 */
 	@SuppressWarnings("unchecked")
 	public void setErrorHandlerClass(String errorHandlerClass) {

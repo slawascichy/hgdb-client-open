@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 
 import io.hgdb.multi.client.registry.IClientDynamicRegistry;
 import pro.ibpm.mercury.context.Context;
-import pro.ibpm.mercury.ws.server.api.actions.data.IKtmNumberAction;
+import pro.ibpm.mercury.ws.server.api.actions.data.ILoggerEventAction;
 
 @Service
-public class KtmNumberLogic extends io.hgdb.mercury.client.cxf.logic.data.KtmNumberLogic {
+public class LoggerEventLogic extends io.hgdb.mercury.client.cxf.logic.data.LoggerEventLogic {
 
 	private static final long serialVersionUID = -6068254603452772065L;
 
@@ -16,7 +16,7 @@ public class KtmNumberLogic extends io.hgdb.mercury.client.cxf.logic.data.KtmNum
 	private IClientDynamicRegistry httpClientDynamicRegistry;
 
 	@Override
-	public IKtmNumberAction getService(Context context) {
-		return httpClientDynamicRegistry.getBean(context, IKtmNumberAction.class);
+	public ILoggerEventAction getService(Context context) {
+		return httpClientDynamicRegistry.getBean(context, ILoggerEventAction.class);
 	}
 }

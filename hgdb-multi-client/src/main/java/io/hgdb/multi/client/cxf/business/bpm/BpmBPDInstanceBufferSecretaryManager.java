@@ -22,7 +22,6 @@ public class BpmBPDInstanceBufferSecretaryManager
 	public IBpmBPDInstanceBufferSecretaryManagerAction getService(Context context) {
 		String defaultInstance = MercuryConfig.getInstance().get(ClientConfigParams.WS_DEFAULT_SERVICE_PROP);
 		if (StringUtils.isBlank(defaultInstance)) {
-
 			defaultInstance = ClientConfigParams.WS_DEFAULT_SERVICE;
 		}
 		context.setAdditionalPropertyValue(ClientContextParams.HTTP_INVOCER_PROXY_FACTORY_INSTANCE_NAME,
