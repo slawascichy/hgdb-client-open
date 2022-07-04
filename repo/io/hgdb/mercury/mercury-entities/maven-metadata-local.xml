@@ -3,13 +3,13 @@
   <groupId>io.hgdb.mercury</groupId>
   <artifactId>mercury-entities</artifactId>
   <versioning>
-    <release>MSSQL-3.0.3.0.6</release>
+    <release>MSSQL-3.0.3.0.8</release>
     <versions>
-      <version>MYSQL-3.0.3.0.6</version>
-      <version>POSTGRESQL-3.0.3.0.6</version>
-      <version>ORACLE-3.0.3.0.6</version>
-      <version>MSSQL-3.0.3.0.6</version>
+      <version>MYSQL-3.0.3.0.8</version>
+      <version>POSTGRESQL-3.0.3.0.8</version>
+      <version>ORACLE-3.0.3.0.8</version>
+      <version>MSSQL-3.0.3.0.8</version>
     </versions>
-    <lastUpdated>20220701161446</lastUpdated>
+    <lastUpdated>20220704211507</lastUpdated>
   </versioning>
 </metadata>
