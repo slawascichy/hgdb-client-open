@@ -28,7 +28,7 @@
 
 	<!-- Sekwencje -->
 	<bean id="springBean.InvokerSequenceService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/SequenceAction" />
 		<property name="serviceInterface"
 			value="org.mercury.ws.server.api.actions.common.ISequenceAction" />
@@ -41,7 +41,7 @@
 
 	<!-- Notyfikacje -->
 	<bean id="springBean.InvokerNotyficationService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/NotyficationAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.INotyficationAction" />
@@ -54,7 +54,7 @@
 
 	<!-- Statystyki - start -->
 	<bean id="springBean.InvokerStore2TypeStatsBusinessService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl"
 			value="${mercury.ws.url}/Store2TypeStatsBusinessAction" />
 		<property name="serviceInterface"
@@ -68,7 +68,7 @@
 	</bean>
 	
 	<bean id="springBean.InvokerParticipant2TypeStatsBusinessService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl"
 			value="${mercury.ws.url}/Participant2TypeStatsBusinessAction" />
 		<property name="serviceInterface"
@@ -84,7 +84,7 @@
 
 	<!-- dict -->
 	<bean id="springBean.InvokerRoleService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/RoleAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.dict.IRoleAction" />
@@ -96,7 +96,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerTypeKindService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/TypeKindAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.dict.ITypeKindAction" />
@@ -108,7 +108,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerSourceService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/SourceAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.dict.ISourceAction" />
@@ -120,7 +120,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerInitStatusService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/InitStatusAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.dict.IInitStatusAction" />
@@ -134,7 +134,7 @@
 
 	<!-- attr -->
 	<bean id="springBean.InvokerCaseViewDefinitionService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/CaseViewDefinitionAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.attr.ICaseViewDefinitionAction" />
@@ -146,7 +146,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerTypeParamRoleService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/TypeParamRoleAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.attr.ITypeParamRoleAction" />
@@ -158,7 +158,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerTypeParamActionService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/TypeParamActionAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.attr.ITypeParamActionAction" />
@@ -170,7 +170,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerTypeCaseService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/TypeCaseAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.attr.ITypeCaseAction" />
@@ -182,7 +182,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerTypeCodeService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/TypeCodeAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.attr.ITypeCodeAction" />
@@ -194,7 +194,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerType2TypeService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/Type2TypeAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.attr.IType2TypeAction" />
@@ -206,7 +206,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerTypeParamService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/TypeParamAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.attr.ITypeParamAction" />
@@ -218,7 +218,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerParamDefinitionService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/ParamDefinitionAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.attr.IParamDefinitionAction" />
@@ -232,7 +232,7 @@
 
 	<!-- data -->
 	<bean id="springBean.InvokerCase2CaseService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/Case2CaseAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.data.ICase2CaseAction" />
@@ -244,7 +244,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerCaseService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/CaseAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.data.ICaseAction" />
@@ -256,7 +256,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerCaseDocumentService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/CaseDocumentAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.data.ICaseDocumentAction" />
@@ -268,7 +268,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerCaseHistoryStreamService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/CaseHistoryStreamAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.data.ICaseHistoryStreamAction" />
@@ -280,7 +280,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerCaseHistoryTraceService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/CaseHistoryTraceAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.data.ICaseHistoryTraceAction" />
@@ -292,7 +292,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerGroupCaseService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/GroupCaseAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.data.IGroupCaseAction" />
@@ -304,7 +304,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerSystemUserService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/SystemUserAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.data.ISystemUserAction" />
@@ -316,7 +316,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerStoreService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/StoreAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.data.IStoreAction" />
@@ -328,7 +328,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerCommentService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/CommentAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.data.ICommentAction" />
@@ -340,7 +340,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerQuickTaskService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/QuickTaskAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.data.IQuickTaskAction" />
@@ -352,7 +352,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerKtmNumberService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/KtmNumberAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.data.IKtmNumberAction" />
@@ -364,7 +364,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerLoggerEventService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/LoggerEventAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.data.ILoggerEventAction" />
@@ -376,7 +376,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerParticipantService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/ParticipantAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.data.IParticipantAction" />
@@ -389,7 +389,7 @@
 
 	<bean id="springBean.InvokerParticipantHistoryStreamService"
 		scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl"
 			value="${mercury.ws.url}/ParticipantHistoryStreamAction" />
 		<property name="serviceInterface"
@@ -403,7 +403,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerParticipantHistoryTraceService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl"
 			value="${mercury.ws.url}/ParticipantHistoryTraceAction" />
 		<property name="serviceInterface"
@@ -417,7 +417,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerStore2TypeService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/Store2TypeAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.data.IStore2TypeAction" />
@@ -429,7 +429,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerStoreHistoryStreamService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/StoreHistoryStreamAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.data.IStoreHistoryStreamAction" />
@@ -441,7 +441,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerGroupCase2ParticipantService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl"
 			value="${mercury.ws.url}/GroupCase2ParticipantAction" />
 		<property name="serviceInterface"
@@ -455,7 +455,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerCase2SubCaseService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/Case2SubCaseAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.data.ICase2SubCaseAction" />
@@ -470,7 +470,7 @@
 
 	<!-- arch -->
 	<bean id="springBean.InvokerArchCaseDocumentService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/ArchCaseDocumentAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.arch.IArchCaseDocumentAction" />
@@ -482,7 +482,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerArchCaseHistoryStreamService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl"
 			value="${mercury.ws.url}/ArchCaseHistoryStreamAction" />
 		<property name="serviceInterface"
@@ -496,7 +496,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerArchCaseHistoryTraceService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/ArchCaseHistoryTraceAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.arch.IArchCaseHistoryTraceAction" />
@@ -509,7 +509,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerArchCaseService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/ArchCaseAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.arch.IArchCaseAction" />
@@ -521,7 +521,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerArchCommentService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/ArchCommentAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.arch.IArchCommentAction" />
@@ -534,7 +534,7 @@
 
 	<bean id="springBean.InvokerArchGroupCase2ParticipantService"
 		scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl"
 			value="${mercury.ws.url}/ArchGroupCase2ParticipantAction" />
 		<property name="serviceInterface"
@@ -549,7 +549,7 @@
 
 	<bean id="springBean.InvokerArchGroupCaseHistoryStreamService"
 		scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl"
 			value="${mercury.ws.url}/ArchGroupCaseHistoryStreamAction" />
 		<property name="serviceInterface"
@@ -563,7 +563,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerArchGroupCaseService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/ArchGroupCaseAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.arch.IArchGroupCaseAction" />
@@ -575,7 +575,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerArchKtmNumberService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/ArchKtmNumberAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.arch.IArchKtmNumberAction" />
@@ -587,7 +587,7 @@
 	</bean>
 
 	<bean id="springBean.InvokerArchQuickTaskService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/ArchQuickTaskAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.arch.IArchQuickTaskAction" />
@@ -601,7 +601,7 @@
 
 	<!-- pamięć podręczna -->
 	<bean id="springBean.InvokerCacheManagerService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/CacheManagerAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.cache.ICacheManagerAction" />
@@ -616,7 +616,7 @@
 	<!-- Sekretarze danych -->
 	<bean id="springBean.InvokerBpmBPDInstanceBufferSecretaryManagerService"
 		scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl"
 			value="${mercury.ws.url}/BpmBPDInstanceBufferSecretaryManagerAction" />
 		<property name="serviceInterface"
@@ -631,7 +631,7 @@
 
 	<bean id="springBean.InvokerBpmTaskBufferSecretaryManagerService"
 		scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl"
 			value="${mercury.ws.url}/BpmTaskBufferSecretaryManagerAction" />
 		<property name="serviceInterface"
@@ -646,7 +646,7 @@
 
 	<bean id="springBean.InvokerBpmTaskNarrativeBufferSecretaryManagerService"
 		scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl"
 			value="${mercury.ws.url}/BpmTaskNarrativeBufferSecretaryManagerAction" />
 		<property name="serviceInterface"
@@ -662,7 +662,7 @@
 
 	<!-- CaseBusiness -->
 	<bean id="springBean.InvokerCaseBusinessService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/CaseBusinessAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.business.data.ICaseBusinessAction" />
@@ -677,7 +677,7 @@
 	
 	<!-- Case2CaseBusiness -->
 	<bean id="springBean.InvokerCase2CaseBusinessService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/Case2CaseBusinessAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.business.data.ICase2CaseBusinessAction" />
@@ -692,7 +692,7 @@
 	
 	<!-- CaseHistoryStreamBusiness -->
 	<bean id="springBean.InvokerCaseHistoryStreamBusinessService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/CaseHistoryStreamBusinessAction" />
 		<property name="serviceInterface"
 			value="pro.ibpm.mercury.ws.server.api.actions.business.data.ICaseHistoryStreamBusinessAction" />
@@ -706,7 +706,7 @@
 	
 	<!-- CaseHistoryStreamBusiness -->
 	<bean id="springBean.InvokerCaseHistoryTraceBusinessService" scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="${mercury.ws.url}/CaseHistoryTraceBusinessAction" />
 		<property name="serviceInterface"
 			value="org.mercury.ws.server.api.actions.business.data.ICaseHistoryTraceBusinessAction" />
@@ -722,7 +722,7 @@
 	<!-- Store2TypeLastVersionBusiness -->
 	<bean id="springBean.InvokerStore2TypeLastVersionBusinessService"
 		scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl"
 			value="${mercury.ws.url}/Store2TypeLastVersionBusinessAction" />
 		<property name="serviceInterface"
@@ -739,7 +739,7 @@
 	<!-- TypeCodeWithLastVersionBusiness -->
 	<bean id="springBean.InvokerTypeCodeWithLastVersionBusinessService"
 		scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl"
 			value="${mercury.ws.url}/TypeCodeWithLastVersionBusinessAction" />
 		<property name="serviceInterface"
@@ -756,7 +756,7 @@
 	<!-- Type2TypeWithLastVersionBusiness -->
 	<bean id="springBean.InvokerType2TypeWithLastVersionBusinessService"
 		scope="singleton"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		class="org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl"
 			value="${mercury.ws.url}/Type2TypeWithLastVersionBusinessAction" />
 		<property name="serviceInterface"

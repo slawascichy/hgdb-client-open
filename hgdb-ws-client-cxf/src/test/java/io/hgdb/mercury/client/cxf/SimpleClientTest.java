@@ -15,7 +15,7 @@ import org.mercury.cxf.client.SOAPClientServiceFactory;
 import org.mercury.cxf.client.security.BasicHttpInvokerRequestExecutor;
 import org.mercury.cxf.client.security.ClientAuthConstants;
 import org.mercury.cxf.client.security.WSSEUsernameTokenCallback;
-import org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean;
+import org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean;
 
 import io.hgdb.mercury.client.test.TestPropertiesLoader;
 import junit.framework.TestCase;

@@ -5,8 +5,8 @@ import java.net.HttpURLConnection;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.remoting.httpinvoker.HttpInvokerRequestExecutor;
-import org.springframework.remoting.httpinvoker.SimpleHttpInvokerRequestExecutor;
+import org.spring.remoting.httpinvoker.HttpInvokerRequestExecutor;
+import org.spring.remoting.httpinvoker.SimpleHttpInvokerRequestExecutor;
 
 public class BasicHttpInvokerRequestExecutor extends SimpleHttpInvokerRequestExecutor
 		implements HttpInvokerRequestExecutor {
@@ -48,7 +48,7 @@ public class BasicHttpInvokerRequestExecutor extends SimpleHttpInvokerRequestExe
 
 	/**
 	 * @param identifier
-	 *            the {@link #identifier} to set
+	 *                   the {@link #identifier} to set
 	 */
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
@@ -63,7 +63,7 @@ public class BasicHttpInvokerRequestExecutor extends SimpleHttpInvokerRequestExe
 
 	/**
 	 * @param token
-	 *            the {@link #token} to set
+	 *              the {@link #token} to set
 	 */
 	public void setToken(String token) {
 		this.token = token;
