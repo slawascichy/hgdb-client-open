@@ -5,7 +5,7 @@ import java.util.Calendar;
 import org.aopalliance.intercept.MethodInvocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean;
+import org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean;
 
 import io.hgdb.multi.client.registry.error.IHttpInvokerProxyFactoryErrorHandler;
 
@@ -26,7 +26,7 @@ public class MHttpInvokerProxyFactoryBean extends HttpInvokerProxyFactoryBean {
 
 	/**
 	 * @param instanceName
-	 *            the {@link #instanceName} to set
+	 *                     the {@link #instanceName} to set
 	 */
 	public void setInstanceName(String instanceName) {
 		this.instanceName = instanceName;
@@ -41,7 +41,7 @@ public class MHttpInvokerProxyFactoryBean extends HttpInvokerProxyFactoryBean {
 
 	/**
 	 * @param errorHandler
-	 *            the {@link #errorHandler} to set
+	 *                     the {@link #errorHandler} to set
 	 */
 	public void setErrorHandler(IHttpInvokerProxyFactoryErrorHandler errorHandler) {
 		this.errorHandler = errorHandler;

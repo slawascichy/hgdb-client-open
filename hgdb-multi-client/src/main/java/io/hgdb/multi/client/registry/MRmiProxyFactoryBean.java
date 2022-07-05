@@ -9,6 +9,7 @@ import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 
 import io.hgdb.multi.client.registry.error.IRmiProxyFactoryErrorHandler;
 
+@SuppressWarnings("deprecation")
 public class MRmiProxyFactoryBean extends RmiProxyFactoryBean {
 
 	protected final Logger localLogger = LoggerFactory.getLogger(MRmiProxyFactoryBean.class);
@@ -31,7 +32,7 @@ public class MRmiProxyFactoryBean extends RmiProxyFactoryBean {
 
 	/**
 	 * @param instanceName
-	 *            the {@link #instanceName} to set
+	 *                     the {@link #instanceName} to set
 	 */
 	public void setInstanceName(String instanceName) {
 		this.instanceName = instanceName;
@@ -46,7 +47,7 @@ public class MRmiProxyFactoryBean extends RmiProxyFactoryBean {
 
 	/**
 	 * @param errorHandler
-	 *            the {@link #errorHandler} to set
+	 *                     the {@link #errorHandler} to set
 	 */
 	public void setErrorHandler(IRmiProxyFactoryErrorHandler errorHandler) {
 		this.errorHandler = errorHandler;
