@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import io.hgdb.multi.client.registry.IClientDynamicRegistry;
+import io.hgdb.multi.client.registry.api.IRmiProxyFactoryRegistry;
 import pro.ibpm.mercury.context.Context;
 
 /**
@@ -22,7 +22,7 @@ public abstract class RmiClient<W> {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	private IClientDynamicRegistry rmiClientDynamicRegistry;
+	private IRmiProxyFactoryRegistry rmiClientDynamicRegistry;
 
 	private Class<W> serviceInterface;
 
@@ -47,7 +47,7 @@ public abstract class RmiClient<W> {
 
 	/**
 	 * @param serviceInterface
-	 *            the {@link #serviceInterface} to set
+	 *                         the {@link #serviceInterface} to set
 	 */
 	public void setServiceInterface(Class<W> serviceInterface) {
 		this.serviceInterface = serviceInterface;
