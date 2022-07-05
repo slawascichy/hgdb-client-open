@@ -1,4 +1,4 @@
 #NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
-#Mon Jul 04 23:14:58 CEST 2022
-mercury-ws-dto-api-3.0.3.0.8.pom>=
-mercury-ws-dto-api-3.0.3.0.8.jar>=
+#Tue Jul 05 18:23:36 CEST 2022
+mercury-srv-api-3.0.3.0.9.jar>=
+mercury-srv-api-3.0.3.0.9.pom>=

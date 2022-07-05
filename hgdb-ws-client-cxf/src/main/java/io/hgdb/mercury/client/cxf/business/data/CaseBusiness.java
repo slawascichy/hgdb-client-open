@@ -18,6 +18,7 @@ import pro.ibpm.mercury.attrs.CaseDateUtils;
 import pro.ibpm.mercury.attrs.javax.CaseDate;
 import pro.ibpm.mercury.business.data.api.BpmCaseHistoryStream;
 import pro.ibpm.mercury.business.data.api.CaseHeader;
+import pro.ibpm.mercury.business.data.api.ConnectionStatus;
 import pro.ibpm.mercury.business.data.api.ICaseBusiness;
 import pro.ibpm.mercury.business.data.api.ICaseBusinessXML;
 import pro.ibpm.mercury.business.data.api.IMrcCase;
@@ -46,7 +47,7 @@ import pro.ibpm.mercury.ws.server.api.actions.business.data.ICaseBusinessAction;
 import pro.ibpm.mercury.ws.server.api.returns.DtoMrcDataUtils;
 import pro.ibpm.mercury.ws.server.api.returns.DtoMrcList;
 import pro.ibpm.mercury.ws.server.api.returns.DtoMrcObject;
-import pro.ibpm.mercury.ws.server.api.returns.IWsStatus;
+import pro.ibpm.mercury.ws.server.api.returns.WsConnectionStatus;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatus;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithBpmCaseHistoryStreamDtos;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithLongValue;
@@ -74,17 +75,42 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	public static final int FIRST_ITERATION = 0;
 
 	/**
-	 * parametr mówiący o tym, czy usługa klienta wykorzystuje usługi "remoting"
-	 * (nie SOAP). Dla usług pobierających XML ma to znaczenie, bo pobieranie wyniku
-	 * w postaci XML dla "remoting" się nie opłaca. Lepiej pobrać MrcObject i
-	 * przekształcić go do XML'a już lokalnie. Z kolei dla usług SOAP lepiej pobrać
-	 * dokument XML. Nasza implementacja klienta nastawiona jest na komunikację
-	 * "remoting" zatem domyślna wartość to {@code true}.
+	 * parametr mówiący o tym, czy usługa klienta wykorzystuje usługi "remoting" (nie SOAP). Dla usług pobierających XML
+	 * ma to znaczenie, bo pobieranie wyniku w postaci XML dla "remoting" się nie opłaca. Lepiej pobrać MrcObject i
+	 * przekształcić go do XML'a już lokalnie. Z kolei dla usług SOAP lepiej pobrać dokument XML. Nasza implementacja
+	 * klienta nastawiona jest na komunikację "remoting" zatem domyślna wartość to {@code true}.
 	 */
 	private Boolean isRemote = true;
 
+	@Override
+	public ConnectionStatus echoStatus(Context context, final String someText) {
+		String helloWorld = "Hello world!";
+		if (StringUtils.isNotBlank(someText)) {
+			helloWorld = someText;
+		}
+		ConnectionStatus connectionStatus = new ConnectionStatus();
+		try {
+			WsConnectionStatus result = getService(context).echo(context, helloWorld);
+			checkWsStatus(result);
+			connectionStatus.setErrorCode(result.getErrorCode());
+			connectionStatus.setErrorMessage(result.getErrorMessage());
+			connectionStatus.setLuceneModelVersion(result.getLuceneModelVersion());
+			connectionStatus.setSoapAPIVersion(result.getSoapAPIVersion());
+			connectionStatus.setStatus(helloWorld.equals(result.getValue()));
+		} catch (MercuryException e) {
+			connectionStatus.setErrorCode(e.getErrorCode());
+			connectionStatus.setErrorMessage(e.getMessage());
+			connectionStatus.setStatus(false);
+		} catch (Exception e) {
+			connectionStatus.setErrorCode(InternalErrorException.ERROR_CODE);
+			connectionStatus.setErrorMessage(e.getMessage());
+			connectionStatus.setStatus(false);
+		} 
+		return connectionStatus;
+	}
+
 	protected DtoMrcList getDtoList(final WsStatusWithMrcList wsStatusWithDto) throws MercuryException {
-		if (checkWsStatus((IWsStatus) wsStatusWithDto)) {
+		if (checkWsStatus(wsStatusWithDto)) {
 			if (logger.isDebugEnabled()) {
 				logger.debug("-->getDtoList: status: {}", StringUtils.isBlank(wsStatusWithDto.getErrorMessage()) ? "OK"
 						: wsStatusWithDto.getErrorMessage());
@@ -98,15 +124,15 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	 * @return the {@link #isRemote}
 	 */
 	public Boolean getIsRemote() {
-		return isRemote == null || isRemote.booleanValue();
+		return isRemote == null || isRemote;
 	}
 
 	/**
 	 * @param isRemote
-	 *            the {@link #isRemote} to set
+	 *                 the {@link #isRemote} to set
 	 */
 	public void setIsRemote(Boolean isRemote) {
-		this.isRemote = isRemote == null || isRemote.booleanValue();
+		this.isRemote = isRemote == null || isRemote;
 	}
 
 	@Override
@@ -188,8 +214,8 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 			cDateFrom = new CaseDate();
 			CaseDateUtils.setDateValue(cDateFrom, dateFrom);
 		}
-		WsStatusWithMrcObject result = getService(context).searchInDB(context, paramsMap, mode, objectId, versionSeriesId,
-				gc2pList, header, cDateFrom, cDateTo, getOnlyLastCase, (PageTransportable) page);
+		WsStatusWithMrcObject result = getService(context).searchInDB(context, paramsMap, mode, objectId,
+				versionSeriesId, gc2pList, header, cDateFrom, cDateTo, getOnlyLastCase, (PageTransportable) page);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
 	}
@@ -205,7 +231,8 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	@Override
 	public MrcPagedResult searchLuceneByQuery(Context context, String query, IPage page) throws MercuryException {
-		WsStatusWithMrcObject result = getService(context).searchLuceneByQuery(context, query, (PageTransportable) page);
+		WsStatusWithMrcObject result = getService(context).searchLuceneByQuery(context, query,
+				(PageTransportable) page);
 		DtoMrcObject dtoObject = getDto(result);
 		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
 	}
@@ -332,11 +359,12 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Document searchLuceneByQueryXML(Context context, String query, IPage page) throws MercuryException {
-		if (getIsRemote()) {
+		if (getIsRemote().booleanValue()) {
 			MrcPagedResult mrcPagedResult = searchLuceneByQuery(context, query, (PageTransportable) page);
 			return loadMrcPagedResultXML(context, mrcPagedResult);
 		} else {
-			WsStatusWithXML result = getService(context).searchLuceneByQueryXML(context, query, (PageTransportable) page);
+			WsStatusWithXML result = getService(context).searchLuceneByQueryXML(context, query,
+					(PageTransportable) page);
 			return WsStatusUtils.createDocument(result);
 		}
 	}
@@ -344,7 +372,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Document findLastByBpmIdXML(Context context, Long bpmProcessId) throws MercuryException {
-		if (getIsRemote()) {
+		if (getIsRemote().booleanValue()) {
 			MrcObject mrcObject = findLastByBpmId(context, bpmProcessId);
 			return loadMrcObjectXML(context, mrcObject);
 		} else {
@@ -356,7 +384,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Document findByGroupCaseIdsXML(Context context, List<Long> groupCaseIds) throws MercuryException {
-		if (getIsRemote()) {
+		if (getIsRemote().booleanValue()) {
 			MrcList mrcList = findByGroupCaseIds(context, groupCaseIds);
 			return loadMrcListXML(context, mrcList);
 		} else {
@@ -383,7 +411,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	@Override
 	public Document loadLastUpdatedXML(Context context, IPage page) throws MercuryException {
-		if (getIsRemote()) {
+		if (getIsRemote().booleanValue()) {
 			MrcPagedResult mrcPagedResult = loadLastUpdated(context, page);
 			return loadMrcPagedResultXML(context, mrcPagedResult);
 		} else {
@@ -395,7 +423,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public Document loadLastUpdatedByTypeCodesXML(Context context, Set<String> typeCodes, IPage page)
 			throws MercuryException {
-		if (getIsRemote()) {
+		if (getIsRemote().booleanValue()) {
 			MrcPagedResult mrcPagedResult = loadLastUpdatedByTypeCodes(context, typeCodes, page);
 			return loadMrcPagedResultXML(context, mrcPagedResult);
 		} else {
@@ -417,7 +445,8 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public Document searchLuceneWithQueriesXML(Context context, Map<String, String> queriesMap, IPage page)
 			throws MercuryException {
-		WsStatusWithXML result = getService(context).searchLuceneWithQueriesXML(context, queriesMap, (PageTransportable) page);
+		WsStatusWithXML result = getService(context).searchLuceneWithQueriesXML(context, queriesMap,
+				(PageTransportable) page);
 		return WsStatusUtils.createDocument(result);
 	}
 
@@ -425,7 +454,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public Long getSystemChangeNumber(Context context, Long caseId) throws MercuryException {
 		WsStatusWithLongValue result = getService(context).getSystemChangeNumber(context, caseId);
-		if (checkWsStatus((IWsStatus) result)) {
+		if (checkWsStatus(result)) {
 			return result.getValue();
 		}
 		return null;
@@ -435,9 +464,9 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public MrcSimplePropertyMapGroupedByCaseId getCaseParamsByParamNames(Context context, Long caseId,
 			Set<String> fields) throws MercuryException {
-		WsStatusWithMrcSimplePropertyMapGroupedByCaseIdDto result = getService(context).getCaseParamsByParamNames(context,
-				caseId, fields);
-		if (checkWsStatus((IWsStatus) result)) {
+		WsStatusWithMrcSimplePropertyMapGroupedByCaseIdDto result = getService(context)
+				.getCaseParamsByParamNames(context, caseId, fields);
+		if (checkWsStatus(result)) {
 			return result.getDto();
 		}
 		return null;
@@ -447,9 +476,9 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public MrcSimplePropertyMapGroupedByCaseId updateCaseParamsByParams(Context context,
 			MrcSimplePropertyMapGroupedByCaseId mrcSimplePropertyMapGroupedByCaseId) throws MercuryException {
-		WsStatusWithMrcSimplePropertyMapGroupedByCaseIdDto result = getService(context).updateCaseParamsByParams(context,
-				mrcSimplePropertyMapGroupedByCaseId);
-		if (checkWsStatus((IWsStatus) result)) {
+		WsStatusWithMrcSimplePropertyMapGroupedByCaseIdDto result = getService(context)
+				.updateCaseParamsByParams(context, mrcSimplePropertyMapGroupedByCaseId);
+		if (checkWsStatus(result)) {
 			return result.getDto();
 		}
 		return null;
@@ -459,7 +488,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public Long checkCaseStatus(Context context, Long caseId) throws MercuryException {
 		WsStatusWithLongValue result = getService(context).checkCaseStatus(context, caseId);
-		if (checkWsStatus((IWsStatus) result)) {
+		if (checkWsStatus(result)) {
 			return result.getValue();
 		}
 		return null;
@@ -469,7 +498,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public Map<String, String> validateMrcObject(Context context, Case entityObject) throws MercuryException {
 		WsStatusWithMapString2String result = getService(context).validateMrcObject(context, entityObject);
-		if (checkWsStatus((IWsStatus) result)) {
+		if (checkWsStatus(result)) {
 			return result.getMap();
 		}
 		return Collections.emptyMap();
@@ -478,9 +507,9 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public List<MrcSimplePropertyMapGroupedByCaseId> updateCasesParamsByParams(Context context,
 			List<MrcSimplePropertyMapGroupedByCaseId> mrcSimplePropertyMapsGroupedByCaseId) throws MercuryException {
-		WsStatusWithMrcSimplePropertyMapGroupedByCaseIdDtos result = getService(context).updateCasesParamsByParams(context,
-				mrcSimplePropertyMapsGroupedByCaseId);
-		if (checkWsStatus((IWsStatus) result)) {
+		WsStatusWithMrcSimplePropertyMapGroupedByCaseIdDtos result = getService(context)
+				.updateCasesParamsByParams(context, mrcSimplePropertyMapsGroupedByCaseId);
+		if (checkWsStatus(result)) {
 			return new ArrayList<>(result.getDtos());
 		}
 		return Collections.emptyList();
@@ -490,7 +519,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	public List<MrcCaseHistoryStream> loadCaseHistoryStream(Context context, Long caseId, Boolean isAsc)
 			throws MercuryException {
 		WsStatusWithMrcCaseHistoryStreamDtos result = getService(context).loadCaseHistoryStream(context, caseId, isAsc);
-		if (checkWsStatus((IWsStatus) result)) {
+		if (checkWsStatus(result)) {
 			return (result.getDtos() != null ? new ArrayList<MrcCaseHistoryStream>(result.getDtos())
 					: new ArrayList<MrcCaseHistoryStream>());
 		}
@@ -502,7 +531,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 			Set<String> bpmTaskStatuses, Boolean isAsc) throws MercuryException {
 		WsStatusWithBpmCaseHistoryStreamDtos result = getService(context).loadBpmCaseHistoryStream(context, caseId,
 				bpmTaskStatuses, isAsc);
-		if (checkWsStatus((IWsStatus) result)) {
+		if (checkWsStatus(result)) {
 			return (result.getDtos() != null ? new ArrayList<BpmCaseHistoryStream>(result.getDtos())
 					: new ArrayList<BpmCaseHistoryStream>());
 		}
@@ -510,9 +539,8 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	}
 
 	/**
-	 * @deprecated metoda przestarzała. Obecnie istnieje usługa dedykowana do
-	 *             wykonywania tej operacji. Zobacz implementację
-	 *             {@link CaseHistoryTraceBusiness}
+	 * @deprecated metoda przestarzała. Obecnie istnieje usługa dedykowana do wykonywania tej operacji. Zobacz
+	 *             implementację {@link CaseHistoryTraceBusiness}
 	 */
 	@Override
 	@Deprecated
@@ -523,9 +551,8 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	}
 
 	/**
-	 * @deprecated metoda przestarzała. Obecnie istnieje usługa dedykowana do
-	 *             wykonywania tej operacji. Zobacz implementację
-	 *             {@link CaseHistoryTraceBusiness}
+	 * @deprecated metoda przestarzała. Obecnie istnieje usługa dedykowana do wykonywania tej operacji. Zobacz
+	 *             implementację {@link CaseHistoryTraceBusiness}
 	 */
 	@Override
 	@Deprecated
@@ -537,7 +564,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public List<MrcComment> loadCaseComments(Context context, Long caseId, Boolean isAsc) throws MercuryException {
 		WsStatusWithMrcCommentDtos result = getService(context).loadCaseComments(context, caseId, isAsc);
-		if (checkWsStatus((IWsStatus) result)) {
+		if (checkWsStatus(result)) {
 			return (result.getDtos() != null ? new ArrayList<MrcComment>(result.getDtos())
 					: new ArrayList<MrcComment>());
 		}
@@ -547,7 +574,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public List<MrcQuickTask> loadCaseQuickTasks(Context context, Long caseId, Boolean isAsc) throws MercuryException {
 		WsStatusWithMrcQuickTaskDtos result = getService(context).loadCaseQuickTasks(context, caseId, isAsc);
-		if (checkWsStatus((IWsStatus) result)) {
+		if (checkWsStatus(result)) {
 			return (result.getDtos() != null ? new ArrayList<MrcQuickTask>(result.getDtos())
 					: new ArrayList<MrcQuickTask>());
 		}
@@ -558,7 +585,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	public List<MrcCaseDocument> loadCaseDocuments(Context context, Long caseId, Boolean isAsc)
 			throws MercuryException {
 		WsStatusWithMrcCaseDocumentDtos result = getService(context).loadCaseDocuments(context, caseId, isAsc);
-		if (checkWsStatus((IWsStatus) result)) {
+		if (checkWsStatus(result)) {
 			return (result.getDtos() != null ? new ArrayList<MrcCaseDocument>(result.getDtos())
 					: new ArrayList<MrcCaseDocument>());
 		}
@@ -679,7 +706,8 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	@Override
 	public Long changeModel(Context context, Long fromTypeId, Long toTypeId, boolean forceAddStore2Type)
 			throws MercuryException {
-		WsStatusWithLongValue wsStatus = getService(context).changeModel(context, fromTypeId, toTypeId, forceAddStore2Type);
+		WsStatusWithLongValue wsStatus = getService(context).changeModel(context, fromTypeId, toTypeId,
+				forceAddStore2Type);
 		checkWsStatus(wsStatus);
 		return wsStatus.getValue();
 	}
