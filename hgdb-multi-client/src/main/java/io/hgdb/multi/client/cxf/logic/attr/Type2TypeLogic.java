@@ -3,7 +3,7 @@ package io.hgdb.multi.client.cxf.logic.attr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.hgdb.multi.client.registry.IClientDynamicRegistry;
+import io.hgdb.multi.client.registry.api.IHttpInvokerProxyFactoryRegistry;
 import pro.ibpm.mercury.context.Context;
 import pro.ibpm.mercury.ws.server.api.actions.attr.IType2TypeAction;
 
@@ -13,7 +13,7 @@ public class Type2TypeLogic extends io.hgdb.mercury.client.cxf.logic.attr.Type2T
 	private static final long serialVersionUID = -5848447742838991758L;
 	
 	@Autowired
-	private IClientDynamicRegistry httpClientDynamicRegistry;
+	private IHttpInvokerProxyFactoryRegistry httpClientDynamicRegistry;
 
 	@Override
 	public IType2TypeAction getService(Context context) {

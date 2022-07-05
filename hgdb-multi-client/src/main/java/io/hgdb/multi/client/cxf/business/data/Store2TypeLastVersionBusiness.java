@@ -3,7 +3,7 @@ package io.hgdb.multi.client.cxf.business.data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.hgdb.multi.client.registry.IClientDynamicRegistry;
+import io.hgdb.multi.client.registry.api.IHttpInvokerProxyFactoryRegistry;
 import pro.ibpm.mercury.context.Context;
 import pro.ibpm.mercury.ws.server.api.actions.business.data.IStore2TypeLastVersionBusinessAction;
 
@@ -14,7 +14,7 @@ public class Store2TypeLastVersionBusiness
 	private static final long serialVersionUID = 1257312697702742899L;
 
 	@Autowired
-	private IClientDynamicRegistry httpClientDynamicRegistry;
+	private IHttpInvokerProxyFactoryRegistry httpClientDynamicRegistry;
 
 	@Override
 	public IStore2TypeLastVersionBusinessAction getService(Context context) {

@@ -3,7 +3,7 @@ package io.hgdb.multi.client.cxf.logic.data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.hgdb.multi.client.registry.IClientDynamicRegistry;
+import io.hgdb.multi.client.registry.api.IHttpInvokerProxyFactoryRegistry;
 import pro.ibpm.mercury.context.Context;
 import pro.ibpm.mercury.ws.server.api.actions.data.IQuickTaskAction;
 
@@ -13,7 +13,7 @@ public class QuickTaskLogic extends io.hgdb.mercury.client.cxf.logic.data.QuickT
 	private static final long serialVersionUID = 392117914830455675L;
 	
 	@Autowired
-	private IClientDynamicRegistry httpClientDynamicRegistry;
+	private IHttpInvokerProxyFactoryRegistry httpClientDynamicRegistry;
 
 	@Override
 	public IQuickTaskAction getService(Context context) {

@@ -3,7 +3,7 @@ package io.hgdb.multi.client.cxf.logic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.hgdb.multi.client.registry.IClientDynamicRegistry;
+import io.hgdb.multi.client.registry.api.IHttpInvokerProxyFactoryRegistry;
 import pro.ibpm.mercury.context.Context;
 import pro.ibpm.mercury.ws.server.api.actions.INotyficationAction;
 
@@ -11,7 +11,7 @@ import pro.ibpm.mercury.ws.server.api.actions.INotyficationAction;
 public class NotyficationLogic extends io.hgdb.mercury.client.cxf.logic.NotyficationLogic {
 
 	@Autowired
-	private IClientDynamicRegistry httpClientDynamicRegistry;
+	private IHttpInvokerProxyFactoryRegistry httpClientDynamicRegistry;
 
 	@Override
 	public INotyficationAction getService(Context context) {

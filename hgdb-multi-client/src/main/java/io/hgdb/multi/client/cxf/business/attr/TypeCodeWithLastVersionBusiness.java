@@ -3,7 +3,7 @@ package io.hgdb.multi.client.cxf.business.attr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.hgdb.multi.client.registry.IClientDynamicRegistry;
+import io.hgdb.multi.client.registry.api.IHttpInvokerProxyFactoryRegistry;
 import pro.ibpm.mercury.context.Context;
 import pro.ibpm.mercury.ws.server.api.actions.business.attr.ITypeCodeWithLastVersionBusinessAction;
 
@@ -14,7 +14,7 @@ public class TypeCodeWithLastVersionBusiness
 	private static final long serialVersionUID = -4416029802294033514L;
 
 	@Autowired
-	private IClientDynamicRegistry httpClientDynamicRegistry;
+	private IHttpInvokerProxyFactoryRegistry httpClientDynamicRegistry;
 
 	@Override
 	public ITypeCodeWithLastVersionBusinessAction getService(Context context) {

@@ -9,7 +9,7 @@ import org.w3c.dom.Document;
 import io.hgdb.mercury.client.cxf.WsClient;
 import io.hgdb.multi.client.cxf.business.data.api.ICaseSearchBusiness;
 import io.hgdb.multi.client.cxf.business.data.api.ICaseSearchBusinessXML;
-import io.hgdb.multi.client.registry.IClientDynamicRegistry;
+import io.hgdb.multi.client.registry.api.IHttpInvokerProxyFactoryRegistry;
 import pro.ibpm.mercury.business.data.api.CaseNarrative;
 import pro.ibpm.mercury.business.data.api.MrcPagedResult;
 import pro.ibpm.mercury.business.data.utils.XMLReaderHelper;
@@ -35,7 +35,7 @@ public class CaseSearchBusiness extends WsClient<ICaseSearchAction>
 		implements ICaseSearchBusiness, ICaseSearchBusinessXML {
 
 	@Autowired
-	private IClientDynamicRegistry httpClientDynamicRegistry;
+	private IHttpInvokerProxyFactoryRegistry httpClientDynamicRegistry;
 
 	@Override
 	public ICaseSearchAction getService(Context context) {

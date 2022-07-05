@@ -3,7 +3,7 @@ package io.hgdb.multi.client.cxf.logic.data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.hgdb.multi.client.registry.IClientDynamicRegistry;
+import io.hgdb.multi.client.registry.api.IHttpInvokerProxyFactoryRegistry;
 import pro.ibpm.mercury.context.Context;
 import pro.ibpm.mercury.ws.server.api.actions.data.ICaseAction;
 
@@ -13,7 +13,7 @@ public class CaseLogic extends io.hgdb.mercury.client.cxf.logic.data.CaseLogic {
 	private static final long serialVersionUID = 2261371623289052495L;
 
 	@Autowired
-	private IClientDynamicRegistry httpClientDynamicRegistry;
+	private IHttpInvokerProxyFactoryRegistry httpClientDynamicRegistry;
 
 	@Override
 	public ICaseAction getService(Context context) {
