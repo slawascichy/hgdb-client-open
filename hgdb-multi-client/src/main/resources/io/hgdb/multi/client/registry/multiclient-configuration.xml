@@ -16,7 +16,9 @@
 
 	<bean id="httpClientDynamicRegistry" scope="singleton"
 		lazy-init="false"
-		class="io.hgdb.multi.client.registry.HttpInvokerProxyFactoryDynamicRegistry">
+		class="io.hgdb.multi.client.registry.HttpInvokerProxyFactoryDynamicRegistry"
+		init-method="init">
+		<property name="initBeans" value="false"/>
 		<property name="interface2conextUrlMap">
 			<props>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.data.ICaseAction">/CaseAction</prop>
@@ -89,7 +91,9 @@
 	
 	<bean id="rmiClientDynamicRegistry" scope="singleton"
 		lazy-init="false"
-		class="io.hgdb.multi.client.registry.RmiProxyFactoryDynamicRegistry">
+		class="io.hgdb.multi.client.registry.RmiProxyFactoryDynamicRegistry"
+		init-method="init">
+		<property name="initBeans" value="false"/>
 		<property name="interface2conextUrlMap">
 			<props>
 				<prop key="org.mercury.rmi.server.api.actions.IFileTransferRMI">/filetransferrmi</prop>
