@@ -5,11 +5,10 @@ import java.util.Calendar;
 import org.aopalliance.intercept.MethodInvocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.remoting.rmi.RmiProxyFactoryBean;
+import org.spring.remoting.rmi.RmiProxyFactoryBean;
 
 import io.hgdb.multi.client.registry.error.IRmiProxyFactoryErrorHandler;
 
-@SuppressWarnings("deprecation")
 public class MRmiProxyFactoryBean extends RmiProxyFactoryBean {
 
 	protected final Logger localLogger = LoggerFactory.getLogger(MRmiProxyFactoryBean.class);

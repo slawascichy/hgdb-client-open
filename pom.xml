@@ -421,6 +421,50 @@
 		<!-- Mercury - START -->
 		<dependency>
 			<groupId>io.hgdb.mercury</groupId>
+			<artifactId>mercury-spring-remoting</artifactId>
+			<version>${mercury.project.version}</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>pl.slawas</groupId>
+					<artifactId>schelper</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>pl.slawas</groupId>
+					<artifactId>scjdbc4jpa</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.xmlbeans</groupId>
+					<artifactId>xmlbeans-xmlpublic</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.cxf</groupId>
+					<artifactId>cxf-rt-databinding-aegis</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-ooxml</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-excelant</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-ooxml-schemas</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-scratchpad</artifactId>
+				</exclusion>
+			</exclusions>			
+		</dependency>
+		<dependency>
+			<groupId>io.hgdb.mercury</groupId>
 			<artifactId>mercury-core</artifactId>
 			<version>${mercury.project.version}</version>
 			<scope>provided</scope>

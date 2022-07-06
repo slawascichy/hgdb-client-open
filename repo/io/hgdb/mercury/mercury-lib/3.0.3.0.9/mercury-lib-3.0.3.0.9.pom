@@ -31,7 +31,7 @@
 		<project.system.libs>${local-project-workspace-path}/mercury-lib/integrations</project.system.libs>
 		<project.local.repo>${local-project-workspace-path}/mercury-lib/repo</project.local.repo>
 		<site.out.dir>${local-project-workspace-path}/mercury-lib/site</site.out.dir>
-		<!-- SPRING -->
+		<!-- SPRING --> 
 		<org.springframework.version>2.5.6</org.springframework.version>
 		<spring.ws.version>1.5.10</spring.ws.version>
 		<spring.test.version>2.5.6</spring.test.version>
@@ -705,13 +705,15 @@
 		<!-- Spring MVC for Portlet Environments (depends on spring-core, spring-beans, 
 			spring-context, spring-web) Define this if you use Spring MVC with a Portlet 
 			Container (org.springframework.web.portlet.*) -->
+		<!-- 			
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc-portlet</artifactId>
 			<version>${org.springframework.version}</version>
 			<scope>${dependency.scope}</scope>
 		</dependency>
-
+ 		-->
+ 
 		<!-- Support for testing Spring applications with tools such as JUnit and 
 			TestNG This artifact is generally always defined with a 'test' scope for 
 			the integration testing framework and unit testing stubs -->
@@ -880,6 +882,7 @@
 	</dependencies>
 
 	<modules>
+		<module>mercury-spring-remoting</module>
 		<module>mercury-core</module>
 		<module>mercury-entities-dto-generator</module>
 		<module>mercury-entities</module>
