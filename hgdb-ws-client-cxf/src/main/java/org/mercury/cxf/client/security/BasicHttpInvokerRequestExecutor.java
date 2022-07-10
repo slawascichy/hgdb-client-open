@@ -5,8 +5,8 @@ import java.net.HttpURLConnection;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
-import org.spring.remoting.httpinvoker.HttpInvokerRequestExecutor;
-import org.spring.remoting.httpinvoker.SimpleHttpInvokerRequestExecutor;
+import org.spring4hgdb.remoting.httpinvoker.HttpInvokerRequestExecutor;
+import org.spring4hgdb.remoting.httpinvoker.SimpleHttpInvokerRequestExecutor;
 
 public class BasicHttpInvokerRequestExecutor extends SimpleHttpInvokerRequestExecutor
 		implements HttpInvokerRequestExecutor {

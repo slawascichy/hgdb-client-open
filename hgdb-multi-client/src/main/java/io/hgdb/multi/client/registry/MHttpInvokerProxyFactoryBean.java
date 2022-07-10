@@ -5,7 +5,7 @@ import java.util.Calendar;
 import org.aopalliance.intercept.MethodInvocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.spring.remoting.httpinvoker.HttpInvokerProxyFactoryBean;
+import org.spring4hgdb.remoting.httpinvoker.HttpInvokerProxyFactoryBean;
 
 import io.hgdb.multi.client.registry.error.IHttpInvokerProxyFactoryErrorHandler;
 

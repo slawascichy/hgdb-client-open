@@ -5,27 +5,27 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>io.hgdb.mercury</groupId>
-		<artifactId>mercury-lib</artifactId>
-		<version>3.0.3-SNAPSHOT</version>
+		<groupId>io.hgdb</groupId>
+		<artifactId>mercury</artifactId>
+		<version>3.0.1-SNAPSHOT</version>
 	</parent>
+	<groupId>io.hgdb.mercury</groupId>
 	<artifactId>hgdb-rmi-server-api</artifactId>
 	<name>hgdb-rmi-server-api</name>
 	<description>API dla  usług RMI.</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<site.out.dir>${local-project-workspace-path}/mercury-lib/site/${project.artifactId}</site.out.dir>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>io.hgdb.mercury</groupId>
 			<artifactId>mercury-core</artifactId>
-			<version>${project.version}</version>
+			<version>${mercury.static.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.hgdb.mercury</groupId>
 			<artifactId>mercury-entities</artifactId>
-			<version>${project.version}</version>
+			<version>${databse.provider}-${mercury.static.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>io.hgdb.mercury</groupId>
@@ -36,7 +36,7 @@
 		<dependency>
 			<groupId>io.hgdb.mercury</groupId>
 			<artifactId>mercury-srv-api</artifactId>
-			<version>${project.version}</version>
+			<version>${mercury.static.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>io.hgdb.mercury</groupId>

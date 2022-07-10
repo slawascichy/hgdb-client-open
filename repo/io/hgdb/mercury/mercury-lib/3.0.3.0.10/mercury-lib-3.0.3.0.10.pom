@@ -94,7 +94,7 @@
 		<junit.version>4.13.1</junit.version>
 		<!-- używane w modułach: mercury-ws-server-api, mercury-ws-server oraz 
 			mercury-ws-app w celu spójności kompilacji dla cxf'a -->
-		<mercury.static.version>3.0.2.0.2</mercury.static.version>
+		<mercury.static.version>${project.version}</mercury.static.version>
 		<!-- Możliwe wartości: MYSQL,ORACLE,POSTGRESQL,DB2,MSSQL,HSQL Zobacz implementację 
 			pro.ibpm.mercury.entities.DbDialect -->
 		<databse.provider>POSTGRESQL</databse.provider>
@@ -889,7 +889,6 @@
 		<module>mercury-srv-api</module>
 		<module>mercury-ws-dto-api</module>
 		<module>mercury-ws-server-api</module>
-    <module>hgdb-rmi-server-api</module>
   </modules>
 
 </project>
