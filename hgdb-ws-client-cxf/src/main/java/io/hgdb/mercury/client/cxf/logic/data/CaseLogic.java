@@ -40,79 +40,77 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 
 	private static final long serialVersionUID = 6830844704517933475L;
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public Case insert(Context context, final Case e) throws MercuryException {
 		return getEntity(context, getService(context).insert(context, e, /* forceAddStore2Type */false));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public EntityList<Case, Long> insertList(Context context, List<Case> eBag) throws MercuryException {
 		return getEntityCollection(context, getService(context).insertBag(context, eBag, /* forceAddStore2Type */
 				false));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public Long remove(Context context, final Case e) throws MercuryException {
 		return getId(getService(context).remove(context, e), e);
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public List<Long> removeList(Context context, final List<Case> eBag) throws MercuryException {
 		return getIds(getService(context).removeBag(context, eBag), eBag);
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public Case find(Context context, final Long pk) throws MercuryException {
 		return getEntity(context, getService(context).findByKey(context, pk));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public Case findFirst(Context context) throws MercuryException {
 		return getEntity(context, getService(context).findFirst(context));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public Case update(Context context, Case e) throws MercuryException {
 		return getEntity(context, getService(context).update(context, e, /* forceAddStore2Type */false));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public EntityList<Case, Long> updateList(Context context, List<Case> eBag) throws MercuryException {
 		return getEntityCollection(context, getService(context).updateBag(context, eBag, /* forceAddStore2Type */
 				false));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public Case findLastByBpmId(Context context, Long bpmId) throws MercuryException {
-		return getEntity(context, getService(context).findLastByBpmId(context, (bpmId == null) ? null : bpmId.toString()));
+		return getEntity(context,
+				getService(context).findLastByBpmId(context, (bpmId == null) ? null : bpmId.toString()));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public Case findLastVersion(Context context, Long rootVersionId) throws MercuryException {
 		return getEntity(context, getService(context).findLastVersion(context, rootVersionId));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public Map<String, SearchFieldSimple> getLuceneSearchableFields(Context context) throws MercuryException {
 		final Map<String, SearchFieldSimple> map = getMap(getService(context).getLuceneSearchableFields(context));
 		return (map == null) ? null : new HashMap<>(map);
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	public IPagedResult<Case, IPage> searchIndex(Context context, String query, IPage page) throws MercuryException {
-		return getPagedResult(context,
-				(IWsStatusWithPagedResult) getService(context).searchLuceneByQuery(context, query, (PageTransportable) page));
-	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	public IPagedResult<Case, IPage> searchIndex(Context context, Map<String, String> paramsMap, CredentialsMode mode,
-			IPage page) throws MercuryException {
-		return getPagedResult(context, (IWsStatusWithPagedResult) getService(context).searchLuceneByParams(context, paramsMap,
-				(mode == null) ? null : mode.toString(), (PageTransportable) page));
-	}
-
+	/* Overridden (non-Javadoc) */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public IPagedResult<Case, IPage> search(Context context, Map<String, String> paramsMap, CredentialsMode mode,
@@ -134,6 +132,7 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 						cDateFrom, cDateTo, /* dateAction */null, getOnlyLastCase, (PageTransportable) page));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public IPagedResult<Case, IPage> search(Context context, Map<String, String> paramsMap, CredentialsMode mode,
@@ -171,6 +170,7 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 						(PageTransportable) page));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public IPagedResult<Case, IPage> search(Context context, Map<String, String> paramsMap, CredentialsMode mode,
@@ -214,6 +214,7 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 						(PageTransportable) page));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public IPagedResult<Case, IPage> search(Context context, Map<String, String> paramsMap, CredentialsMode mode,
@@ -251,6 +252,7 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 						(PageTransportable) page));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public IPagedResult<Case, IPage> search(Context context, Map<String, String> paramsMap, CredentialsMode mode,
@@ -289,6 +291,7 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 						(PageTransportable) page));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public IPagedResult<Case, IPage> filterPaged(Context context, Case e, IPage page) throws MercuryException {
@@ -296,26 +299,31 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 				(IWsStatusWithPagedResult) getService(context).filterPaged(context, e, (PageTransportable) page));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public List<Case> findByIdList(Context context, List<Long> idList) throws MercuryException {
 		return getEntityCollection(context, getService(context).findByKeyBag(context, idList));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public List<Case> findAll(Context context) throws MercuryException {
 		return getEntityCollection(context, getService(context).findAll(context));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public Case insert(Context context, Case entityObject, boolean forceAddStore2Type) throws MercuryException {
 		return getEntity(context, getService(context).insert(context, entityObject, forceAddStore2Type));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public Case update(Context context, Case caseFromUser, boolean forceAddStore2Type) throws MercuryException {
 		return getEntity(context, getService(context).update(context, caseFromUser, forceAddStore2Type));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public EntityList<Case, Long> insertList(Context context, List<Case> entityObjects, boolean forceAddStore2Type)
 			throws MercuryException {
@@ -323,6 +331,7 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 				getService(context).insertBag(context, (Collection<Case>) entityObjects, forceAddStore2Type));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public EntityList<Case, Long> updateList(Context context, List<Case> entityObjects, boolean forceAddStore2Type)
 			throws MercuryException {
@@ -330,6 +339,7 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 				getService(context).updateBag(context, (Collection<Case>) entityObjects, forceAddStore2Type));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public List<Case> findByGroupCaseIds(Context context, List<Long> groupCaseIds) throws MercuryException {
 		return getEntityCollection(context, getService(context).findByGroupCaseIds(context, groupCaseIds));
@@ -377,18 +387,10 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 	/* Overridden (non-Javadoc) */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public IPagedResult<Case, IPage> searchIndex(Context context, Map<String, String> queriesMap, IPage page)
-			throws MercuryException {
-		return getPagedResult(context, (IWsStatusWithPagedResult) getService(context).searchLuceneWithQueries(context,
-				queriesMap, (PageTransportable) page));
-	}
-
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
 	public IPagedResult<Case, IPage> loadLastUpdatedByTypeCodes(Context context, Set<String> typeCodes, IPage page)
 			throws MercuryException {
-		return getPagedResult(context, (IWsStatusWithPagedResult) getService(context).loadLastUpdatedByTypeCodes(context,
-				typeCodes, (PageTransportable) page));
+		return getPagedResult(context, (IWsStatusWithPagedResult) getService(context)
+				.loadLastUpdatedByTypeCodes(context, typeCodes, (PageTransportable) page));
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -402,6 +404,7 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 		return false;
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public Long checkStatus(Context context, Case entityObject) throws MercuryException {
 		if (entityObject.getId() == null) {
@@ -414,30 +417,26 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 		return null;
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
-	public Case searchIndexById(Context context, Long id) throws MercuryException {
-		return getEntity(context, getService(context).searchLuceneById(context, id));
+	public Case searchByLuceneId(Context context, String id) throws MercuryException {
+		return getEntity(context, getService(context).searchByLuceneId(context, id));
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	public IPagedResult<Case, IPage> searchIndexByInventoryCode(Context context, String searchText, IPage page)
-			throws MercuryException {
-		return getPagedResult(context, (IWsStatusWithPagedResult) getService(context).searchLuceneByInventoryCode(context,
-				searchText, (PageTransportable) page));
-	}
-
+	/* Overridden (non-Javadoc) */
 	@Override
 	public Case loadNewestVersion(Context context, Long oldVersionCaseId) throws MercuryException {
 		return getEntity(context, getService(context).loadNewestVersion(context, oldVersionCaseId));
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public void clearQueryCache(Context context) throws MercuryException {
 		WsStatus wsStatus = getService(context).clearQueryCache(context);
 		checkWsStatus(wsStatus);
 	}
 
+	/* Overridden (non-Javadoc) */
 	@Override
 	public Case findActiveByBpmId(Context context, Long bpmProcessId) throws MercuryException {
 		if (bpmProcessId == null) {
@@ -445,4 +444,51 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 		}
 		return getEntity(context, getService(context).findActiveByBpmId(context, bpmProcessId.toString()));
 	}
+
+	/* Overridden (non-Javadoc) */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public IPagedResult<Case, IPage> searchByInventoryCode(Context context, String searchText, IPage page)
+			throws MercuryException {
+		return getPagedResult(context, (IWsStatusWithPagedResult) getService(context).searchByInventoryCode(context,
+				searchText, (PageTransportable) page));
+	}
+
+	/* Overridden (non-Javadoc) */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public IPagedResult<Case, IPage> searchByQuery(Context context, String query, IPage page, String sortClause,
+			String additionalDateRange) throws MercuryException {
+		return getPagedResult(context, (IWsStatusWithPagedResult) getService(context).searchByQuery(context, query,
+				(PageTransportable) page, sortClause, additionalDateRange));
+	}
+
+	/* Overridden (non-Javadoc) */
+	/**
+	 * @deprecated Metoda przestarzała, do usunięcia od wersji 3.0.4.x. Należy używać metody
+	 *             {@link #searchByQuery(Context, String, IPage, String, String)}.
+	 */
+	@Deprecated
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public IPagedResult<Case, IPage> searchByParams(Context context, Map<String, String> paramsMap,
+			CredentialsMode mode, IPage page, String sortClause, String additionalDateRange) throws MercuryException {
+		return getPagedResult(context, (IWsStatusWithPagedResult) getService(context).searchByParams(context, paramsMap,
+				(mode == null) ? null : mode.toString(), (PageTransportable) page, sortClause, additionalDateRange));
+	}
+
+	/* Overridden (non-Javadoc) */
+	/**
+	 * @deprecated Metoda przestarzała, do usunięcia od wersji 3.0.4.x. Należy używać metody
+	 *             {@link #searchByQuery(Context, String, IPage, String, String)}.
+	 */
+	@Deprecated
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public IPagedResult<Case, IPage> searchByQueries(Context context, Map<String, String> queriesMap, IPage page,
+			String sortClause, String additionalDateRange) throws MercuryException {
+		return getPagedResult(context, (IWsStatusWithPagedResult) getService(context)
+				.searchLuceneWithQueriesWithSorting(context, queriesMap, (PageTransportable) page, sortClause));
+	}
+
 }

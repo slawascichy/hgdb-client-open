@@ -13,45 +13,4 @@
 	    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
 	default-lazy-init="true">
 
-	<!-- Interceptor logujący czas wykonania metod usług warstwy logicznej i biznesowej - START -->
-	<bean id="springBean.MethodCallLogInterceptor"
-		class="pro.ibpm.mercury.spring.SpringBeanMethodCallLogInterceptor">
-		<description>Rejestrator wywołania metod beanów springowych
-		</description>
-		<property name="loggingByLoggerEnabled"
-			value="${mercury.ws.methodCallByLogEnabled}" />
-	</bean>
-
-	<bean id="springBean.LoggedClassNames" scope="singleton"
-		class="org.springframework.beans.factory.config.ListFactoryBean">
-		<description>Lista masek na nazwy monitorowanych metod</description>
-		<property name="sourceList">
-			<list>
-				<value>io[.]hgdb[.]mercury[.]client[.]cxf[.]logic[.]dict[.].*</value>
-				<value>io[.]hgdb[.]mercury[.]client[.]cxf[.]logic[.]attr[.].*</value>
-				<value>io[.]hgdb[.]mercury[.]client[.]cxf[.]logic[.]data[.].*</value>
-				<value>io[.]hgdb[.]mercury[.]client[.]cxf[.]logic[.]arch[.].*</value>
-				<value>io[.]hgdb[.]mercury[.]client[.]cxf[.]business[.]data[.].*</value>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="springBean.MethodCallPointcut"
-		class="org.springframework.aop.support.JdkRegexpMethodPointcut">
-		<description>Wzorzec nazw metod podlegających monitorowaniu
-		</description>
-		<property name="patterns" ref="springBean.LoggedClassNames" />
-	</bean>
-	
-	<bean
-		class="org.springframework.aop.support.DefaultPointcutAdvisor">
-		<property name="advice" ref="springBean.MethodCallLogInterceptor" />
-		<property name="pointcut" ref="springBean.MethodCallPointcut" />
-	</bean>
-
-	<bean
-		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
-	<!-- Interceptor logujący czas wykonania metod usług warstwy logicznej i biznesowej - KONIEC -->
-	
-	
 </beans>
