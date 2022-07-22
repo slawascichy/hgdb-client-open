@@ -156,7 +156,6 @@ import pro.ibpm.mercury.logic.paging.IPage;
 import pro.ibpm.mercury.logic.paging.IPagedResult;
 import pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmBPDInstanceBufferSecretaryManagerAction;
 import pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmTaskBufferSecretaryManagerAction;
-import pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmTaskNarrativeBufferSecretaryManagerAction;
 import pro.ibpm.mercury.xml.w3c.dom.XMLUtils;
 
 /**
@@ -436,8 +435,7 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 		Integer year;
 
 		/*
-		 * XXX Wyszukiwanie po atrybucie "NazwiskoKlienta": 'Nowak' po zakresie dat
-		 * ważności typów.
+		 * XXX Wyszukiwanie po atrybucie "NazwiskoKlienta": 'Nowak' po zakresie dat ważności typów.
 		 */
 		paramsMap.clear();
 		paramsMap.put("NazwiskoKlienta", "Nowak");
@@ -456,8 +454,7 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 		assertEquals("Niepoprawna ilosc elementow", 0, idS.size());
 
 		/*
-		 * XXX Wyszukiwanie po atrybucie "NazwiskoKlienta": 'Kowalski' dla typów z
-		 * danego roku.
+		 * XXX Wyszukiwanie po atrybucie "NazwiskoKlienta": 'Kowalski' dla typów z danego roku.
 		 */
 		paramsMap.clear();
 		paramsMap.put("NazwiskoKlienta", "Kowalski");
@@ -750,8 +747,8 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 				assert e != null : "Nie znaleziono case ponownie";
 				assert parameterNewValue.equals(e.getParameter(1)) : "Nie zmieniono case.parameter1";
 				assert comment.equals(e.getModifyComment()) : "Nie zmieniono case.comment";
-				assert groupingCode.equals(e.getDocuments().iterator().next()
-						.getGroupingCode()) : "Nie znaleziono case.documents.first.groupingCode";
+				assert groupingCode.equals(e.getDocuments().iterator().next().getGroupingCode())
+						: "Nie znaleziono case.documents.first.groupingCode";
 				logger.info("text={} comment={} documents.first.groupingCode={}", new Object[] { e.getParameter(5),
 						e.getModifyComment(), e.getDocuments().iterator().next().getGroupingCode() });
 
@@ -1060,12 +1057,6 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 	}
 
 	@Test
-	public void testBpmTaskNarrativeBufferSecretaryManager() throws MercuryException, Exception {
-		new SecretaryTest<IBpmTaskNarrativeBufferSecretaryManagerAction>("testBpmTaskNarrativeBufferSecretaryManager",
-				"bpmTaskNarrativeBufferSecretaryManager", null);
-	}
-
-	@Test
 	public void testCaseBusiness() throws MercuryException, Exception {
 
 		final String methodName = "testCaseBusiness";
@@ -1220,8 +1211,7 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 
 	/**
 	 * 
-	 * AnyTest - uruchomienie scenariusza testowego, który testuje następujące
-	 * metody usług:
+	 * AnyTest - uruchomienie scenariusza testowego, który testuje następujące metody usług:
 	 * <ul>
 	 * <li>findFirst</li>
 	 * <li>find (po kluczu głównym)</li>
@@ -1252,13 +1242,13 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 		 * Konstruktor tworzący scenariusz testowania wszystkich wskazanych metod.
 		 * 
 		 * @param methodName
-		 *            nazwa metody uruchamiająca test
+		 *                   nazwa metody uruchamiająca test
 		 * @param beanName
-		 *            nazwa bean'a spring'owego z usługą
+		 *                   nazwa bean'a spring'owego z usługą
 		 * @param beforeTest
-		 *            operacje wykonywane przed testem
+		 *                   operacje wykonywane przed testem
 		 * @param test
-		 *            dodatkowy test uzupełniający scenariusz testowy
+		 *                   dodatkowy test uzupełniający scenariusz testowy
 		 * @throws MercuryException
 		 * @throws Exception
 		 */
@@ -1269,21 +1259,20 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 
 		/**
 		 * 
-		 * Konstruktor tworzący scenariusz testowania wskazanych metod, z możliwością
-		 * pominięcia jednej z nich, np. w przypadku gdy metoda nie jest wspierana przez
-		 * usługę.
+		 * Konstruktor tworzący scenariusz testowania wskazanych metod, z możliwością pominięcia jednej z nich, np. w
+		 * przypadku gdy metoda nie jest wspierana przez usługę.
 		 * 
 		 * @param methodName
-		 *            nazwa metody uruchamiająca test
+		 *                    nazwa metody uruchamiająca test
 		 * @param beanName
-		 *            nazwa bean'a spring'owego z usługą
+		 *                    nazwa bean'a spring'owego z usługą
 		 * @param beforeTest
-		 *            operacje wykonywane przed testem
+		 *                    operacje wykonywane przed testem
 		 * @param test
-		 *            dodatkowy test uzupełniający scenariusz testowy
+		 *                    dodatkowy test uzupełniający scenariusz testowy
 		 * @param skipMethods
-		 *            lista nazw metod, które mają być pominięte w scenariuszu. Możliwe
-		 *            do pominięcia metody to 'findByIdList' oraz 'findAll'
+		 *                    lista nazw metod, które mają być pominięte w scenariuszu. Możliwe do pominięcia metody to
+		 *                    'findByIdList' oraz 'findAll'
 		 * @throws MercuryException
 		 * @throws Exception
 		 */
