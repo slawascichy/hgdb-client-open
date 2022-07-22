@@ -646,21 +646,6 @@
 		<property name="service"
 			ref="springBean.InvokerBpmTaskBufferSecretaryManagerService" />
 	</bean>
-
-	<bean id="springBean.InvokerBpmTaskNarrativeBufferSecretaryManagerService"
-		scope="singleton"
-		class="org.spring4hgdb.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-		<property name="serviceUrl"
-			value="${mercury.ws.url}/BpmTaskNarrativeBufferSecretaryManagerAction" />
-		<property name="serviceInterface"
-			value="pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmTaskNarrativeBufferSecretaryManagerAction" />
-		<!-- property name="httpInvokerRequestExecutor" ref="basicHttpInvokerRequestExecutor"/ -->
-	</bean>
-	<bean id="bpmTaskNarrativeBufferSecretaryManager" scope="singleton"
-		class="io.hgdb.mercury.client.cxf.business.bpm.BpmTaskNarrativeBufferSecretaryManager">
-		<property name="service"
-			ref="springBean.InvokerBpmTaskNarrativeBufferSecretaryManagerService" />
-	</bean>
 	<!-- Sekretarze danych -->
 
 	<!-- CaseBusiness -->

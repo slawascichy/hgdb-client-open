@@ -27,7 +27,6 @@
 
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmBPDInstanceBufferSecretaryManagerAction">/BpmBPDInstanceBufferSecretaryManagerAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmTaskBufferSecretaryManagerAction">/BpmTaskBufferSecretaryManagerAction</prop>
-				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.bpm.IBpmTaskNarrativeBufferSecretaryManagerAction">/BpmTaskNarrativeBufferSecretaryManagerAction</prop>
 
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.data.ICase2CaseBusinessAction">/Case2CaseBusinessAction</prop>
 				<prop key="pro.ibpm.mercury.ws.server.api.actions.business.data.ICaseBusinessAction">/CaseBusinessAction</prop>
