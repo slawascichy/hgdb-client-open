@@ -47,8 +47,8 @@
 		<ccrto-openapi.version>1.2-SNAPSHOT</ccrto-openapi.version>
 
 		<databse.provider>POSTGRESQL</databse.provider>
-		<mercury.project.version>3.0.3.2.9</mercury.project.version>
-		<mercury.client.version>3.1.2.0.1</mercury.client.version>
+		<mercury.project.version>3.0.3.2.12</mercury.project.version>
+		<mercury.client.version>${project.version}</mercury.client.version>
 		<!-- Użycie API Mercury 2.0 -->
 		<!-- 
 		<mercury.api.version>api20</mercury.api.version>
@@ -132,6 +132,11 @@
 				<updatePolicy>never</updatePolicy>
 			</snapshots>
 		</repository>
+	    <repository>
+	      <id>sci-maven</id>
+	      <name>sci-maven</name>
+	      <url>https://nexusrepo.scisoftware.pl/repository/maven-public/</url>
+	    </repository>		
 	</repositories>
 	
 	<reporting>
