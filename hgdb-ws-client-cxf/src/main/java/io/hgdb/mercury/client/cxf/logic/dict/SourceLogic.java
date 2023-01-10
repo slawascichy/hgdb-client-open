@@ -15,7 +15,7 @@ import pro.ibpm.mercury.logic.api.dict.ISourceLogic;
 import pro.ibpm.mercury.ws.server.api.actions.dict.ISourceAction;
 
 /**
- * @author Karol Kowalczyk
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * 
  */
 public class SourceLogic extends

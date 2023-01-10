@@ -3,7 +3,6 @@
  */
 package io.hgdb.mercury.client.cxf.logic.data;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,6 +30,7 @@ import pro.ibpm.mercury.ws.server.api.returns.WsStatus;
  * @version $Revision: 1.1 $
  *
  */
+@SuppressWarnings("java:S110")
 public class CaseDocumentLogic extends WsClientBigDataLogic<CaseDocument, CaseDocumentPK, ICaseDocumentAction>
 		implements ICaseDocumentLogic {
 
@@ -88,7 +88,7 @@ public class CaseDocumentLogic extends WsClientBigDataLogic<CaseDocument, CaseDo
 
 	@Override
 	public List<CaseDocument> findByIdList(Context context, List<CaseDocumentPK> idList) throws MercuryException {
-		return getEntityCollection(context, getService(context).findByKeyBag(context, (Collection<CaseDocumentPK>) idList));
+		return getEntityCollection(context, getService(context).findByKeyBag(context, idList));
 	}
 
 	@Override
@@ -100,11 +100,12 @@ public class CaseDocumentLogic extends WsClientBigDataLogic<CaseDocument, CaseDo
 	@Override
 	public List<CaseDocument> findAllVersionsByCaseAndVerionSeries(Context context, CaseDocument caseDoc)
 			throws MercuryException {
-		return getEntityCollection(context, getService(context).findAllVersionsByCaseAndVersionSeries(context, caseDoc));
+		return getEntityCollection(context,
+				getService(context).findAllVersionsByCaseAndVersionSeries(context, caseDoc));
 	}
 
 	@Override
-	public List<CaseDocument> findAllVersionsByCaseId(Context context, Long caseObjId) throws MercuryException {
+	public List<CaseDocument> findAllVersionsByCaseId(Context context, String caseObjId) throws MercuryException {
 		if (caseObjId != null) {
 			return getEntityCollection(context, getService(context).findAllVersionsByCaseId(context, caseObjId));
 		}
@@ -112,7 +113,7 @@ public class CaseDocumentLogic extends WsClientBigDataLogic<CaseDocument, CaseDo
 	}
 
 	@Override
-	public List<CaseDocument> findLastVersionsByCaseId(Context context, Long caseObjId) throws MercuryException {
+	public List<CaseDocument> findLastVersionsByCaseId(Context context, String caseObjId) throws MercuryException {
 		if (caseObjId != null) {
 			return getEntityCollection(context, getService(context).findLastVersionsByCaseId(context, caseObjId));
 		}
@@ -120,10 +121,11 @@ public class CaseDocumentLogic extends WsClientBigDataLogic<CaseDocument, CaseDo
 	}
 
 	@Override
-	public CaseDocument findLastVersionByCaseAndVerionSeries(Context context, Long caseId, String versionSeriesId)
+	public CaseDocument findLastVersionByCaseAndVerionSeries(Context context, String caseId, String versionSeriesId)
 			throws MercuryException {
 		if (versionSeriesId != null && caseId != null) {
-			return getEntity(context, getService(context).findLastVersionByCaseIdAndSeries(context, caseId, versionSeriesId));
+			return getEntity(context,
+					getService(context).findLastVersionByCaseIdAndSeries(context, caseId, versionSeriesId));
 		}
 		return null;
 	}
@@ -140,7 +142,8 @@ public class CaseDocumentLogic extends WsClientBigDataLogic<CaseDocument, CaseDo
 	@Override
 	public List<CaseDocument> findAllByVersionSeries(Context context, String versionSeriesId) throws MercuryException {
 		if (StringUtils.isNotBlank(versionSeriesId)) {
-			return getEntityCollection(context, getService(context).findAllVersionsByVersionSeries(context, versionSeriesId));
+			return getEntityCollection(context,
+					getService(context).findAllVersionsByVersionSeries(context, versionSeriesId));
 		}
 		return Collections.emptyList();
 	}

@@ -18,6 +18,7 @@ import pro.ibpm.mercury.ws.server.api.actions.data.ICaseHistoryStreamAction;
  * @version $Revision: 1.1 $ 
  *
  */
+@SuppressWarnings("java:S110")
 public class CaseHistoryStreamLogic extends WsClientCustomLogic<CaseHistoryStream, Long, ICaseHistoryStreamAction>
 		implements ICaseHistoryStreamLogic {
 
@@ -55,7 +56,7 @@ public class CaseHistoryStreamLogic extends WsClientCustomLogic<CaseHistoryStrea
 	}
 
 	@Override
-	public List<CaseHistoryStream> findByCaseId(Context context, Long caseId) throws MercuryException {
+	public List<CaseHistoryStream> findByCaseId(Context context, String caseId) throws MercuryException {
 		return getEntityCollection(context, getService(context).findByCaseId(context, caseId));
 	}
 

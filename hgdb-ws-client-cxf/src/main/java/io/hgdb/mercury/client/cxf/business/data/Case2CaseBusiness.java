@@ -14,10 +14,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import io.hgdb.mercury.client.cxf.WsClient;
+import io.hgdb.mercury.client.utils.MrcVariableReaderCollectorUtils;
 import pro.ibpm.mercury.business.data.api.Case2CaseRelationship;
 import pro.ibpm.mercury.business.data.api.ICase2CaseBusiness;
 import pro.ibpm.mercury.business.data.api.ICase2CaseBusinessXML;
 import pro.ibpm.mercury.business.data.api.MrcPagedResult;
+import pro.ibpm.mercury.business.data.utils.MrcVariableReaderCollector;
 import pro.ibpm.mercury.context.Context;
 import pro.ibpm.mercury.dto.paging.PageTransportable;
 import pro.ibpm.mercury.dto.paging.PagedResult;
@@ -32,7 +34,6 @@ import pro.ibpm.mercury.ws.server.api.actions.business.data.ICase2CaseBusinessAc
 import pro.ibpm.mercury.ws.server.api.returns.Case2CaseRelationshipPagedResult;
 import pro.ibpm.mercury.ws.server.api.returns.DtoMrcDataUtils;
 import pro.ibpm.mercury.ws.server.api.returns.DtoMrcObject;
-import pro.ibpm.mercury.ws.server.api.returns.IWsStatus;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatus;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithCase2CaseRelationship;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithCase2CaseRelationshipPagedResult;
@@ -46,13 +47,13 @@ public class Case2CaseBusiness extends WsClient<ICase2CaseBusinessAction>
 
 	protected Element getDtoXMLElement(final WsStatusWithXML wsStatusWithXML) throws MercuryException {
 		Element currElement = null;
-		if (checkWsStatus((IWsStatus) wsStatusWithXML)) {
+		if (checkWsStatus(wsStatusWithXML)) {
 			if (logger.isDebugEnabled()) {
 				logger.debug("-->getDtoXMLElement: status: {}",
 						StringUtils.isBlank(wsStatusWithXML.getErrorMessage()) ? "OK"
 								: wsStatusWithXML.getErrorMessage());
 			}
-			Element response = (Element) wsStatusWithXML.getDto();
+			Element response = wsStatusWithXML.getDto();
 			if (response != null) {
 				String responseNodeName = response.getNodeName();
 				if ("document".equals(responseNodeName)) {
@@ -90,7 +91,7 @@ public class Case2CaseBusiness extends WsClient<ICase2CaseBusinessAction>
 
 	protected IPagedResult<Case2CaseRelationship, IPage> getPagedResult(Context context,
 			final WsStatusWithCase2CaseRelationshipPagedResult wsStatusWithPagedResult) throws MercuryException {
-		if (checkWsStatus((IWsStatus) wsStatusWithPagedResult)) {
+		if (checkWsStatus(wsStatusWithPagedResult)) {
 			if (logger.isDebugEnabled()) {
 				logger.debug("--> getPagedResult: wsStatusWithPagedResult={}", wsStatusWithPagedResult);
 			}
@@ -139,7 +140,7 @@ public class Case2CaseBusiness extends WsClient<ICase2CaseBusinessAction>
 	}
 
 	@Override
-	public Case2CaseRelationship addNodeToMountPoint(Context context, Long caseId, String mountPoint)
+	public Case2CaseRelationship addNodeToMountPoint(Context context, String caseId, String mountPoint)
 			throws MercuryException {
 		WsStatusWithCase2CaseRelationship wsStatusWithDto = getService(context).addNodeToMountPoint(context, caseId,
 				mountPoint);
@@ -147,76 +148,108 @@ public class Case2CaseBusiness extends WsClient<ICase2CaseBusinessAction>
 	}
 
 	@Override
-	public void removeNodeFromMountPoint(Context context, Long caseId, String mountPoint) throws MercuryException {
+	public void removeNodeFromMountPoint(Context context, String caseId, String mountPoint) throws MercuryException {
 		WsStatus result = getService(context).removeNodeFromMountPoint(context, caseId, mountPoint);
 		checkWsStatus(result);
 	}
 
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
-	public MrcPagedResult getAllDependsNodes(Context context, Long caseId, String mountPoint, IPage page,
+	public MrcPagedResult getAllDependsNodes(Context context, String caseId, String mountPoint, IPage page,
 			Integer caseMaxDepth) throws MercuryException {
 		WsStatusWithMrcObject result = getService(context).getAllDependsNodes(context, caseId, mountPoint,
 				(PageTransportable) page, caseMaxDepth);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
-	public MrcPagedResult getAllChildrenNodes(Context context, Long caseId, String mountPoint, IPage page,
+	public MrcPagedResult getAllChildrenNodes(Context context, String caseId, String mountPoint, IPage page,
 			Integer caseMaxDepth) throws MercuryException {
 		WsStatusWithMrcObject result = getService(context).getAllChildrenNodes(context, caseId, mountPoint,
 				(PageTransportable) page, caseMaxDepth);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
-	public MrcPagedResult getAllChildrenNodesWithTheTypeCode(Context context, Long caseId, String typeCode,
+	public MrcPagedResult getAllChildrenNodesWithTheTypeCode(Context context, String caseId, String typeCode,
 			String mountPoint, IPage page, Integer caseMaxDepth) throws MercuryException {
 		WsStatusWithMrcObject result = getService(context).getAllChildrenNodesWithTheTypeCode(context, caseId, typeCode,
 				mountPoint, (PageTransportable) page, caseMaxDepth);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
-	public MrcPagedResult getAllParentsNodes(Context context, Long caseId, String mountPoint, IPage page,
+	public MrcPagedResult getAllParentsNodes(Context context, String caseId, String mountPoint, IPage page,
 			Integer caseMaxDepth) throws MercuryException {
 		WsStatusWithMrcObject result = getService(context).getAllParentsNodes(context, caseId, mountPoint,
 				(PageTransportable) page, caseMaxDepth);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
 	@Override
 	public IPagedResult<Case2CaseRelationship, IPage> getAllByPathStartsWith(Context context, String preffix,
 			String mountPoint, IPage page) throws MercuryException {
-		WsStatusWithCase2CaseRelationshipPagedResult result = getService(context).getAllByPathStartsWith(context, preffix,
-				mountPoint, (PageTransportable) page);
+		WsStatusWithCase2CaseRelationshipPagedResult result = getService(context).getAllByPathStartsWith(context,
+				preffix, mountPoint, (PageTransportable) page);
 		return getPagedResult(context, result);
 	}
 
 	@Override
-	public IPagedResult<Case2CaseRelationship, IPage> getAllParentsRelationships(Context context, Long caseId,
+	public IPagedResult<Case2CaseRelationship, IPage> getAllParentsRelationships(Context context, String caseId,
 			String mountPoint, IPage page) throws MercuryException {
-		WsStatusWithCase2CaseRelationshipPagedResult result = getService(context).getAllParentsRelationships(context, caseId,
-				mountPoint, (PageTransportable) page);
+		WsStatusWithCase2CaseRelationshipPagedResult result = getService(context).getAllParentsRelationships(context,
+				caseId, mountPoint, (PageTransportable) page);
 		return getPagedResult(context, result);
 	}
 
 	@Override
-	public IPagedResult<Case2CaseRelationship, IPage> getAllChildrenRelationships(Context context, Long caseId,
+	public IPagedResult<Case2CaseRelationship, IPage> getAllChildrenRelationships(Context context, String caseId,
 			String mountPoint, IPage page) throws MercuryException {
-		WsStatusWithCase2CaseRelationshipPagedResult result = getService(context).getAllChildrenRelationships(context, caseId,
-				mountPoint, (PageTransportable) page);
+		WsStatusWithCase2CaseRelationshipPagedResult result = getService(context).getAllChildrenRelationships(context,
+				caseId, mountPoint, (PageTransportable) page);
 		return getPagedResult(context, result);
 	}
 
 	@Override
-	public IPagedResult<Case2CaseRelationship, IPage> getAllDependsRelationships(Context context, Long caseId,
+	public IPagedResult<Case2CaseRelationship, IPage> getAllDependsRelationships(Context context, String caseId,
 			String mountPoint, IPage page) throws MercuryException {
-		WsStatusWithCase2CaseRelationshipPagedResult result = getService(context).getAllDependsRelationships(context, caseId,
-				mountPoint, (PageTransportable) page);
+		WsStatusWithCase2CaseRelationshipPagedResult result = getService(context).getAllDependsRelationships(context,
+				caseId, mountPoint, (PageTransportable) page);
 		return getPagedResult(context, result);
 	}
 
@@ -229,14 +262,14 @@ public class Case2CaseBusiness extends WsClient<ICase2CaseBusinessAction>
 
 	/**
 	 * @param isRemote
-	 *            the {@link #isRemote} to set
+	 *                 the {@link #isRemote} to set
 	 */
 	public void setIsRemote(Boolean isRemote) {
 		this.isRemote = isRemote;
 	}
 
 	@Override
-	public Document getAllDependsNodesXML(Context context, Long caseId, String mountPoint, IPage page,
+	public Document getAllDependsNodesXML(Context context, String caseId, String mountPoint, IPage page,
 			Integer caseMaxDepth) throws MercuryException {
 		WsStatusWithXML result = getService(context).getAllDependsNodesXML(context, caseId, mountPoint,
 				(PageTransportable) page, caseMaxDepth);
@@ -244,7 +277,7 @@ public class Case2CaseBusiness extends WsClient<ICase2CaseBusinessAction>
 	}
 
 	@Override
-	public Document getAllChildrenNodesXML(Context context, Long caseId, String mountPoint, IPage page,
+	public Document getAllChildrenNodesXML(Context context, String caseId, String mountPoint, IPage page,
 			Integer caseMaxDepth) throws MercuryException {
 		WsStatusWithXML result = getService(context).getAllChildrenNodesXML(context, caseId, mountPoint,
 				(PageTransportable) page, caseMaxDepth);
@@ -252,7 +285,7 @@ public class Case2CaseBusiness extends WsClient<ICase2CaseBusinessAction>
 	}
 
 	@Override
-	public Document getAllChildrenNodesWithTheTypeCodeXML(Context context, Long caseId, String typeCode,
+	public Document getAllChildrenNodesWithTheTypeCodeXML(Context context, String caseId, String typeCode,
 			String mountPoint, IPage page, Integer caseMaxDepth) throws MercuryException {
 		WsStatusWithXML result = getService(context).getAllChildrenNodesWithTheTypeCodeXML(context, caseId, typeCode,
 				mountPoint, (PageTransportable) page, caseMaxDepth);
@@ -260,7 +293,7 @@ public class Case2CaseBusiness extends WsClient<ICase2CaseBusinessAction>
 	}
 
 	@Override
-	public Document getAllParentsNodesXML(Context context, Long caseId, String mountPoint, IPage page,
+	public Document getAllParentsNodesXML(Context context, String caseId, String mountPoint, IPage page,
 			Integer caseMaxDepth) throws MercuryException {
 		WsStatusWithXML result = getService(context).getAllParentsNodesXML(context, caseId, mountPoint,
 				(PageTransportable) page, caseMaxDepth);

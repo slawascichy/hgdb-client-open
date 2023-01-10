@@ -17,8 +17,12 @@ import pro.ibpm.mercury.ws.server.api.actions.data.IGroupCase2ParticipantAction;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithPagedResult;
 
 /**
- * @author Karol Kowalczyk
  * 
+ * GroupCase2ParticipantLogic
+ *
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+ * @version $Revision: 1.1 $ 
+ *
  */
 public class GroupCase2ParticipantLogic
 		extends

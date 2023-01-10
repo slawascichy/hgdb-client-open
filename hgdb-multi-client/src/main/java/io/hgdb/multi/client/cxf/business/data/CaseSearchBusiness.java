@@ -7,11 +7,13 @@ import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 
 import io.hgdb.mercury.client.cxf.WsClient;
+import io.hgdb.mercury.client.utils.MrcVariableReaderCollectorUtils;
 import io.hgdb.multi.client.cxf.business.data.api.ICaseSearchBusiness;
 import io.hgdb.multi.client.cxf.business.data.api.ICaseSearchBusinessXML;
 import io.hgdb.multi.client.registry.api.IHttpInvokerProxyFactoryRegistry;
 import pro.ibpm.mercury.business.data.api.CaseNarrative;
 import pro.ibpm.mercury.business.data.api.MrcPagedResult;
+import pro.ibpm.mercury.business.data.utils.MrcVariableReaderCollector;
 import pro.ibpm.mercury.business.data.utils.XMLReaderHelper;
 import pro.ibpm.mercury.business.data.utils.XMLVariableBuilder;
 import pro.ibpm.mercury.context.Context;
@@ -47,13 +49,21 @@ public class CaseSearchBusiness extends WsClient<ICaseSearchAction>
 		return getService(context).echo(context, a);
 	}
 
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
 	public MrcPagedResult searchByQuery(Context context, String query, IPage page, String sortClause,
 			String additionalDateRange) throws MercuryException {
 		WsStatusWithMrcObjectSearchResult result = getService(context).searchByQuery(context, query,
 				(PageTransportable) page, sortClause, additionalDateRange);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
 	protected IPagedResult<CaseNarrative, IPage> getCaseNarrativePagedResult(
@@ -84,15 +94,29 @@ public class CaseSearchBusiness extends WsClient<ICaseSearchAction>
 		return getCaseNarrativePagedResult(result);
 	}
 
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
 	public MrcPagedResult searchByQueryWithResultType(Context context, String query, IPage page, String sortClause,
 			String additionalDateRange, String resultTypeName) throws MercuryException {
 		WsStatusWithMrcObjectSearchResult result = getService(context).searchByQueryWithResultType(context, query,
 				(PageTransportable) page, sortClause, additionalDateRange, resultTypeName);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
 	public MrcPagedResult groupByQuery(Context context, String query, String groupByClause, String filterClause,
 			String additionalDateRange, IPage page, String resultTypeName, String resultPkPropertyName)
@@ -100,7 +124,9 @@ public class CaseSearchBusiness extends WsClient<ICaseSearchAction>
 		WsStatusWithMrcObjectSearchResult result = getService(context).groupByQuery(context, query, groupByClause,
 				filterClause, additionalDateRange, (PageTransportable) page, resultTypeName, resultPkPropertyName);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
 	@Override

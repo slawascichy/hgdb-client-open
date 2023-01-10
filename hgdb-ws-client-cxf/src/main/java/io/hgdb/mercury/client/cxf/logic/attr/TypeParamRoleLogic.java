@@ -15,7 +15,7 @@ import pro.ibpm.mercury.ws.server.api.actions.attr.ITypeParamRoleAction;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithStringBag;
 
 /**
- * @author Karol Kowalczyk
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * 
  */
 public class TypeParamRoleLogic extends WsClientDataLogic<TypeParamRole, Long, ITypeParamRoleAction>

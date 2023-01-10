@@ -14,6 +14,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import io.hgdb.mercury.client.cxf.WsClient;
+import io.hgdb.mercury.client.utils.MrcVariableReaderCollectorUtils;
 import pro.ibpm.mercury.attrs.CaseDateUtils;
 import pro.ibpm.mercury.attrs.javax.CaseDate;
 import pro.ibpm.mercury.business.data.api.BpmCaseHistoryStream;
@@ -32,12 +33,14 @@ import pro.ibpm.mercury.business.data.api.MrcObjectMetadata;
 import pro.ibpm.mercury.business.data.api.MrcPagedResult;
 import pro.ibpm.mercury.business.data.api.MrcQuickTask;
 import pro.ibpm.mercury.business.data.api.MrcSimplePropertyMapGroupedByCaseId;
+import pro.ibpm.mercury.business.data.utils.MrcVariableReaderCollector;
 import pro.ibpm.mercury.business.data.utils.MrcVariableReaderDOM;
 import pro.ibpm.mercury.business.data.utils.XMLReaderHelper;
 import pro.ibpm.mercury.business.data.utils.XMLVariableBuilder;
 import pro.ibpm.mercury.context.Context;
 import pro.ibpm.mercury.cse.CredentialsMode;
 import pro.ibpm.mercury.dto.paging.PageTransportable;
+import pro.ibpm.mercury.entities.attr.TypeCode;
 import pro.ibpm.mercury.entities.data.Case;
 import pro.ibpm.mercury.exceptions.InternalErrorException;
 import pro.ibpm.mercury.exceptions.MercuryException;
@@ -60,6 +63,7 @@ import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithMrcObject;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithMrcQuickTaskDtos;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithMrcSimplePropertyMapGroupedByCaseIdDto;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithMrcSimplePropertyMapGroupedByCaseIdDtos;
+import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithStringValue;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithXML;
 
 /**
@@ -174,24 +178,40 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	}
 
 	/* Overridden (non-Javadoc) */
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
-	public MrcObject find(Context context, Long id) throws MercuryException {
+	public MrcObject find(Context context, String id) throws MercuryException {
 		WsStatusWithMrcObject result = getService(context).find(context, id);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
 	/* Overridden (non-Javadoc) */
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
 	public MrcObject findFirst(Context context) throws MercuryException {
 		WsStatusWithMrcObject result = getService(context).findFirst(context);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public Long remove(Context context, Long caseId) throws MercuryException {
+	public String remove(Context context, String caseId) throws MercuryException {
 		WsStatus result = getService(context).remove(context, caseId);
 		checkWsStatus(result);
 		return caseId;
@@ -199,40 +219,79 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public List<Long> removeList(Context context, List<Long> idList) throws MercuryException {
+	public List<String> removeList(Context context, List<String> idList) throws MercuryException {
 		WsStatus result = getService(context).removeList(context, idList);
 		checkWsStatus(result);
 		return idList;
 	}
 
 	/* Overridden (non-Javadoc) */
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
-	public MrcList findByIdList(Context context, List<Long> idList) throws MercuryException {
+	public MrcList findByIdList(Context context, List<String> idList) throws MercuryException {
 		WsStatusWithMrcList result = getService(context).findByIdList(context, idList);
 		DtoMrcList dtoList = getDtoList(result);
-		return (MrcList) DtoMrcDataUtils.toMrcList(context, dtoList);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcList) DtoMrcDataUtils.toMrcList(context, dtoList,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
 	/* Overridden (non-Javadoc) */
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * <p>
+	 * Parametr {@code typeCodes} nie ma znaczenia, nie jest wykorzystywany w implementacji usługi. Jego istnienie
+	 * podyktowane jest faktem, że istnieje w API, które jest wykorzystywane.
+	 * </p>
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
-	public MrcObject save(Context context, MrcObject entityObject, boolean forceAddStore2Type) throws MercuryException {
+	public MrcObject save(Context context, MrcObject entityObject, boolean forceAddStore2Type, Set<TypeCode> typeCodes)
+			throws MercuryException {
 		DtoMrcObject e4Update = DtoMrcDataUtils.toDtoMrcObject(context, entityObject);
 		WsStatusWithMrcObject result = getService(context).save(context, e4Update, forceAddStore2Type);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
 	/* Overridden (non-Javadoc) */
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * <p>
+	 * Parametr {@code typeCodes} nie ma znaczenia, nie jest wykorzystywany w implementacji usługi. Jego istnienie
+	 * podyktowane jest faktem, że istnieje w API, które jest wykorzystywane.
+	 * </p>
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
-	public MrcList saveList(Context context, MrcList entityObjects, boolean forceAddStore2Type)
+	public MrcList saveList(Context context, MrcList entityObjects, boolean forceAddStore2Type, Set<TypeCode> typeCodes)
 			throws MercuryException {
 		DtoMrcList e4Update = DtoMrcDataUtils.toDtoMrcList(context, entityObjects);
 		WsStatusWithMrcList result = getService(context).saveList(context, e4Update, forceAddStore2Type);
 		DtoMrcList dtoList = getDtoList(result);
-		return (MrcList) DtoMrcDataUtils.toMrcList(context, dtoList);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcList) DtoMrcDataUtils.toMrcList(context, dtoList,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
 	/* Overridden (non-Javadoc) */
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
 	public MrcPagedResult searchInDB(Context context, Map<String, String> paramsMap, CredentialsMode mode,
 			String objectId, String versionSeriesId, List<GroupCase2ParticipantParticipant2Role> gc2pList,
@@ -251,28 +310,47 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 		WsStatusWithMrcObject result = getService(context).searchInDB(context, paramsMap, mode, objectId,
 				versionSeriesId, gc2pList, header, cDateFrom, cDateTo, getOnlyLastCase, (PageTransportable) page);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
+
 	}
 
 	/* Overridden (non-Javadoc) */
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
 	public MrcObject findLastByBpmId(Context context, Long bpmProcessId) throws MercuryException {
 		WsStatusWithMrcObject result = getService(context).findLastByBpmId(context, bpmProcessId);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
 	/* Overridden (non-Javadoc) */
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
 	public MrcList findByGroupCaseIds(Context context, List<Long> groupCaseIds) throws MercuryException {
 		WsStatusWithMrcList result = getService(context).findByGroupCaseIds(context, groupCaseIds);
 		DtoMrcList dtoList = getDtoList(result);
-		return (MrcList) DtoMrcDataUtils.toMrcList(context, dtoList);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcList) DtoMrcDataUtils.toMrcList(context, dtoList,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public Document loadSubCaseXML(Context context, Long caseId, String fieldName, int maxDepth)
+	public Document loadSubCaseXML(Context context, String caseId, String fieldName, int maxDepth)
 			throws MercuryException {
 		WsStatusWithXML result = getService(context).loadSubCaseXML(context, caseId, fieldName, maxDepth);
 		return WsStatusUtils.createDocument(result);
@@ -280,21 +358,22 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public IMrcCase loadSubCase(Context context, Long caseId, String fieldName, int maxDepth) throws MercuryException {
+	public IMrcCase loadSubCase(Context context, String caseId, String fieldName, int maxDepth)
+			throws MercuryException {
 		Document resultXML = loadSubCaseXML(context, caseId, fieldName, maxDepth);
 		Node rootNode = resultXML.getDocumentElement();
 		return (new MrcVariableReaderDOM()).readObject(context, rootNode);
 	}
 
 	@Override
-	public Document loadCaseXML(Context context, Long caseId, int maxDepth) throws MercuryException {
+	public Document loadCaseXML(Context context, String caseId, int maxDepth) throws MercuryException {
 		WsStatusWithXML result = getService(context).findXML(context, caseId);
 		return WsStatusUtils.createDocument(result);
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public Document findXML(Context context, Long id) throws MercuryException {
+	public Document findXML(Context context, String id) throws MercuryException {
 		WsStatusWithXML result = getService(context).findXML(context, id);
 		return WsStatusUtils.createDocument(result);
 	}
@@ -308,7 +387,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public Document findByIdListXML(Context context, List<Long> idList) throws MercuryException {
+	public Document findByIdListXML(Context context, List<String> idList) throws MercuryException {
 		WsStatusWithXML result = getService(context).findByIdListXML(context, idList);
 		return WsStatusUtils.createDocument(result);
 	}
@@ -365,21 +444,39 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	}
 
 	/* Overridden (non-Javadoc) */
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
 	public MrcPagedResult loadLastUpdated(Context context, IPage page) throws MercuryException {
 		WsStatusWithMrcObject result = getService(context).loadLastUpdated(context, (PageTransportable) page);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
+
 	}
 
 	/* Overridden (non-Javadoc) */
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
 	public MrcPagedResult loadLastUpdatedByTypeCodes(Context context, Set<String> typeCodes, IPage page)
 			throws MercuryException {
 		WsStatusWithMrcObject result = getService(context).loadLastUpdatedByTypeCodes(context, typeCodes,
 				(PageTransportable) page);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
+
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -410,7 +507,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public Long getSystemChangeNumber(Context context, Long caseId) throws MercuryException {
+	public Long getSystemChangeNumber(Context context, String caseId) throws MercuryException {
 		WsStatusWithLongValue result = getService(context).getSystemChangeNumber(context, caseId);
 		if (checkWsStatus(result)) {
 			return result.getValue();
@@ -420,7 +517,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public MrcSimplePropertyMapGroupedByCaseId getCaseParamsByParamNames(Context context, Long caseId,
+	public MrcSimplePropertyMapGroupedByCaseId getCaseParamsByParamNames(Context context, String caseId,
 			Set<String> fields) throws MercuryException {
 		WsStatusWithMrcSimplePropertyMapGroupedByCaseIdDto result = getService(context)
 				.getCaseParamsByParamNames(context, caseId, fields);
@@ -444,12 +541,10 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public Long checkCaseStatus(Context context, Long caseId) throws MercuryException {
-		WsStatusWithLongValue result = getService(context).checkCaseStatus(context, caseId);
-		if (checkWsStatus(result)) {
-			return result.getValue();
-		}
-		return null;
+	public String checkCaseStatus(Context context, String caseId) throws MercuryException {
+		WsStatusWithStringValue result = getService(context).checkCaseStatus(context, caseId);
+		checkWsStatus(result);
+		return result.getValue();
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -476,7 +571,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public List<MrcCaseHistoryStream> loadCaseHistoryStream(Context context, Long caseId, Boolean isAsc)
+	public List<MrcCaseHistoryStream> loadCaseHistoryStream(Context context, String caseId, Boolean isAsc)
 			throws MercuryException {
 		WsStatusWithMrcCaseHistoryStreamDtos result = getService(context).loadCaseHistoryStream(context, caseId, isAsc);
 		if (checkWsStatus(result)) {
@@ -488,7 +583,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public List<BpmCaseHistoryStream> loadBpmCaseHistoryStream(Context context, Long caseId,
+	public List<BpmCaseHistoryStream> loadBpmCaseHistoryStream(Context context, String caseId,
 			Set<String> bpmTaskStatuses, Boolean isAsc) throws MercuryException {
 		WsStatusWithBpmCaseHistoryStreamDtos result = getService(context).loadBpmCaseHistoryStream(context, caseId,
 				bpmTaskStatuses, isAsc);
@@ -506,10 +601,10 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	 */
 	@Override
 	@Deprecated
-	public MrcList loadCaseHistoryTraces(Context context, Long caseId, Boolean isAsc) throws MercuryException {
+	public MrcList loadCaseHistoryTraces(Context context, String caseId, Boolean isAsc) throws MercuryException {
 		WsStatusWithMrcList result = getService(context).loadCaseHistoryTraces(context, caseId, isAsc);
 		DtoMrcList dtoList = getDtoList(result);
-		return (MrcList) DtoMrcDataUtils.toMrcList(context, dtoList);
+		return (MrcList) DtoMrcDataUtils.toMrcList(context, dtoList, new MrcVariableReaderCollector());
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -519,14 +614,14 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	 */
 	@Override
 	@Deprecated
-	public Document loadCaseHistoryTracesXML(Context context, Long caseId, Boolean isAsc) throws MercuryException {
+	public Document loadCaseHistoryTracesXML(Context context, String caseId, Boolean isAsc) throws MercuryException {
 		WsStatusWithXML result = getService(context).loadCaseHistoryTracesXML(context, caseId, isAsc);
 		return WsStatusUtils.createDocument(result);
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public List<MrcComment> loadCaseComments(Context context, Long caseId, Boolean isAsc) throws MercuryException {
+	public List<MrcComment> loadCaseComments(Context context, String caseId, Boolean isAsc) throws MercuryException {
 		WsStatusWithMrcCommentDtos result = getService(context).loadCaseComments(context, caseId, isAsc);
 		if (checkWsStatus(result)) {
 			return (result.getDtos() != null ? new ArrayList<MrcComment>(result.getDtos())
@@ -537,7 +632,8 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public List<MrcQuickTask> loadCaseQuickTasks(Context context, Long caseId, Boolean isAsc) throws MercuryException {
+	public List<MrcQuickTask> loadCaseQuickTasks(Context context, String caseId, Boolean isAsc)
+			throws MercuryException {
 		WsStatusWithMrcQuickTaskDtos result = getService(context).loadCaseQuickTasks(context, caseId, isAsc);
 		if (checkWsStatus(result)) {
 			return (result.getDtos() != null ? new ArrayList<MrcQuickTask>(result.getDtos())
@@ -548,7 +644,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public List<MrcCaseDocument> loadCaseDocuments(Context context, Long caseId, Boolean isAsc)
+	public List<MrcCaseDocument> loadCaseDocuments(Context context, String caseId, Boolean isAsc)
 			throws MercuryException {
 		WsStatusWithMrcCaseDocumentDtos result = getService(context).loadCaseDocuments(context, caseId, isAsc);
 		if (checkWsStatus(result)) {
@@ -560,7 +656,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public Document loadSubCaseListXML(Context context, Long caseId, String fieldName, int maxDepth, IPage page)
+	public Document loadSubCaseListXML(Context context, String caseId, String fieldName, int maxDepth, IPage page)
 			throws MercuryException {
 		WsStatusWithXML result = getService(context).loadSubCaseListXML(context, caseId, fieldName, maxDepth,
 				(PageTransportable) page);
@@ -568,22 +664,37 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	}
 
 	/* Overridden (non-Javadoc) */
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
-	public MrcPagedResult loadSubCaseList(Context context, Long caseId, String fieldName, int maxDepth, IPage page)
+	public MrcPagedResult loadSubCaseList(Context context, String caseId, String fieldName, int maxDepth, IPage page)
 			throws MercuryException {
 		WsStatusWithMrcObject result = getService(context).loadSubCaseList(context, caseId, fieldName, maxDepth,
 				(PageTransportable) page);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
-
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	public MrcObject findByPKProperty(Context context, String typeCode, String paramValue) throws MercuryException {
 		WsStatusWithMrcObject result = getService(context).findByPKProperty(context, typeCode, paramValue);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -609,19 +720,35 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	}
 
 	/* Overridden (non-Javadoc) */
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
 	public MrcObject loadSampleByTypeCode(Context context, String typeCode) throws MercuryException {
 		WsStatusWithMrcObject result = getService(context).loadSampleByTypeCode(context, typeCode);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
 	/* Overridden (non-Javadoc) */
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
 	public MrcObject loadSampleByTypeName(Context context, String typeName) throws MercuryException {
 		WsStatusWithMrcObject result = getService(context).loadSampleByTypeName(context, typeName);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -640,8 +767,15 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	}
 
 	/* Overridden (non-Javadoc) */
+	/**
+	 * <p>
+	 * Parametr {@code typeCodes} nie ma znaczenia, nie jest wykorzystywany w implementacji usługi. Jego istnienie
+	 * podyktowane jest faktem, że istnieje w API, które jest wykorzystywane.
+	 * </p>
+	 */
 	@Override
-	public Long initModel(Context context, MrcObject entityObject, boolean forceAddStore2Type) throws MercuryException {
+	public Long initModel(Context context, MrcObject entityObject, boolean forceAddStore2Type, Set<TypeCode> typeCodes)
+			throws MercuryException {
 		DtoMrcObject e4Update = DtoMrcDataUtils.toDtoMrcObject(context, entityObject);
 		WsStatusWithLongValue wsStatus = getService(context).initModel(context, e4Update, forceAddStore2Type);
 		checkWsStatus(wsStatus);
@@ -659,11 +793,19 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	}
 
 	/* Overridden (non-Javadoc) */
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
 	public MrcObject searchByLuceneId(Context context, String caseId) throws MercuryException {
 		WsStatusWithMrcObject result = getService(context).searchByLuceneId(context, caseId);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcObject) DtoMrcDataUtils.toMrcObject(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -674,13 +816,21 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	}
 
 	/* Overridden (non-Javadoc) */
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
 	public MrcPagedResult searchByInventoryCode(Context context, String searchText, IPage page)
 			throws MercuryException {
 		WsStatusWithMrcObject result = getService(context).searchByInventoryCode(context, searchText,
 				(PageTransportable) page);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -692,13 +842,22 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 	}
 
 	/* Overridden (non-Javadoc) */
+	/**
+	 * Można dodać kolektor zbierający dane do kontekstu!
+	 * 
+	 * @see MrcVariableReaderCollectorUtils
+	 * @see MrcVariableReaderCollector
+	 */
 	@Override
 	public MrcPagedResult searchByQuery(Context context, String query, IPage page, String sortClause,
 			String additionalDateRange) throws MercuryException {
 		WsStatusWithMrcObject result = getService(context).searchByQuery(context, query, (PageTransportable) page,
 				sortClause, additionalDateRange);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
+		MrcVariableReaderCollector collector = MrcVariableReaderCollectorUtils.getMrcVariableReaderCollector(context);
+		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject,
+				collector != null ? collector : new MrcVariableReaderCollector());
+
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -727,7 +886,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 		WsStatusWithMrcObject result = getService(context).searchByParams(context, paramsMap, mode,
 				(PageTransportable) page, sortClause, additionalDateRange);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
+		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject, new MrcVariableReaderCollector());
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -756,7 +915,7 @@ public class CaseBusiness extends WsClient<ICaseBusinessAction> implements ICase
 		WsStatusWithMrcObject result = getService(context).searchLuceneWithQueriesWithSorting(context, gueriesMap,
 				(PageTransportable) page, sortClause);
 		DtoMrcObject dtoObject = getDto(result);
-		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject);
+		return (MrcPagedResult) DtoMrcDataUtils.toMrcPagedResult(context, dtoObject, new MrcVariableReaderCollector());
 	}
 
 	/* Overridden (non-Javadoc) */

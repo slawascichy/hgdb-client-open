@@ -20,7 +20,7 @@ import pro.ibpm.mercury.ws.server.api.actions.attr.IType2TypeAction;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithPagedResult;
 
 /**
- * @author Karol Kowalczyk
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * 
  */
 public class Type2TypeLogic extends WsClientCatalogLogic<Type2Type, TypeCode, String, IType2TypeAction>

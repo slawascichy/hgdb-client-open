@@ -8,8 +8,13 @@ import pro.ibpm.mercury.entities.data.Case;
 import pro.ibpm.mercury.entities.data.QuickTask;
 
 /**
- * @author Mariusz Barwikowski
  * 
+ * TQuickTaskProvider
+ *
+ * @author Mariusz Barwikowski
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+ * @version $Revision: 1.1 $
+ *
  */
 public class TQuickTaskProvider extends TAbstractProvider<QuickTask> {
 
@@ -27,28 +32,24 @@ public class TQuickTaskProvider extends TAbstractProvider<QuickTask> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
 	 */
 	@Override
 	protected QuickTask rowMapper(String[] row) {
-		String[] header = new String[] { "id", "caseId", "description",
-				"replyText", "priority", "sendDate", "replyDate", "from", "to" };
+		String[] header = new String[] { "id", "caseId", "description", "replyText", "priority", "sendDate",
+				"replyDate", "from", "to" };
 		return rowMapper(row, header);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[],
-	 * java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[], java.lang.String[])
 	 */
 	@Override
 	protected QuickTask rowMapper(String[] row, String[] header) {
 
-		this.logger.trace("row.length=" + row.length + ", header.length="
-				+ header.length);
+		this.logger.trace("row.length=" + row.length + ", header.length=" + header.length);
 
 		QuickTask result = new QuickTask();
 		result.setCaseObj(new Case());
@@ -58,8 +59,7 @@ public class TQuickTaskProvider extends TAbstractProvider<QuickTask> {
 				setPropertyValue(header[index], row[index], result);
 			}
 		} else {
-			String msg = "Nie wczytano danych dla wiersza row=" + row
-					+ " oraz naglowka header=" + header;
+			String msg = "Nie wczytano danych dla wiersza row=" + row + " oraz naglowka header=" + header;
 			this.logger.error(msg);
 			throw new NotImplementedException(msg);
 		}
@@ -67,8 +67,7 @@ public class TQuickTaskProvider extends TAbstractProvider<QuickTask> {
 		return result;
 	}
 
-	private void setPropertyValue(String property, String newValue,
-			QuickTask quickTask) {
+	private void setPropertyValue(String property, String newValue, QuickTask quickTask) {
 		// id;caseId;description;replyText;priority;sendDate;replyDate;from;to
 
 		this.logger.trace("property=" + property + ", newValue=" + newValue);
@@ -77,7 +76,7 @@ public class TQuickTaskProvider extends TAbstractProvider<QuickTask> {
 			quickTask.setId(MockDataUtils.convertToLong(newValue));
 
 		} else if (property.equalsIgnoreCase("caseId")) {
-			quickTask.getCaseObj().setId(MockDataUtils.convertToLong(newValue));
+			quickTask.getCaseObj().setId(newValue);
 
 		} else if (property.equalsIgnoreCase("description")) {
 			quickTask.setDescription(newValue);
@@ -89,10 +88,10 @@ public class TQuickTaskProvider extends TAbstractProvider<QuickTask> {
 			quickTask.setPriority(newValue);
 
 		} else if (property.equalsIgnoreCase("sendDate")) {
-			quickTask.setSendDate(MockDataUtils.convertToCalendar(newValue));
+			quickTask.setSendDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 
 		} else if (property.equalsIgnoreCase("replyDate")) {
-			quickTask.setReplyDate(MockDataUtils.convertToCalendar(newValue));
+			quickTask.setReplyDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 
 		} else if (property.equalsIgnoreCase("from")) {
 			quickTask.setFrom(newValue);
@@ -101,8 +100,7 @@ public class TQuickTaskProvider extends TAbstractProvider<QuickTask> {
 			quickTask.setTo(newValue);
 
 		} else {
-			String msg = "Obiekt " + QuickTask.class.getSimpleName()
-					+ " nie posiada właściwości property=" + property;
+			String msg = "Obiekt " + QuickTask.class.getSimpleName() + " nie posiada właściwości property=" + property;
 			this.logger.error(msg);
 			throw new NotImplementedException(msg);
 		}

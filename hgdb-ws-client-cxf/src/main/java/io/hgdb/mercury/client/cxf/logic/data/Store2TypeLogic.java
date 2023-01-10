@@ -15,7 +15,7 @@ import pro.ibpm.mercury.logic.api.data.IStore2TypeLogic;
 import pro.ibpm.mercury.ws.server.api.actions.data.IStore2TypeAction;
 
 /**
- * @author Karol Kowalczyk
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * 
  */
 public class Store2TypeLogic extends

@@ -15,8 +15,12 @@ import pro.ibpm.mercury.ws.server.api.actions.data.IGroupCaseAction;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithPagedResult;
 
 /**
- * @author Karol Kowalczyk
  * 
+ * GroupCaseLogic
+ *
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+ * @version $Revision: 1.1 $ 
+ *
  */
 public class GroupCaseLogic extends WsClientBigDataLogic<GroupCase, Long, IGroupCaseAction> implements IGroupCaseLogic {
 

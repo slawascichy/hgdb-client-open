@@ -14,8 +14,13 @@ import pro.ibpm.mercury.entities.data.GroupCase;
 import pro.ibpm.mercury.entities.data.Store;
 
 /**
- * @author Mariusz Barwikowski
  * 
+ * TCaseProvider
+ *
+ * @author Mariusz Barwikowski
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+ * @version $Revision: 1.1 $
+ *
  */
 public class TCaseProvider extends TAbstractProvider<Case> {
 
@@ -64,8 +69,7 @@ public class TCaseProvider extends TAbstractProvider<Case> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[],
-	 * java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[], java.lang.String[])
 	 */
 	@Override
 	protected Case rowMapper(String[] row, String[] header) {
@@ -96,7 +100,7 @@ public class TCaseProvider extends TAbstractProvider<Case> {
 		this.logger.trace("property={}, newValue={}", property, newValue);
 
 		if (property.equalsIgnoreCase("id")) {
-			caseO.setId(Long.parseLong(newValue));
+			caseO.setId(newValue);
 
 		} else if (property.equalsIgnoreCase("bpmProcessId")) {
 			caseO.setBpmProcessId(MockDataUtils.convertToLong(newValue));
@@ -112,24 +116,24 @@ public class TCaseProvider extends TAbstractProvider<Case> {
 			caseO.getStore().setId(MockDataUtils.convertToLong(newValue));
 
 		} else if (property.equalsIgnoreCase("createDate")) {
-			caseO.setCreateDate(MockDataUtils.convertToCalendar(newValue));
+			caseO.setCreateDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 
 		} else if (property.equalsIgnoreCase("createdBy")) {
 			Long id = MockDataUtils.convertToLong(newValue);
 			caseO.setCreatedBy(TSystemUserProvider.usersMap.get(id));
 
 		} else if (property.equalsIgnoreCase("modifyDate")) {
-			caseO.setLastModifyDate(MockDataUtils.convertToCalendar(newValue));
+			caseO.setLastModifyDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 
 		} else if (property.equalsIgnoreCase("modifiedBy")) {
 			Long id = Long.parseLong(newValue);
 			caseO.setLastModifiedBy(TSystemUserProvider.usersMap.get(id));
 
 		} else if (property.equalsIgnoreCase("endDate")) {
-			caseO.setEndDate(MockDataUtils.convertToCalendar(newValue));
+			caseO.setEndDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 
 		} else if (property.equalsIgnoreCase("dueDate")) {
-			caseO.setDueDate(MockDataUtils.convertToCalendar(newValue));
+			caseO.setDueDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 
 		} else if (property.equalsIgnoreCase("status")) {
 			caseO.setStatus(newValue);
@@ -166,7 +170,7 @@ public class TCaseProvider extends TAbstractProvider<Case> {
 			caseO.setParameter15(newValue);
 
 		} else if (property.equalsIgnoreCase("previousVersionId")) {
-			caseO.setPreviousVersionId(MockDataUtils.convertToLong(newValue));
+			caseO.setPreviousVersionId(newValue);
 
 		} else {
 			String msg = "Obiekt " + Case.class.getSimpleName() + " nie posiada właściwości property=" + property;

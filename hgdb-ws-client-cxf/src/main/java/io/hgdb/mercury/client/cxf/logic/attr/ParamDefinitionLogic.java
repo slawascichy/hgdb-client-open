@@ -30,7 +30,7 @@ import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithStringValue;
  * ParamDefinitionLogic
  *
  * @author Sławomir Cichy &lt;slawomir.cichy@ibpm.pro&gt;
- * @author Karol Kowalczyk
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * @version $Revision: 1.1 $
  *
  */

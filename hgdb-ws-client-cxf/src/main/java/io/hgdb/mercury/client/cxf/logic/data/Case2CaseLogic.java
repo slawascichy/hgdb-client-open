@@ -23,17 +23,21 @@ import pro.ibpm.mercury.logic.api.data.ICase2CaseLogic;
 import pro.ibpm.mercury.logic.paging.IPage;
 import pro.ibpm.mercury.logic.paging.IPagedResult;
 import pro.ibpm.mercury.ws.server.api.actions.data.ICase2CaseAction;
-import pro.ibpm.mercury.ws.server.api.returns.IWsStatus;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithPagedResult;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatus;
 import pro.ibpm.mercury.ws.server.api.returns.data.WsStatusWithCaseCatalogDto;
 import pro.ibpm.mercury.ws.server.api.returns.data.WsStatusWithCaseCatalogDtos;
 
 /**
- * @author Karol Kowalczyk
  * 
+ * Case2CaseLogic
+ *
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+ * @version $Revision: 1.1 $ 
+ *
  */
-public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, Case, Long, ICase2CaseAction>
+@SuppressWarnings("java:S110")
+public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, Case, String, ICase2CaseAction>
 		implements ICase2CaseLogic {
 
 	private static final long serialVersionUID = -5323157854323141221L;
@@ -45,7 +49,7 @@ public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, Case, Long, 
 
 	@Override
 	public EntityList<Case2Case, String> insertList(Context context, List<Case2Case> eBag) throws MercuryException {
-		return getEntityCollection(context, getService(context).insertBag(context, (Collection<Case2Case>) eBag));
+		return getEntityCollection(context, getService(context).insertBag(context, eBag));
 	}
 
 	@Override
@@ -55,7 +59,7 @@ public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, Case, Long, 
 
 	@Override
 	public List<String> removeList(Context context, final List<Case2Case> eBag) throws MercuryException {
-		return getIds(getService(context).removeBag(context, (Collection<Case2Case>) eBag), eBag);
+		return getIds(getService(context).removeBag(context, eBag), eBag);
 	}
 
 	@Override
@@ -75,21 +79,21 @@ public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, Case, Long, 
 
 	@Override
 	public EntityList<Case2Case, String> updateList(Context context, List<Case2Case> eBag) throws MercuryException {
-		return getEntityCollection(context, getService(context).updateBag(context, (Collection<Case2Case>) eBag));
+		return getEntityCollection(context, getService(context).updateBag(context, eBag));
 	}
 
 	@Override
-	public List<Case2Case> getAllParentsRelationshipsByNodeId(Context context, Long n, String mountPoint)
+	public List<Case2Case> getAllParentsRelationshipsByNodeId(Context context, String n, String mountPoint)
 			throws MercuryException {
-		return (List<Case2Case>) getEntityCollection(context,
-				getService(context).getAllParentsRelationshipsByNodeIdStr(context, Long.toString(n), mountPoint));
+		return getEntityCollection(context,
+				getService(context).getAllParentsRelationshipsByNodeId(context, n, mountPoint));
 	}
 
 	@Override
-	public List<Case2Case> getAllChildrenRelationshipsByNodeId(Context context, Long n, String mountPoint)
+	public List<Case2Case> getAllChildrenRelationshipsByNodeId(Context context, String n, String mountPoint)
 			throws MercuryException {
-		return (List<Case2Case>) getEntityCollection(context,
-				getService(context).getAllChildrenRelationshipsByNodeIdStr(context, Long.toString(n), mountPoint));
+		return getEntityCollection(context,
+				getService(context).getAllChildrenRelationshipsByNodeId(context, n, mountPoint));
 	}
 
 	@Override
@@ -132,8 +136,7 @@ public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, Case, Long, 
 	@Override
 	public List<Case2Case> getAllByPathStartsWith(Context context, String preffix, String mountPoint)
 			throws MercuryException {
-		return (List<Case2Case>) getEntityCollection(context,
-				getService(context).getAllByPathStartsWith(context, preffix, mountPoint));
+		return getEntityCollection(context, getService(context).getAllByPathStartsWith(context, preffix, mountPoint));
 	}
 
 	@Override
@@ -146,26 +149,25 @@ public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, Case, Long, 
 	@Override
 	public List<Case2Case> getAllDependsRelationshipsByNodes(Context context, List<Case> nBag, String mountPoint)
 			throws MercuryException {
-		return (List<Case2Case>) getEntityCollection(context,
+		return getEntityCollection(context,
 				getService(context).getAllDependsRelationshipsByNodes(context, nBag, mountPoint));
 	}
 
 	@Override
 	public List<Case2Case> getAllDependsRelationshipsByNodesWithoutMe(Context context, List<Case> nBag,
 			String mountPoint) throws MercuryException {
-		return (List<Case2Case>) getEntityCollection(context,
+		return getEntityCollection(context,
 				getService(context).getAllDependsRelationshipsByNodesWithoutMe(context, nBag, mountPoint));
 	}
 
 	@Override
 	public List<Case2Case> findByIdList(Context context, List<String> idList) throws MercuryException {
-		return (List<Case2Case>) getEntityCollection(context,
-				getService(context).findByKeyBag(context, (Collection<String>) idList));
+		return getEntityCollection(context, getService(context).findByKeyBag(context, idList));
 	}
 
 	@Override
 	public List<Case2Case> findAll(Context context) throws MercuryException {
-		return (List<Case2Case>) getEntityCollection(context, getService(context).findAll(context));
+		return getEntityCollection(context, getService(context).findAll(context));
 	}
 
 	@Override
@@ -187,7 +189,7 @@ public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, Case, Long, 
 			return null;
 		}
 		WsStatusWithCaseCatalogDto wsStatusWithDto = getService(context).insertCatalogEntry(context, caseCatalog);
-		if (checkWsStatus((IWsStatus) wsStatusWithDto)) {
+		if (checkWsStatus(wsStatusWithDto)) {
 			CaseCatalogDto catalogDto = wsStatusWithDto.getDto();
 			return createCaseCatalog(catalogDto);
 		}
@@ -201,7 +203,7 @@ public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, Case, Long, 
 			return Collections.emptyList();
 		}
 		WsStatusWithCaseCatalogDtos wsStatusWithDtos = getService(context).insertCatalogEntries(context, caseCatalogs);
-		if (checkWsStatus((IWsStatus) wsStatusWithDtos)) {
+		if (checkWsStatus(wsStatusWithDtos)) {
 			Collection<CaseCatalogDto> entries = wsStatusWithDtos.getDtos();
 			if (entries == null || entries.isEmpty()) {
 				return Collections.emptyList();
@@ -221,7 +223,7 @@ public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, Case, Long, 
 			return null;
 		}
 		WsStatus wsStatus = getService(context).removeCatalogEntry(context, caseCatalog);
-		if (checkWsStatus((IWsStatus) wsStatus)) {
+		if (checkWsStatus(wsStatus)) {
 			return caseCatalog.getId();
 		}
 		return null;
@@ -230,17 +232,17 @@ public class Case2CaseLogic extends WsClientCatalogLogic<Case2Case, Case, Long, 
 	@Override
 	public List<String> removeCatalogEntries(Context context, List<CaseCatalog> caseCatalogs) throws MercuryException {
 		if (caseCatalogs == null || caseCatalogs.isEmpty()) {
-			return null;
+			return Collections.emptyList();
 		}
 		WsStatus wsStatus = getService(context).removeCatalogEntries(context, caseCatalogs);
-		if (checkWsStatus((IWsStatus) wsStatus)) {
+		if (checkWsStatus(wsStatus)) {
 			List<String> result = new ArrayList<>();
 			for (CaseCatalog cc : caseCatalogs) {
 				result.add(cc.getId());
 			}
 			return result;
 		}
-		return null;
+		return Collections.emptyList();
 	}
 
 	private SystemUser createSystemUser(SystemUserDto systemUser) {

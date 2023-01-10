@@ -17,7 +17,7 @@ import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithPagedResult;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatus;
 
 /**
- * @author Karol Kowalczyk
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * 
  */
 public class ParticipantHistoryTraceLogic

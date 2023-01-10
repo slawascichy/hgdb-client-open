@@ -11,7 +11,7 @@ import pro.ibpm.mercury.logic.api.data.IStoreLogic;
 import pro.ibpm.mercury.ws.server.api.actions.data.IStoreAction;
 
 /**
- * @author Karol Kowalczyk
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * 
  */
 public class StoreLogic extends WsClientDataLogic<Store, Long, IStoreAction> implements IStoreLogic {

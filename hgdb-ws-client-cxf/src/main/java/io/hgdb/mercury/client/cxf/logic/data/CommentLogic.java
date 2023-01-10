@@ -15,8 +15,12 @@ import pro.ibpm.mercury.ws.server.api.actions.data.ICommentAction;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithPagedResult;
 
 /**
- * @author Karol Kowalczyk
  * 
+ * CommentLogic
+ *
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+ * @version $Revision: 1.1 $ 
+ *
  */
 public class CommentLogic extends WsClientBigDataLogic<Comment, Long, ICommentAction> implements ICommentLogic {
 

@@ -13,7 +13,7 @@ import pro.ibpm.mercury.logic.api.attr.ITypeParamLogic;
 import pro.ibpm.mercury.ws.server.api.actions.attr.ITypeParamAction;
 
 /**
- * @author Karol Kowalczyk
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * 
  */
 public class TypeParamLogic extends

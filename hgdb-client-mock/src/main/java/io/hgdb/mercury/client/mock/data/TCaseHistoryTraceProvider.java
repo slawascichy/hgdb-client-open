@@ -15,8 +15,13 @@ import pro.ibpm.mercury.entities.data.CaseHistoryTrace;
 import pro.ibpm.mercury.entities.data.GroupCase;
 
 /**
- * @author Mariusz Barwikowski
  * 
+ * TCaseHistoryTraceProvider
+ *
+ * @author Mariusz Barwikowski
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+ * @version $Revision: 1.1 $
+ *
  */
 public class TCaseHistoryTraceProvider extends TAbstractProvider<CaseHistoryTrace> {
 
@@ -49,8 +54,7 @@ public class TCaseHistoryTraceProvider extends TAbstractProvider<CaseHistoryTrac
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[],
-	 * java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[], java.lang.String[])
 	 */
 	@Override
 	protected CaseHistoryTrace rowMapper(String[] row, String[] header) {
@@ -88,7 +92,7 @@ public class TCaseHistoryTraceProvider extends TAbstractProvider<CaseHistoryTrac
 			caseHistoryTrace.setChangeSubject(newValue);
 
 		} else if (property.equalsIgnoreCase("caseId")) {
-			caseHistoryTrace.getMatter().setId(MockDataUtils.convertToLong(newValue));
+			caseHistoryTrace.getMatter().setId(newValue);
 
 		} else if (property.equalsIgnoreCase("bpmProcessId")) {
 			caseHistoryTrace.setBpmProcessId(MockDataUtils.convertToLong(newValue));
@@ -101,7 +105,7 @@ public class TCaseHistoryTraceProvider extends TAbstractProvider<CaseHistoryTrac
 			caseHistoryTrace.getType().setVersionMinor(0.0);
 
 		} else if (property.equalsIgnoreCase("createDate")) {
-			caseHistoryTrace.setTraceDate(MockDataUtils.convertToCalendar(newValue));
+			caseHistoryTrace.setTraceDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 
 		} else if (property.equalsIgnoreCase("createdBy")) {
 			Long id = Long.parseLong(newValue);
@@ -114,10 +118,10 @@ public class TCaseHistoryTraceProvider extends TAbstractProvider<CaseHistoryTrac
 			// FIXME Nie ma już takiego pola
 
 		} else if (property.equalsIgnoreCase("endDate")) {
-			caseHistoryTrace.setEndDate(MockDataUtils.convertToCalendar(newValue));
+			caseHistoryTrace.setEndDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 
 		} else if (property.equalsIgnoreCase("dueDate")) {
-			caseHistoryTrace.setDueDate(MockDataUtils.convertToCalendar(newValue));
+			caseHistoryTrace.setDueDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 
 		} else if (property.equalsIgnoreCase("status")) {
 			caseHistoryTrace.setStatus(newValue);
@@ -168,7 +172,7 @@ public class TCaseHistoryTraceProvider extends TAbstractProvider<CaseHistoryTrac
 			caseHistoryTrace.setParameter15(newValue);
 
 		} else if (property.equalsIgnoreCase("previousVersionId")) {
-			caseHistoryTrace.setPreviousVersionId(MockDataUtils.convertToLong(newValue));
+			caseHistoryTrace.setPreviousVersionId(newValue);
 
 		} else {
 			String msg = "Obiekt " + CaseHistoryTrace.class.getSimpleName() + " nie posiada właściwości property="

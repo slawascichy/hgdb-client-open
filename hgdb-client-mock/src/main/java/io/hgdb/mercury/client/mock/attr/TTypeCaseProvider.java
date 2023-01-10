@@ -14,19 +14,22 @@ import pro.ibpm.mercury.entities.attr.TypeCode;
 import pro.ibpm.mercury.entities.dict.TypeKind;
 
 /**
- * @author Mariusz Barwikowski
  * 
+ * TTypeCaseProvider
+ *
+ * @author Mariusz Barwikowski
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+ * @version $Revision: 1.1 $
+ *
  */
 public class TTypeCaseProvider extends TAbstractProvider<TypeCase> {
 
 	/**
-	 * Nazwa licznika typów dokumentów załadowanych z plików Mock (tylko
-	 * ostatnie wersje!)
+	 * Nazwa licznika typów dokumentów załadowanych z plików Mock (tylko ostatnie wersje!)
 	 */
 	public static String DOCUMENT_TYPES_COUNTER = "documentTypesCounter";
 	/**
-	 * Nazwa licznika typów spraw załadowanych z plików Mock (tylko ostatnie
-	 * wersje!)
+	 * Nazwa licznika typów spraw załadowanych z plików Mock (tylko ostatnie wersje!)
 	 */
 	public static String CASE_TYPES_COUNTER = "caseTypesCounter";
 	/**
@@ -56,8 +59,7 @@ public class TTypeCaseProvider extends TAbstractProvider<TypeCase> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
 	 */
 	@Override
 	protected TypeCase rowMapper(String[] row) {
@@ -70,9 +72,7 @@ public class TTypeCaseProvider extends TAbstractProvider<TypeCase> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[],
-	 * java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[], java.lang.String[])
 	 */
 	@Override
 	protected TypeCase rowMapper(String[] row, String[] header) {
@@ -115,10 +115,10 @@ public class TTypeCaseProvider extends TAbstractProvider<TypeCase> {
 		} else if (property.equalsIgnoreCase("isLatestVersion")) {
 			typeCase.setIsLatestVersion(Boolean.parseBoolean(newValue));
 		} else if (property.equalsIgnoreCase("fromDate")) {
-			typeCase.setFromDate(MockDataUtils.convertToCalendar(newValue));
+			typeCase.setFromDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 		} else if (property.equalsIgnoreCase("toDate")) {
 			if (StringUtils.isNotBlank(newValue)) {
-				typeCase.setToDate(MockDataUtils.convertToCalendar(newValue));
+				typeCase.setToDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 			}
 		} else if (property.equalsIgnoreCase("isDocumentType")) {
 			typeCase.setIsDocumentType(Boolean.parseBoolean(newValue));

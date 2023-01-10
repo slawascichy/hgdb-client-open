@@ -1,8 +1,8 @@
-id;caseId;description;replyText;priority;sendDate;replyDate;from;to
-1;1;Wprowadzenie danych;Odpowiedz;1;03-03-2013;04-03-2013;taczka;konewka
-2;1;Sprawdzenie poprawności;Odpowiedz Sprawdzenie poprawnosci;1;03-03-2013;04-03-2013;taczka;konewka
-3;1;Poprawienie przez dyrektora;Odp wszystko ok;1;03-03-2013;04-03-2013;taczka;konewka
-4;2;Wprowadzenie danych;Odpowiedz;1;03-03-2013;04-03-2013;taczka;konewka
-5;2;Sprawdzenie poprawności;Odpowiedz Sprawdzenie poprawnosci;1;03-03-2013;04-03-2013;taczka;konewka
-6;13;Sprawdzenie poprawności;Odpowiedz Sprawdzenie poprawnosci;1;03-03-2013;04-03-2013;taczka;konewka
-7;13;Sprawdzenie poprawności;Odpowiedz Sprawdzenie poprawnosci;1;03-03-2013;04-03-2013;taczka;konewka
+﻿id;caseId;description;replyText;priority;sendDate;replyDate;from;to
+1;POLISA1.1;Wprowadzenie danych;Odpowiedz;1;03.03.2013;04.03.2013;taczka;konewka
+2;POLISA1.1;Sprawdzenie poprawności;Odpowiedz Sprawdzenie poprawnosci;1;03.03.2013;04.03.2013;taczka;konewka
+3;POLISA1.1;Poprawienie przez dyrektora;Odp wszystko ok;1;03.03.2013;04.03.2013;taczka;konewka
+4;POLISA2.2;Wprowadzenie danych;Odpowiedz;1;03.03.2013;04.03.2013;taczka;konewka
+5;POLISA2.2;Sprawdzenie poprawności;Odpowiedz Sprawdzenie poprawnosci;1;03.03.2013;04.03.2013;taczka;konewka
+6;POLISA2.13;Sprawdzenie poprawności;Odpowiedz Sprawdzenie poprawnosci;1;03.03.2013;04.03.2013;taczka;konewka
+7;POLISA2.13;Sprawdzenie poprawności;Odpowiedz Sprawdzenie poprawnosci;1;03.03.2013;04.03.2013;taczka;konewka

@@ -23,16 +23,6 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
 import io.hgdb.mercury.client.mock.TProvider;
-import io.hgdb.mercury.client.mock.arch.TArchCaseDocumentProvider;
-import io.hgdb.mercury.client.mock.arch.TArchCaseHistoryStreamProvider;
-import io.hgdb.mercury.client.mock.arch.TArchCaseHistoryTraceProvider;
-import io.hgdb.mercury.client.mock.arch.TArchCaseProvider;
-import io.hgdb.mercury.client.mock.arch.TArchCommentProvider;
-import io.hgdb.mercury.client.mock.arch.TArchGroupCase2ParticipantProvider;
-import io.hgdb.mercury.client.mock.arch.TArchGroupCaseHistoryStreamProvider;
-import io.hgdb.mercury.client.mock.arch.TArchGroupCaseProvider;
-import io.hgdb.mercury.client.mock.arch.TArchKtmNumberProvider;
-import io.hgdb.mercury.client.mock.arch.TArchQuickTaskProvider;
 import io.hgdb.mercury.client.mock.attr.TParamDefinitionProvider;
 import io.hgdb.mercury.client.mock.attr.TType2TypeProvider;
 import io.hgdb.mercury.client.mock.attr.TTypeCaseProvider;
@@ -75,6 +65,8 @@ import io.hgdb.mercury.client.mock.dict.TTypeKindProvider;
  */
 public class MockDataUtils {
 
+	/** Formatowanie daty w mock'ach w plikach CSV wyprodukowanych przez Excel'a */
+	public static final String EXCEL_DATE_FORMAT = "dd.MM.yyyy";
 	/** Formatowanie daty w mock'ach */
 	private static final String DATE_FORMAT = "dd-MM-yyyy";
 
@@ -157,39 +149,23 @@ public class MockDataUtils {
 			/** Historia sprawy - Stream */
 			TCaseHistoryStreamProvider.getInstance(),
 			/** LoggerEvent */
-			TLoggerEventProvider.getInstance(),
-			/*************** arch ***********************/
-			/** ArchKTMNumber */
-			TArchKtmNumberProvider.getInstance(),
-			/** Grupy spraw */
-			TArchGroupCaseProvider.getInstance(),
-			/** HistoryStream dla grup */
-			TArchGroupCaseHistoryStreamProvider.getInstance(),
-			/** Grupy spraw do użytkowników */
-			TArchGroupCase2ParticipantProvider.getInstance(),
-			/** Grupy spraw do użytkowników */
-			TArchCaseProvider.getInstance(),
-			/** Dokumenty sprawy */
-			TArchCaseDocumentProvider.getInstance(),
-			/** Zadania */
-			TArchQuickTaskProvider.getInstance(),
-			/** Historia sprawy - Trace */
-			TArchCaseHistoryTraceProvider.getInstance(),
-			/** Historia sprawy - Stream */
-			TArchCaseHistoryStreamProvider.getInstance(),
-			/** Komentarz */
-			TArchCommentProvider.getInstance(), };
+			TLoggerEventProvider.getInstance(), };
 
-	public static Calendar convertToCalendar(String str) {
+	public static Calendar convertToCalendar(String str, String dateFormat) {
 		Calendar result = null;
 
 		if (isNotNull(str)) {
 			result = Calendar.getInstance();
 			try {
-				result.setTime(getSDF().parse(str));
+				if (StringUtils.isBlank(dateFormat)) {
+					dateFormat = DATE_FORMAT;
+					result.setTime(getSDF().parse(str));
+				} else {
+					result.setTime(new SimpleDateFormat(dateFormat).parse(str));
+				}
 			} catch (ParseException e) {
 				throw new UnsupportedOperationException("ParseException : Nie moge sparsować daty, dataValue=" + str
-						+ ", przyjęty format daty=" + DATE_FORMAT);
+						+ ", przyjęty format daty=" + dateFormat);
 			}
 		}
 

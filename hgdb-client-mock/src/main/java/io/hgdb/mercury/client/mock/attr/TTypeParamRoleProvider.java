@@ -15,8 +15,13 @@ import pro.ibpm.mercury.entities.beans.ParamPrivilege;
 import pro.ibpm.mercury.entities.dict.Role;
 
 /**
- * @author Mariusz Barwikowski
  * 
+ * TTypeParamRoleProvider
+ *
+ * @author Mariusz Barwikowski
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+ * @version $Revision: 1.1 $
+ *
  */
 public class TTypeParamRoleProvider extends TAbstractProvider<TypeParamRole> {
 
@@ -37,8 +42,7 @@ public class TTypeParamRoleProvider extends TAbstractProvider<TypeParamRole> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
 	 */
 	@Override
 	protected TypeParamRole rowMapper(String[] row) {
@@ -48,9 +52,7 @@ public class TTypeParamRoleProvider extends TAbstractProvider<TypeParamRole> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[],
-	 * java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[], java.lang.String[])
 	 */
 	@Override
 	protected TypeParamRole rowMapper(String[] row, String[] header) {
@@ -96,14 +98,14 @@ public class TTypeParamRoleProvider extends TAbstractProvider<TypeParamRole> {
 
 			typeParamRole.setPrivilegeName(newValue);
 		} else if (property.equalsIgnoreCase("createDate")) {
-			typeParamRole.setCreateDate(MockDataUtils.convertToCalendar(newValue));
+			typeParamRole.setCreateDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 
 		} else if (property.equalsIgnoreCase("createdBy")) {
 			Long id = MockDataUtils.convertToLong(newValue);
 			typeParamRole.setCreatedBy(TSystemUserProvider.usersMap.get(id));
 
 		} else if (property.equalsIgnoreCase("modifyDate")) {
-			typeParamRole.setLastModifyDate(MockDataUtils.convertToCalendar(newValue));
+			typeParamRole.setLastModifyDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 
 		} else if (property.equalsIgnoreCase("modifiedBy")) {
 			Long id = Long.parseLong(newValue);

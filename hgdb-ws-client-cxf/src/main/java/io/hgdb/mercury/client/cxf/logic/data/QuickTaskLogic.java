@@ -15,7 +15,7 @@ import pro.ibpm.mercury.ws.server.api.actions.data.IQuickTaskAction;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithPagedResult;
 
 /**
- * @author Karol Kowalczyk
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * 
  */
 public class QuickTaskLogic extends WsClientBigDataLogic<QuickTask, Long, IQuickTaskAction> implements IQuickTaskLogic {

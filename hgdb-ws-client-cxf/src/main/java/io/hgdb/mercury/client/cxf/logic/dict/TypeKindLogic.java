@@ -15,7 +15,7 @@ import pro.ibpm.mercury.logic.api.dict.ITypeKindLogic;
 import pro.ibpm.mercury.ws.server.api.actions.dict.ITypeKindAction;
 
 /**
- * @author Karol Kowalczyk
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * 
  */
 public class TypeKindLogic extends

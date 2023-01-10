@@ -15,7 +15,7 @@ import pro.ibpm.mercury.ws.server.api.actions.data.ILoggerEventAction;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithPagedResult;
 
 /**
- * @author Karol Kowalczyk
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * 
  */
 public class LoggerEventLogic extends WsClientBigDataLogic<LoggerEvent, Long, ILoggerEventAction>

@@ -11,7 +11,7 @@ import pro.ibpm.mercury.logic.api.data.ISystemUserLogic;
 import pro.ibpm.mercury.ws.server.api.actions.data.ISystemUserAction;
 
 /**
- * @author Karol Kowalczyk
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * 
  */
 public class SystemUserLogic extends WsClientDataLogic<SystemUser, Long, ISystemUserAction>

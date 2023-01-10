@@ -12,8 +12,13 @@ import pro.ibpm.mercury.entities.data.KtmNumber;
 import pro.ibpm.mercury.entities.dict.Source;
 
 /**
- * @author Mariusz Barwikowski
  * 
+ * TGroupCaseProvider
+ *
+ * @author Mariusz Barwikowski
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+ * @version $Revision: 1.1 $
+ *
  */
 public class TGroupCaseProvider extends TAbstractProvider<GroupCase> {
 
@@ -31,28 +36,24 @@ public class TGroupCaseProvider extends TAbstractProvider<GroupCase> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
 	 */
 	@Override
 	protected GroupCase rowMapper(String[] row) {
-		String[] header = new String[] { "id", "createDate", "createdBy",
-				"modifyDate", "modifiedBy", "sourceValue", "ktmId" };
+		String[] header = new String[] { "id", "createDate", "createdBy", "modifyDate", "modifiedBy", "sourceValue",
+				"ktmId" };
 		return rowMapper(row, header);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[],
-	 * java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[], java.lang.String[])
 	 */
 	@Override
 	protected GroupCase rowMapper(String[] row, String[] header) {
 
-		this.logger.trace("row.length=" + row.length + ", header.length="
-				+ header.length);
+		this.logger.trace("row.length=" + row.length + ", header.length=" + header.length);
 
 		GroupCase result = new GroupCase();
 		result.setSource(new Source());
@@ -62,8 +63,7 @@ public class TGroupCaseProvider extends TAbstractProvider<GroupCase> {
 				setPropertyValue(header[index], row[index], result);
 			}
 		} else {
-			String msg = "Nie wczytano danych dla wiersza row=" + row
-					+ " oraz naglowka header=" + header;
+			String msg = "Nie wczytano danych dla wiersza row=" + row + " oraz naglowka header=" + header;
 			this.logger.error(msg);
 			throw new NotImplementedException(msg);
 		}
@@ -71,8 +71,7 @@ public class TGroupCaseProvider extends TAbstractProvider<GroupCase> {
 		return result;
 	}
 
-	private void setPropertyValue(String property, String newValue,
-			GroupCase groupCase) {
+	private void setPropertyValue(String property, String newValue, GroupCase groupCase) {
 
 		this.logger.trace("property=" + property + ", newValue=" + newValue);
 
@@ -80,15 +79,14 @@ public class TGroupCaseProvider extends TAbstractProvider<GroupCase> {
 			groupCase.setId(Long.parseLong(newValue));
 
 		} else if (property.equalsIgnoreCase("createDate")) {
-			groupCase.setCreateDate(MockDataUtils.convertToCalendar(newValue));
+			groupCase.setCreateDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 
 		} else if (property.equalsIgnoreCase("createdBy")) {
 			Long id = Long.parseLong(newValue);
 			groupCase.setCreatedBy(TSystemUserProvider.usersMap.get(id));
 
 		} else if (property.equalsIgnoreCase("modifyDate")) {
-			groupCase.setLastModifyDate(MockDataUtils
-					.convertToCalendar(newValue));
+			groupCase.setLastModifyDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 
 		} else if (property.equalsIgnoreCase("modifiedBy")) {
 			Long id = Long.parseLong(newValue);
@@ -98,12 +96,10 @@ public class TGroupCaseProvider extends TAbstractProvider<GroupCase> {
 			groupCase.getSource().setValue(newValue);
 
 		} else if (property.equalsIgnoreCase("ktmId")) {
-			groupCase.setKtmNumber(new KtmNumber(MockDataUtils
-					.convertToLong(newValue)));
+			groupCase.setKtmNumber(new KtmNumber(MockDataUtils.convertToLong(newValue)));
 
 		} else {
-			String msg = "Obiekt " + GroupCase.class.getSimpleName()
-					+ " nie posiada właściwości property=" + property;
+			String msg = "Obiekt " + GroupCase.class.getSimpleName() + " nie posiada właściwości property=" + property;
 			this.logger.error(msg);
 			throw new NotImplementedException(msg);
 		}

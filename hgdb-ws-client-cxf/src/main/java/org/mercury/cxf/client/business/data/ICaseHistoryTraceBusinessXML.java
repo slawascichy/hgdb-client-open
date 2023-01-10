@@ -46,7 +46,7 @@ public interface ICaseHistoryTraceBusinessXML {
 	 * @return strumień zmian związany z daną wersją sprawy
 	 * @throws MercuryException
 	 */
-	Document findByCaseIdXML(Context context, Long caseId, Boolean isAsc, IPage page) throws MercuryException;
+	Document findByCaseIdXML(Context context, String caseId, Boolean isAsc, IPage page) throws MercuryException;
 
 	/**
 	 * Załadowanie wpisów historycznych sprawy (obrazów sprawy) dla wszystkich
@@ -64,7 +64,7 @@ public interface ICaseHistoryTraceBusinessXML {
 	 * @return strumień zmian związany z daną wersją sprawy
 	 * @throws MercuryException
 	 */
-	Document findByCaseIdAllVersionsXML(Context context, Long caseId, Boolean isAsc, IPage page)
+	Document findByCaseIdAllVersionsXML(Context context, String caseId, Boolean isAsc, IPage page)
 			throws MercuryException;
 
 }

@@ -47,7 +47,7 @@
 		<ccrto-openapi.version>1.2-SNAPSHOT</ccrto-openapi.version>
 
 		<databse.provider>POSTGRESQL</databse.provider>
-		<mercury.project.version>3.0.3.2.12</mercury.project.version>
+		<mercury.project.version>3.0.4.1</mercury.project.version>
 		<mercury.client.version>${project.version}</mercury.client.version>
 		<!-- Użycie API Mercury 2.0 -->
 		<!-- 

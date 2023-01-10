@@ -29,13 +29,21 @@ import pro.ibpm.mercury.logic.paging.IPage;
 import pro.ibpm.mercury.logic.paging.IPagedResult;
 import pro.ibpm.mercury.registry.RegistrySupport;
 import pro.ibpm.mercury.ws.server.api.actions.data.ICase2SubCaseAction;
-import pro.ibpm.mercury.ws.server.api.returns.IWsStatus;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatus;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithLongBag;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithLongValue;
+import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithStringBag;
 import pro.ibpm.mercury.ws.server.api.returns.data.Case2SubCasePagedResult;
 import pro.ibpm.mercury.ws.server.api.returns.data.WsStatusWithCase2SubCasePagedResult;
 
+/**
+ * 
+ * Case2SubCaseLogic
+ *
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+ * @version $Revision: 1.1 $
+ *
+ */
 public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2SubCaseAction>
 		implements ICase2SubCaseLogic {
 
@@ -213,55 +221,54 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 	}
 
 	@Override
-	public Case2SubCase findReferenceByKnownRelationShip(Context context, Long parentCaseId, String fieldName,
-			Long subCaseId) throws MercuryException {
+	public Case2SubCase findReferenceByKnownRelationShip(Context context, String parentCaseId, String fieldName,
+			String subCaseId) throws MercuryException {
 		return getEntity(context,
 				getService(context).findReferenceByKnownRelationShip(context, parentCaseId, fieldName, subCaseId));
 	}
 
 	@Override
-	public Case2SubCase findFirstReferenceByParentCaseIdAndFieldName(Context context, Long parentCaseId,
+	public Case2SubCase findFirstReferenceByParentCaseIdAndFieldName(Context context, String parentCaseId,
 			String fieldName) throws MercuryException {
 		return getEntity(context,
 				getService(context).findFirstReferenceByParentCaseIdAndFieldName(context, parentCaseId, fieldName));
 	}
 
 	@Override
-	public Set<Long> checkSubCaseIdByParentCaseIdAndFieldName(Context context, Long parentCaseId, String fieldName,
-			List<Long> subCaseIds) throws MercuryException {
-		WsStatusWithLongBag wsStatusWithDtos = getService(context).checkSubCaseIdByParentCaseIdAndFieldName(context,
+	public Set<String> checkSubCaseIdByParentCaseIdAndFieldName(Context context, String parentCaseId, String fieldName,
+			List<String> subCaseIds) throws MercuryException {
+		WsStatusWithStringBag wsStatusWithDtos = getService(context).checkSubCaseIdByParentCaseIdAndFieldName(context,
 				parentCaseId, fieldName, subCaseIds);
 		if (wsStatusWithDtos == null) {
 			return Collections.emptySet();
 		}
-		logger.debug("--> checkSubCaseIdByParentCaseIdAndFieldName: wsStatusWithDtos={}",
-				new Object[] { wsStatusWithDtos });
-		if (checkWsStatus((IWsStatus) wsStatusWithDtos) && wsStatusWithDtos.getBag() != null
+		logger.debug("--> checkSubCaseIdByParentCaseIdAndFieldName: wsStatusWithDtos={}", wsStatusWithDtos);
+		if (checkWsStatus(wsStatusWithDtos) && wsStatusWithDtos.getBag() != null
 				&& !wsStatusWithDtos.getBag().isEmpty()) {
-			return new HashSet<Long>(wsStatusWithDtos.getBag());
+			return new HashSet<>(wsStatusWithDtos.getBag());
 		}
 		return Collections.emptySet();
 	}
 
 	@Override
 	public IPagedResult<Case2SubCase, IPage> findReferencesByParentCaseIdAndFieldName(Context context,
-			Long parentCaseId, String fieldName, IPage page) throws MercuryException {
-		WsStatusWithCase2SubCasePagedResult result = getService(context).findReferencesByParentCaseIdAndFieldName(context,
-				parentCaseId, fieldName, (PageTransportable) page);
+			String parentCaseId, String fieldName, IPage page) throws MercuryException {
+		WsStatusWithCase2SubCasePagedResult result = getService(context)
+				.findReferencesByParentCaseIdAndFieldName(context, parentCaseId, fieldName, (PageTransportable) page);
 		return getPagedResult(context, result);
 	}
 
 	protected IPagedResult<Case2SubCase, IPage> getPagedResult(Context context,
 			final WsStatusWithCase2SubCasePagedResult wsStatusWithPagedResult) throws MercuryException {
-		logger.debug("--> getPagedResult: wsStatusWithPagedResult={}", new Object[] { wsStatusWithPagedResult });
-		if (checkWsStatus((IWsStatus) wsStatusWithPagedResult)) {
+		logger.debug("--> getPagedResult: wsStatusWithPagedResult={}", wsStatusWithPagedResult);
+		if (checkWsStatus(wsStatusWithPagedResult)) {
 			try {
 				/* czytamy rezultat z serwisu */
 				Case2SubCasePagedResult pagedResultDto = wsStatusWithPagedResult.getPagedResult();
 				Collection<Case2SubCaseDto> dtos = pagedResultDto.getResult();
 				Collection<Case2SubCase> eList = initCollection(context, dtos);
 				/* Teraz trzeba utworzyć obiekt stronicowanego wyniku z encją */
-				PagedResult<Case2SubCase> result = new PagedResult<Case2SubCase>(new PagingInfo(pagedResultDto));
+				PagedResult<Case2SubCase> result = new PagedResult<>(new PagingInfo(pagedResultDto));
 				result.setResult(eList);
 				return result;
 			} catch (Exception e) {
@@ -272,71 +279,73 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 	}
 
 	@Override
-	public List<Long> findSubCaseIdsByParentCaseIdAndFieldName(Context context, Long parentCaseId, String fieldName)
+	public List<String> findSubCaseIdsByParentCaseIdAndFieldName(Context context, String parentCaseId, String fieldName)
 			throws MercuryException {
-		WsStatusWithLongBag wsStatusWithDtos = getService(context).findSubCaseIdsByParentCaseIdAndFieldName(context,
+		WsStatusWithStringBag wsStatusWithDtos = getService(context).findSubCaseIdsByParentCaseIdAndFieldName(context,
 				parentCaseId, fieldName);
 		if (wsStatusWithDtos == null) {
 			return Collections.emptyList();
 		}
-		logger.debug("--> findSubCaseIdsByParentCaseIdAndFieldName: wsStatusWithDtos={}",
-				new Object[] { wsStatusWithDtos });
-		if (checkWsStatus((IWsStatus) wsStatusWithDtos) && wsStatusWithDtos.getBag() != null
+		logger.debug("--> findSubCaseIdsByParentCaseIdAndFieldName: wsStatusWithDtos={}", wsStatusWithDtos);
+		if (checkWsStatus(wsStatusWithDtos) && wsStatusWithDtos.getBag() != null
 				&& !wsStatusWithDtos.getBag().isEmpty()) {
-			return new ArrayList<Long>(wsStatusWithDtos.getBag());
+			return new ArrayList<>(wsStatusWithDtos.getBag());
 		}
 		return Collections.emptyList();
 	}
 
 	@Override
-	public List<Long> findAllReferenceIdsByParentCaseId(Context context, Long parentCaseId) throws MercuryException {
-		WsStatusWithLongBag wsStatusWithDtos = getService(context).findAllReferenceIdsByParentCaseId(context, parentCaseId);
+	public List<Long> findAllReferenceIdsByParentCaseId(Context context, String parentCaseId) throws MercuryException {
+		WsStatusWithLongBag wsStatusWithDtos = getService(context).findAllReferenceIdsByParentCaseId(context,
+				parentCaseId);
 		if (wsStatusWithDtos == null) {
 			return Collections.emptyList();
 		}
-		logger.debug("--> findAllReferenceIdsByParentCaseId: wsStatusWithDtos={}", new Object[] { wsStatusWithDtos });
-		if (checkWsStatus((IWsStatus) wsStatusWithDtos) && wsStatusWithDtos.getBag() != null
+		logger.debug("--> findAllReferenceIdsByParentCaseId: wsStatusWithDtos={}", wsStatusWithDtos);
+		if (checkWsStatus(wsStatusWithDtos) && wsStatusWithDtos.getBag() != null
 				&& !wsStatusWithDtos.getBag().isEmpty()) {
-			return new ArrayList<Long>(wsStatusWithDtos.getBag());
+			return new ArrayList<>(wsStatusWithDtos.getBag());
 		}
 		return Collections.emptyList();
 	}
 
 	@Override
-	public int remove(Context context, Long parentCaseId, String fieldName, Long subCaseId) throws MercuryException {
+	public int remove(Context context, String parentCaseId, String fieldName, String subCaseId)
+			throws MercuryException {
 		WsStatusWithLongValue wsStatusWithDtos = getService(context).removeSubCase(context, parentCaseId, fieldName,
 				subCaseId);
 		if (wsStatusWithDtos == null) {
 			return 0;
 		}
-		logger.debug(REMOVE_WS_STATUS_WITH_DTOS, new Object[] { wsStatusWithDtos });
-		if (checkWsStatus((IWsStatus) wsStatusWithDtos) && wsStatusWithDtos.getValue() != null) {
+		logger.debug(REMOVE_WS_STATUS_WITH_DTOS, wsStatusWithDtos);
+		if (checkWsStatus(wsStatusWithDtos) && wsStatusWithDtos.getValue() != null) {
 			return wsStatusWithDtos.getValue().intValue();
 		}
 		return 0;
 	}
 
 	@Override
-	public int remove(Context context, Long parentCaseId, String fieldName) throws MercuryException {
-		WsStatusWithLongValue wsStatusWithDtos = getService(context).removeSubCasesList(context, parentCaseId, fieldName);
+	public int remove(Context context, String parentCaseId, String fieldName) throws MercuryException {
+		WsStatusWithLongValue wsStatusWithDtos = getService(context).removeSubCasesList(context, parentCaseId,
+				fieldName);
 		if (wsStatusWithDtos == null) {
 			return 0;
 		}
-		logger.debug(REMOVE_WS_STATUS_WITH_DTOS, new Object[] { wsStatusWithDtos });
-		if (checkWsStatus((IWsStatus) wsStatusWithDtos) && wsStatusWithDtos.getValue() != null) {
+		logger.debug(REMOVE_WS_STATUS_WITH_DTOS, wsStatusWithDtos);
+		if (checkWsStatus(wsStatusWithDtos) && wsStatusWithDtos.getValue() != null) {
 			return wsStatusWithDtos.getValue().intValue();
 		}
 		return 0;
 	}
 
 	@Override
-	public int remove(Context context, Long parentCaseId) throws MercuryException {
+	public int remove(Context context, String parentCaseId) throws MercuryException {
 		WsStatusWithLongValue wsStatusWithDtos = getService(context).removeSubCasesAll(context, parentCaseId);
 		if (wsStatusWithDtos == null) {
 			return 0;
 		}
-		logger.debug(REMOVE_WS_STATUS_WITH_DTOS, new Object[] { wsStatusWithDtos });
-		if (checkWsStatus((IWsStatus) wsStatusWithDtos) && wsStatusWithDtos.getValue() != null) {
+		logger.debug(REMOVE_WS_STATUS_WITH_DTOS, wsStatusWithDtos);
+		if (checkWsStatus(wsStatusWithDtos) && wsStatusWithDtos.getValue() != null) {
 			return wsStatusWithDtos.getValue().intValue();
 		}
 		return 0;
@@ -359,8 +368,8 @@ public class Case2SubCaseLogic extends WsClientRoot<Case2SubCase, Long, ICase2Su
 		if (wsStatus == null) {
 			return null;
 		}
-		logger.debug(REMOVE_WS_STATUS_WITH_DTOS, new Object[] { wsStatus });
-		if (checkWsStatus((IWsStatus) wsStatus)) {
+		logger.debug(REMOVE_WS_STATUS_WITH_DTOS, wsStatus);
+		if (checkWsStatus(wsStatus)) {
 			return referenceId;
 		}
 		return null;

@@ -11,7 +11,7 @@ import pro.ibpm.mercury.logic.api.data.IStoreHistoryStreamLogic;
 import pro.ibpm.mercury.ws.server.api.actions.data.IStoreHistoryStreamAction;
 
 /**
- * @author Karol Kowalczyk
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * 
  */
 public class StoreHistoryStreamLogic extends WsClientCustomLogic<StoreHistoryStream, Long, IStoreHistoryStreamAction>

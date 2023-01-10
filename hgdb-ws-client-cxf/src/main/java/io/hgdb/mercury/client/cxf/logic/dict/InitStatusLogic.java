@@ -15,7 +15,7 @@ import pro.ibpm.mercury.logic.api.dict.IInitStatusLogic;
 import pro.ibpm.mercury.ws.server.api.actions.dict.IInitStatusAction;
 
 /**
- * @author Karol Kowalczyk
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * 
  */
 public class InitStatusLogic extends

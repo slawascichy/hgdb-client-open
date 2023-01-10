@@ -15,7 +15,7 @@ import pro.ibpm.mercury.ws.server.api.actions.data.IKtmNumberAction;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithPagedResult;
 
 /**
- * @author Karol Kowalczyk
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * 
  */
 public class KtmNumberLogic extends WsClientBigDataLogic<KtmNumber, Long, IKtmNumberAction> implements IKtmNumberLogic {

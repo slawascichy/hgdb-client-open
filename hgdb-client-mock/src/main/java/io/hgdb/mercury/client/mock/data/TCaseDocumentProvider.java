@@ -18,8 +18,13 @@ import pro.ibpm.mercury.entities.dict.InitStatus;
 import pro.ibpm.mercury.entities.dict.Source;
 
 /**
- * @author Mariusz Barwikowski
  * 
+ * TCaseDocumentProvider
+ *
+ * @author Mariusz Barwikowski
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+ * @version $Revision: 1.1 $
+ *
  */
 public class TCaseDocumentProvider extends TAbstractProvider<CaseDocument> {
 
@@ -37,31 +42,25 @@ public class TCaseDocumentProvider extends TAbstractProvider<CaseDocument> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
 	 */
 	@Override
 	protected CaseDocument rowMapper(String[] row) {
-		String[] header = new String[] { "caseId", "aeObjectId",
-				"versionSeriesId", "contentStreamId", "groupingCode",
-				"initStatus", "isInput", "isRoot", "docTypeId", "sourceValue",
-				"createDate", "createdBy", "isActive", "isValid", "groupSize",
-				"versionLabel", "isLatestVersion" };
+		String[] header = new String[] { "caseId", "aeObjectId", "versionSeriesId", "contentStreamId", "groupingCode",
+				"initStatus", "isInput", "isRoot", "docTypeId", "sourceValue", "createDate", "createdBy", "isActive",
+				"isValid", "groupSize", "versionLabel", "isLatestVersion" };
 		return rowMapper(row, header);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[],
-	 * java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[], java.lang.String[])
 	 */
 	@Override
 	protected CaseDocument rowMapper(String[] row, String[] header) {
 
-		this.logger.trace("row.length=" + row.length + ", header.length="
-				+ header.length);
+		this.logger.trace("row.length=" + row.length + ", header.length=" + header.length);
 
 		CaseDocument result = new CaseDocument();
 		CaseDocumentPK pk = new CaseDocumentPK();
@@ -71,13 +70,12 @@ public class TCaseDocumentProvider extends TAbstractProvider<CaseDocument> {
 		result.setType(new TypeCase());
 		result.setSource(new Source());
 
-		if (row != null && header != null && row.length == header.length) {
+		if (row.length == header.length) {
 			for (int index = 0; index < header.length; index++) {
 				setPropertyValue(header[index], row[index], result);
 			}
 		} else {
-			String msg = "Nie wczytano danych dla wiersza row="
-					+ Arrays.asList(row) + " oraz naglowka header="
+			String msg = "Nie wczytano danych dla wiersza row=" + Arrays.asList(row) + " oraz naglowka header="
 					+ Arrays.asList(header);
 			this.logger.error(msg);
 			throw new NotImplementedException(msg);
@@ -86,15 +84,13 @@ public class TCaseDocumentProvider extends TAbstractProvider<CaseDocument> {
 		return result;
 	}
 
-	private void setPropertyValue(String property, String newValue,
-			CaseDocument caseDocument) {
+	private void setPropertyValue(String property, String newValue, CaseDocument caseDocument) {
 		// caseId;aeObjectId;versionSeriesId;contentStreamId;groupingCode;initStatus;isInput;isRoot;docTypeId;sourceValue;createDate;createdBy;isActive;isValid;groupSize;versionLabel;isLatestVersion;author;receivedDate;receiver;receiverDW;subject;lastModifyDate;lastModifiedBy;modifyComment
 
 		this.logger.trace("property=" + property + ", newValue=" + newValue);
 
 		if (property.equalsIgnoreCase("caseId")) {
-			caseDocument.getId().getCaseObj()
-					.setId(MockDataUtils.convertToLong(newValue));
+			caseDocument.getId().getCaseObj().setId(newValue);
 
 		} else if (property.equalsIgnoreCase("aeObjectId")) {
 			caseDocument.getId().setObjectId(newValue);
@@ -125,8 +121,7 @@ public class TCaseDocumentProvider extends TAbstractProvider<CaseDocument> {
 			caseDocument.getSource().setValue(newValue);
 
 		} else if (property.equalsIgnoreCase("createDate")) {
-			caseDocument.setCreateDate(MockDataUtils
-					.convertToCalendar(newValue));
+			caseDocument.setCreateDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 
 		} else if (property.equalsIgnoreCase("createdBy")) {
 			Long id = Long.parseLong(newValue);
@@ -145,15 +140,13 @@ public class TCaseDocumentProvider extends TAbstractProvider<CaseDocument> {
 			caseDocument.setVersionLabel(newValue);
 
 		} else if (property.equalsIgnoreCase("isLatestVersion")) {
-			caseDocument.setIsLatestVersion(MockDataUtils
-					.convertToBoolean(newValue));
+			caseDocument.setIsLatestVersion(MockDataUtils.convertToBoolean(newValue));
 
 		} else if (property.equalsIgnoreCase("author")) {
 			caseDocument.setAuthor(newValue);
 
 		} else if (property.equalsIgnoreCase("receivedDate")) {
-			caseDocument.setReceivedDate(MockDataUtils
-					.convertToCalendar(newValue));
+			caseDocument.setCreateDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 
 		} else if (property.equalsIgnoreCase("receiver")) {
 			caseDocument.setReceiver(newValue);
@@ -165,25 +158,22 @@ public class TCaseDocumentProvider extends TAbstractProvider<CaseDocument> {
 			caseDocument.setSubject(newValue);
 
 		} else if (property.equalsIgnoreCase("lastModifyDate")) {
-			caseDocument.setLastModifyDate(MockDataUtils
-					.convertToCalendar(newValue));
+			caseDocument.setCreateDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 
 		} else if (property.equalsIgnoreCase("lastModifiedBy")) {
-			caseDocument.setCreatedBy(TSystemUserProvider.usersMap
-					.get(MockDataUtils.convertToLong(newValue)));
-			caseDocument.setLastModifiedBy(TSystemUserProvider.usersMap
-					.get(MockDataUtils.convertToLong(newValue)));
+			caseDocument.setCreatedBy(TSystemUserProvider.usersMap.get(MockDataUtils.convertToLong(newValue)));
+			caseDocument.setLastModifiedBy(TSystemUserProvider.usersMap.get(MockDataUtils.convertToLong(newValue)));
 
 		} else if (property.equalsIgnoreCase("modifyComment")) {
 			caseDocument.setModifyComment(newValue);
 
 		} else {
-			String msg = "Obiekt " + CaseDocument.class.getSimpleName()
-					+ " nie posiada właściwości property=" + property;
+			String msg = "Obiekt " + CaseDocument.class.getSimpleName() + " nie posiada właściwości property="
+					+ property;
 			this.logger.error(msg);
 			throw new NotImplementedException(msg);
 		}
 
 	}
-	
+
 }

@@ -15,7 +15,7 @@ import pro.ibpm.mercury.logic.api.dict.IRoleLogic;
 import pro.ibpm.mercury.ws.server.api.actions.dict.IRoleAction;
 
 /**
- * @author Karol Kowalczyk
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * 
  */
 public class RoleLogic extends WsClientDictLogic<Role, String, IRoleAction>

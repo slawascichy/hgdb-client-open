@@ -14,7 +14,6 @@ import java.util.SortedMap;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mercury.business.data.api.ICaseHistoryTraceBusiness;
@@ -60,18 +59,6 @@ import pro.ibpm.mercury.dto.paging.PageTransportable;
 import pro.ibpm.mercury.entities.MEntity;
 import pro.ibpm.mercury.entities.MEntityToString;
 import pro.ibpm.mercury.entities.MIdModifier;
-import pro.ibpm.mercury.entities.arch.ArchCase;
-import pro.ibpm.mercury.entities.arch.ArchCaseDocument;
-import pro.ibpm.mercury.entities.arch.ArchCaseDocumentPK;
-import pro.ibpm.mercury.entities.arch.ArchCaseHistoryStream;
-import pro.ibpm.mercury.entities.arch.ArchCaseHistoryTrace;
-import pro.ibpm.mercury.entities.arch.ArchComment;
-import pro.ibpm.mercury.entities.arch.ArchGroupCase;
-import pro.ibpm.mercury.entities.arch.ArchGroupCase2Participant;
-import pro.ibpm.mercury.entities.arch.ArchGroupCase2ParticipantPK;
-import pro.ibpm.mercury.entities.arch.ArchGroupCaseHistoryStream;
-import pro.ibpm.mercury.entities.arch.ArchKtmNumber;
-import pro.ibpm.mercury.entities.arch.ArchQuickTask;
 import pro.ibpm.mercury.entities.attr.CaseViewDefinition;
 import pro.ibpm.mercury.entities.attr.ParamDefinition;
 import pro.ibpm.mercury.entities.attr.ParamDefinitionPK;
@@ -113,16 +100,6 @@ import pro.ibpm.mercury.logic.MDataLogic;
 import pro.ibpm.mercury.logic.MDictLogic;
 import pro.ibpm.mercury.logic.api.INotyficationLogic;
 import pro.ibpm.mercury.logic.api.NotyficationType;
-import pro.ibpm.mercury.logic.api.arch.IArchCaseDocumentLogic;
-import pro.ibpm.mercury.logic.api.arch.IArchCaseHistoryStreamLogic;
-import pro.ibpm.mercury.logic.api.arch.IArchCaseHistoryTraceLogic;
-import pro.ibpm.mercury.logic.api.arch.IArchCaseLogic;
-import pro.ibpm.mercury.logic.api.arch.IArchCommentLogic;
-import pro.ibpm.mercury.logic.api.arch.IArchGroupCase2ParticipantLogic;
-import pro.ibpm.mercury.logic.api.arch.IArchGroupCaseHistoryStreamLogic;
-import pro.ibpm.mercury.logic.api.arch.IArchGroupCaseLogic;
-import pro.ibpm.mercury.logic.api.arch.IArchKtmNumberLogic;
-import pro.ibpm.mercury.logic.api.arch.IArchQuickTaskLogic;
 import pro.ibpm.mercury.logic.api.attr.ICaseViewDefinitionLogic;
 import pro.ibpm.mercury.logic.api.attr.IParamDefinitionLogic;
 import pro.ibpm.mercury.logic.api.attr.ITypeCaseLogic;
@@ -170,7 +147,7 @@ import pro.ibpm.mercury.xml.w3c.dom.XMLUtils;
 @ContextConfiguration("spring-test.xml")
 public class WsClientCXFTest extends SpringClientTestSupport {
 
-	private static final long CASE_ID = 2004L;
+	private static final String CASE_ID = "TestRole.2004";
 	private final Context context = new Context("ttesteusz", "WsClientCXFTest", "001", "10", "1000");
 
 	public WsClientCXFTest() {
@@ -202,7 +179,7 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 			throw ex;
 		}
 
-		assert result.equals("OK") : "Test zakończył się porażką";
+		assertEquals("Test zakończył się porażką", "OK", result);
 	}
 
 	@Test
@@ -229,7 +206,7 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 			throw ex;
 		}
 
-		assert result.equals("OK") : "Test zakończył się porażką";
+		assertEquals("Test zakończył się porażką", "OK", result);
 	}
 
 	@Test
@@ -257,7 +234,7 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 			throw ex;
 		}
 
-		assert result.equals("OK") : "Test zakończył się porażką";
+		assertEquals("Test zakończył się porażką", "OK", result);
 	}
 
 	@Test
@@ -281,7 +258,7 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 			result = "BAD";
 			throw ex;
 		}
-		assert result.equals("OK") : "Test zakończył się porażką";
+		assertEquals("Test zakończył się porażką", "OK", result);
 	}
 
 	@Test
@@ -315,7 +292,7 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 			result = "BAD";
 			throw ex;
 		}
-		assert result.equals("OK") : "Test zakończył się porażką";
+		assertEquals("Test zakończył się porażką", "OK", result);
 	}
 
 	@Test
@@ -467,10 +444,10 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 		for (Case caseObj : caseList) {
 			idS.add(caseObj.getId().toString());
 		}
-		assertTrue("Niepoprawne elementy na liscie " + idS, idS.contains("9"));
-		assertTrue("Niepoprawne elementy na liscie " + idS, idS.contains("8"));
-		assertTrue("Niepoprawne elementy na liscie " + idS, idS.contains("7"));
-		assertTrue("Niepoprawne elementy na liscie " + idS, idS.contains("4"));
+		assertTrue("Niepoprawne elementy na liscie " + idS, idS.contains("AGENT1.9"));
+		assertTrue("Niepoprawne elementy na liscie " + idS, idS.contains("AGENT1.8"));
+		assertTrue("Niepoprawne elementy na liscie " + idS, idS.contains("POLISA1.1"));
+		assertTrue("Niepoprawne elementy na liscie " + idS, idS.contains("POLISA3.4"));
 	}
 
 	@Test
@@ -697,7 +674,7 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 
 						Case2Case filter = new Case2Case();
 						filter.setDepth(2);
-						Case filterParent = new Case(1L);
+						Case filterParent = new Case("POLISA1.1");
 						filter.setParent(filterParent);
 						final IPagedResult<Case2Case, IPage> iPagedResult = logic.filterPaged(context, filter,
 								new PageTransportable());
@@ -710,7 +687,7 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 
 	@Test
 	public void testCase() throws MercuryException, Exception {
-		new AnyTest<Case, Long, ICaseLogic>("testCase", "caseLogic", null, new IAnyTest<Case, Long, ICaseLogic>() {
+		new AnyTest<Case, String, ICaseLogic>("testCase", "caseLogic", null, new IAnyTest<Case, String, ICaseLogic>() {
 			@SuppressWarnings({ "deprecation" })
 			public void run(ICaseLogic logic, Case e) throws MercuryException, Exception {
 				final String text = "&ampersand&";
@@ -752,8 +729,8 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 				logger.info("text={} comment={} documents.first.groupingCode={}", new Object[] { e.getParameter(5),
 						e.getModifyComment(), e.getDocuments().iterator().next().getGroupingCode() });
 
-				final Long id = e.getId();
-				List<Long> pks = new ArrayList<Long>();
+				final String id = e.getId();
+				List<String> pks = new ArrayList<String>();
 				pks.add(id);
 
 				List<Case> bag = logic.findByIdList(context, pks);
@@ -763,7 +740,7 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 				}
 				bag = logic.updateList(context, bag);
 				assert (bag != null) && (!bag.isEmpty()) : "Nie zmieniono cases";
-				pks = new ArrayList<Long>();
+				pks = new ArrayList<String>();
 				int i = 0;
 				for (Case t : bag) {
 					pks.add(t.getId());
@@ -978,65 +955,9 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 	}
 
 	@Test
-	public void testArchCaseDocument() throws MercuryException, Exception {
-		new AnyTest<ArchCaseDocument, ArchCaseDocumentPK, IArchCaseDocumentLogic>("testArchCaseDocument",
-				"archCaseDocumentLogic", null, null);
-	}
-
-	@Test
-	public void testArchCaseHistoryStream() throws MercuryException, Exception {
-		new AnyTest<ArchCaseHistoryStream, Long, IArchCaseHistoryStreamLogic>("testArchCaseHistoryStream",
-				"archCaseHistoryStreamLogic", null, null);
-	}
-
-	@Test
-	public void testArchCaseHistoryTrace() throws MercuryException, Exception {
-		new AnyTest<ArchCaseHistoryTrace, Long, IArchCaseHistoryTraceLogic>("testArchCaseHistoryTrace",
-				"archCaseHistoryTraceLogic", null, null);
-	}
-
-	@Test
-	public void testArchCase() throws MercuryException, Exception {
-		new AnyTest<ArchCase, Long, IArchCaseLogic>("testArchCase", "archCaseLogic", null, null);
-	}
-
-	@Test
-	@Ignore
-	public void testArchComment() throws MercuryException, Exception {
-		new AnyTest<ArchComment, Long, IArchCommentLogic>("testArchComment", "archCommentLogic", null, null);
-	}
-
-	@Test
-	public void testArchGropCaseHistoryStream() throws MercuryException, Exception {
-		new AnyTest<ArchGroupCaseHistoryStream, Long, IArchGroupCaseHistoryStreamLogic>(
-				"testArchGroupCaseHistoryStream", "archGroupCaseHistoryStreamLogic", null, null);
-	}
-
-	@Test
-	public void testArchKtmNumber() throws MercuryException, Exception {
-		new AnyTest<ArchKtmNumber, Long, IArchKtmNumberLogic>("testArchKtmNumber", "archKtmNumberLogic", null, null);
-	}
-
-	@Test
-	public void testArchQuickTask() throws MercuryException, Exception {
-		new AnyTest<ArchQuickTask, Long, IArchQuickTaskLogic>("testArchQuickTask", "archQuickTaskLogic", null, null);
-	}
-
-	@Test
-	public void testArchGroupCase2Participant() throws MercuryException, Exception {
-		new AnyTest<ArchGroupCase2Participant, ArchGroupCase2ParticipantPK, IArchGroupCase2ParticipantLogic>(
-				"testArchGroupCase2Participant", "archGroupCase2ParticipantLogic", null, null);
-	}
-
-	@Test
 	public void testGroupCase2Participant() throws MercuryException, Exception {
 		new AnyTest<GroupCase2Participant, GroupCase2ParticipantPK, IGroupCase2ParticipantLogic>(
 				"testGroupCase2Participant", "groupCase2ParticipantLogic", null, null);
-	}
-
-	@Test
-	public void testArchGroupCase() throws MercuryException, Exception {
-		new AnyTest<ArchGroupCase, Long, IArchGroupCaseLogic>("testArchGroupCase", "archGroupCaseLogic", null, null);
 	}
 
 	@Test
@@ -1079,7 +1000,7 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 					MrcObjectUtils.printMrcObject((IMrcObject) first, CaseBusiness.FIRST_ITERATION).toString() });
 
 			String doc = "<dto type=\"TestRole\">" + " <mrcCaseHeader type=\"TestRole\" version=\"1\">"
-					+ "    <caseId type=\"Integer\">2004</caseId>"
+					+ "    <caseId type=\"String\">TestRole.2004</caseId>"
 					+ "    <bpmProcessId type=\"Integer\">1213</bpmProcessId>" + "    <inventoryCode type=\"String\"/>"
 					+ "    <groupId type=\"Integer\">7018</groupId>"
 					+ "    <typeCode type=\"String\">TestRole</typeCode>" + "    <endDate type=\"Date\"/>"
@@ -1118,7 +1039,7 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 			throw ex;
 		}
 
-		assert result.equals("OK") : "Test zakończył się porażką";
+		assertEquals("Test zakończył się porażką", "OK", result);
 
 	}
 
@@ -1156,7 +1077,7 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 			throw ex;
 		}
 
-		assert result.equals("OK") : "Test zakończył się porażką";
+		assertEquals("Test zakończył się porażką", "OK", result);
 
 	}
 
@@ -1197,7 +1118,7 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 				throw ex;
 			}
 
-			assert result.equals("OK") : "Test zakończył się porażką";
+			assertEquals("Test zakończył się porażką", "OK", result);
 		}
 	}
 
@@ -1339,7 +1260,7 @@ public class WsClientCXFTest extends SpringClientTestSupport {
 				throw ex;
 			}
 
-			assert result.equals("OK") : "Test zakończył się porażką";
+			assertEquals("Test zakończył się porażką", "OK", result);
 		}
 
 		private Pk getPk(final E e) {

@@ -13,11 +13,15 @@ import pro.ibpm.mercury.entities.data.GroupCase;
 import pro.ibpm.mercury.entities.data.GroupCaseHistoryStream;
 
 /**
- * @author Mariusz Barwikowski
  * 
+ * TGroupCaseHistoryStreamProvider
+ *
+ * @author Mariusz Barwikowski
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+ * @version $Revision: 1.1 $
+ *
  */
-public class TGroupCaseHistoryStreamProvider extends
-		TAbstractProvider<GroupCaseHistoryStream> {
+public class TGroupCaseHistoryStreamProvider extends TAbstractProvider<GroupCaseHistoryStream> {
 
 	public TGroupCaseHistoryStreamProvider() {
 		super("/pro/ibpm/mercury/mock/data/tGroupCaseHistoryStream.csv", true);
@@ -33,29 +37,24 @@ public class TGroupCaseHistoryStreamProvider extends
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
 	 */
 	@Override
 	protected GroupCaseHistoryStream rowMapper(String[] row) {
-		String[] header = new String[] { "id", "groupCaseId", "modifyComment",
-				"modifyDate", "modifyUserId", "newValue", "oldValue",
-				"paramDefinitionName", "paramDefinitionVersion" };
+		String[] header = new String[] { "id", "groupCaseId", "modifyComment", "modifyDate", "modifyUserId", "newValue",
+				"oldValue", "paramDefinitionName", "paramDefinitionVersion" };
 		return rowMapper(row, header);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[],
-	 * java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[], java.lang.String[])
 	 */
 	@Override
 	protected GroupCaseHistoryStream rowMapper(String[] row, String[] header) {
 
-		this.logger.trace("row.length=" + row.length + ", header.length="
-				+ header.length);
+		this.logger.trace("row.length=" + row.length + ", header.length=" + header.length);
 
 		GroupCaseHistoryStream result = new GroupCaseHistoryStream();
 		result.setParamDefinition(new ParamDefinition(new ParamDefinitionPK()));
@@ -65,8 +64,7 @@ public class TGroupCaseHistoryStreamProvider extends
 				setPropertyValue(header[index], row[index], result);
 			}
 		} else {
-			String msg = "Nie wczytano danych dla wiersza row=" + row
-					+ " oraz naglowka header=" + header;
+			String msg = "Nie wczytano danych dla wiersza row=" + row + " oraz naglowka header=" + header;
 			this.logger.error(msg);
 			throw new NotImplementedException(msg);
 		}
@@ -74,8 +72,7 @@ public class TGroupCaseHistoryStreamProvider extends
 		return result;
 	}
 
-	private void setPropertyValue(String property, String newValue,
-			GroupCaseHistoryStream groupCaseHistoryStream) {
+	private void setPropertyValue(String property, String newValue, GroupCaseHistoryStream groupCaseHistoryStream) {
 
 		this.logger.trace("property=" + property + ", newValue=" + newValue);
 
@@ -83,19 +80,18 @@ public class TGroupCaseHistoryStreamProvider extends
 			groupCaseHistoryStream.setId(MockDataUtils.convertToLong(newValue));
 
 		} else if (property.equalsIgnoreCase("groupCaseId")) {
-			groupCaseHistoryStream.setMatter(new GroupCase(MockDataUtils
-					.convertToLong(newValue)));
+			groupCaseHistoryStream.setMatter(new GroupCase(MockDataUtils.convertToLong(newValue)));
 
 		} else if (property.equalsIgnoreCase("modifyComment")) {
 			groupCaseHistoryStream.setModifyComment(newValue);
 
 		} else if (property.equalsIgnoreCase("modifyDate")) {
-			groupCaseHistoryStream.setModifyDate(MockDataUtils
-					.convertToCalendar(newValue));
+			groupCaseHistoryStream
+					.setModifyDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 
 		} else if (property.equalsIgnoreCase("modifyUserId")) {
-			groupCaseHistoryStream.setModifyUser(TSystemUserProvider.usersMap
-					.get(MockDataUtils.convertToLong(newValue)));
+			groupCaseHistoryStream
+					.setModifyUser(TSystemUserProvider.usersMap.get(MockDataUtils.convertToLong(newValue)));
 
 		} else if (property.equalsIgnoreCase("newValue")) {
 			groupCaseHistoryStream.setNewValue(newValue);
@@ -105,18 +101,15 @@ public class TGroupCaseHistoryStreamProvider extends
 
 		} else if (property.equalsIgnoreCase("paramDefinitionName")) {
 
-			groupCaseHistoryStream.getParamDefinition().getId()
-					.setDefinitionName(newValue);
+			groupCaseHistoryStream.getParamDefinition().getId().setDefinitionName(newValue);
 
 		} else if (property.equalsIgnoreCase("paramDefinitionVersion")) {
 
-			groupCaseHistoryStream.getParamDefinition().getId()
-					.setVersion(MockDataUtils.convertToLong(newValue));
+			groupCaseHistoryStream.getParamDefinition().getId().setVersion(MockDataUtils.convertToLong(newValue));
 
 		} else {
-			String msg = "Obiekt "
-					+ GroupCaseHistoryStream.class.getSimpleName()
-					+ " nie posiada właściwości property=" + property;
+			String msg = "Obiekt " + GroupCaseHistoryStream.class.getSimpleName() + " nie posiada właściwości property="
+					+ property;
 			this.logger.error(msg);
 			throw new NotImplementedException(msg);
 		}

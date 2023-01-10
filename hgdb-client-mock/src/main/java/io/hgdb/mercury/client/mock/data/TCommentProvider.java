@@ -11,8 +11,13 @@ import pro.ibpm.mercury.entities.data.Case;
 import pro.ibpm.mercury.entities.data.Comment;
 
 /**
- * @author Mariusz Barwikowski
  * 
+ * TCommentProvider
+ *
+ * @author Mariusz Barwikowski
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+ * @version $Revision: 1.1 $
+ *
  */
 public class TCommentProvider extends TAbstractProvider<Comment> {
 
@@ -30,28 +35,23 @@ public class TCommentProvider extends TAbstractProvider<Comment> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
 	 */
 	@Override
 	protected Comment rowMapper(String[] row) {
-		String[] header = new String[] { "id", "caseId", "createDate",
-				"username", "content" };
+		String[] header = new String[] { "id", "caseId", "createDate", "username", "content" };
 		return rowMapper(row, header);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[],
-	 * java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[], java.lang.String[])
 	 */
 	@Override
 	protected Comment rowMapper(String[] row, String[] header) {
 
-		this.logger.trace("row.length=" + row.length + ", header.length="
-				+ header.length);
+		this.logger.trace("row.length=" + row.length + ", header.length=" + header.length);
 
 		Comment result = new Comment();
 		result.setCaseObj(new Case());
@@ -61,8 +61,7 @@ public class TCommentProvider extends TAbstractProvider<Comment> {
 				setPropertyValue(header[index], row[index], result);
 			}
 		} else {
-			String msg = "Nie wczytano danych dla wiersza row=" + row
-					+ " oraz naglowka header=" + header;
+			String msg = "Nie wczytano danych dla wiersza row=" + row + " oraz naglowka header=" + header;
 			this.logger.error(msg);
 			throw new NotImplementedException(msg);
 		}
@@ -70,8 +69,7 @@ public class TCommentProvider extends TAbstractProvider<Comment> {
 		return result;
 	}
 
-	private void setPropertyValue(String property, String newValue,
-			Comment comment) {
+	private void setPropertyValue(String property, String newValue, Comment comment) {
 		// id;caseId;createDate;username;content
 
 		this.logger.trace("property=" + property + ", newValue=" + newValue);
@@ -80,10 +78,10 @@ public class TCommentProvider extends TAbstractProvider<Comment> {
 			comment.setId(MockDataUtils.convertToLong(newValue));
 
 		} else if (property.equalsIgnoreCase("caseId")) {
-			comment.getCaseObj().setId(MockDataUtils.convertToLong(newValue));
+			comment.getCaseObj().setId(newValue);
 
 		} else if (property.equalsIgnoreCase("createDate")) {
-			comment.setCreateDate(MockDataUtils.convertToCalendar(newValue));
+			comment.setCreateDate(MockDataUtils.convertToCalendar(newValue, MockDataUtils.EXCEL_DATE_FORMAT));
 
 		} else if (property.equalsIgnoreCase("username")) {
 			comment.setUsername(newValue);
@@ -92,8 +90,7 @@ public class TCommentProvider extends TAbstractProvider<Comment> {
 			comment.setContent(newValue);
 
 		} else {
-			String msg = "Obiekt " + Comment.class.getSimpleName()
-					+ " nie posiada właściwości property=" + property;
+			String msg = "Obiekt " + Comment.class.getSimpleName() + " nie posiada właściwości property=" + property;
 			this.logger.error(msg);
 			throw new NotImplementedException(msg);
 		}

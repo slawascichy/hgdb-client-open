@@ -1,7 +1,6 @@
 package io.hgdb.mercury.client.cxf.logic.data;
 
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,7 @@ import pro.ibpm.mercury.search.SearchFieldSimple;
 import pro.ibpm.mercury.ws.server.api.actions.data.ICaseAction;
 import pro.ibpm.mercury.ws.server.api.returns.IWsStatusWithPagedResult;
 import pro.ibpm.mercury.ws.server.api.returns.WsStatus;
-import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithLongValue;
+import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithStringValue;
 
 /**
  * 
@@ -36,7 +35,8 @@ import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithLongValue;
  * @version $Revision: 1.1 $
  *
  */
-public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> implements ICaseLogic {
+@SuppressWarnings("java:S110")
+public class CaseLogic extends WsClientBigDataLogic<Case, String, ICaseAction> implements ICaseLogic {
 
 	private static final long serialVersionUID = 6830844704517933475L;
 
@@ -48,26 +48,26 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public EntityList<Case, Long> insertList(Context context, List<Case> eBag) throws MercuryException {
+	public EntityList<Case, String> insertList(Context context, List<Case> eBag) throws MercuryException {
 		return getEntityCollection(context, getService(context).insertBag(context, eBag, /* forceAddStore2Type */
 				false));
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public Long remove(Context context, final Case e) throws MercuryException {
+	public String remove(Context context, final Case e) throws MercuryException {
 		return getId(getService(context).remove(context, e), e);
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public List<Long> removeList(Context context, final List<Case> eBag) throws MercuryException {
+	public List<String> removeList(Context context, final List<Case> eBag) throws MercuryException {
 		return getIds(getService(context).removeBag(context, eBag), eBag);
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public Case find(Context context, final Long pk) throws MercuryException {
+	public Case find(Context context, final String pk) throws MercuryException {
 		return getEntity(context, getService(context).findByKey(context, pk));
 	}
 
@@ -85,7 +85,7 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public EntityList<Case, Long> updateList(Context context, List<Case> eBag) throws MercuryException {
+	public EntityList<Case, String> updateList(Context context, List<Case> eBag) throws MercuryException {
 		return getEntityCollection(context, getService(context).updateBag(context, eBag, /* forceAddStore2Type */
 				false));
 	}
@@ -99,7 +99,7 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public Case findLastVersion(Context context, Long rootVersionId) throws MercuryException {
+	public Case findLastVersion(Context context, String rootVersionId) throws MercuryException {
 		return getEntity(context, getService(context).findLastVersion(context, rootVersionId));
 	}
 
@@ -301,7 +301,7 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public List<Case> findByIdList(Context context, List<Long> idList) throws MercuryException {
+	public List<Case> findByIdList(Context context, List<String> idList) throws MercuryException {
 		return getEntityCollection(context, getService(context).findByKeyBag(context, idList));
 	}
 
@@ -325,18 +325,16 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public EntityList<Case, Long> insertList(Context context, List<Case> entityObjects, boolean forceAddStore2Type)
+	public EntityList<Case, String> insertList(Context context, List<Case> entityObjects, boolean forceAddStore2Type)
 			throws MercuryException {
-		return getEntityCollection(context,
-				getService(context).insertBag(context, (Collection<Case>) entityObjects, forceAddStore2Type));
+		return getEntityCollection(context, getService(context).insertBag(context, entityObjects, forceAddStore2Type));
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public EntityList<Case, Long> updateList(Context context, List<Case> entityObjects, boolean forceAddStore2Type)
+	public EntityList<Case, String> updateList(Context context, List<Case> entityObjects, boolean forceAddStore2Type)
 			throws MercuryException {
-		return getEntityCollection(context,
-				getService(context).updateBag(context, (Collection<Case>) entityObjects, forceAddStore2Type));
+		return getEntityCollection(context, getService(context).updateBag(context, entityObjects, forceAddStore2Type));
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -372,7 +370,7 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 			throws MercuryException {
 		final Map<String, SearchFieldSimple> map = getMap(
 				getService(context).getLuceneSearchableFieldsByTypeCodes(context, arg1));
-		return (map == null) ? null : new HashMap<String, SearchFieldSimple>((Map<String, SearchFieldSimple>) map);
+		return (map == null) ? null : new HashMap<>(map);
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -381,7 +379,7 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 			throws MercuryException {
 		final Map<String, SearchFieldSimple> map = getMap(
 				getService(context).getLuceneSearchableFieldsByTypeIds(context, arg1));
-		return (map == null) ? null : new HashMap<String, SearchFieldSimple>((Map<String, SearchFieldSimple>) map);
+		return (map == null) ? null : new HashMap<>(map);
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -395,26 +393,21 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public boolean checkStatus(Context context, Long caseId) throws MercuryException {
-		WsStatusWithLongValue result = getService(context).checkCaseStatus(context, caseId);
-		if (checkWsStatus(result)) {
-			Long returnedCaseId = result.getValue();
-			return caseId.equals(returnedCaseId);
-		}
-		return false;
+	public boolean checkStatus(Context context, String caseId) throws MercuryException {
+		WsStatusWithStringValue result = getService(context).checkCaseStatus(context, caseId);
+		checkWsStatus(result);
+		return caseId.equals(result.getValue());
 	}
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public Long checkStatus(Context context, Case entityObject) throws MercuryException {
+	public String checkStatus(Context context, Case entityObject) throws MercuryException {
 		if (entityObject.getId() == null) {
 			throw new InternalErrorException("Identyfikator badanej sprawy nie może być pusty");
 		}
-		WsStatusWithLongValue result = getService(context).checkCaseStatus(context, entityObject.getId());
-		if (checkWsStatus(result)) {
-			return result.getValue();
-		}
-		return null;
+		WsStatusWithStringValue result = getService(context).checkCaseStatus(context, entityObject.getId());
+		checkWsStatus(result);
+		return result.getValue();
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -425,7 +418,7 @@ public class CaseLogic extends WsClientBigDataLogic<Case, Long, ICaseAction> imp
 
 	/* Overridden (non-Javadoc) */
 	@Override
-	public Case loadNewestVersion(Context context, Long oldVersionCaseId) throws MercuryException {
+	public Case loadNewestVersion(Context context, String oldVersionCaseId) throws MercuryException {
 		return getEntity(context, getService(context).loadNewestVersion(context, oldVersionCaseId));
 	}
 

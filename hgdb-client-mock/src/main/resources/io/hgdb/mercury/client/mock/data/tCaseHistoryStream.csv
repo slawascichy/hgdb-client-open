@@ -1,10 +1,10 @@
-id;caseId;modifyComment;modifyDate;systemUserId;newValue;oldValue;definitionName;version
-1;1;Zmiana 1.1;11-11-2013;1;Kowal 1; Kowal 0;NazwiskoKlienta;1
-2;1;Zmiana 1.2;12-11-2013;1;Kowal 2; Kowal 1;NazwiskoKlienta;1
-3;1;Zmiana 1.3;13-11-2013;1;Kowal 3; Kowal 2;NazwiskoKlienta;1
-4;1;Zmiana 1.4;14-11-2013;1;Kowal 4; Kowal 3;NazwiskoKlienta;1
-5;2;Zmiana 2.1;15-11-2013;2;Kowal 1; Kowal 0;NazwiskoKlienta;1
-6;2;Zmiana 2.2;16-11-2013;2;NW1; NW0;RodzajPolisy;1
-7;2;Zmiana 2.3;17-11-2013;2;ON2;NW1;RodzajPolisy;1
-8;3;Zmiana 3.1;18-11-2013;2;NW1; NW0;RodzajPolisy;1
-9;3;Zmiana 3.2;19-11-2013;2;ON2;NW1;RodzajPolisy;1
+﻿id;caseId;modifyComment;modifyDate;systemUserId;newValue;oldValue;definitionName;version
+1;POLISA1.1;Zmiana 1.1;11.11.2013;1;Kowal 1; Kowal 0;NazwiskoKlienta;1
+2;POLISA1.1;Zmiana 1.2;12.11.2013;1;Kowal 2; Kowal 1;NazwiskoKlienta;1
+3;POLISA1.1;Zmiana 1.3;13.11.2013;1;Kowal 3; Kowal 2;NazwiskoKlienta;1
+4;POLISA1.1;Zmiana 1.4;14.11.2013;1;Kowal 4; Kowal 3;NazwiskoKlienta;1
+5;POLISA2.2;Zmiana 2.1;15.11.2013;2;Kowal 1; Kowal 0;NazwiskoKlienta;1
+6;POLISA2.2;Zmiana 2.2;16.11.2013;2;NW1; NW0;RodzajPolisy;1
+7;POLISA2.2;Zmiana 2.3;17.11.2013;2;ON2;NW1;RodzajPolisy;1
+8;POLISA2.3;Zmiana 3.1;18.11.2013;2;NW1; NW0;RodzajPolisy;1
+9;POLISA2.3;Zmiana 3.2;19.11.2013;2;ON2;NW1;RodzajPolisy;1

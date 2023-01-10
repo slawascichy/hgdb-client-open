@@ -11,7 +11,7 @@ import pro.ibpm.mercury.logic.api.data.IParticipantHistoryStreamLogic;
 import pro.ibpm.mercury.ws.server.api.actions.data.IParticipantHistoryStreamAction;
 
 /**
- * @author Karol Kowalczyk
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * 
  */
 public class ParticipantHistoryStreamLogic

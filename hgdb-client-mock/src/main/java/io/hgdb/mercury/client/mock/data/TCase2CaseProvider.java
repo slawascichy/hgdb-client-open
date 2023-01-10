@@ -11,8 +11,13 @@ import pro.ibpm.mercury.entities.data.Case;
 import pro.ibpm.mercury.entities.data.Case2Case;
 
 /**
- * @author Mariusz Barwikowski
  * 
+ * TCase2CaseProvider
+ *
+ * @author Mariusz Barwikowski
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+ * @version $Revision: 1.1 $ 
+ *
  */
 public class TCase2CaseProvider extends TAbstractProvider<Case2Case> {
 
@@ -30,8 +35,7 @@ public class TCase2CaseProvider extends TAbstractProvider<Case2Case> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[])
 	 */
 	@Override
 	protected Case2Case rowMapper(String[] row) {
@@ -42,15 +46,12 @@ public class TCase2CaseProvider extends TAbstractProvider<Case2Case> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[],
-	 * java.lang.String[])
+	 * @see pro.ibpm.mercury.mock.TAbstractProvider#rowMapper(java.lang.String[], java.lang.String[])
 	 */
 	@Override
 	protected Case2Case rowMapper(String[] row, String[] header) {
 
-		this.logger.trace("row.length=" + row.length + ", header.length="
-				+ header.length);
+		this.logger.trace("row.length=" + row.length + ", header.length=" + header.length);
 
 		Case2Case result = new Case2Case();
 		result.setParent(new Case());
@@ -61,8 +62,7 @@ public class TCase2CaseProvider extends TAbstractProvider<Case2Case> {
 				setPropertyValue(header[index], row[index], result);
 			}
 		} else {
-			String msg = "Nie wczytano danych dla wiersza row=" + row
-					+ " oraz naglowka header=" + header;
+			String msg = "Nie wczytano danych dla wiersza row=" + row + " oraz naglowka header=" + header;
 			this.logger.error(msg);
 			throw new NotImplementedException(msg);
 		}
@@ -74,16 +74,15 @@ public class TCase2CaseProvider extends TAbstractProvider<Case2Case> {
 		}
 	}
 
-	private void setPropertyValue(String property, String newValue,
-			Case2Case case2Case) {
+	private void setPropertyValue(String property, String newValue, Case2Case case2Case) {
 
 		this.logger.trace("property=" + property + ", newValue=" + newValue);
 
 		if (property.equalsIgnoreCase("parentId")) {
-			case2Case.getParent().setId(MockDataUtils.convertToLong(newValue));
+			case2Case.getParent().setId(newValue);
 
 		} else if (property.equalsIgnoreCase("childId")) {
-			case2Case.getChild().setId(MockDataUtils.convertToLong(newValue));
+			case2Case.getChild().setId(newValue);
 			;
 
 		} else if (property.equalsIgnoreCase("depth")) {
@@ -93,8 +92,7 @@ public class TCase2CaseProvider extends TAbstractProvider<Case2Case> {
 			case2Case.setPath(newValue);
 
 		} else {
-			String msg = "Obiekt " + Case2Case.class.getSimpleName()
-					+ " nie posiada właściwości property=" + property;
+			String msg = "Obiekt " + Case2Case.class.getSimpleName() + " nie posiada właściwości property=" + property;
 			this.logger.error(msg);
 			throw new NotImplementedException(msg);
 		}

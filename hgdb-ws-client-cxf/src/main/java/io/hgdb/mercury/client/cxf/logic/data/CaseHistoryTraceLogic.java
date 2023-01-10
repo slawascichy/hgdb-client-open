@@ -45,7 +45,7 @@ public class CaseHistoryTraceLogic extends WsClientCustomLogic<CaseHistoryTrace,
 	}
 
 	@Override
-	public List<CaseHistoryTrace> findByCaseId(Context context, Long caseId) throws MercuryException {
+	public List<CaseHistoryTrace> findByCaseId(Context context, String caseId) throws MercuryException {
 		return getEntityCollection(context, getService(context).findByCaseId(context, caseId));
 	}
 

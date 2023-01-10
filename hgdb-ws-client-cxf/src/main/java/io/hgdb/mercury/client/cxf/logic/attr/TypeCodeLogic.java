@@ -15,7 +15,7 @@ import pro.ibpm.mercury.logic.api.attr.ITypeCodeLogic;
 import pro.ibpm.mercury.ws.server.api.actions.attr.ITypeCodeAction;
 
 /**
- * @author Karol Kowalczyk
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * 
  */
 public class TypeCodeLogic extends WsClientDataLogic<TypeCode, String, ITypeCodeAction> implements ITypeCodeLogic {
