@@ -18,7 +18,7 @@
 		<project.local.repo>${local-project-workspace-path}/hgdb-client-open/repo</project.local.repo>
 		<Sun.java.home>${local-java-home-path}</Sun.java.home>
 
-		<org.springframework.version>5.3.21</org.springframework.version>
+		<org.springframework.version>6.0.0</org.springframework.version>
 		<spring.test.version>5.3.21</spring.test.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<log4j.version>1.2.14</log4j.version>
