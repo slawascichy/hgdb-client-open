@@ -1,0 +1,22 @@
+########
+# Generowanie klienta do starej wersji Mercury za pomocą narzędzia wsimport.exe
+# 
+# https://docs.oracle.com/javase/6/docs/technotes/tools/share/wsimport.html
+# https://www.baeldung.com/java-soap-web-service
+# https://docs.oracle.com/javaee/5/tutorial/doc/bnayn.html
+########
+
+wsimport.exe -keep`
+ -d src/test/java`
+ -p org.mercury.soap.client.long2` 
+ http://testnode-001.hgdb.io:8080/mercury-ws-app/services/CaseBusinessAction?wsdl
+ 
+wsimport.exe -keep`
+ -d src/test/java`
+ -p org.mercury.soap.client.long3` 
+ http://testnode-002.hgdb.io:8080/mercury-ws-app/services/CaseBusinessAction?wsdl
+ 
+ wsimport.exe -keep`
+  -d src/test/java`
+  -p org.mercury.soap.client.string3`
+  http://localhost:8080/mercury-ws-app/services/CaseBusinessAction?wsdl

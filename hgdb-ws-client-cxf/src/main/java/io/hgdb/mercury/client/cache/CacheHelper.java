@@ -8,20 +8,20 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import pl.slawas.common.cache.CacheConstants;
 import pl.slawas.common.cache.CacheProviderEnum;
 import pl.slawas.common.cache.CacheProviderFactory;
 import pl.slawas.common.cache.CacheUsage;
-import pl.slawas.common.cache.IObjectCache;
-import pl.slawas.common.cache.IObjectCacheProvider;
-import pl.slawas.common.cache.IObjectCacheStatistics;
+import pl.slawas.common.cache._IObjectCache;
+import pl.slawas.common.cache._IObjectCacheProvider;
+import pl.slawas.common.cache._IObjectCacheStatistics;
+import pl.slawas.common.cache.config.CacheConstants;
 import pl.slawas.common.cache.ehcache.EhCache;
 import pl.slawas.common.cache.ehcache.EhCacheConfig;
 import pl.slawas.entities.NameValuePair;
 import pl.slawas.helpers.Configurations;
+import pl.slawas.twl4j.Logger;
+import pl.slawas.twl4j.LoggerFactory;
 import pro.ibpm.mercury.config.MercuryConfig;
 import pro.ibpm.mercury.entities.MEntityCacheConfig;
 import pro.ibpm.mercury.entities.cache.IStatsInfoRecord;
@@ -46,17 +46,15 @@ public class CacheHelper {
 	public static final String DEFAULT_REGION_NAME = "MercuryCore";
 	public static final String DEFAULT_CACHE_USAGE = CacheUsage.TO_USE.name();
 	/**
-	 * Domyślny czas przechowywania elementów w pamięci podręcznej ustawiony na 24
-	 * godziny.
+	 * Domyślny czas przechowywania elementów w pamięci podręcznej ustawiony na 24 godziny.
 	 */
 	public static final int DEFAULT_TIME_TO_LIVE = 3600 * 24;
 	public static final String DYNAMIC_PARAMETERS_FILE_PATH = CacheConstants.PROP_DYNAMIC_PARAMETERS_FILE_PATH;
 
 	public static final String PROP_TIME_TO_LIVE = "cache.timeToLive";
 	/**
-	 * Definicja atrybutu zawierającego informację o pełnej ścieżce do konfiguracji
-	 * pamięci podręcznej, który jest wykorzystywany do serwowanie wartości
-	 * uniwersalnych atrybutów.
+	 * Definicja atrybutu zawierającego informację o pełnej ścieżce do konfiguracji pamięci podręcznej, który jest
+	 * wykorzystywany do serwowanie wartości uniwersalnych atrybutów.
 	 * 
 	 * @see AttributeTypeParameter
 	 */
@@ -66,8 +64,7 @@ public class CacheHelper {
 	private static EhCacheConfig cacheConfig;
 
 	/**
-	 * Nazwa provider-a pamięci podręcznej atrybutów, domyślna wartość
-	 * {@link CacheProviderEnum#none#toString()}
+	 * Nazwa provider-a pamięci podręcznej atrybutów, domyślna wartość {@link CacheProviderEnum#none#toString()}
 	 */
 	public static final String CACHE_PROVIDER = (MercuryConfig.getInstance().get(PROP_PROVIDER) == null ? "none"
 			: MercuryConfig.getInstance().get(PROP_PROVIDER));
@@ -93,8 +90,7 @@ public class CacheHelper {
 			addCacheParam(cacheConfig, propertyCode, value);
 		}
 		/*
-		 * Parametry z osobnego pliku konfiguracyjnego - nadpisują parametry z pliku
-		 * głównego
+		 * Parametry z osobnego pliku konfiguracyjnego - nadpisują parametry z pliku głównego
 		 */
 		String cachePropertiesFileName = MercuryConfig.getInstance().get(DYNAMIC_PARAMETERS_FILE_PATH);
 		if (StringUtils.isNotBlank(cachePropertiesFileName)) {
@@ -119,12 +115,11 @@ public class CacheHelper {
 	/**
 	 * Czyści pamięci podręczne powiązane z encją.
 	 * 
-	 * Na chwilę obecną pamięci podręczne zapytań NamedQuery powiązane z encją (
-	 * MCase2Case.NamedQueryCacheName ) oraz pamięci podręczne encji
-	 * pro.ibpm.mercury.entities.dict.Source .
+	 * Na chwilę obecną pamięci podręczne zapytań NamedQuery powiązane z encją ( MCase2Case.NamedQueryCacheName ) oraz
+	 * pamięci podręczne encji pro.ibpm.mercury.entities.dict.Source .
 	 * 
 	 * @param entityFullName
-	 *            pełna nazwa encji np pro.ibpm.mercury.entities.dict.Source
+	 *                       pełna nazwa encji np pro.ibpm.mercury.entities.dict.Source
 	 * @return
 	 * @throws MercuryException
 	 */
@@ -132,14 +127,14 @@ public class CacheHelper {
 
 		CacheProviderEnum lPprovider = getCacheProvider();
 		if (lPprovider.isAllowed()) {
-			IObjectCacheProvider<?> manager = CacheProviderFactory.getInstance(getCacheConfig().getPropertyList());
+			_IObjectCacheProvider<?> manager = CacheProviderFactory.getInstance(getCacheConfig().getPropertyList());
 			/*
 			 * czyszczenie pamięci podręcznej pro.ibpm.mercury.entities.dict.Source
 			 */
 			EhCache ch = (EhCache) manager.getCache(entityFullName);
 			logger.trace("usuwam cache entityFullName={}", entityFullName);
 			if (ch != null) {
-				ch.getEhCache().clear();
+				ch.getEhCache().getCacheManager().clearAll();
 			}
 			/* czyszczenie cache MCase2Case.NamedQueryCacheName */
 			try {
@@ -151,7 +146,7 @@ public class CacheHelper {
 					ch = (EhCache) manager.getCache(namedQueryCacheName);
 					logger.trace("usuwam cache namedQueryCacheName={}", namedQueryCacheName);
 					if (ch != null) {
-						ch.getEhCache().clear();
+						ch.getEhCache().getCacheManager().clearAll();
 					}
 				}
 			} catch (ClassNotFoundException e) {
@@ -183,17 +178,17 @@ public class CacheHelper {
 	 * Pobiera statystyki dla wybranych cache.
 	 * 
 	 * @param manager
-	 *            dostawca pamięci podręcznej
+	 *                    dostawca pamięci podręcznej
 	 * @param cachesNames
-	 *            nazwy cach-y dla których chcemy pobrać statystyki
+	 *                    nazwy cach-y dla których chcemy pobrać statystyki
 	 * @return
 	 */
-	public static List<IStatsInfoRecord> getAllStatistics(IObjectCacheProvider<?> manager, String[] cachesNames) {
+	public static List<IStatsInfoRecord> getAllStatistics(_IObjectCacheProvider<?> manager, String[] cachesNames) {
 		List<IStatsInfoRecord> result = new ArrayList<IStatsInfoRecord>();
 		if (cachesNames != null) {
 			for (String key : cachesNames) {
 				/* pobieram statystyki cache */
-				IObjectCacheStatistics row = manager.getStatistics(key);
+				_IObjectCacheStatistics row = manager.getStatistics(key);
 				IStatsInfoRecord record = transform2StatsInfoRecord(row);
 				result.add(record);
 			}
@@ -207,7 +202,7 @@ public class CacheHelper {
 	public static void clearCache(String cacheName) {
 		CacheProviderEnum lPprovider = getCacheProvider();
 		if (lPprovider.isAllowed()) {
-			IObjectCacheProvider<?> manager = CacheProviderFactory.getInstance(getCacheConfig().getPropertyList());
+			_IObjectCacheProvider<?> manager = CacheProviderFactory.getInstance(getCacheConfig().getPropertyList());
 			manager.clearCache(cacheName);
 		}
 	}
@@ -215,22 +210,22 @@ public class CacheHelper {
 	public static String[] getCacheNames() {
 		CacheProviderEnum lPprovider = getCacheProvider();
 		if (lPprovider.isAllowed()) {
-			IObjectCacheProvider<?> manager = CacheProviderFactory.getInstance(getCacheConfig().getPropertyList());
+			_IObjectCacheProvider<?> manager = CacheProviderFactory.getInstance(getCacheConfig().getPropertyList());
 			return manager.getCacheNames();
 		}
 		return new String[0];
 	}
 
-	public static IObjectCache getCache(String name) {
+	public static _IObjectCache getCache(String name) {
 		CacheProviderEnum lPprovider = getCacheProvider();
 		if (lPprovider.isAllowed()) {
-			IObjectCacheProvider<?> manager = CacheProviderFactory.getInstance(getCacheConfig().getPropertyList());
+			_IObjectCacheProvider<?> manager = CacheProviderFactory.getInstance(getCacheConfig().getPropertyList());
 			return manager.getCache(name);
 		}
 		return null;
 	}
 
-	public static StatsInfoRecord transform2StatsInfoRecord(final IObjectCacheStatistics cacheStatistics) {
+	public static StatsInfoRecord transform2StatsInfoRecord(final _IObjectCacheStatistics cacheStatistics) {
 		StatsInfoRecord result = new StatsInfoRecord();
 		result.setCacheName(cacheStatistics.getAssociatedCacheName());
 		result.setCacheHits(cacheStatistics.getCacheHits());
@@ -254,7 +249,7 @@ public class CacheHelper {
 
 	/**
 	 * @param cacheConfig
-	 *            the {@link #cacheConfig} to set
+	 *                    the {@link #cacheConfig} to set
 	 */
 	public static void setCacheConfig(EhCacheConfig cacheConfig) {
 		CacheHelper.cacheConfig = cacheConfig;
