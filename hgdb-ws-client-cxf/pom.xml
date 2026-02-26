@@ -71,6 +71,7 @@
 	</build>
 
 	<dependencies>
+		
 		<dependency>
 			<groupId>io.hgdb.mercury</groupId>
 			<artifactId>hgdb-client-mock</artifactId>
@@ -119,8 +120,8 @@
 		<dependency>
 			<groupId>pro.ibpm</groupId>
 			<artifactId>tw4j</artifactId>
-			<version>8.6.3.21030.2.0.3-SNAPSHOT</version>
-		</dependency>		
+			<version>8.6.3.21030.2.0.3.20230127</version>
+		</dependency>
 	</dependencies>
 	
 </project>
