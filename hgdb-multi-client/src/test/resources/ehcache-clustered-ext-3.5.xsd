@@ -22,7 +22,7 @@
            elementFormDefault="qualified"
            targetNamespace="http://www.ehcache.org/v3/clustered">
 
-  <xs:import namespace="http://www.ehcache.org/v3"/>
+  <xs:import namespace="http://www.ehcache.org/v3" schemaLocation="ehcache-core-3.5.xsd"/>
 
   <!--
     Service configuration elements

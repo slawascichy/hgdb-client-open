@@ -21,7 +21,7 @@
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            elementFormDefault="qualified"
            targetNamespace="http://www.ehcache.org/v3/tx">
-  <xs:import namespace="http://www.ehcache.org/v3"/>
+  <xs:import namespace="http://www.ehcache.org/v3" schemaLocation="ehcache-core-3.5.xsd"/>
 
   <xs:element name="xa-store" type="tx:xa-store-config-type" substitutionGroup="eh:service-configuration"/>
 

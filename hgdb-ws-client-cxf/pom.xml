@@ -71,12 +71,14 @@
 	</build>
 
 	<dependencies>
+		
 		<dependency>
 			<groupId>io.hgdb.mercury</groupId>
 			<artifactId>hgdb-client-mock</artifactId>
 			<version>${project.version}</version>
 			<scope>test</scope>
 		</dependency>
+		
 		<!-- CXF - START -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
@@ -114,6 +116,11 @@
 		    <groupId>commons-httpclient</groupId>
 		    <artifactId>commons-httpclient</artifactId>
 		    <version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>pro.ibpm</groupId>
+			<artifactId>tw4j</artifactId>
+			<version>8.6.3.21030.2.0.3.20230127</version>
 		</dependency>
 	</dependencies>
 	
