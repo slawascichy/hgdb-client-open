@@ -13,6 +13,7 @@ import pro.ibpm.mercury.entities.beans.EntityList;
 import pro.ibpm.mercury.exceptions.MercuryException;
 import pro.ibpm.mercury.logic.api.attr.ITypeCodeLogic;
 import pro.ibpm.mercury.ws.server.api.actions.attr.ITypeCodeAction;
+import pro.ibpm.mercury.ws.server.api.returns.WsStatusWithLongValue;
 
 /**
  * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
@@ -94,5 +95,14 @@ public class TypeCodeLogic extends WsClientDataLogic<TypeCode, String, ITypeCode
 	@Override
 	public List<TypeCode> findAllDocumentTypeCodes(Context context) throws MercuryException {
 		return (List<TypeCode>) getEntityCollection(context, getService(context).findAllDocumentTypeCodes(context));
+	}
+
+	/* Overridden (non-Javadoc) */
+	@Override
+	public Long forceAddPK(Context context, String typeCode, String uniqueConstraintParamName)
+			throws MercuryException {
+		WsStatusWithLongValue wsStatus = getService(context).forceAddPK(context, typeCode, uniqueConstraintParamName);
+		checkWsStatus(wsStatus);
+		return wsStatus.getValue();
 	}
 }
