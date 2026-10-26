@@ -61,7 +61,7 @@
 
 		<databse.provider>POSTGRESQL</databse.provider>
 		<mercury.project.version>3.0.4.16</mercury.project.version>
-		<mercury.server.version>3.0.4-SNAPSHOT</mercury.server.version>
+		<mercury.server.version>3.0.4.8</mercury.server.version>
 		<mercury.client.version>${project.version}</mercury.client.version>
 		<!-- Użycie API Mercury 2.0 -->
 		<!-- 
