@@ -86,7 +86,7 @@
 		<dependency>
 			<groupId>io.hgdb.mercury</groupId>
 			<artifactId>hgdb-rmi-server-api</artifactId>
-			<version>${mercury.project.version}</version>
+			<version>${mercury.server.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.apache.xmlbeans</groupId>
