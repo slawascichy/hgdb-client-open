@@ -59,8 +59,8 @@
 		<!-- Komponenty SC i Cache - pamięci podręczne	KONIEC -->
 
 		<databse.provider>POSTGRESQL</databse.provider>
-		<mercury.project.version>3.0.4.16</mercury.project.version>
-		<mercury.server.version>3.0.4.8</mercury.server.version>
+		<mercury.project.version>3.0.4.18</mercury.project.version>
+		<mercury.server.version>3.0.4.9</mercury.server.version>
 		<mercury.client.version>${project.version}</mercury.client.version>
 		<!-- Użycie API Mercury 2.0 -->
 		<!-- 
