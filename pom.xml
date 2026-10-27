@@ -20,8 +20,8 @@
 
 		<org.springframework.version>5.3.21</org.springframework.version>
 		<spring.test.version>5.3.21</spring.test.version>
-		<slf4j.version>1.7.25</slf4j.version>
-		<log4j.version>1.2.14</log4j.version>
+		<slf4j.version>1.7.36</slf4j.version>
+		<logback.version>1.2.13</logback.version>
 		<!-- aspectj.version>1.6.11</aspectj.version -->
 		<aspectj.version>1.7.3</aspectj.version>
 		<fscontext.version>1.2-beta-3</fscontext.version>
@@ -38,29 +38,29 @@
 		<dom4j.version>1.6.1</dom4j.version>
 		<xerces.version>[2.12.0,)</xerces.version>
 		<xml-apis.version>1.4.01</xml-apis.version>
-		<ccrto-openapi.version>1.2-SNAPSHOT</ccrto-openapi.version>
+		<ccrto-openapi.version>2.0.0.1</ccrto-openapi.version>
 		
 		<!-- Komponenty SC i Cache - pamięci podręczne	START -->
 		<!-- Komponenty Sławka Cichego <slawas@slawas.pl> -->
 		<!-- Pakiety kompilowane w Java 1.8 -->
 		<!-- UWAGA! pakiet wymaga wersji ehcache minimum 3.6.1 -->
-		<!-- 
-		<sccommon.version>1.0.8.4</sccommon.version>
+		<sccommon.version>2.0.0.1</sccommon.version>
 		<ehcache.groupId>org.ehcache</ehcache.groupId>
 		<ehcache.version>3.6.1</ehcache.version>
 		<sccommon-cache.groupId>pl.slawas.sccommon</sccommon-cache.groupId>
 		<sccommon-cache.version>${sccommon.version}</sccommon-cache.version>
-		 -->
-		<!-- Pakiety kompilowane w Java 1.7 - kompatybilność z SecurityProviderem -->
+		<!-- Pakiety kompilowane w Java 1.7 - kompatybilność z SecurityProviderem
 		<sccommon.version>1.0.8.4-jdk1.7</sccommon.version>
 		<ehcache.groupId>net.sf.ehcache</ehcache.groupId>
 		<ehcache.version>2.10.1</ehcache.version>
 		<sccommon-cache.groupId>pl.slawas</sccommon-cache.groupId>
 		<sccommon-cache.version>0.0.3-20180724</sccommon-cache.version>
+		 -->
 		<!-- Komponenty SC i Cache - pamięci podręczne	KONIEC -->
 
 		<databse.provider>POSTGRESQL</databse.provider>
-		<mercury.project.version>3.0.4.16</mercury.project.version>
+		<mercury.project.version>3.0.4.18</mercury.project.version>
+		<mercury.server.version>3.0.4.10</mercury.server.version>
 		<mercury.client.version>${project.version}</mercury.client.version>
 		<!-- Użycie API Mercury 2.0 -->
 		<!-- 
@@ -740,9 +740,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
 			<scope>provided</scope>
 		</dependency>
 

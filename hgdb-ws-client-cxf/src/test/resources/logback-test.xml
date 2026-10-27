@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<target>System.out</target>
+		<encoder>
+			<pattern>%d{ISO8601} %-5p [%F:%L] : %m%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="fileAppender" class="ch.qos.logback.core.FileAppender">
+		<file>target/test.log</file>
+		<encoder>
+			<pattern>%d{ISO8601} %-5p [%F:%L] : %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="net.sf.ehcache" level="ERROR" />
+	<logger name="org.hibernate" level="ERROR" />
+	<logger name="org.springframework" level="INFO" />
+	<logger name="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" level="INFO" />
+	<logger name="pl.slawas" level="ERROR" />
+	<logger name="pro.ibpm.mercury.dao" level="INFO" />
+	<logger name="org.apache.lucene" level="INFO" />
+	<logger name="pro.ibpm.mercury.logic" level="INFO" />
+	<logger name="pro.ibpm.mercury.core" level="INFO" />
+	<logger name="test" level="INFO" />
+	<logger name="pro.ibpm.mercury.wsClientCXF.logics" level="INFO" />
+	<logger name="pro.ibpm.mercury.dao.services" level="INFO" />
+	<logger name="pro.ibpm.mercury.ws.server.actions.DtoObjectInitializer" level="INFO" />
+
+	<root level="INFO">
+		<appender-ref ref="stdout" />
+		<appender-ref ref="fileAppender" />
+	</root>
+</configuration>

@@ -3,11 +3,9 @@ package io.hgdb.mercury.client.test;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.config.PropertyPrinter;
 import org.slf4j.Logger;
 
 import pl.slawas.helpers.Configurations;
@@ -23,7 +21,6 @@ import pro.ibpm.mercury.config.MercuryConfig;
  */
 public class TestPropertiesLoader {
 
-	private static boolean LOG4J_PRINT_FLAG = true;
 	private static final String STATUS_FILE_NAME = "testStatus.properties";
 	public static final String STATUS_PROP_PREFIX = "test.status.";
 	public static final String STATUS_PROP_ALL = "test.status.all";
@@ -37,15 +34,6 @@ public class TestPropertiesLoader {
 	 * @return
 	 */
 	public static Map<String, String> loadProperties() {
-
-		if (LOG4J_PRINT_FLAG) {
-			System.out.println("#log4j Config");
-			PrintWriter pw = new PrintWriter(System.out);
-			PropertyPrinter pp = new PropertyPrinter(pw);
-			pp.print(pw);
-			System.out.println("#End of Config");
-			LOG4J_PRINT_FLAG = false;
-		}
 
 		Map<String, String> props = new HashMap<>();
 

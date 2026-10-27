@@ -100,7 +100,7 @@ public class TLoggerEventProvider extends TAbstractProvider<LoggerEvent> {
 			e.setGroupCaseId(MockDataUtils.convertToLong(newValue));
 
 		} else if (property.equalsIgnoreCase("create_case_id")) {
-			e.setCaseId(MockDataUtils.convertToLong(newValue));
+			e.setCaseId(newValue);
 
 		} else if (property.equalsIgnoreCase("ae_document_code")) {
 			e.setAeDocumentCode(newValue);

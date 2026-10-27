@@ -12,16 +12,16 @@ import org.apache.commons.lang.StringUtils;
 import pl.slawas.common.cache.CacheProviderEnum;
 import pl.slawas.common.cache.CacheProviderFactory;
 import pl.slawas.common.cache.CacheUsage;
-import pl.slawas.common.cache._IObjectCache;
-import pl.slawas.common.cache._IObjectCacheProvider;
-import pl.slawas.common.cache._IObjectCacheStatistics;
-import pl.slawas.common.cache.config.CacheConstants;
+import pl.slawas.common.cache.IObjectCache;
+import pl.slawas.common.cache.IObjectCacheProvider;
+import pl.slawas.common.cache.IObjectCacheStatistics;
+import pl.slawas.common.cache.CacheConstants;
 import pl.slawas.common.cache.ehcache.EhCache;
 import pl.slawas.common.cache.ehcache.EhCacheConfig;
 import pl.slawas.entities.NameValuePair;
 import pl.slawas.helpers.Configurations;
-import pl.slawas.twl4j.Logger;
-import pl.slawas.twl4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pro.ibpm.mercury.config.MercuryConfig;
 import pro.ibpm.mercury.entities.MEntityCacheConfig;
 import pro.ibpm.mercury.entities.cache.IStatsInfoRecord;
@@ -127,14 +127,14 @@ public class CacheHelper {
 
 		CacheProviderEnum lPprovider = getCacheProvider();
 		if (lPprovider.isAllowed()) {
-			_IObjectCacheProvider<?> manager = CacheProviderFactory.getInstance(getCacheConfig().getPropertyList());
+			IObjectCacheProvider<?> manager = CacheProviderFactory.getInstance(getCacheConfig().getPropertyList());
 			/*
 			 * czyszczenie pamięci podręcznej pro.ibpm.mercury.entities.dict.Source
 			 */
 			EhCache ch = (EhCache) manager.getCache(entityFullName);
 			logger.trace("usuwam cache entityFullName={}", entityFullName);
 			if (ch != null) {
-				ch.getEhCache().getCacheManager().clearAll();
+				ch.getEhCache().clear();
 			}
 			/* czyszczenie cache MCase2Case.NamedQueryCacheName */
 			try {
@@ -146,7 +146,7 @@ public class CacheHelper {
 					ch = (EhCache) manager.getCache(namedQueryCacheName);
 					logger.trace("usuwam cache namedQueryCacheName={}", namedQueryCacheName);
 					if (ch != null) {
-						ch.getEhCache().getCacheManager().clearAll();
+						ch.getEhCache().clear();
 					}
 				}
 			} catch (ClassNotFoundException e) {
@@ -183,12 +183,12 @@ public class CacheHelper {
 	 *                    nazwy cach-y dla których chcemy pobrać statystyki
 	 * @return
 	 */
-	public static List<IStatsInfoRecord> getAllStatistics(_IObjectCacheProvider<?> manager, String[] cachesNames) {
+	public static List<IStatsInfoRecord> getAllStatistics(IObjectCacheProvider<?> manager, String[] cachesNames) {
 		List<IStatsInfoRecord> result = new ArrayList<IStatsInfoRecord>();
 		if (cachesNames != null) {
 			for (String key : cachesNames) {
 				/* pobieram statystyki cache */
-				_IObjectCacheStatistics row = manager.getStatistics(key);
+				IObjectCacheStatistics row = manager.getStatistics(key);
 				IStatsInfoRecord record = transform2StatsInfoRecord(row);
 				result.add(record);
 			}
@@ -202,7 +202,7 @@ public class CacheHelper {
 	public static void clearCache(String cacheName) {
 		CacheProviderEnum lPprovider = getCacheProvider();
 		if (lPprovider.isAllowed()) {
-			_IObjectCacheProvider<?> manager = CacheProviderFactory.getInstance(getCacheConfig().getPropertyList());
+			IObjectCacheProvider<?> manager = CacheProviderFactory.getInstance(getCacheConfig().getPropertyList());
 			manager.clearCache(cacheName);
 		}
 	}
@@ -210,22 +210,22 @@ public class CacheHelper {
 	public static String[] getCacheNames() {
 		CacheProviderEnum lPprovider = getCacheProvider();
 		if (lPprovider.isAllowed()) {
-			_IObjectCacheProvider<?> manager = CacheProviderFactory.getInstance(getCacheConfig().getPropertyList());
+			IObjectCacheProvider<?> manager = CacheProviderFactory.getInstance(getCacheConfig().getPropertyList());
 			return manager.getCacheNames();
 		}
 		return new String[0];
 	}
 
-	public static _IObjectCache getCache(String name) {
+	public static IObjectCache getCache(String name) {
 		CacheProviderEnum lPprovider = getCacheProvider();
 		if (lPprovider.isAllowed()) {
-			_IObjectCacheProvider<?> manager = CacheProviderFactory.getInstance(getCacheConfig().getPropertyList());
+			IObjectCacheProvider<?> manager = CacheProviderFactory.getInstance(getCacheConfig().getPropertyList());
 			return manager.getCache(name);
 		}
 		return null;
 	}
 
-	public static StatsInfoRecord transform2StatsInfoRecord(final _IObjectCacheStatistics cacheStatistics) {
+	public static StatsInfoRecord transform2StatsInfoRecord(final IObjectCacheStatistics cacheStatistics) {
 		StatsInfoRecord result = new StatsInfoRecord();
 		result.setCacheName(cacheStatistics.getAssociatedCacheName());
 		result.setCacheHits(cacheStatistics.getCacheHits());
