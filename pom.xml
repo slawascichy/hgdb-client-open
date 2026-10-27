@@ -38,7 +38,7 @@
 		<dom4j.version>1.6.1</dom4j.version>
 		<xerces.version>[2.12.0,)</xerces.version>
 		<xml-apis.version>1.4.01</xml-apis.version>
-		<ccrto-openapi.version>1.2-SNAPSHOT</ccrto-openapi.version>
+		<ccrto-openapi.version>2.0.0.1</ccrto-openapi.version>
 		
 		<!-- Komponenty SC i Cache - pamięci podręczne	START -->
 		<!-- Komponenty Sławka Cichego <slawas@slawas.pl> -->
