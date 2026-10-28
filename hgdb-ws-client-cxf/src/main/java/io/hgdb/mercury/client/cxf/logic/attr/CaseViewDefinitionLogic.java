@@ -6,6 +6,12 @@ import java.util.List;
 import java.util.Set;
 
 import io.hgdb.mercury.client.cxf.logic.WsClientDataLogic;
+import org.mercury.dto.view.ViewDataPage;
+import org.mercury.dto.view.ViewInfo;
+import org.mercury.dto.view.ViewQuery;
+import org.mercury.dto.view.WsStatusWithViewDataPage;
+import org.mercury.dto.view.WsStatusWithViewInfoDto;
+import org.mercury.dto.view.WsStatusWithViewInfoDtos;
 import pro.ibpm.mercury.attrs.CaseDateUtils;
 import pro.ibpm.mercury.attrs.javax.CaseDate;
 import pro.ibpm.mercury.context.Context;
@@ -127,6 +133,27 @@ public class CaseViewDefinitionLogic extends WsClientDataLogic<CaseViewDefinitio
 		}
 		return getEntity(context, getService(context).updateView(context, viewName, typeParams, cDateFrom, cDateTo,
 				credentialsMode, skipHeaderFields, ignoreAlternateFields, baseTypeCodes));
+	}
+
+	@Override
+	public ViewInfo getViewInfo(Context context, String viewName) throws MercuryException {
+		WsStatusWithViewInfoDto result = getService(context).getViewInfo(context, viewName);
+		return checkWsStatus(result) ? result.getDto() : null;
+	}
+
+	@Override
+	public List<ViewInfo> findViewInfos(Context context) throws MercuryException {
+		WsStatusWithViewInfoDtos result = getService(context).findViewInfos(context);
+		if (checkWsStatus(result) && result.getDtos() != null) {
+			return new java.util.ArrayList<>(result.getDtos());
+		}
+		return new java.util.ArrayList<>();
+	}
+
+	@Override
+	public ViewDataPage readViewData(Context context, ViewQuery query) throws MercuryException {
+		WsStatusWithViewDataPage result = getService(context).readViewData(context, query);
+		return checkWsStatus(result) ? result.getDto() : null;
 	}
 
 }
