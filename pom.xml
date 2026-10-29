@@ -44,7 +44,7 @@
 		<!-- Komponenty Sławka Cichego <slawas@slawas.pl> -->
 		<!-- Pakiety kompilowane w Java 1.8 -->
 		<!-- UWAGA! pakiet wymaga wersji ehcache minimum 3.6.1 -->
-		<sccommon.version>2.0.0.1</sccommon.version>
+		<sccommon.version>2.0.0.2</sccommon.version>
 		<ehcache.groupId>org.ehcache</ehcache.groupId>
 		<ehcache.version>3.6.1</ehcache.version>
 		<sccommon-cache.groupId>pl.slawas.sccommon</sccommon-cache.groupId>
