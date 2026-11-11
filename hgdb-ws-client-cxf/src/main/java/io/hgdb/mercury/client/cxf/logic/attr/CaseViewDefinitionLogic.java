@@ -113,6 +113,16 @@ public class CaseViewDefinitionLogic extends WsClientDataLogic<CaseViewDefinitio
 	}
 
 	@Override
+	public void checkManagePrivileges(Context context) throws MercuryException {
+		checkWsStatus(getService(context).checkManagePrivileges(context));
+	}
+
+	@Override
+	public void markGenerationFailed(Context context, String viewName, String message) throws MercuryException {
+		checkWsStatus(getService(context).markGenerationFailed(context, viewName, message));
+	}
+
+	@Override
 	public CaseViewDefinition generateView(Context context, String viewName, boolean force) throws MercuryException {
 		return getEntity(context, getService(context).generateView(context, viewName, force));
 	}

@@ -26,17 +26,17 @@
 		<aspectj.version>1.7.3</aspectj.version>
 		<fscontext.version>1.2-beta-3</fscontext.version>
 		<providerutil.version>1.2</providerutil.version>
-		<commons-io.version>2.7</commons-io.version>
+		<commons-io.version>2.11.0</commons-io.version>
 		<junit.version>4.13.1</junit.version>
 		<cxf.api.version>2.7.18</cxf.api.version>
 		<httpclient.version>4.5.13</httpclient.version>
 		<servlet-api.version>2.5</servlet-api.version>
 		<!-- CXF 3.0.10 -->
-		<cxf.version>3.0.10</cxf.version>
+		<cxf.version>3.0.12</cxf.version>
 		<!-- Zależności JAXB dla CXF - pozwala na obsługę SOAP -->
 		<jaxb.version>2.2.11</jaxb.version>
 		<dom4j.version>1.6.1</dom4j.version>
-		<xerces.version>[2.12.0,)</xerces.version>
+		<xerces.version>2.12.2</xerces.version>
 		<xml-apis.version>1.4.01</xml-apis.version>
 		<ccrto-openapi.version>2.0.0.1</ccrto-openapi.version>
 		
@@ -44,7 +44,7 @@
 		<!-- Komponenty Sławka Cichego <slawas@slawas.pl> -->
 		<!-- Pakiety kompilowane w Java 1.8 -->
 		<!-- UWAGA! pakiet wymaga wersji ehcache minimum 3.6.1 -->
-		<sccommon.version>2.0.0.2</sccommon.version>
+		<sccommon.version>2.0.0.4</sccommon.version>
 		<ehcache.groupId>org.ehcache</ehcache.groupId>
 		<ehcache.version>3.6.1</ehcache.version>
 		<sccommon-cache.groupId>pl.slawas.sccommon</sccommon-cache.groupId>
@@ -59,8 +59,8 @@
 		<!-- Komponenty SC i Cache - pamięci podręczne	KONIEC -->
 
 		<databse.provider>POSTGRESQL</databse.provider>
-		<mercury.project.version>3.0.4.18</mercury.project.version>
-		<mercury.server.version>3.0.4.10</mercury.server.version>
+		<mercury.project.version>3.0.4.24</mercury.project.version>
+		<mercury.server.version>3.0.4.21</mercury.server.version>
 		<mercury.client.version>${project.version}</mercury.client.version>
 		<!-- Użycie API Mercury 2.0 -->
 		<!-- 
@@ -68,7 +68,7 @@
 		 -->
 		<!-- Użycie API Mercury 3.x -->
 		<mercury.api.version>api</mercury.api.version>
-		<jackson.databind.version>[2.8.11.1,)</jackson.databind.version>
+		<jackson.databind.version>2.18.11</jackson.databind.version>
 
 		<!-- The destination file for the code coverage report has to be set to 
 			the same value in the parent pom and in each module pom. Then JaCoCo will 
