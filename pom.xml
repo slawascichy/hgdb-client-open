@@ -32,7 +32,7 @@
 		<httpclient.version>4.5.13</httpclient.version>
 		<servlet-api.version>2.5</servlet-api.version>
 		<!-- CXF 3.0.10 -->
-		<cxf.version>3.0.12</cxf.version>
+		<cxf.version>3.5.10</cxf.version>
 		<!-- Zależności JAXB dla CXF - pozwala na obsługę SOAP -->
 		<jaxb.version>2.2.11</jaxb.version>
 		<dom4j.version>1.6.1</dom4j.version>
@@ -60,9 +60,9 @@
 
 		<databse.provider>POSTGRESQL</databse.provider>
 		<!-- to jest wersja do mercury-lib -->
-		<mercury.project.version>3.0.4.24</mercury.project.version>
+		<mercury.project.version>3.0.4.26</mercury.project.version>
 		<!-- to jest wersja do mercury (serwer) -->
-		<mercury.server.version>3.0.4.30</mercury.server.version>
+		<mercury.server.version>3.0.4.41</mercury.server.version>
 		<mercury.client.version>${project.version}</mercury.client.version>
 		<!-- Użycie API Mercury 2.0 -->
 		<!-- 
