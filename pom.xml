@@ -37,14 +37,15 @@
 		<xerces.version>2.12.2</xerces.version>
 		<xml-apis.version>1.4.01</xml-apis.version>
 		<ccrto-openapi.version>2.0.0.1</ccrto-openapi.version>
-		
+		<poi-toolkit.version>4.1.0.10</poi-toolkit.version>
+
 		<!-- Komponenty SC i Cache - pamięci podręczne	START -->
 		<!-- Komponenty Sławka Cichego <slawas@slawas.pl> -->
 		<!-- Pakiety kompilowane w Java 1.8 -->
 		<!-- UWAGA! pakiet wymaga wersji ehcache minimum 3.6.1 -->
-		<sccommon.version>2.0.0.4</sccommon.version>
+		<sccommon.version>2.0.0.5</sccommon.version>
 		<ehcache.groupId>org.ehcache</ehcache.groupId>
-		<ehcache.version>3.6.1</ehcache.version>
+		<ehcache.version>3.10.8</ehcache.version>
 		<sccommon-cache.groupId>pl.slawas.sccommon</sccommon-cache.groupId>
 		<sccommon-cache.version>${sccommon.version}</sccommon-cache.version>
 		<!-- Pakiety kompilowane w Java 1.7 - kompatybilność z SecurityProviderem
@@ -58,9 +59,9 @@
 
 		<databse.provider>POSTGRESQL</databse.provider>
 		<!-- to jest wersja do mercury-lib -->
-		<mercury.project.version>3.0.4.27</mercury.project.version>
+		<mercury.project.version>3.0.4.28</mercury.project.version>
 		<!-- to jest wersja do mercury (serwer) -->
-		<mercury.server.version>3.0.4.43</mercury.server.version>
+		<mercury.server.version>3.0.4.44</mercury.server.version>
 		<mercury.client.version>${project.version}</mercury.client.version>
 		<!-- Użycie API Mercury 2.0 -->
 		<!-- 
