@@ -111,11 +111,11 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- CXF - END -->
-		<!-- https://mvnrepository.com/artifact/commons-httpclient/commons-httpclient -->
+		<!-- Base64 w BasicHttpInvokerRequestExecutor; wcześniej przychodziło tranzytywnie z commons-httpclient 3.1 (commons-codec 1.2; sam httpclient nie jest używany, zadanie 191) -->
 		<dependency>
-		    <groupId>commons-httpclient</groupId>
-		    <artifactId>commons-httpclient</artifactId>
-		    <version>3.1</version>
+		    <groupId>commons-codec</groupId>
+		    <artifactId>commons-codec</artifactId>
+		    <version>1.15</version>
 		</dependency>
 	</dependencies>
 	
