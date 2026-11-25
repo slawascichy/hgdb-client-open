@@ -61,7 +61,7 @@
 		<!-- to jest wersja do mercury-lib -->
 		<mercury.project.version>3.0.4.28</mercury.project.version>
 		<!-- to jest wersja do mercury (serwer) -->
-		<mercury.server.version>3.0.4.44</mercury.server.version>
+		<mercury.server.version>3.0.4.45</mercury.server.version>
 		<mercury.client.version>${project.version}</mercury.client.version>
 		<!-- Użycie API Mercury 2.0 -->
 		<!-- 
