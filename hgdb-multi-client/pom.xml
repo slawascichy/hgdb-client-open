@@ -18,7 +18,6 @@
 	    <!-- maven.test.skip>true</maven.test.skip -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<poi-toolkit.version>4.0.1</poi-toolkit.version>
 	</properties>
 
 	<build>
@@ -186,7 +185,7 @@
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml-schemas</artifactId>
+					<artifactId>poi-ooxml-full</artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
@@ -249,7 +248,7 @@
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml-schemas</artifactId>
+					<artifactId>poi-ooxml-full</artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
@@ -302,7 +301,7 @@
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml-schemas</artifactId>
+					<artifactId>poi-ooxml-full</artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
@@ -345,7 +344,7 @@
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml-schemas</artifactId>
+					<artifactId>poi-ooxml-full</artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
@@ -392,7 +391,7 @@
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml-schemas</artifactId>
+					<artifactId>poi-ooxml-full</artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>

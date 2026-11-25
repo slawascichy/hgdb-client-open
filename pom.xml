@@ -22,8 +22,6 @@
 		<spring.test.version>5.3.21</spring.test.version>
 		<slf4j.version>1.7.36</slf4j.version>
 		<logback.version>1.2.13</logback.version>
-		<!-- aspectj.version>1.6.11</aspectj.version -->
-		<aspectj.version>1.7.3</aspectj.version>
 		<fscontext.version>1.2-beta-3</fscontext.version>
 		<providerutil.version>1.2</providerutil.version>
 		<commons-io.version>2.14.0</commons-io.version>
@@ -32,21 +30,22 @@
 		<httpclient.version>4.5.13</httpclient.version>
 		<servlet-api.version>2.5</servlet-api.version>
 		<!-- CXF 3.0.10 -->
-		<cxf.version>3.0.12</cxf.version>
+		<cxf.version>3.5.10</cxf.version>
 		<!-- Zależności JAXB dla CXF - pozwala na obsługę SOAP -->
 		<jaxb.version>2.2.11</jaxb.version>
 		<dom4j.version>1.6.1</dom4j.version>
 		<xerces.version>2.12.2</xerces.version>
 		<xml-apis.version>1.4.01</xml-apis.version>
 		<ccrto-openapi.version>2.0.0.1</ccrto-openapi.version>
-		
+		<poi-toolkit.version>4.1.0.10</poi-toolkit.version>
+
 		<!-- Komponenty SC i Cache - pamięci podręczne	START -->
 		<!-- Komponenty Sławka Cichego <slawas@slawas.pl> -->
 		<!-- Pakiety kompilowane w Java 1.8 -->
 		<!-- UWAGA! pakiet wymaga wersji ehcache minimum 3.6.1 -->
-		<sccommon.version>2.0.0.4</sccommon.version>
+		<sccommon.version>2.0.0.5</sccommon.version>
 		<ehcache.groupId>org.ehcache</ehcache.groupId>
-		<ehcache.version>3.6.1</ehcache.version>
+		<ehcache.version>3.10.8</ehcache.version>
 		<sccommon-cache.groupId>pl.slawas.sccommon</sccommon-cache.groupId>
 		<sccommon-cache.version>${sccommon.version}</sccommon-cache.version>
 		<!-- Pakiety kompilowane w Java 1.7 - kompatybilność z SecurityProviderem
@@ -60,9 +59,9 @@
 
 		<databse.provider>POSTGRESQL</databse.provider>
 		<!-- to jest wersja do mercury-lib -->
-		<mercury.project.version>3.0.4.24</mercury.project.version>
+		<mercury.project.version>3.0.4.28</mercury.project.version>
 		<!-- to jest wersja do mercury (serwer) -->
-		<mercury.server.version>3.0.4.30</mercury.server.version>
+		<mercury.server.version>3.0.4.45</mercury.server.version>
 		<mercury.client.version>${project.version}</mercury.client.version>
 		<!-- Użycie API Mercury 2.0 -->
 		<!-- 
@@ -154,6 +153,21 @@
 	    </repository>		
 	</repositories>
 	
+	<profiles>
+		<!-- Testy na JDK 9+ (zadanie 191): JaCoCo 0.7.4 nie obsługuje klas Javy 17, a -XX:MaxPermSize usunięto w JDK 17 -->
+		<profile>
+			<id>jdk9plus</id>
+			<properties>
+				<jacoco.skip>true</jacoco.skip>
+				<additionalArgLine></additionalArgLine>
+				<surefireArgLine></surefireArgLine>
+			</properties>
+			<activation>
+				<jdk>[9,)</jdk>
+			</activation>
+		</profile>
+	</profiles>
+
 	<reporting>
 		<plugins>
 			<!-- To jest dla maven 3 -->
@@ -475,7 +489,7 @@
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml-schemas</artifactId>
+					<artifactId>poi-ooxml-full</artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
@@ -519,7 +533,7 @@
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml-schemas</artifactId>
+					<artifactId>poi-ooxml-full</artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
@@ -575,7 +589,7 @@
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml-schemas</artifactId>
+					<artifactId>poi-ooxml-full</artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
@@ -615,7 +629,7 @@
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml-schemas</artifactId>
+					<artifactId>poi-ooxml-full</artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
@@ -663,7 +677,7 @@
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml-schemas</artifactId>
+					<artifactId>poi-ooxml-full</artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
@@ -699,7 +713,7 @@
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml-schemas</artifactId>
+					<artifactId>poi-ooxml-full</artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.poi</groupId>
@@ -708,18 +722,6 @@
 			</exclusions>
 		</dependency>
 
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<version>${aspectj.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-			<version>${aspectj.version}</version>
-			<scope>test</scope>
-		</dependency>
 		<!-- testowy JNDI kontekst START -->
 		<dependency>
 			<groupId>com.sun.jndi</groupId>
@@ -909,24 +911,6 @@
 		</dependency>
 		<!-- //spring -->
 
-		<!-- potrzebne do parsowania JSON'a -->
-		<dependency>
-			<groupId>net.sf.json-lib</groupId>
-			<artifactId>json-lib</artifactId>
-			<version>2.2.3</version>
-			<classifier>jdk15</classifier>
-		</dependency>
-		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-			<version>[3.2.2,)</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>[1.9.4,)</version>
-		</dependency>
-		<!-- potrzebne do parsowania JSON'a -->
 
 		<!-- Commons -->
 		<dependency>
@@ -1024,25 +1008,6 @@
 			<artifactId>xml-apis</artifactId>
 			<version>${xml-apis.version}</version>
 			<scope>provided</scope>
-		</dependency>
-
-		<!-- Jackson JSON Processor -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>${jackson.databind.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>org.eclipse.persistence.moxy</artifactId>
-			<version>2.5.0-RC1</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.eclipse.persistence</groupId>
-					<artifactId>commonj.sdo</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 	</dependencies>

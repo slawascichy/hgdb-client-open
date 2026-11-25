@@ -44,3 +44,19 @@ Znajdziesz w projekcie:
 # Do testów potrzebna jest możliwość połączenia do serwera Mercury DB (HgDB)
 # Zobacz:
 # /hgdb-ws-client-cxf/src/test/resources-filtered/properties/scichy/test.properties
+
+
+##########################
+Numeracja wersji
+##########################
+Projekt łączy dwa światy: bibliotekę wspólną (mercury-lib) i serwer (mercury). Wersja klienta ma cztery liczby:
+
+  <linia>.<linia>.<mercury-lib>.<mercury>
+
+  1. i 2. pozycja: linia wydań klienta (zmienia ją skrypt up_major_version.sh, np. 3.4),
+  3. pozycja: ostatnia liczba wersji mercury-lib, z którą zbudowano klienta,
+  4. pozycja: ostatnia liczba wersji serwera mercury, z którym zbudowano klienta.
+
+Przykład: klient 3.4.28.45 jest zbudowany z mercury-lib 3.0.4.28 i serwera mercury 3.0.4.45.
+Bieżący numer wydania zapisany jest w pliku minor_version.txt. Wersję klienta podaje się w mercury-cmd
+(właściwość hgdb-client.version) razem z wersjami mercury.lib.version i mercury.srv.version.
